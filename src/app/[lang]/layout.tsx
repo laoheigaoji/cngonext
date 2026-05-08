@@ -33,7 +33,7 @@ export default async function LangLayout({
 
   return (
     <>
-      {/* Set html lang attribute immediately on SSR, before any client JS runs */}
+      {/* Set html lang attribute immediately on SSR via script, and also via LangLayoutClient */}
       <script dangerouslySetInnerHTML={{ __html: `document.documentElement.lang="${htmlLang}"` }} />
       <LangLayoutClient htmlLang={htmlLang}>{children}</LangLayoutClient>
     </>

@@ -1,6 +1,6 @@
 import VisaFeesClient from "./VisaFeesClient";
 import { getVisaFeesData, getTranslations } from "@/lib/server-data";
-import { getSEO, visaFeesSEO, getHreflangAlternates, baseUrl } from "@/lib/seo-config";
+import { getSEO, visaFeesSEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -18,6 +18,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       description: seo.description,
       url: `${baseUrl}/${lang}/visa/fees`,
       siteName: 'tripcngo.com',
+      images: [{ url: defaultOgImage, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.title,
+      description: seo.description,
+      images: [defaultOgImage],
     },
   };
 }

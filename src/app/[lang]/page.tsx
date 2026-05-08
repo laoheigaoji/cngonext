@@ -1,5 +1,5 @@
 import Home from "@/app-views/Home";
-import { getSEO, homeSEO, getHreflangAlternates, baseUrl, generateWebsiteJsonLd, generateOrganizationJsonLd } from "@/lib/seo-config";
+import { getSEO, homeSEO, getHreflangAlternates, baseUrl, generateWebsiteJsonLd, generateOrganizationJsonLd, defaultOgImage, getOgLocale } from "@/lib/seo-config";
 import { getHomeData } from "@/lib/server-data";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
@@ -20,7 +20,14 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       url: `${baseUrl}/${lang}`,
       siteName: 'tripcngo.com',
       type: 'website',
-      locale: lang === 'cn' ? 'zh_CN' : lang === 'tw' ? 'zh_TW' : lang === 'ja' ? 'ja_JP' : lang === 'ko' ? 'ko_KR' : lang === 'ru' ? 'ru_RU' : lang === 'fr' ? 'fr_FR' : lang === 'es' ? 'es_ES' : lang === 'de' ? 'de_DE' : lang === 'it' ? 'it_IT' : 'en_US',
+      locale: getOgLocale(lang),
+      images: [{ url: defaultOgImage, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.title,
+      description: seo.description,
+      images: [defaultOgImage],
     },
   };
 }

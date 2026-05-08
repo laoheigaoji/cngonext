@@ -1,5 +1,5 @@
 import ArticleDetailClient from "./ArticleDetailClient";
-import { getHreflangAlternates, baseUrl, getSEO, articlesSEO, generateArticleJsonLd } from "@/lib/seo-config";
+import { getHreflangAlternates, baseUrl, getSEO, articlesSEO, generateArticleJsonLd, defaultOgImage } from "@/lib/seo-config";
 import { getArticleData } from "@/lib/server-data";
 
 export const dynamic = 'force-dynamic';
@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     if (article) {
       const title = getLocalizedField(article, 'title', lang);
       const desc = getLocalizedField(article, 'subtitle', lang);
+      const ogImage = article.thumbnail || defaultOgImage;
       return {
         title: title ? `${title} - tripcngo.com` : fallback.title,
         description: desc || fallback.description,
@@ -35,12 +36,20 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
           title: title || fallback.title,
           description: desc || fallback.description,
           url: `${baseUrl}/${lang}/articles/${id}`,
-          images: article.thumbnail ? [{ url: article.thumbnail }] : undefined,
+          images: [{ url: ogImage, width: 1200, height: 630 }],
           type: 'article',
+        },
+        twitter: {
+          card: 'summary_large_image',
+          title: title || fallback.title,
+          description: desc || fallback.description,
+          images: [ogImage],
         },
       };
     }
-  } catch {}
+  } catch (e) {
+    console.error('Failed to fetch article metadata:', e);
+  }
 
   return {
     title: fallback.title,
@@ -48,6 +57,17 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     alternates: {
       canonical: `${baseUrl}/${lang}/articles/${id}`,
       languages: getHreflangAlternates(`/articles/${id}`),
+    },
+    openGraph: {
+      title: fallback.title,
+      description: fallback.description,
+      images: [{ url: defaultOgImage, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: fallback.title,
+      description: fallback.description,
+      images: [defaultOgImage],
     },
   };
 }
@@ -63,7 +83,9 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
       articleJsonLd = generateArticleJsonLd(article, lang);
       articleData = article;
     }
-  } catch {}
+  } catch (e) {
+    console.error('Failed to fetch article data:', e);
+  }
 
   return (
     <>

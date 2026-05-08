@@ -4,11 +4,21 @@
 export const LANGUAGES = ['cn', 'en', 'ja', 'ko', 'ru', 'fr', 'es', 'de', 'tw', 'it'] as const;
 export type LangCode = typeof LANGUAGES[number];
 export const baseUrl = 'https://tripcngo.com';
+export const defaultOgImage = `${baseUrl}/og-image.jpg`;
 
 export function getHtmlLang(lang: string): string {
   if (lang === 'cn') return 'zh-CN';
   if (lang === 'tw') return 'zh-TW';
   return lang;
+}
+
+export function getOgLocale(lang: string): string {
+  const map: Record<string, string> = {
+    cn: 'zh_CN', tw: 'zh_TW', en: 'en_US', ja: 'ja_JP',
+    ko: 'ko_KR', ru: 'ru_RU', fr: 'fr_FR', es: 'es_ES',
+    de: 'de_DE', it: 'it_IT',
+  };
+  return map[lang] || 'en_US';
 }
 
 export function getHreflangAlternates(path: string = '') {
@@ -332,7 +342,7 @@ const characterCounterSEO: Record<string, PageSEO> = {
   it: { title: 'Contatore caratteri cinesi - tripcngo.com', description: 'Conta caratteri, parole e frasi cinesi.' },
 };
 
-export { homeSEO, citiesSEO, articlesSEO, guideSEO, appsSEO, aboutSEO, privacySEO, termsSEO, visaTypesSEO, visaFeesSEO, feedbackSEO, visaDownloadsSEO, visaArrivalCardSEO, visaFormSEO, visaPhotoSEO, zodiacSEO, nameGeneratorSEO, menuTranslatorSEO, pinyinSEO, characterCounterSEO, getSEO };
+export { homeSEO, citiesSEO, articlesSEO, guideSEO, appsSEO, aboutSEO, privacySEO, termsSEO, visaTypesSEO, visaFeesSEO, feedbackSEO, visaDownloadsSEO, visaArrivalCardSEO, visaFormSEO, visaPhotoSEO, zodiacSEO, nameGeneratorSEO, menuTranslatorSEO, pinyinSEO, characterCounterSEO, getSEO, defaultOgImage, getOgLocale };
 
 // JSON-LD generators
 export function generateWebsiteJsonLd(lang: string) {
@@ -358,7 +368,6 @@ export function generateOrganizationJsonLd() {
     name: 'tripcngo.com',
     url: baseUrl,
     logo: `${baseUrl}/logo.png`,
-    sameAs: [],
   };
 }
 
@@ -377,7 +386,7 @@ export function generateFAQJsonLd(faqs: { question: string; answer: string }[]) 
   };
 }
 
-export function generateArticleJsonLd(article: { title: string; description?: string; thumbnail?: string; createdAt?: string; id: string }, lang: string) {
+export function generateArticleJsonLd(article: { title: string; description?: string; thumbnail?: string; createdAt?: string; updatedAt?: string; author?: string; id: string }, lang: string) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -386,6 +395,11 @@ export function generateArticleJsonLd(article: { title: string; description?: st
     image: article.thumbnail || '',
     url: `${baseUrl}/${lang}/articles/${article.id}`,
     datePublished: article.createdAt || new Date().toISOString(),
+    dateModified: article.updatedAt || article.createdAt || new Date().toISOString(),
+    author: {
+      '@type': 'Organization',
+      name: article.author || 'tripcngo.com',
+    },
     publisher: {
       '@type': 'Organization',
       name: 'tripcngo.com',
@@ -397,7 +411,7 @@ export function generateArticleJsonLd(article: { title: string; description?: st
 export function generateCityJsonLd(city: { name: string; name_en?: string; description?: string; image?: string; id: string }, lang: string) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Place',
+    '@type': 'City',
     name: city.name,
     alternateName: city.name_en || '',
     description: city.description || '',

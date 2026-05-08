@@ -1,5 +1,5 @@
 import Visa from "@/app-views/Visa";
-import { getHreflangAlternates, baseUrl } from "@/lib/seo-config";
+import { getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
 
 const visaSEO: Record<string, { title: string; description: string }> = {
   cn: { title: '中国签证指南 - tripcngo.com', description: '全面的中国签证指南：签证类型、费用、申请流程、240小时过境免签政策等详细信息。' },
@@ -30,6 +30,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       description: seo.description,
       url: `${baseUrl}/${lang}/visa`,
       siteName: 'tripcngo.com',
+      images: [{ url: defaultOgImage, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.title,
+      description: seo.description,
+      images: [defaultOgImage],
     },
   };
 }

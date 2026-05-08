@@ -1,5 +1,5 @@
 import GuideDetailClient from "./GuideDetailClient";
-import { getHreflangAlternates, baseUrl, getSEO, guideSEO } from "@/lib/seo-config";
+import { getHreflangAlternates, baseUrl, getSEO, guideSEO, defaultOgImage } from "@/lib/seo-config";
 import { getArticleData } from "@/lib/server-data";
 
 export const dynamic = 'force-dynamic';

@@ -6,14 +6,17 @@ const baseUrl = 'https://tripcngo.com';
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://cxegaqhwexiidezycbyg.supabase.co';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || process.env.VITE_SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN4ZWdhcWh3ZXhpaWRlenljYnlnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Nzk0MjIyNSwiZXhwIjoyMDkzNTE4MjI1fQ.e-OEm6Gtyp8Dp0_dOorW1FSXYjEpvEdDTt6NjPQQ1W8';
 
-async function fetchIds(table: string): Promise<string[]> {
+const headers = {
+  apikey: supabaseKey,
+  Authorization: `Bearer ${supabaseKey}`,
+};
+
+async function fetchItems(table: string, select: string): Promise<any[]> {
   try {
-    const res = await fetch(`${supabaseUrl}/rest/v1/${table}?select=id`, {
-      headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
-    });
+    const res = await fetch(`${supabaseUrl}/rest/v1/${table}?select=${select}`, { headers });
     if (!res.ok) return [];
     const data = await res.json();
-    return Array.isArray(data) ? data.map((item: any) => String(item.id)) : [];
+    return Array.isArray(data) ? data : [];
   } catch {
     return [];
   }
@@ -38,6 +41,9 @@ const STATIC_PATHS = [
   { path: '/articles', priority: 0.8, changefreq: 'daily' },
   { path: '/apps', priority: 0.7, changefreq: 'monthly' },
   { path: '/about', priority: 0.5, changefreq: 'monthly' },
+  { path: '/privacy', priority: 0.3, changefreq: 'yearly' },
+  { path: '/terms', priority: 0.3, changefreq: 'yearly' },
+  { path: '/feedback', priority: 0.4, changefreq: 'monthly' },
   { path: '/tools/zodiac-calculator', priority: 0.6, changefreq: 'monthly' },
   { path: '/tools/name-generator', priority: 0.6, changefreq: 'monthly' },
   { path: '/tools/menu-translator', priority: 0.6, changefreq: 'monthly' },
@@ -46,9 +52,9 @@ const STATIC_PATHS = [
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [cityIds, articleIds] = await Promise.all([
-    fetchIds('cities'),
-    fetchIds('articles'),
+  const [cityItems, articleItems] = await Promise.all([
+    fetchItems('cities', 'id,updatedAt'),
+    fetchItems('articles', 'id,updatedAt'),
   ]);
 
   const entries: MetadataRoute.Sitemap = [];
@@ -65,20 +71,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
 
     // Dynamic city detail pages
-    for (const id of cityIds) {
+    for (const item of cityItems) {
+      const lastMod = item.updatedAt ? new Date(item.updatedAt) : new Date();
       entries.push({
-        url: `${baseUrl}/${lang}/cities/${id}`,
-        lastModified: new Date(),
+        url: `${baseUrl}/${lang}/cities/${item.id}`,
+        lastModified: lastMod,
         changeFrequency: 'weekly',
         priority: 0.7,
       });
     }
 
     // Dynamic article detail pages
-    for (const id of articleIds) {
+    for (const item of articleItems) {
+      const lastMod = item.updatedAt ? new Date(item.updatedAt) : new Date();
       entries.push({
-        url: `${baseUrl}/${lang}/articles/${id}`,
-        lastModified: new Date(),
+        url: `${baseUrl}/${lang}/articles/${item.id}`,
+        lastModified: lastMod,
         changeFrequency: 'weekly',
         priority: 0.7,
       });

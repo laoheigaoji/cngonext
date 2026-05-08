@@ -3,9 +3,10 @@ import { getHreflangAlternates, baseUrl } from '@/lib/seo-config';
 
 export const metadata: Metadata = {
   title: 'Page Not Found - tripcngo.com',
-  description: 'The page you are looking for does not exist. Explore China travel guides, visa information, and city guides on tripcngo.com.',
-  alternates: {
-    canonical: `${baseUrl}/en`,
+  description: 'The page you are looking for does not exist.',
+  robots: {
+    index: false,
+    follow: false,
   },
 };
 
