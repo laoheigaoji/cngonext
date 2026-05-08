@@ -1,14 +1,22 @@
 import Feedback from "@/app-views/Feedback";
-import { getHreflangAlternates, baseUrl } from "@/lib/seo-config";
+import { getHreflangAlternates, baseUrl, getSEO, feedbackSEO } from "@/lib/seo-config";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
+  const seo = getSEO(feedbackSEO, lang);
+
   return {
-    title: 'Feedback - tripcngo.com',
-    description: 'Share your feedback and suggestions to help us improve tripcngo.com.',
+    title: seo.title,
+    description: seo.description,
     alternates: {
       canonical: `${baseUrl}/${lang}/feedback`,
       languages: getHreflangAlternates('/feedback'),
+    },
+    openGraph: {
+      title: seo.title,
+      description: seo.description,
+      url: `${baseUrl}/${lang}/feedback`,
+      siteName: 'tripcngo.com',
     },
   };
 }

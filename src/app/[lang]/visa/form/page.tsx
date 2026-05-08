@@ -1,14 +1,22 @@
 import VisaForm from "@/app-views/visa/VisaForm";
-import { getHreflangAlternates, baseUrl } from "@/lib/seo-config";
+import { getHreflangAlternates, baseUrl, getSEO, visaFormSEO } from "@/lib/seo-config";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
+  const seo = getSEO(visaFormSEO, lang);
+
   return {
-    title: 'China Visa Application Form Guide - tripcngo.com',
-    description: 'Complete guide to filling out the China visa application form. Step-by-step instructions and tips for a successful application.',
+    title: seo.title,
+    description: seo.description,
     alternates: {
       canonical: `${baseUrl}/${lang}/visa/form`,
       languages: getHreflangAlternates('/visa/form'),
+    },
+    openGraph: {
+      title: seo.title,
+      description: seo.description,
+      url: `${baseUrl}/${lang}/visa/form`,
+      siteName: 'tripcngo.com',
     },
   };
 }

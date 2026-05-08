@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import VisaLayout from '../../components/visa/VisaLayout';
 import { useLanguage } from '../../context/LanguageContext';
 import { supabase } from '../../lib/supabase';
-import SEO from '../../components/SEO';
 
 interface VisaFee {
   id: string;
@@ -125,16 +124,7 @@ export default function VisaFees({ initialData, initialTranslations }: { initial
   if (loading) {
     return (
       <>
-        <SEO 
-          title="China Visa Fees and Costs"
-          titleZh="中国签证费用标准"
-          description="Complete guide to China visa fees. Find the cost for different visa types including tourist, business, work and student visas."
-          descriptionZh="中国签证费用完整指南。查找不同签证类型的费用，包括旅游、商务、工作和学生签证。"
-          keywordsZh="签证费用, 中国签证费, 签证价格, 旅游签证费用, 商务签证费用"
-          keywords="China visa fees, visa cost, Chinese visa price, visa application fee"
-          url="https://tripcngo.com/visa/fees"
-        />
-        <VisaLayout breadcrumbTitle={tr.pageTitle}>
+<VisaLayout breadcrumbTitle={tr.pageTitle}>
           <div className="flex justify-center items-center py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1b887a]"></div>
           </div>
@@ -145,16 +135,7 @@ export default function VisaFees({ initialData, initialTranslations }: { initial
 
   return (
     <>
-      <SEO 
-        title="China Visa Fees and Costs"
-        titleZh="中国签证费用标准"
-        description="Complete guide to China visa fees. Find the cost for different visa types including tourist, business, work and student visas."
-        descriptionZh="中国签证费用完整指南。查找不同签证类型的费用，包括旅游、商务、工作和学生签证。"
-        keywordsZh="签证费用, 中国签证费, 签证价格, 旅游签证费用, 商务签证费用"
-        keywords="China visa fees, visa cost, Chinese visa price, visa application fee"
-        url="https://tripcngo.com/visa/fees"
-      />
-      <VisaLayout breadcrumbTitle={tr.pageTitle}>
+<VisaLayout breadcrumbTitle={tr.pageTitle}>
       <div className="p-6">
         <div className="bg-[#1b887a] text-white p-6 rounded-t-lg">
           <table className="w-full text-sm">

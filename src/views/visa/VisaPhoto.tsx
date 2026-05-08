@@ -4,7 +4,6 @@ import React from 'react';
 import VisaLayout from '../../components/visa/VisaLayout';
 import { X } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
-import SEO from '../../components/SEO';
 
 const badExamples = [
   { label: '曝光不足', label_en: 'Underexposed', filter: 'brightness(50%)' },
@@ -61,16 +60,7 @@ export default function VisaPhoto() {
 
   return (
     <>
-      <SEO 
-        title="China Visa Photo Requirements"
-        titleZh="中国签证照片要求"
-        description="Official photo requirements for China visa applications. Learn the specifications, size, background color and examples of acceptable photos."
-        descriptionZh="中国签证申请的官方照片要求。了解规格、尺寸、背景颜色和可接受照片的示例。"
-        keywordsZh="签证照片, 中国签证照片, 照片要求, 签证申请照片规格"
-        keywords="China visa photo requirements, visa photo specs, photo size for China visa, Chinese visa photo guide"
-        url="https://tripcngo.com/visa/photo"
-      />
-      <VisaLayout breadcrumbTitle={tr.pageTitle}>
+<VisaLayout breadcrumbTitle={tr.pageTitle}>
         <h2 className="text-2xl font-bold text-center mb-10 text-gray-900">{tr.pageTitle}</h2>
       
       <div className="flex flex-col lg:flex-row gap-10 mb-12">

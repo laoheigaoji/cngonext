@@ -6,7 +6,6 @@ import { Upload, Camera, ImageIcon, Languages, Wallet, MessageSquare, ChevronDow
 import { useLanguage } from '../../context/LanguageContext';
 import { GoogleGenAI } from '@google/genai';
 import { askDeepSeek } from '../../lib/deepseek';
-import SEO from '../../components/SEO';
 
 const MenuTranslator = () => {
     const { language, t } = useLanguage();
@@ -105,16 +104,7 @@ const MenuTranslator = () => {
 
     return (
         <>
-        <SEO 
-            title="Chinese Menu Translator - AI Food Translation"
-            titleZh="中文菜单翻译器 - AI菜品识别"
-            description="Upload menu photos to get AI-powered translations, ingredients analysis, prices in multiple currencies. Perfect for ordering in Chinese restaurants."
-            descriptionZh="上传菜单照片，获取AI驱动的翻译、食材分析和多货币价格。非常适合在中餐厅点餐。"
-            keywordsZh="菜单翻译, 中文菜单, 菜品识别, AI翻译, 餐厅点餐"
-            keywords="menu translator, Chinese menu, food translation, AI menu, restaurant ordering, Chinese food"
-            url="https://tripcngo.com/tools/menu-translator"
-        />
-        <div className="bg-[#f8f9fa] min-h-screen font-sans text-gray-900 overflow-x-hidden pt-20">
+<div className="bg-[#f8f9fa] min-h-screen font-sans text-gray-900 overflow-x-hidden pt-20">
             {/* Minimalist Header Area - Already handled by main layout Navbar */}
             
             <div className="max-w-[1400px] mx-auto px-6">

@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Navigate } from '@/lib/router-compat';
 import { Clock, Navigation, Map, CloudRain, Sun, Cloud, Calendar, Building2, Users, MapPin, Tag, ArrowRight, Star, Plane, TrainFront, BusFront, Car, Bike, Train, Ship } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
-import SEO from '../../components/SEO';
 import { supabase } from '../../lib/supabase';
 import WeatherWidget from '../../components/WeatherWidget';
 import ShareButton from '../../components/ShareButton';
@@ -262,33 +261,7 @@ export default function CityDetail({ initialData }: { initialData?: any }) {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      <SEO 
-        title={getCityName()}
-        description={getI18n(city, 'paragraphs')?.[0] || getI18n(city, 'enParagraphs')?.[0] || ''}
-        keywords={`${getCityName()}, ${language === 'zh' ? '中国旅游' : 'China Travel'}, ${language === 'zh' ? '热门景点' : 'Top Attractions'}, ${city.province}`}
-        image={city.heroImage}
-        url={`https://tripcngo.com/${language === 'zh' ? 'cn' : 'en'}/cities/${id}`}
-        schemaData={{
-          "@context": "https://schema.org",
-          "@type": "TouristDestination",
-          "name": getCityName(),
-          "description": getI18n(city, 'paragraphs')?.[0] || '',
-          "image": city.heroImage,
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": getCityName(),
-            "addressRegion": city.province,
-            "addressCountry": "CN"
-          },
-          "touristType": "City",
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": city.location?.lat,
-            "longitude": city.location?.lng
-          }
-        }}
-      />
-      {/* Hero Section */}
+{/* Hero Section */}
       <div className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 

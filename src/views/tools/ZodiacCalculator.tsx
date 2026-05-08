@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import SEO from '../../components/SEO';
 
 const ZodiacCalculator = () => {
     const { language, t } = useLanguage();
@@ -23,13 +22,7 @@ const ZodiacCalculator = () => {
 
     return (
         <div className="bg-neutral-50 text-neutral-900 w-full">
-            <SEO 
-                title={t('zodiac.title')}
-                description={t('zodiac.subtitle')}
-                keywords={language === 'zh' ? '生肖计算器, 中国生肖' : 'Chinese Zodiac Calculator, China Zodiac'}
-            />
-            
-            {/* Hero Section */}
+{/* Hero Section */}
             <div 
                 className="relative h-[400px] flex items-center justify-center bg-cover bg-center"
                 style={{ backgroundImage: 'url(https://static.tripcngo.com/ing/banner_bg_1.jpg)' }}

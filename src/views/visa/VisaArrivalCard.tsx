@@ -3,7 +3,6 @@
 import React from 'react';
 import VisaLayout from '../../components/visa/VisaLayout';
 import { useLanguage } from '../../context/LanguageContext';
-import SEO from '../../components/SEO';
 
 export default function VisaArrivalCard() {
   const { language, t } = useLanguage();
@@ -75,16 +74,7 @@ export default function VisaArrivalCard() {
 
   return (
     <>
-      <SEO 
-        title="China Arrival Card Guide"
-        titleZh="中国入境卡填写指南"
-        description="Step-by-step guide to filling out the China arrival card (entry declaration form) for foreigners. Learn what to declare and common questions."
-        descriptionZh="外国人填写中国入境卡（入境申报表）的分步指南。了解需要申报什么和常见问题。"
-        keywordsZh="入境卡, 中国入境卡, 入境申报表, 外国人入境, 海关申报"
-        keywords="China arrival card, entry card, arrival declaration, foreigner entry China, customs declaration"
-        url="https://tripcngo.com/visa/arrival-card"
-      />
-      <VisaLayout breadcrumbTitle={tr.pageTitle}>
+<VisaLayout breadcrumbTitle={tr.pageTitle}>
         <h2 className="text-2xl font-bold text-center mb-10 text-gray-900">{tr.pageTitle}</h2>
       <div className="space-y-12">
         {steps.map((step) => (

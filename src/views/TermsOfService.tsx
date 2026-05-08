@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import SEO from '../components/SEO';
 import { supabase } from '../lib/supabase';
 
 interface PageSection {
@@ -125,13 +124,7 @@ const TermsOfService = ({ initialData, lang }: { initialData?: any[]; lang?: str
 
   return (
     <div className="bg-white">
-      <SEO 
-        title={t('terms.hero.title')}
-        description={t('terms.hero.subtitle')}
-        keywords={currentLang === 'zh' ? '服务条款, tripcngo条款' : 'Terms of Service, tripcngo terms'}
-      />
-      
-      {/* Hero Section */}
+{/* Hero Section */}
       <div 
         className="relative h-[400px] flex items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: `url(${heroBgImage})` }}

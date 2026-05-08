@@ -19,10 +19,27 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       url: `${baseUrl}/${lang}`,
       siteName: 'tripcngo.com',
       type: 'website',
+      locale: lang === 'cn' ? 'zh_CN' : lang === 'tw' ? 'zh_TW' : lang === 'ja' ? 'ja_JP' : lang === 'ko' ? 'ko_KR' : lang === 'ru' ? 'ru_RU' : lang === 'fr' ? 'fr_FR' : lang === 'es' ? 'es_ES' : lang === 'de' ? 'de_DE' : lang === 'it' ? 'it_IT' : 'en_US',
     },
   };
 }
 
-export default function Page() {
-  return <Home />;
+export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const websiteJsonLd = generateWebsiteJsonLd(lang);
+  const orgJsonLd = generateOrganizationJsonLd();
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+      />
+      <Home />
+    </>
+  );
 }

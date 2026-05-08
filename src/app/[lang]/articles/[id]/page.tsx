@@ -1,6 +1,6 @@
 import { LANGUAGES, getArticleIds } from "@/lib/static-params";
 import ArticleDetailClient from "./ArticleDetailClient";
-import { getHreflangAlternates, baseUrl, getSEO, articlesSEO } from "@/lib/seo-config";
+import { getHreflangAlternates, baseUrl, getSEO, articlesSEO, generateArticleJsonLd } from "@/lib/seo-config";
 import { getArticleData } from "@/lib/server-data";
 
 function getLocalizedField(obj: any, field: string, lang: string): string {
@@ -9,7 +9,6 @@ function getLocalizedField(obj: any, field: string, lang: string): string {
     ru: '_ru', fr: '_fr', es: '_es', de: '_de', it: '_it',
   };
   const suffix = langSuffixMap[lang] || '_en';
-  // Try lang-specific field first, then English, then base field
   if (suffix && obj?.[`${field}${suffix}`]) return obj[`${field}${suffix}`];
   if (obj?.[`${field}_en`]) return obj[`${field}_en`];
   return obj?.[field] || '';
@@ -59,6 +58,26 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export default function Page() {
-  return <ArticleDetailClient />;
+export default async function ArticleDetailPage({ params }: { params: Promise<{ lang: string; id: string }> }) {
+  const { lang, id } = await params;
+
+  let articleJsonLd = null;
+  try {
+    const article = await getArticleData(id);
+    if (article) {
+      articleJsonLd = generateArticleJsonLd(article, lang);
+    }
+  } catch {}
+
+  return (
+    <>
+      {articleJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        />
+      )}
+      <ArticleDetailClient />
+    </>
+  );
 }

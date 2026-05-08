@@ -13,6 +13,12 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       canonical: `${baseUrl}/${lang}/privacy`,
       languages: getHreflangAlternates('/privacy'),
     },
+    openGraph: {
+      title: seo.title,
+      description: seo.description,
+      url: `${baseUrl}/${lang}/privacy`,
+      siteName: 'tripcngo.com',
+    },
   };
 }
 

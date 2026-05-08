@@ -1,6 +1,6 @@
 import { LANGUAGES, getCityIds } from "@/lib/static-params";
 import CityDetailClient from "./CityDetailClient";
-import { getHreflangAlternates, baseUrl, getSEO, citiesSEO } from "@/lib/seo-config";
+import { getHreflangAlternates, baseUrl, getSEO, citiesSEO, generateCityJsonLd } from "@/lib/seo-config";
 import { getCityData } from "@/lib/server-data";
 
 function getLocalizedField(obj: any, field: string, lang: string): string {
@@ -58,6 +58,26 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export default function Page() {
-  return <CityDetailClient />;
+export default async function CityDetailPage({ params }: { params: Promise<{ lang: string; id: string }> }) {
+  const { lang, id } = await params;
+
+  let cityJsonLd = null;
+  try {
+    const city = await getCityData(id);
+    if (city) {
+      cityJsonLd = generateCityJsonLd(city, lang);
+    }
+  } catch {}
+
+  return (
+    <>
+      {cityJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(cityJsonLd) }}
+        />
+      )}
+      <CityDetailClient />
+    </>
+  );
 }

@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { Plane, Bed, TrainFront, Globe, Youtube, Phone, Music, Shield, Play, PhoneCall } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import SEO from '../components/SEO';
 import { supabase } from '../lib/supabase';
 import { LucideIcon } from 'lucide-react';
 
@@ -194,10 +193,6 @@ export default function Apps({ initialData }: { initialData?: any[] }) {
 
   return (
     <div className="w-full bg-[#f9f9f9] pb-20">
-      <SEO 
-        title={t('nav.catalog')}
-        description={heroText.desc}
-      />
       {/* Header Banner */}
       <section className="relative h-[480px] flex items-center pt-16 bg-gray-900 overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://static.tripcngo.com/ing/mulubg.jpg')] bg-cover bg-center" />

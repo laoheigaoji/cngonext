@@ -3,7 +3,6 @@ import VisaLayout from '../../components/visa/VisaLayout';
 import { X, FileText, CheckCircle, Upload, Plane, Hotel, Mail, Building2, CreditCard, Heart, User } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../../context/LanguageContext';
-import SEO from '../../components/SEO';
 
 interface VisaType {
   id: string;
@@ -271,16 +270,7 @@ export default function VisaTypes({ initialData, initialTranslations }: { initia
   if (loading) {
     return (
       <>
-        <SEO 
-          title="China Visa Types"
-          titleZh="中国签证类型"
-          description="Complete guide to all types of Chinese visas including L tourist visa, M business visa, X student visa, Z work visa and more."
-          descriptionZh="中国签证完整指南，包括L旅游签证、M商务签证、X学生签证、Z工作签证等。"
-          keywordsZh="中国签证, 签证类型, 旅游签证, 商务签证, 学生签证, 工作签证"
-          keywords="China visa, visa types, Chinese visa categories, L visa, M visa, X visa, Z visa"
-          url="https://tripcngo.com/visa/types"
-        />
-        <VisaLayout breadcrumbTitle={tr.pageTitle}>
+<VisaLayout breadcrumbTitle={tr.pageTitle}>
           <div className="flex justify-center items-center py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1b887a]"></div>
           </div>
@@ -291,15 +281,6 @@ export default function VisaTypes({ initialData, initialTranslations }: { initia
 
   return (
     <>
-      <SEO 
-        title="China Visa Types"
-        titleZh="中国签证类型"
-        description="Complete guide to all types of Chinese visas including L tourist visa, M business visa, X student visa, Z work visa and more."
-        descriptionZh="中国签证完整指南，包括L旅游签证、M商务签证、X学生签证、Z工作签证等。"
-        keywordsZh="中国签证, 签证类型, 旅游签证, 商务签证, 学生签证, 工作签证"
-        keywords="China visa, visa types, Chinese visa categories, L visa, M visa, X visa, Z visa"
-        url="https://tripcngo.com/visa/types"
-      />
       <VisaLayout breadcrumbTitle={tr.pageTitle}>
         <div className="overflow-x-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">{tr.pageTitle}</h2>

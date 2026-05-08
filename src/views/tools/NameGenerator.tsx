@@ -7,7 +7,6 @@ import React, { useState } from 'react';
 import { askDeepSeek } from '../../lib/deepseek';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
-import SEO from '../../components/SEO';
 
 export default function NameGenerator() {
   const { t, language } = useLanguage();
@@ -33,16 +32,7 @@ export default function NameGenerator() {
 
   return (
     <>
-      <SEO 
-        title="AI Chinese Name Generator"
-        titleZh="AI中文名取名大师"
-        description="Use AI to generate meaningful Chinese names based on your information. Perfect for career development, making friends, travel or living in China."
-        descriptionZh="使用AI根据您的信息生成有意义的中文名。适合在中国职业发展、交友、旅游或生活。"
-        keywordsZh="AI取名, 中文名, 中文名生成器, 起名, 中国名字"
-        keywords="AI name generator, Chinese name, Chinese name generator, China name, Mandarin name"
-        url="https://tripcngo.com/tools/name-generator"
-      />
-      <div className="bg-[#f7f7f7] min-h-screen">
+<div className="bg-[#f7f7f7] min-h-screen">
       
       {/* Hero Section */}
       <div 

@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, ThumbsUp } from 'lucide-react';
 import { Link } from '@/lib/router-compat';
-import SEO from '../components/SEO';
 import { useLanguage } from '../context/LanguageContext';
 import { supabase } from '../lib/supabase';
 import { fallbackCities } from '../data/fallbackData';
@@ -42,14 +41,6 @@ export default function Cities({ initialData }: { initialData?: any[] }) {
 
   return (
     <div className="w-full bg-[#f9f9f9] pb-20">
-      <SEO 
-        title={language === 'zh' ? '热门城市指南' : 'Popular City Guides'}
-        description={language === 'zh' 
-          ? '探索中国最受欢迎的城市。了解北京、上海、广州等40多个城市的深度旅游攻略、餐饮推荐和实用技巧。' 
-          : 'Explore the most popular cities in China. In-depth travel guides, food recommendations, and practical tips for over 40 cities including Beijing, Shanghai, and Guangzhou.'}
-        keywords={language === 'zh' ? '中国城市指南, 北京旅游, 上海旅游, 广州旅游, 中国热门目的地, 过境免签城市' : 'China city guides, Beijing travel, Shanghai travel, Guangzhou travel, popular China destinations, transit visa-free cities'}
-        url={`https://tripcngo.com/${language === 'zh' ? 'cn' : 'en'}/cities`}
-      />
       <section className="relative h-[400px] flex items-center pt-16 bg-gray-900 overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://static.tripcngo.com/ing/Fbanner_bg_2.jpg')] bg-cover bg-center" />
         <div className="absolute inset-0 bg-black/40" />

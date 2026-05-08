@@ -4,8 +4,11 @@ import "../index.css";
 import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
-  title: "tripcngo.com - 旅行中国出发 | Travel China, Let's Go",
-  description: "Your ultimate guide to traveling China, from visa policies to AI smart tools.",
+  title: "tripcngo.com - Your Ultimate China Travel Guide",
+  description: "Your ultimate guide to traveling China. Explore authentic Chinese culture, detailed visa policies, practical travel tips. Payment, transport, and essential app guides make trip planning easy.",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({

@@ -5,7 +5,6 @@ import { motion } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
-import SEO from '../components/SEO';
 
 export default function Feedback() {
   const { language, t } = useLanguage();
@@ -37,15 +36,6 @@ export default function Feedback() {
 
   return (
     <>
-      <SEO 
-        title="Contact Us - Feedback"
-        titleZh="联系我们 - 反馈"
-        description="Share your feedback, suggestions or questions with us. We value your input and will respond promptly."
-        descriptionZh="与我们分享您的反馈、建议或问题。我们重视您的意见，会及时回复。"
-        keywordsZh="联系我们, 反馈, 建议, 问题, 联系方式"
-        keywords="contact us, feedback, suggestions, questions, contact"
-        url="https://tripcngo.com/feedback"
-      />
       <div className="w-full bg-[#f7f7f7]">
         {/* Hero Header */}
         <section className="relative h-[480px] flex items-center pt-20 overflow-hidden">

@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import SEO from '../components/SEO';
 import { supabase } from '../lib/supabase';
 
 interface PageSection {
@@ -126,13 +125,7 @@ const PrivacyPolicy = ({ initialData, lang }: { initialData?: any[]; lang?: stri
 
   return (
     <div className="bg-white">
-      <SEO 
-        title={t('privacy.hero.title')}
-        description={t('privacy.hero.subtitle')}
-        keywords={currentLang === 'zh' ? '隐私政策, tripcngo隐私' : 'Privacy Policy, tripcngo privacy'}
-      />
-      
-      {/* Hero Section */}
+{/* Hero Section */}
       <div 
         className="relative h-[400px] flex items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: `url(${heroBgImage})` }}

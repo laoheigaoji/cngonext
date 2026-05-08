@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Phone, ChevronDown, ChevronUp, FileText, Download, Camera, FileEdit, CreditCard, PenTool, ExternalLink } from 'lucide-react';
 import { Link } from '@/lib/router-compat';
 import { useVisaTranslation } from '../hooks/useVisaTranslation';
-import SEO from '../components/SEO';
 
 export default function Visa() {
   const { language, t } = useVisaTranslation();
@@ -46,11 +45,6 @@ export default function Visa() {
 
   return (
     <div className="w-full bg-[#f7f7f7] pb-20">
-      <SEO 
-        title={t('visa.seo.title')}
-        description={t('visa.seo.description')}
-        keywords={t('visa.seo.keywords')}
-      />
       {/* Hero Map Section */}
       <section className="relative h-[650px] w-full bg-[#759dd1] overflow-hidden flex items-center justify-center">
         <img 

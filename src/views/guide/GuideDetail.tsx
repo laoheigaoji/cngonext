@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from '@/lib/router-compat';
 import { motion } from 'motion/react';
 import { useLanguage } from '../../context/LanguageContext';
-import SEO from '../../components/SEO';
 import ShareButton from '../../components/ShareButton';
 import { 
   ChevronRight, 
@@ -505,35 +504,6 @@ export default function GuideDetail({ initialData }: { initialData?: any }) {
 
   return (
     <div className="w-full bg-white">
-      <SEO 
-        title={displayTitle}
-        description={displaySubtitle}
-        keywords={`${article.category}, ${language === 'zh' ? '中国旅行攻略' : 'China travel tips'}, ${article.author ? article.author : ''}`}
-        type="article"
-        image={article.thumbnail}
-        url={`https://tripcngo.com/${language === 'zh' ? 'cn' : 'en'}/articles/${id}`}
-        schemaData={{
-          "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          "headline": displayTitle,
-          "description": displaySubtitle,
-          "image": article.thumbnail,
-          "author": {
-            "@type": "Person",
-            "name": article.author || "tripcngo Team"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "tripcngo",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://tripcngo.com/logo.png"
-            }
-          },
-          "datePublished": article.createdAt,
-          "dateModified": article.createdAt
-        }}
-      />
       {/* Article Header Section */}
       <section className="bg-[#005043] pt-32 pb-16 text-white">
         <div className="max-w-[1240px] mx-auto px-6">

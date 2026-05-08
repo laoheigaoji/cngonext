@@ -6,7 +6,6 @@ import { Link } from '@/lib/router-compat';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import { useTravelGuide } from '../hooks/useTravelGuide';
-import SEO from '../components/SEO';
 import { motion, AnimatePresence } from 'motion/react';
 
 // 备用翻译映射 - 当数据库无数据时使用
@@ -217,10 +216,6 @@ export default function Guide({ initialData, initialTranslations }: { initialDat
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <SEO 
-        title={isZh ? '旅行锦囊' : 'Travel Guide'}
-        description={isZh ? '中国旅行必备锦囊' : 'Essential China Travel Guide'}
-      />
       
       {/* Hero Section */}
       <div className="relative h-[450px] flex items-center justify-center overflow-hidden">

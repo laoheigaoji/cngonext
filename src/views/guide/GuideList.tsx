@@ -3,7 +3,6 @@ import { motion } from 'motion/react';
 import { Link } from '@/lib/router-compat';
 import { useLanguage } from '../../context/LanguageContext';
 import { ChevronRight, Heart, Eye } from 'lucide-react';
-import SEO from '../../components/SEO';
 import { supabase } from '../../lib/supabase';
 import { fallbackArticles } from '../../data/fallbackData';
 
@@ -93,14 +92,7 @@ export default function GuideList() {
 
   return (
     <div className="w-full bg-[#f7f7f7]">
-      <SEO 
-        title={t('discover.guides')}
-        description={language === 'zh' 
-          ? '获取最实用的中国旅行指南：从移动支付、交通换乘到目的地深度文化解析，助力您的每一次探索。' 
-          : 'Get the most practical China travel guides: from mobile payments and transportation to in-depth cultural analysis of destinations.'}
-        keywords={language === 'zh' ? '中国旅行指南, 中国支付攻略, 中国交通指南, 中国文化百科' : 'China travel guides, China payment guide, China transport guide, Chinese culture wiki'}
-      />
-      {/* Hero Header */}
+{/* Hero Header */}
       <section className="relative h-[480px] flex items-center pt-20 overflow-hidden">
         <div className="absolute inset-0">
           <img 

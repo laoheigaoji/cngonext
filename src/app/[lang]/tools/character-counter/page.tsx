@@ -1,14 +1,22 @@
 import CharacterCounter from "@/app-views/tools/CharacterCounter";
-import { getHreflangAlternates, baseUrl } from "@/lib/seo-config";
+import { getHreflangAlternates, baseUrl, getSEO, characterCounterSEO } from "@/lib/seo-config";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
+  const seo = getSEO(characterCounterSEO, lang);
+
   return {
-    title: 'Chinese Character Counter - tripcngo.com',
-    description: 'Count Chinese characters, words, and sentences. Useful tool for writing within character limits for Chinese social media and documents.',
+    title: seo.title,
+    description: seo.description,
     alternates: {
       canonical: `${baseUrl}/${lang}/tools/character-counter`,
       languages: getHreflangAlternates('/tools/character-counter'),
+    },
+    openGraph: {
+      title: seo.title,
+      description: seo.description,
+      url: `${baseUrl}/${lang}/tools/character-counter`,
+      siteName: 'tripcngo.com',
     },
   };
 }

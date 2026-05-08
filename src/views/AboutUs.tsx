@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import SEO from '../components/SEO';
 import { supabase } from '../lib/supabase';
 
 interface PageSection {
@@ -130,13 +129,6 @@ const AboutUs = ({ initialData, lang }: { initialData?: any[]; lang?: string }) 
 
   return (
     <div className="bg-white">
-      <SEO 
-        title={heroTitle}
-        description={currentLang === 'zh' 
-          ? '了解 tripcngo.com 的使命和故事。我们是一个热爱旅行的本土团队，致力于利用智能AI技术帮助全球旅行者探索真实而美好的中国。' 
-          : 'Learn about the mission and story of tripcngo.com. We are a local team of travel enthusiasts dedicated to helping global travelers explore the real and beautiful China using smart AI technology.'}
-        keywords={currentLang === 'zh' ? '关于 tripcngo, 中国旅行团队, 旅行AI助手' : 'About tripcngo, China travel team, travel AI assistant'}
-      />
       
       {/* Hero Section */}
       <div 

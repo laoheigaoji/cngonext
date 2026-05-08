@@ -58,11 +58,7 @@ function LangLayoutInner({ children }: { children: React.ReactNode }) {
     }
   }, [language, lang]);
 
-  // Update <html lang> attribute for SEO
-  useEffect(() => {
-    const htmlLang = htmlLangMap[lang as string] || 'en';
-    document.documentElement.lang = htmlLang;
-  }, [lang]);
+  // Language sync is handled by URL param
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-[#f7f7f7] text-gray-800">

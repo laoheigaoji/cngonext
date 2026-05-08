@@ -1,14 +1,22 @@
 import VisaArrivalCard from "@/app-views/visa/VisaArrivalCard";
-import { getHreflangAlternates, baseUrl } from "@/lib/seo-config";
+import { getHreflangAlternates, baseUrl, getSEO, visaArrivalCardSEO } from "@/lib/seo-config";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
+  const seo = getSEO(visaArrivalCardSEO, lang);
+
   return {
-    title: 'China Arrival Card Form - tripcngo.com',
-    description: 'Fill out your China arrival card online. Complete the China entry/arrival card form before your trip.',
+    title: seo.title,
+    description: seo.description,
     alternates: {
       canonical: `${baseUrl}/${lang}/visa/arrival-card`,
       languages: getHreflangAlternates('/visa/arrival-card'),
+    },
+    openGraph: {
+      title: seo.title,
+      description: seo.description,
+      url: `${baseUrl}/${lang}/visa/arrival-card`,
+      siteName: 'tripcngo.com',
     },
   };
 }

@@ -202,7 +202,137 @@ function getSEO(seoMap: Record<string, PageSEO>, lang: string): PageSEO {
   return seoMap[lang] || seoMap['en'] || { title: 'tripcngo.com', description: '' };
 }
 
-export { homeSEO, citiesSEO, articlesSEO, guideSEO, appsSEO, aboutSEO, privacySEO, termsSEO, visaTypesSEO, visaFeesSEO, getSEO };
+const feedbackSEO: Record<string, PageSEO> = {
+  cn: { title: '意见反馈 - tripcngo.com', description: '分享您的反馈和建议，帮助我们改进 tripcngo.com，为您提供更好的中国旅行信息。' },
+  en: { title: 'Feedback - tripcngo.com', description: 'Share your feedback and suggestions to help us improve tripcngo.com for better China travel information.' },
+  ja: { title: 'フィードバック - tripcngo.com', description: 'フィードバックやご提案をお寄せください。tripcngo.comを改善し、より良い中国旅行情報を提供します。' },
+  ko: { title: '피드백 - tripcngo.com', description: '피드백과 제안을 공유해 주세요. tripcngo.com을 개선하여 더 나은 중국 여행 정보를 제공합니다.' },
+  ru: { title: 'Обратная связь - tripcngo.com', description: 'Поделитесь своими отзывами и предложениями, чтобы помочь нам улучшить tripcngo.com.' },
+  fr: { title: 'Commentaires - tripcngo.com', description: 'Partagez vos commentaires et suggestions pour nous aider à améliorer tripcngo.com.' },
+  es: { title: 'Comentarios - tripcngo.com', description: 'Comparta sus comentarios y sugerencias para ayudarnos a mejorar tripcngo.com.' },
+  de: { title: 'Feedback - tripcngo.com', description: 'Teilen Sie Ihr Feedback und Ihre Vorschläge mit, um uns bei der Verbesserung von tripcngo.com zu helfen.' },
+  tw: { title: '意見反饋 - tripcngo.com', description: '分享您的反饋和建議，幫助我們改進 tripcngo.com，為您提供更好的中國旅行信息。' },
+  it: { title: 'Feedback - tripcngo.com', description: 'Condividi i tuoi feedback e suggerimenti per aiutarci a migliorare tripcngo.com.' },
+};
+
+const visaDownloadsSEO: Record<string, PageSEO> = {
+  cn: { title: '中国签证申请表下载 - tripcngo.com', description: '下载中国签证申请表和所需材料。获取您申请中国签证所需的所有表格。' },
+  en: { title: 'China Visa Document Downloads - tripcngo.com', description: 'Download China visa application forms and required documents. Get all the forms you need for your China visa application.' },
+  ja: { title: '中国ビザ申請書ダウンロード - tripcngo.com', description: '中国ビザ申請書と必要書類のダウンロード。中国ビザ申請に必要なすべてのフォームを入手。' },
+  ko: { title: '중국 비자 신청서 다운로드 - tripcngo.com', description: '중국 비자 신청서 및 필요 서류 다운로드. 중국 비자 신청에 필요한 모든 양식을 받으세요.' },
+  ru: { title: 'Загрузка визовых документов Китая - tripcngo.com', description: 'Скачайте анкеты и необходимые документы для визы в Китай.' },
+  fr: { title: 'Téléchargement formulaires visa Chine - tripcngo.com', description: 'Téléchargez les formulaires de demande de visa pour la Chine et les documents requis.' },
+  es: { title: 'Descarga formularios visa China - tripcngo.com', description: 'Descargue formularios de solicitud de visa para China y documentos requeridos.' },
+  de: { title: 'China-Visumformulare Download - tripcngo.com', description: 'Laden Sie China-Visumantragsformulare und erforderliche Dokumente herunter.' },
+  tw: { title: '中國簽證申請表下載 - tripcngo.com', description: '下載中國簽證申請表和所需材料。獲取您申請中國簽證所需的所有表格。' },
+  it: { title: 'Download moduli visa Cina - tripcngo.com', description: 'Scarica i moduli di richiesta visa per la Cina e i documenti necessari.' },
+};
+
+const visaArrivalCardSEO: Record<string, PageSEO> = {
+  cn: { title: '中国入境卡填写指南 - tripcngo.com', description: '在线填写中国入境卡。出行前完成中国入境卡表格。' },
+  en: { title: 'China Arrival Card Form - tripcngo.com', description: 'Fill out your China arrival card online. Complete the China entry/arrival card form before your trip.' },
+  ja: { title: '中国入国カード記入 - tripcngo.com', description: '中国入国カードをオンラインで記入。旅行前に中国入国カードフォームを完了しましょう。' },
+  ko: { title: '중국 입국카드 작성 - tripcngo.com', description: '온라인으로 중국 입국카드를 작성하세요. 여행 전 중국 입국카드 양식을 완료하세요.' },
+  ru: { title: 'Карта прибытия в Китай - tripcngo.com', description: 'Заполните карту прибытия в Китай онлайн перед поездкой.' },
+  fr: { title: 'Formulaire carte d\'arrivée Chine - tripcngo.com', description: 'Remplissez votre carte d\'arrivée en Chine en ligne avant votre voyage.' },
+  es: { title: 'Formulario tarjeta de llegada China - tripcngo.com', description: 'Complete su tarjeta de llegada a China en línea antes de su viaje.' },
+  de: { title: 'China Ankunftskarte - tripcngo.com', description: 'Füllen Sie Ihre China-Ankunftskarte online aus vor Ihrer Reise.' },
+  tw: { title: '中國入境卡填寫指南 - tripcngo.com', description: '在線填寫中國入境卡。出行前完成中國入境卡表格。' },
+  it: { title: 'Scheda di arrivo Cina - tripcngo.com', description: 'Compila la scheda di arrivo in Cina online prima del tuo viaggio.' },
+};
+
+const visaFormSEO: Record<string, PageSEO> = {
+  cn: { title: '中国签证申请表填写指南 - tripcngo.com', description: '中国签证申请表填写完全指南。分步骤说明和成功申请技巧。' },
+  en: { title: 'China Visa Application Form Guide - tripcngo.com', description: 'Complete guide to filling out the China visa application form. Step-by-step instructions and tips for a successful application.' },
+  ja: { title: '中国ビザ申請書記入ガイド - tripcngo.com', description: '中国ビザ申請書記入の完全ガイド。ステップバイステップの手順と成功のコツ。' },
+  ko: { title: '중국 비자 신청서 작성 가이드 - tripcngo.com', description: '중국 비자 신청서 작성 완전 가이드. 단계별 안내와 성공적인 신청 팁.' },
+  ru: { title: 'Руководство по заполнению визовой анкеты Китая - tripcngo.com', description: 'Полное руководство по заполнению анкеты на визу в Китай.' },
+  fr: { title: 'Guide formulaire visa Chine - tripcngo.com', description: 'Guide complet pour remplir le formulaire de demande de visa pour la Chine.' },
+  es: { title: 'Guía formulario visa China - tripcngo.com', description: 'Guía completa para rellenar el formulario de solicitud de visa para China.' },
+  de: { title: 'China-Visumantrag Leitfaden - tripcngo.com', description: 'Vollständiger Leitfaden zum Ausfüllen des China-Visumantrags.' },
+  tw: { title: '中國簽證申請表填寫指南 - tripcngo.com', description: '中國簽證申請表填寫完全指南。分步驟說明和成功申請技巧。' },
+  it: { title: 'Guida modulo visa Cina - tripcngo.com', description: 'Guida completa alla compilazione del modulo di richiesta visa per la Cina.' },
+};
+
+const visaPhotoSEO: Record<string, PageSEO> = {
+  cn: { title: '中国签证照片要求 - tripcngo.com', description: '中国签证照片规格和要求。确保护照照片符合中国大使馆标准。' },
+  en: { title: 'China Visa Photo Requirements - tripcngo.com', description: 'China visa photo specifications and requirements. Ensure your passport photo meets the Chinese embassy standards.' },
+  ja: { title: '中国ビザ写真要件 - tripcngo.com', description: '中国ビザ写真の仕様と要件。パスポート写真が中国大使館の基準を満たしているか確認。' },
+  ko: { title: '중국 비자 사진 요구사항 - tripcngo.com', description: '중국 비자 사진 규격 및 요구사항. 여권 사진이 중국 대사관 기준을 충족하는지 확인하세요.' },
+  ru: { title: 'Требования к фото для визы в Китай - tripcngo.com', description: 'Спецификации и требования к фотографиям для визы в Китай.' },
+  fr: { title: 'Exigences photo visa Chine - tripcngo.com', description: 'Spécifications et exigences des photos pour le visa Chine.' },
+  es: { title: 'Requisitos foto visa China - tripcngo.com', description: 'Especificaciones y requisitos de fotos para la visa de China.' },
+  de: { title: 'China-Visumfoto Anforderungen - tripcngo.com', description: 'China-Visumfoto-Spezifikationen und Anforderungen.' },
+  tw: { title: '中國簽證照片要求 - tripcngo.com', description: '中國簽證照片規格和要求。確保護照照片符合中國大使館標準。' },
+  it: { title: 'Requisiti foto visa Cina - tripcngo.com', description: 'Specifiche e requisiti delle foto per il visa della Cina.' },
+};
+
+const zodiacSEO: Record<string, PageSEO> = {
+  cn: { title: '中国生肖计算器 - tripcngo.com', description: '根据出生年份查询您的中国生肖。了解十二生肖及其文化意义。' },
+  en: { title: 'Chinese Zodiac Calculator - tripcngo.com', description: 'Find your Chinese zodiac sign based on your birth year. Learn about the 12 Chinese zodiac animals and their cultural significance.' },
+  ja: { title: '干支計算機 - tripcngo.com', description: '生まれ年からあなたの干支を調べましょう。十二支とその文化的な意味について学びましょう。' },
+  ko: { title: '중국 띠 계산기 - tripcngo.com', description: '출생연도로 당신의 중국 띠를 찾아보세요. 12간지와 그 문화적 의미를 알아보세요.' },
+  ru: { title: 'Калькулятор китайского зодиака - tripcngo.com', description: 'Узнайте свой знак китайского зодиака по году рождения.' },
+  fr: { title: 'Calculateur zodiaque chinois - tripcngo.com', description: 'Trouvez votre signe du zodiaque chinois selon votre année de naissance.' },
+  es: { title: 'Calculador zodiaco chino - tripcngo.com', description: 'Encuentra tu signo del zodiaco chino según tu año de nacimiento.' },
+  de: { title: 'Chinesischer Tierkreiskreisrechner - tripcngo.com', description: 'Finden Sie Ihr chinesisches Tierkreiszeichen nach Ihrem Geburtsjahr.' },
+  tw: { title: '中國生肖計算器 - tripcngo.com', description: '根據出生年份查詢您的中國生肖。了解十二生肖及其文化意義。' },
+  it: { title: 'Calcolatore zodiaco cinese - tripcngo.com', description: 'Trova il tuo segno dello zodiaco cinese in base al tuo anno di nascita.' },
+};
+
+const nameGeneratorSEO: Record<string, PageSEO> = {
+  cn: { title: '中文名字生成器 - tripcngo.com', description: '根据您的英文名生成有意义的中文名。AI驱动的中文名字创作，具有文化内涵。' },
+  en: { title: 'Chinese Name Generator - tripcngo.com', description: 'Generate a meaningful Chinese name based on your English name. AI-powered Chinese name creation with cultural significance.' },
+  ja: { title: '中国語名前ジェネレーター - tripcngo.com', description: '英語名から意味のある中国語名を生成。文化的な意味を持つAI搭載の中国語名作成。' },
+  ko: { title: '중국어 이름 생성기 - tripcngo.com', description: '영어 이름으로 의미 있는 중국어 이름을 생성하세요. 문화적 의미를 담은 AI 기반 중국어 이름 생성.' },
+  ru: { title: 'Генератор китайских имён - tripcngo.com', description: 'Создайте осмысленное китайское имя на основе вашего английского имени.' },
+  fr: { title: 'Générateur de noms chinois - tripcngo.com', description: 'Générez un nom chinois significatif basé sur votre nom anglais.' },
+  es: { title: 'Generador de nombres chinos - tripcngo.com', description: 'Genere un nombre chino significativo basado en su nombre en inglés.' },
+  de: { title: 'Chinesischer Namensgenerator - tripcngo.com', description: 'Erzeugen Sie einen bedeutungsvollen chinesischen Namen basierend auf Ihrem englischen Namen.' },
+  tw: { title: '中文名字生成器 - tripcngo.com', description: '根據您的英文名生成有意義的中文名。AI驅動的中文名字創作，具有文化內涵。' },
+  it: { title: 'Generatore di nomi cinesi - tripcngo.com', description: 'Genera un nome cinese significativo basato sul tuo nome inglese.' },
+};
+
+const menuTranslatorSEO: Record<string, PageSEO> = {
+  cn: { title: '中文菜单翻译器 - tripcngo.com', description: '用AI翻译中文餐厅菜单。上传照片或输入中文菜名，即时获取翻译和解释。' },
+  en: { title: 'Chinese Menu Translator - tripcngo.com', description: 'Translate Chinese restaurant menus with AI. Upload a photo or type Chinese dish names to get instant translations and explanations.' },
+  ja: { title: '中国語メニュー翻訳 - tripcngo.com', description: 'AIで中国語のレストランメニューを翻訳。写真をアップロードまたは中国語の料理名を入力して即座に翻訳と解説を取得。' },
+  ko: { title: '중국어 메뉴 번역기 - tripcngo.com', description: 'AI로 중국어 식당 메뉴를 번역하세요. 사진을 업로드하거나 중국어 요리명을 입력하여 즉시 번역과 설명을 받으세요.' },
+  ru: { title: 'Переводчик китайского меню - tripcngo.com', description: 'Переводите китайские ресторанные меню с помощью ИИ.' },
+  fr: { title: 'Traducteur de menu chinois - tripcngo.com', description: 'Traduisez les menus de restaurants chinois avec l\'IA.' },
+  es: { title: 'Traductor de menú chino - tripcngo.com', description: 'Traduzca menús de restaurantes chinos con IA.' },
+  de: { title: 'Chinesischer Menü-Übersetzer - tripcngo.com', description: 'Übersetzen Sie chinesische Restaurantmenüs mit KI.' },
+  tw: { title: '中文菜單翻譯器 - tripcngo.com', description: '用AI翻譯中文餐廳菜單。上傳照片或輸入中文菜名，即時獲取翻譯和解釋。' },
+  it: { title: 'Traduttore di menu cinese - tripcngo.com', description: 'Traduci i menu dei ristoranti cinesi con l\'IA.' },
+};
+
+const pinyinSEO: Record<string, PageSEO> = {
+  cn: { title: '拼音分词工具 - tripcngo.com', description: '将连续拼音分词为单独词语。有助于学习中文发音和拼音转汉字。' },
+  en: { title: 'Pinyin Segmentation Tool - tripcngo.com', description: 'Segment continuous pinyin into individual words. Useful for learning Chinese pronunciation and converting pinyin to Chinese characters.' },
+  ja: { title: 'ピンイン分割ツール - tripcngo.com', description: '連続ピンインを個別の単語に分割。中国語の発音学習やピンインから漢字への変換に便利。' },
+  ko: { title: '병음 분할 도구 - tripcngo.com', description: '연속 병음을 개별 단어로 분할하세요. 중국어 발음 학습과 병음-한자 변환에 유용합니다.' },
+  ru: { title: 'Инструмент сегментации пиньинь - tripcngo.com', description: 'Разделяйте непрерывный пиньинь на отдельные слова.' },
+  fr: { title: 'Outil de segmentation pinyin - tripcngo.com', description: 'Segmentez le pinyin continu en mots individuels.' },
+  es: { title: 'Herramienta de segmentación pinyin - tripcngo.com', description: 'Segmenta el pinyin continuo en palabras individuales.' },
+  de: { title: 'Pinyin-Segmentierungstool - tripcngo.com', description: 'Segmentieren Sie fortlaufendes Pinyin in einzelne Wörter.' },
+  tw: { title: '拼音分詞工具 - tripcngo.com', description: '將連續拼音分詞為單獨詞語。有助於學習中文發音和拼音轉漢字。' },
+  it: { title: 'Strumento di segmentazione pinyin - tripcngo.com', description: 'Segmenta il pinyin continuo in parole individuali.' },
+};
+
+const characterCounterSEO: Record<string, PageSEO> = {
+  cn: { title: '中文字数统计 - tripcngo.com', description: '统计中文字符、词语和句子数。适用于中文社交媒体和文档的字数限制写作。' },
+  en: { title: 'Chinese Character Counter - tripcngo.com', description: 'Count Chinese characters, words, and sentences. Useful tool for writing within character limits for Chinese social media and documents.' },
+  ja: { title: '中国語文字カウンター - tripcngo.com', description: '中国語の文字、単語、文をカウント。中国語SNSやドキュメントの文字数制限内での執筆に便利。' },
+  ko: { title: '중국어 글자 수 카운터 - tripcngo.com', description: '중국어 글자, 단어, 문장 수를 세세요. 중국어 소셜미디어와 문서의 글자 수 제한 내 작성에 유용합니다.' },
+  ru: { title: 'Счётчик китайских иероглифов - tripcngo.com', description: 'Подсчитывайте китайские иероглифы, слова и предложения.' },
+  fr: { title: 'Compteur de caractères chinois - tripcngo.com', description: 'Comptez les caractères, mots et phrases chinois.' },
+  es: { title: 'Contador de caracteres chinos - tripcngo.com', description: 'Cuenta caracteres, palabras y oraciones en chino.' },
+  de: { title: 'Chinesisch Zeichenzähler - tripcngo.com', description: 'Zählen Sie chinesische Zeichen, Wörter und Sätze.' },
+  tw: { title: '中文字數統計 - tripcngo.com', description: '統計中文字符、詞語和句子數。適用於中文社群媒體和文檔的字數限制寫作。' },
+  it: { title: 'Contatore caratteri cinesi - tripcngo.com', description: 'Conta caratteri, parole e frasi cinesi.' },
+};
+
+export { homeSEO, citiesSEO, articlesSEO, guideSEO, appsSEO, aboutSEO, privacySEO, termsSEO, visaTypesSEO, visaFeesSEO, feedbackSEO, visaDownloadsSEO, visaArrivalCardSEO, visaFormSEO, visaPhotoSEO, zodiacSEO, nameGeneratorSEO, menuTranslatorSEO, pinyinSEO, characterCounterSEO, getSEO };
 
 // JSON-LD generators
 export function generateWebsiteJsonLd(lang: string) {

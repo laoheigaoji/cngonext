@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Footer from '../../components/Footer';
 import { useLanguage } from '../../context/LanguageContext';
-import SEO from '../../components/SEO';
 
 const CharacterCounter = () => {
     const { language, t } = useLanguage();
@@ -23,11 +22,7 @@ const CharacterCounter = () => {
 
     return (
         <div className="min-h-screen bg-neutral-50 text-neutral-900">
-            <SEO 
-                title={t('tools.char.title')}
-                description={t('tools.char.desc')}
-            />
-            {/* Hero Section */}
+{/* Hero Section */}
             <div 
                 className="relative h-[300px] flex items-center justify-center bg-cover bg-center"
                 style={{ backgroundImage: 'url(https://static.tripcngo.com/ing/banner_bg_1.jpg)' }}
