@@ -2,12 +2,11 @@
 
 import React from 'react';
 import { Twitter, Mail, Youtube, Facebook } from 'lucide-react';
-import NextLink from 'next/link';
-import { useTranslations, useLocale } from 'next-intl';
+import { Link } from '@/lib/router-compat';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Footer() {
-  const t = useTranslations();
-  const locale = useLocale();
+  const { t, language } = useLanguage();
   
   return (
     <footer className="bg-[#0e7552] text-[#e5f5ef] text-sm">
@@ -48,8 +47,8 @@ export default function Footer() {
           <div className="col-span-1">
             <h4 className="text-white font-bold mb-6 text-[15px]">{t('footer.links.visa')}</h4>
             <ul className="space-y-4">
-              <li><NextLink href={`/${locale}/visa`} className="hover:text-white transition-colors text-[13px] text-[#e5f5ef]">{t('footer.links.visa.all')}</NextLink></li>
-              <li><NextLink href={`/${locale}/cities`} className="hover:text-white transition-colors text-[13px] text-[#e5f5ef]">{t('footer.links.visa.dest')}</NextLink></li>
+              <li><Link to="/visa" className="hover:text-white transition-colors text-[13px] text-[#e5f5ef]">{t('footer.links.visa.all')}</Link></li>
+              <li><Link to="/cities" className="hover:text-white transition-colors text-[13px] text-[#e5f5ef]">{t('footer.links.visa.dest')}</Link></li>
               <li><a href="#" className="hover:text-white transition-colors text-[13px] text-[#e5f5ef]">{t('footer.links.visa.nav')}</a></li>
             </ul>
           </div>
@@ -57,10 +56,10 @@ export default function Footer() {
           <div className="col-span-1">
             <h4 className="text-white font-bold mb-6 text-[15px] md:text-[16px]">{t('footer.links.company')}</h4>
             <ul className="space-y-4">
-                <li><NextLink href={`/${locale}/about`} className="hover:text-white transition-colors text-[13px] text-[#e5f5ef] font-medium">{t('footer.links.about')}</NextLink></li>
-                <li><NextLink href={`/${locale}/terms`} className="hover:text-white transition-colors text-[13px] text-[#e5f5ef] font-medium">{t('footer.links.terms')}</NextLink></li>
-                <li><NextLink href={`/${locale}/privacy`} className="hover:text-white transition-colors text-[13px] text-[#e5f5ef] font-medium">{t('footer.links.privacy')}</NextLink></li>
-                <li><NextLink href={`/${locale}/feedback`} className="hover:text-white transition-colors text-[13px] text-[#e5f5ef] font-medium">{t('footer.links.feedback')}</NextLink></li>
+                <li><Link to="/about" className="hover:text-white transition-colors text-[13px] text-[#e5f5ef] font-medium">{t('footer.links.about')}</Link></li>
+                <li><Link to="/terms" className="hover:text-white transition-colors text-[13px] text-[#e5f5ef] font-medium">{t('footer.links.terms')}</Link></li>
+                <li><Link to="/privacy" className="hover:text-white transition-colors text-[13px] text-[#e5f5ef] font-medium">{t('footer.links.privacy')}</Link></li>
+                <li><Link to="/feedback" className="hover:text-white transition-colors text-[13px] text-[#e5f5ef] font-medium">{t('footer.links.feedback')}</Link></li>
             </ul>
           </div>
  
@@ -74,7 +73,7 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-
+ 
           <div className="col-span-1">
             <h4 className="text-white font-bold mb-6 text-[15px]">{t('footer.links.partners')}</h4>
             <ul className="space-y-4">

@@ -39,16 +39,20 @@
     },
     "stat": {
       "stay": {
-        "desc": "Durata massima"
+        "desc": "Durata massima",
+        "title": "240h"
       },
       "ports": {
-        "desc": "Porti d\\'ingresso"
+        "desc": "Porti d\\'ingresso",
+        "title": "60+"
       },
       "countries": {
-        "desc": "Paesi aperti"
+        "desc": "Paesi aperti",
+        "title": "54 paesi"
       },
       "provinces": {
-        "desc": "Province aperte"
+        "desc": "Province aperte",
+        "title": "24"
       },
       "stayName": "240h",
       "portsName": "60+",
@@ -186,12 +190,13 @@
           "desc": "Pronuncia cinese standard per ordinare facilmente.",
           "title": "Assistente vocale"
         }
-      }
+      },
+      "title": "Carica una foto per ottenere traduzione, ingredienti e prezzi - ordina facilmente"
     },
     "name": {
       "desc": "IA per scegliere nomi cinesi adatti alla tua carriera, amici, viaggi o vita in Cina",
       "male": "Uomo",
-      "title": "Generatore di nomi cinesi",
+      "title": "IA per scegliere nomi cinesi adatti alla tua carriera, amici, viaggi o vita in Cina",
       "button": "Genera il mio nome cinese",
       "faq": {
         "q1": "È solo una traduzione diretta del mio nome?",
@@ -265,7 +270,7 @@
     },
     "pinyin": {
       "desc": "Converti qualsiasi frase cinese in pinyin standard con segmentazione intelligente e animazione dell\\'ordine dei tratti",
-      "title": "Strumento di segmentazione Pinyin",
+      "title": "Converti qualsiasi frase cinese in pinyin standard con segmentazione intelligente e animazione dell\\'ordine dei tratti",
       "button": "Analizza",
       "result": "Risultato dell\\'analisi:",
       "inputPlaceholder": "Inserisci una frase cinese per iniziare l\\'analisi..."
@@ -287,10 +292,12 @@
       "faq2": {
         "desc": "La cultura cinese conta 12 segni zodiacali: Ratto, Bue, Tigre, Coniglio, Drago, Serpente, Cavallo, Capra, Scimmia, Gallo, Cane e Maiale.",
         "title": "I 12 segni zodiacali dettagliati"
-      }
+      },
+      "title": "Calcola il tuo segno zodiacale cinese in base alla data di nascita e scopri il suo significato culturale."
     },
     "counter": {
-      "desc": "Conta con precisione caratteri cinesi, inglese, numeri, punteggiatura, righe e totale"
+      "desc": "Conta con precisione caratteri cinesi, inglese, numeri, punteggiatura, righe e totale",
+      "title": "Conta con precisione caratteri cinesi, inglese, numeri, punteggiatura, righe e totale"
     },
     "char": {
       "zh": "Cinese",
@@ -388,7 +395,8 @@
       "visa": {
         "all": "Guida completa esenzione visto",
         "nav": "Informazioni di navigazione",
-        "dest": "Scopri le destinazioni"
+        "dest": "Scopri le destinazioni",
+        "title": "Visto e viaggi"
       },
       "lang": "Lingua",
       "about": "Chi siamo",
@@ -564,10 +572,12 @@
   },
   "discover": {
     "guides": {
-      "desc": "Viaggiatori esperti condividono consigli pratici per viaggiare facilmente in Cina"
+      "desc": "Viaggiatori esperti condividono consigli pratici per viaggiare facilmente in Cina",
+      "title": "Viaggiatori esperti condividono consigli pratici per viaggiare facilmente in Cina"
     },
     "pocket": {
-      "desc": "In 5 minuti padroneggia gli essenziali per viaggiare in Cina. Imperdibile per i primi visitatori"
+      "desc": "In 5 minuti padroneggia gli essenziali per viaggiare in Cina. Imperdibile per i primi visitatori",
+      "title": "In 5 minuti padroneggia gli essenziali per viaggiare in Cina. Imperdibile per i primi visitatori"
     },
     "hotCities": "Città popolari",
     "moreCities": "Altre città",
@@ -612,5 +622,8 @@
       "subtitle": "Ci impegniamo a proteggere le tue informazioni personali e la tua privacy"
     },
     "lastUpdated": "Ultimo aggiornamento: 26 aprile 2025"
+  },
+  "seo": {
+    "suffix": "Viaggio in Cina - La tua guida turistica definitiva per la Cina"
   }
 }

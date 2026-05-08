@@ -81,4 +81,5 @@ export interface CityData {
     imageIdx: number;
     imageUrl?: string;
   }[];
+  videoUrl?: string;
 }

@@ -41,16 +41,20 @@
     },
     "stat": {
       "stay": {
-        "desc": "Durée maximale"
+        "desc": "Durée maximale",
+        "title": "240h"
       },
       "ports": {
-        "desc": "Ports d\\'entrée"
+        "desc": "Ports d\\'entrée",
+        "title": "60+"
       },
       "countries": {
-        "desc": "Pays ouverts"
+        "desc": "Pays ouverts",
+        "title": "54 pays"
       },
       "provinces": {
-        "desc": "Provinces ouvertes"
+        "desc": "Provinces ouvertes",
+        "title": "24"
       },
       "stayName": "240h",
       "portsName": "60+",
@@ -252,12 +256,13 @@
           "desc": "Prononciation chinoise standard pour commander facilement.",
           "title": "Assistant vocal"
         }
-      }
+      },
+      "title": "Téléchargez une photo pour obtenir traduction, ingrédients et prix - commandez facilement"
     },
     "name": {
       "desc": "IA pour choisir des noms chinois adaptés à votre carrière, amis, voyages ou vie en Chine",
       "male": "Homme",
-      "title": "Générateur de noms chinois",
+      "title": "IA pour choisir des noms chinois adaptés à votre carrière, amis, voyages ou vie en Chine",
       "button": "Générer mon nom chinois",
       "faq": {
         "q1": "Est-ce juste une traduction directe de mon nom?",
@@ -331,7 +336,7 @@
     },
     "pinyin": {
       "desc": "Convertissez n\\'importe quelle phrase chinoise en pinyin standard avec segmentation intelligente et animation de l\\'ordre des traits",
-      "title": "Outil de segmentation Pinyin",
+      "title": "Convertissez n\\'importe quelle phrase chinoise en pinyin standard avec segmentation intelligente et animation de l\\'ordre des traits",
       "button": "Analyser",
       "result": "Résultat de l\\'analyse :",
       "inputPlaceholder": "Entrez une phrase chinoise pour commencer l\\'analyse..."
@@ -353,10 +358,12 @@
       "faq2": {
         "desc": "La culture chinoise compte 12 signes zodiacaux : Rat, Bœuf, Tigre, Lapin, Dragon, Serpent, Cheval, Chèvre, Singe, Coq, Chien et Cochon.",
         "title": "Les 12 signes zodiacaux détaillés"
-      }
+      },
+      "title": "Calculez votre signe zodiacal chinois selon votre date de naissance et découvrez sa signification culturelle."
     },
     "counter": {
-      "desc": "Comptez précisément les caractères chinois, anglais, chiffres, ponctuation, lignes et total"
+      "desc": "Comptez précisément les caractères chinois, anglais, chiffres, ponctuation, lignes et total",
+      "title": "Comptez précisément les caractères chinois, anglais, chiffres, ponctuation, lignes et total"
     },
     "char": {
       "zh": "Chinois",
@@ -454,7 +461,8 @@
       "visa": {
         "all": "Guide complet d\\'exemption de visa",
         "nav": "Informations de navigation",
-        "dest": "Découvrez les destinations"
+        "dest": "Découvrez les destinations",
+        "title": "Visa et voyages"
       },
       "lang": "Langue",
       "about": "À propos",
@@ -567,10 +575,12 @@
   },
   "discover": {
     "guides": {
-      "desc": "Des experts partagent des conseils pratiques pour voyager facilement en Chine"
+      "desc": "Des experts partagent des conseils pratiques pour voyager facilement en Chine",
+      "title": "Des experts partagent des conseils pratiques pour voyager facilement en Chine"
     },
     "pocket": {
-      "desc": "Maîtrisez les essentiels du voyage en Chine en 5 minutes. Incontournable pour les premiers visiteurs"
+      "desc": "Maîtrisez les essentiels du voyage en Chine en 5 minutes. Incontournable pour les premiers visiteurs",
+      "title": "Maîtrisez les essentiels du voyage en Chine en 5 minutes. Incontournable pour les premiers visiteurs"
     },
     "hotCities": "Villes populaires",
     "moreCities": "Plus de villes",
@@ -615,5 +625,8 @@
       "subtitle": "Nous nous engageons à protéger vos informations personnelles et votre vie privée"
     },
     "lastUpdated": "Dernière mise à jour : 26 avril 2025"
+  },
+  "seo": {
+    "suffix": "Voyage en Chine - Votre guide de voyage ultime en Chine"
   }
 }

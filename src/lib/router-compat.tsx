@@ -1,9 +1,8 @@
 "use client";
 
 import NextLink from "next/link";
-import { usePathname, useRouter as useNextRouter, useParams as useNextParams } from "next/navigation";
+import { usePathname, useRouter, useParams as useNextParams } from "next/navigation";
 import React, { useMemo } from "react";
-import { useRouter as useNextIntlRouter, Link as NextIntlLink, usePathname as useNextIntlPathname } from '@/i18n/navigation';
 
 const LANG_PREFIXES = ['cn', 'en', 'ja', 'ko', 'ru', 'fr', 'es', 'de', 'tw', 'it'];
 
@@ -15,8 +14,8 @@ function useLangPrefix(): string {
   return LANG_PREFIXES.includes(first) ? first : 'en';
 }
 
-// Compatibility Link: uses next-intl Link for automatic locale handling
-// Falls back to NextLink for external links
+// Compatibility Link: maps react-router-dom's `to` prop to Next.js `href`
+// Automatically prepends /{lang}/ prefix if the `to` path doesn't already have one
 export const Link = React.forwardRef<HTMLAnchorElement, any>(function Link(
   { to, href, replace: replaceProp, ...rest },
   ref
@@ -26,7 +25,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, any>(function Link(
   
   const targetHref = useMemo(() => {
     if (!rawTarget) return rawTarget;
-    // External links, anchors, or mailto - pass through
+    // External links, anchors, or already has lang prefix - pass through
     if (rawTarget.startsWith('http') || rawTarget.startsWith('#') || rawTarget.startsWith('mailto:')) {
       return rawTarget;
     }
@@ -38,11 +37,6 @@ export const Link = React.forwardRef<HTMLAnchorElement, any>(function Link(
     // Prepend lang prefix
     return `/${langPrefix}${rawTarget.startsWith('/') ? rawTarget : '/' + rawTarget}`;
   }, [rawTarget, langPrefix]);
-
-  // For external links, use regular NextLink
-  if (rawTarget && (rawTarget.startsWith('http') || rawTarget.startsWith('mailto:'))) {
-    return <a ref={ref} href={rawTarget} {...rest} />;
-  }
 
   return <NextLink ref={ref} href={targetHref} {...rest} />;
 });
@@ -61,7 +55,7 @@ export const useLocation = () => {
 };
 
 export const useNavigate = () => {
-  const router = useNextRouter();
+  const router = useRouter();
   const langPrefix = useLangPrefix();
   
   return useMemo(() => {
@@ -88,7 +82,7 @@ export const useParams = <T extends Record<string, string | string[]> = Record<s
 
 // We will also need a special Navigate component
 export const Navigate = ({ to, replace }: { to: string, replace?: boolean }) => {
-  const router = useNextRouter();
+  const router = useRouter();
   const langPrefix = useLangPrefix();
   React.useEffect(() => {
     let finalTo = to;

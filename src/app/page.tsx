@@ -1,24 +1,41 @@
-import { redirect } from 'next/navigation';
-import { headers } from 'next/headers';
+"use client";
 
-function detectBrowserLanguage(acceptLanguage: string): string {
-  if (!acceptLanguage) return 'en';
-  const lang = acceptLanguage.toLowerCase();
-  if (lang.includes('zh-tw') || lang.includes('zh-hant') || lang.includes('zh-hk')) return 'tw';
-  if (lang.includes('zh')) return 'cn';
-  if (lang.startsWith('ja')) return 'ja';
-  if (lang.startsWith('ko')) return 'ko';
-  if (lang.startsWith('ru')) return 'ru';
-  if (lang.startsWith('fr')) return 'fr';
-  if (lang.startsWith('es')) return 'es';
-  if (lang.startsWith('de')) return 'de';
-  if (lang.startsWith('it')) return 'it';
-  return 'en';
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useLanguage, LanguageProvider } from "@/context/LanguageContext";
+
+function RootPageInner() {
+  const router = useRouter();
+  const { language } = useLanguage();
+
+  useEffect(() => {
+    const langToPrefix: Record<string, string> = {
+      zh: 'cn',
+      tw: 'tw',
+      en: 'en',
+      ja: 'ja',
+      ko: 'ko',
+      ru: 'ru',
+      fr: 'fr',
+      es: 'es',
+      de: 'de',
+      it: 'it'
+    };
+    const prefix = langToPrefix[language] || 'en';
+    router.replace(`/${prefix}`);
+  }, [language, router]);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-[#f7f7f7]">
+      <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  );
 }
 
-export default async function RootPage() {
-  const headersList = await headers();
-  const acceptLanguage = headersList.get('accept-language') || '';
-  const lang = detectBrowserLanguage(acceptLanguage);
-  redirect(`/${lang}`);
+export default function RootPage() {
+  return (
+    <LanguageProvider>
+      <RootPageInner />
+    </LanguageProvider>
+  );
 }

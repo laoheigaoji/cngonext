@@ -14,6 +14,23 @@ const iconMap: Record<string, React.ElementType> = {
   Plane, TrainFront, BusFront, Car, Bike, Train, Ship
 };
 
+// Convert video URL to embed URL for iframe
+function getEmbedUrl(url: string): string {
+  if (!url) return '';
+  // YouTube: https://www.youtube.com/watch?v=xxx or https://youtu.be/xxx
+  const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+  if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1`;
+  // Bilibili: https://www.bilibili.com/video/BVxxx
+  const biliMatch = url.match(/bilibili\.com\/video\/(BV[a-zA-Z0-9]+)/);
+  if (biliMatch) return `https://player.bilibili.com/player.html?bvid=${biliMatch[1]}&autoplay=1`;
+  // Already an embed URL
+  if (url.includes('youtube.com/embed/') || url.includes('player.bilibili.com')) {
+    return url + (url.includes('?') ? '&' : '?') + 'autoplay=1';
+  }
+  // Return as-is for other URLs
+  return url;
+}
+
 export default function CityDetail({ initialData }: { initialData?: any }) {
   const { id } = useParams<{ id: string }>();
   const { language, t } = useLanguage();
@@ -22,6 +39,7 @@ export default function CityDetail({ initialData }: { initialData?: any }) {
   const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState<string | null>(null);
   const [voted, setVoted] = useState<Record<string, boolean>>({});
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   useEffect(() => {
     // Check local storage for previous votes
@@ -375,11 +393,25 @@ export default function CityDetail({ initialData }: { initialData?: any }) {
                 </div>
               </div>
             </div>
+
+            {/* Video Card - only show if videoUrl exists */}
+            {city.videoUrl && (
+              <div className="col-span-1 border border-white/10 bg-slate-900/60 backdrop-blur-md rounded-2xl overflow-hidden text-white shadow-2xl cursor-pointer group" onClick={() => setShowVideoModal(true)}>
+                <div className="relative aspect-video bg-black/40 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#1b887a]/20 to-purple-900/20" />
+                  <div className="relative w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300">
+                    <svg className="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                  <div className="absolute bottom-3 left-4 right-4 flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                    <span className="text-xs text-white/70 font-medium">{isEn ? 'Watch City Video' : '观看城市视频'}</span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
-      
-      {/* Best Travel Time & History Section */}
       <div className="py-16 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
@@ -625,6 +657,32 @@ export default function CityDetail({ initialData }: { initialData?: any }) {
           </div>
         </div>
       </div>
+
+      {/* Video Modal - full screen no border */}
+      {showVideoModal && city.videoUrl && (
+        <div 
+          className="fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center" 
+          onClick={() => setShowVideoModal(false)}
+        >
+          <div className="relative w-full max-w-5xl mx-4" onClick={e => e.stopPropagation()}>
+            <button 
+              onClick={() => setShowVideoModal(false)}
+              className="absolute -top-12 right-0 text-white/70 hover:text-white transition-colors flex items-center gap-2 text-sm"
+            >
+              <span>{isEn ? 'Close' : '关闭'}</span>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <div className="relative w-full overflow-hidden rounded-2xl" style={{ paddingBottom: '56.25%' }}>
+              <iframe 
+                src={getEmbedUrl(city.videoUrl)} 
+                className="absolute inset-0 w-full h-full" 
+                allowFullScreen 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

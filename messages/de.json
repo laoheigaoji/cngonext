@@ -41,16 +41,20 @@
     },
     "stat": {
       "stay": {
-        "desc": "Maximale Aufenthaltsdauer"
+        "desc": "Maximale Aufenthaltsdauer",
+        "title": "240h"
       },
       "ports": {
-        "desc": "Einhäfen"
+        "desc": "Einhäfen",
+        "title": "60+"
       },
       "countries": {
-        "desc": "Geöffnete Länder"
+        "desc": "Geöffnete Länder",
+        "title": "54 Länder"
       },
       "provinces": {
-        "desc": "GeöffneteProvinzen"
+        "desc": "GeöffneteProvinzen",
+        "title": "24"
       },
       "stayName": "240h",
       "portsName": "60+",
@@ -188,12 +192,13 @@
           "desc": "Standardmäßige chinesische Aussprache für einfaches Bestellen.",
           "title": "Sprachassistent"
         }
-      }
+      },
+      "title": "Laden Sie ein Foto hoch, um Übersetzung, Zutaten und Preise zu erhalten - einfach bestellen"
     },
     "name": {
       "desc": "KI zur Auswahl chinesischer Namen für Karriere, Freunde, Reisen oder Leben in China",
       "male": "Mann",
-      "title": "Chinesischer Namensgenerator",
+      "title": "KI zur Auswahl chinesischer Namen für Karriere, Freunde, Reisen oder Leben in China",
       "button": "Meinen chinesischen Namen generieren",
       "faq": {
         "q1": "Ist das nur eine direkte Übersetzung meines Namens?",
@@ -266,7 +271,7 @@
     },
     "pinyin": {
       "desc": "Konvertieren Sie beliebige chinesische Sätze in Standard-Pinyin mit intelligenter Segmentierung und Strichfolgvisulisierung",
-      "title": "Pinyin-Segmentierungswerkzeug",
+      "title": "Konvertieren Sie beliebige chinesische Sätze in Standard-Pinyin mit intelligenter Segmentierung und Strichfolgvisulisierung",
       "button": "Analysieren",
       "result": "Analyseergebnis:",
       "inputPlaceholder": "Geben Sie einen chinesischen Satz ein, um die Analyse zu starten..."
@@ -288,10 +293,12 @@
       "faq2": {
         "desc": "Die chinesische Kultur kennt 12 Sternzeichen: Ratte, Ochse, Tiger, Hase, Drache, Schlange, Pferd, Ziege, Affe, Hahn, Hund und Schwein.",
         "title": "Die 12 chinesischen Sternzeichen im Detail"
-      }
+      },
+      "title": "Berechnen Sie Ihr chinesisches Sternzeichen nach Ihrem Geburtsdatum und entdecken Sie dessen kulturelle Bedeutung."
     },
     "counter": {
-      "desc": "Zählen Sie präzise chinesische Zeichen, Englisch, Zahlen, Satzzeichen, Zeilen und Gesamt"
+      "desc": "Zählen Sie präzise chinesische Zeichen, Englisch, Zahlen, Satzzeichen, Zeilen und Gesamt",
+      "title": "Zählen Sie präzise chinesische Zeichen, Englisch, Zahlen, Satzzeichen, Zeilen und Gesamt"
     },
     "char": {
       "zh": "Chinesisch",
@@ -389,7 +396,8 @@
       "visa": {
         "all": "Vollständiger Leitfaden zur Visumbefreiung",
         "nav": "Navigationsinformationen",
-        "dest": "Reiseziele entdecken"
+        "dest": "Reiseziele entdecken",
+        "title": "Visum & Reisen"
       },
       "lang": "Sprache",
       "about": "Über uns",
@@ -565,10 +573,12 @@
   },
   "discover": {
     "guides": {
-      "desc": "Erfahrene Reisende teilen praktische Tipps für eine einfache China-Reise"
+      "desc": "Erfahrene Reisende teilen praktische Tipps für eine einfache China-Reise",
+      "title": "Erfahrene Reisende teilen praktische Tipps für eine einfache China-Reise"
     },
     "pocket": {
-      "desc": "Meistern Sie das Wesentliche einer China-Reise in 5 Minuten. Unverzichtbar für Erstbesucher"
+      "desc": "Meistern Sie das Wesentliche einer China-Reise in 5 Minuten. Unverzichtbar für Erstbesucher",
+      "title": "Meistern Sie das Wesentliche einer China-Reise in 5 Minuten. Unverzichtbar für Erstbesucher"
     },
     "hotCities": "Beliebte Städte",
     "moreCities": "Mehr Städte",
@@ -613,5 +623,8 @@
       "subtitle": "Wir verpflichten uns, Ihre persönlichen Daten und Privatsphäre zu schützen"
     },
     "lastUpdated": "Letzte Aktualisierung: 26. April 2025"
+  },
+  "seo": {
+    "suffix": "Reise nach China - Ihr ultimativer China-Reiseführer"
   }
 }

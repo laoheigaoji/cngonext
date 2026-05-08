@@ -806,7 +806,7 @@ export default function Admin() {
         'tags', 'paragraphs', 'enParagraphs', 'stats', 'attractions',
         'worldheritage', 'intangibleheritage', 'history', 'food',
         'besttraveltime', 'bestTravelTime', 'transportation', 'info',
-        'worldHeritage', 'intangibleHeritage',
+        'worldHeritage', 'intangibleHeritage', 'videoUrl',
       ];
       
       const submitData: Record<string, any> = {

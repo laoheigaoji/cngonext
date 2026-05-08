@@ -32,16 +32,20 @@
     },
     "stat": {
       "stay": {
-        "desc": "Max Stay"
+        "desc": "Max Stay",
+        "title": "240h"
       },
       "ports": {
-        "desc": "Entry Ports"
+        "desc": "Entry Ports",
+        "title": "60+"
       },
       "countries": {
-        "desc": "Open Countries"
+        "desc": "Open Countries",
+        "title": "54 Countries"
       },
       "provinces": {
-        "desc": "Open Provinces"
+        "desc": "Open Provinces",
+        "title": "24"
       },
       "stayName": "240h",
       "portsName": "60+",
@@ -239,12 +243,13 @@
           "desc": "Standard Chinese pronunciation for easy ordering.",
           "title": "Voice Assistant"
         }
-      }
+      },
+      "title": "Upload photos to get translations, ingredients, and prices for easy ordering"
     },
     "name": {
       "desc": "AI-powered Chinese name generator for career, travel, or living in China",
       "male": "Male",
-      "title": "Chinese Name Generator",
+      "title": "AI-powered Chinese name generator for career, travel, or living in China",
       "gender": "Gender",
       "female": "Female",
       "button": "Generate My Chinese Name",
@@ -317,7 +322,7 @@
     },
     "pinyin": {
       "desc": "Convert Chinese to Pinyin, smart segmentation, and stroke order animation",
-      "title": "Pinyin Segmentation",
+      "title": "Convert Chinese to Pinyin, smart segmentation, and stroke order animation",
       "button": "Analyze",
       "result": "Analysis Result:",
       "inputPlaceholder": "Enter Chinese sentence to start analyzing..."
@@ -339,10 +344,12 @@
       "faq2": {
         "desc": "There are 12 signs: Rat, Ox, Tiger, Rabbit, Dragon, Snake, Horse, Goat, Monkey, Rooster, Dog, and Pig.",
         "title": "Twelve Zodiac Signs"
-      }
+      },
+      "title": "Calculate your Chinese zodiac sign and learn its cultural meaning."
     },
     "counter": {
-      "desc": "Accurate stats for Chinese, English, numbers, and symbols"
+      "desc": "Accurate stats for Chinese, English, numbers, and symbols",
+      "title": "Accurate stats for Chinese, English, numbers, and symbols"
     },
     "char": {
       "zh": "Chinese",
@@ -440,7 +447,8 @@
       "visa": {
         "all": "Visa-Free Guide",
         "nav": "Navigation Info",
-        "dest": "Discover Cities"
+        "dest": "Discover Cities",
+        "title": "Visa & Travel"
       },
       "lang": "Language",
       "about": "About Us",
@@ -553,10 +561,12 @@
   },
   "discover": {
     "guides": {
-      "desc": "Practical tips from experts to help you explore China easily"
+      "desc": "Practical tips from experts to help you explore China easily",
+      "title": "Practical tips from experts to help you explore China easily"
     },
     "pocket": {
-      "desc": "Master China travel in 5 mins. For beginners, a must-see for your first trip"
+      "desc": "Master China travel in 5 mins. For beginners, a must-see for your first trip",
+      "title": "Master China travel in 5 mins. For beginners, a must-see for your first trip"
     },
     "hotCities": "Popular Cities",
     "moreCities": "More Cities",
@@ -600,5 +610,8 @@
       "subtitle": "We are committed to protecting your personal information and privacy."
     },
     "lastUpdated": "Last updated: April 26, 2025"
+  },
+  "seo": {
+    "suffix": "Travel China Go - Your Ultimate China Travel Guide"
   }
 }

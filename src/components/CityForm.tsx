@@ -43,7 +43,8 @@ export default function CityForm({ city, onClose, onSave }: CityFormProps) {
       history: [],
       attractions: [],
       transportation: [],
-      food: []
+      food: [],
+      videoUrl: ''
     };
     if (!city) return defaults;
     return {
@@ -681,6 +682,15 @@ export default function CityForm({ city, onClose, onSave }: CityFormProps) {
                  {uploading ? <Loader2 className="animate-spin" /> : <ImageIcon />}
                </button>
                <input type="file" ref={listCoverInputRef} onChange={handleListCoverUpload} className="hidden" accept="image/*" />
+            </div>
+            <div>
+              <input 
+                value={formData.videoUrl || ''} 
+                onChange={e => updateFormData('videoUrl', e.target.value)} 
+                placeholder="城市视频链接 (如 https://www.bilibili.com/video/... 或 YouTube 链接，留空则不显示)" 
+                className="w-full p-2 border rounded" 
+              />
+              <p className="text-xs text-gray-400 mt-1">支持 Bilibili、YouTube 等视频链接，留空则前端不显示视频播放器</p>
             </div>
           </div>
         );

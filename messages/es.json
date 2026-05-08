@@ -41,16 +41,20 @@
     },
     "stat": {
       "stay": {
-        "desc": "Duración máxima"
+        "desc": "Duración máxima",
+        "title": "240h"
       },
       "ports": {
-        "desc": "Puertos de entrada"
+        "desc": "Puertos de entrada",
+        "title": "60+"
       },
       "countries": {
-        "desc": "Países abiertos"
+        "desc": "Países abiertos",
+        "title": "54 países"
       },
       "provinces": {
-        "desc": "Provincias abiertas"
+        "desc": "Provincias abiertas",
+        "title": "24"
       },
       "stayName": "240h",
       "portsName": "60+",
@@ -188,12 +192,13 @@
           "desc": "Pronunciación china estándar para ordenar fácilmente.",
           "title": "Asistente de voz"
         }
-      }
+      },
+      "title": "Sube una foto para obtener traducción, ingredientes y precios - ordena fácilmente"
     },
     "name": {
       "desc": "IA para elegir nombres chinos adecuados para tu carrera, amigos, viajes o vida en China",
       "male": "Hombre",
-      "title": "Generador de nombres chinos",
+      "title": "IA para elegir nombres chinos adecuados para tu carrera, amigos, viajes o vida en China",
       "button": "Generar mi nombre chino",
       "faq": {
         "q1": "¿Es esto solo una traducción directa de mi nombre?",
@@ -266,7 +271,7 @@
     },
     "pinyin": {
       "desc": "Convierte cualquier frase china a pinyin estándar con segmentación inteligente y animación del orden de trazos",
-      "title": "Herramienta de segmentación Pinyin",
+      "title": "Convierte cualquier frase china a pinyin estándar con segmentación inteligente y animación del orden de trazos",
       "button": "Analizar",
       "result": "Resultado del análisis:",
       "inputPlaceholder": "Ingresa una frase china para comenzar el análisis..."
@@ -288,10 +293,12 @@
       "faq2": {
         "desc": "La cultura china tiene 12 signos zodiacales: Rata, Buey, Tigre, Conejo, Dragón, Serpiente, Caballo, Cabra, Mono, Gallo, Perro y Cerdo.",
         "title": "Los 12 signos zodiacales detallados"
-      }
+      },
+      "title": "Calcula tu signo zodiacal chino según tu fecha de nacimiento y descubre su significado cultural."
     },
     "counter": {
-      "desc": "Cuenta con precisión caracteres chinos, inglés, números, puntuación, líneas y total"
+      "desc": "Cuenta con precisión caracteres chinos, inglés, números, puntuación, líneas y total",
+      "title": "Cuenta con precisión caracteres chinos, inglés, números, puntuación, líneas y total"
     },
     "char": {
       "zh": "Chino",
@@ -389,7 +396,8 @@
       "visa": {
         "all": "Guía completa de exención de visa",
         "nav": "Información de navegación",
-        "dest": "Descubre destinos"
+        "dest": "Descubre destinos",
+        "title": "Visa y viajes"
       },
       "lang": "Idioma",
       "about": "Acerca de",
@@ -565,10 +573,12 @@
   },
   "discover": {
     "guides": {
-      "desc": "Viajeros expertos comparten consejos prácticos para viajar fácilmente por China"
+      "desc": "Viajeros expertos comparten consejos prácticos para viajar fácilmente por China",
+      "title": "Viajeros expertos comparten consejos prácticos para viajar fácilmente por China"
     },
     "pocket": {
-      "desc": "Domina lo esencial de viajar a China en 5 minutos. Imprescindible para primeros visitantes"
+      "desc": "Domina lo esencial de viajar a China en 5 minutos. Imprescindible para primeros visitantes",
+      "title": "Domina lo esencial de viajar a China en 5 minutos. Imprescindible para primeros visitantes"
     },
     "hotCities": "Ciudades populares",
     "moreCities": "Más ciudades",
@@ -613,5 +623,8 @@
       "subtitle": "Nos comprometemos a proteger tu información personal y tu privacidad"
     },
     "lastUpdated": "Última actualización: 26 de abril de 2025"
+  },
+  "seo": {
+    "suffix": "Viaja a China - Tu guía definitiva de viaje a China"
   }
 }
