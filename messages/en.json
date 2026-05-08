@@ -1,0 +1,604 @@
+{
+  "nav": {
+    "home": "Home",
+    "visa": "Visa",
+    "lang": {
+      "code": "EN"
+    },
+    "tools": "Tools",
+    "slogan": "Travel China, Let’s Go",
+    "catalog": "Catalog",
+    "discover": "Discover",
+    "langName": "English"
+  },
+  "visa": {
+    "fee": "Fee Standards",
+    "form": "Fill Application Form",
+    "card": "Arrival Card Guide",
+    "types": "Visa Types",
+    "photo": "Photo Requirements",
+    "menu": {
+      "fee": "Fee Standards",
+      "form": "Application Form",
+      "types": "Visa Types",
+      "photo": "Photo Req",
+      "download": "Downloads",
+      "entryCard": "Entry Card Guide"
+    },
+    "mega": {
+      "desc": "Travel to China without a visa! Learn about China\\'s 240-hour transit visa-free policy, unilateral visa-free countries, and mutual visa exemption countries.",
+      "view": "View Now",
+      "title": "Visa-Free Entry to China"
+    },
+    "stat": {
+      "stay": {
+        "desc": "Max Stay"
+      },
+      "ports": {
+        "desc": "Entry Ports"
+      },
+      "countries": {
+        "desc": "Open Countries"
+      },
+      "provinces": {
+        "desc": "Open Provinces"
+      },
+      "stayName": "240h",
+      "portsName": "60+",
+      "countriesName": "54 Countries",
+      "provincesName": "24"
+    },
+    "faq": {
+      "title": "FAQ"
+    },
+    "hero": {
+      "title": "China",
+      "legendFull": "Whole Prov/City Open",
+      "legendTitle": "240h Transit Visa-Free Cities",
+      "legendPartial": "Partial Areas Open"
+    },
+    "mutual": {
+      "desc": "Citizens of both countries holding ordinary passports can usually travel to each other\\'s country for short term without prior visa application.",
+      "title": "List of Countries with Mutual Visa-Free Agreements",
+      "tableDays": "Duration",
+      "tableCountry": "Country"
+    },
+    "sidebar": {
+      "ask": "Click to Ask",
+      "notice": "Important Notices",
+      "hotline": "Service Hotline",
+      "niaTitle": "National Immigration Administration",
+      "portTitle": "Port Choice: 60 Designated Entry Points",
+      "portDesc1": "Eligible: Citizens of 54 countries (e.g., US, UK, Japan)",
+      "portDesc2": "Requirement: Only available at 60 designated ports like Beijing, Shanghai, Guangzhou.",
+      "areaTitle": "Stay Area: 24 Provinces Range",
+      "areaDesc1": "Allowed: Travel or activities within 24 provinces/municipalities including Beijing, Shanghai, Sichuan.",
+      "areaDesc2": "Prohibited: Staying outside the prescribed area.",
+      "ruleTitle": "Compliance: Strict Adherence to Time & Registration",
+      "ruleDesc1": "Time: Max stay 240h (starting from 00:00 the day after entry)",
+      "ruleDesc2": "Overstay: Must apply for residence permit in advance (only for emergencies/force majeure).",
+      "ruleDesc3": "Registration: Register accommodation within 24h (hotel or police station).",
+      "ruleDesc4": "Restricted: Only for short-term tourism/business; prohibited from working/studying.",
+      "disclaimer": "Disclaimer: Information provided is for reference only. For specific policies, please refer to the official NIA website. Policies subject to change.",
+      "interaction": "Interaction",
+      "materialTitle": "Preparation: Connecting Ticket + Valid Passport",
+      "materialDesc1": "Required: Passport validity > 3 months",
+      "materialDesc2": "Confirmed connecting ticket (flying to a third country within 240h, cannot return to origin)",
+      "materialDesc3": "Process: Submit documents at border inspection on arrival; entry granted after approval."
+    },
+    "section": {
+      "desc": "China has expanded the 144-hour and newly introduced 240-hour transit visa-free policies to multiple countries. Eligible foreign travelers and business people can enter through designated ports and stay in designated areas for up to 6–10 days without prior visa application.",
+      "title": "About the 240-Hour Transit Visa-Free Policy"
+    },
+    "transit": {
+      "asia": "Asia (6 countries):",
+      "title": "240-Hour Transit Visa-Free",
+      "europe": "Europe (44 countries):",
+      "oceania": "Oceania (2 countries):",
+      "americas": "Americas (6 countries):",
+      "tableCity": "City",
+      "tablePort": "Entry Port Name",
+      "tableArea": "Stay/Travel Area",
+      "portsTitle": "Applicable Ports:",
+      "countriesTitle": "Eligible Countries (54):"
+    },
+    "unilateral": {
+      "desc": "Citizens of the following countries holding ordinary passports can enter China without a visa for tourism, business, and visiting relatives.",
+      "title": "List of Countries with Unilateral Visa-Free Entry",
+      "tableDays": "Duration",
+      "tableCountry": "Country"
+    }
+  },
+  "hero": {
+    "desc": "Providing visa policies, Chinese culture, and AI tools to help you explore China with ease",
+    "dest": "Destination",
+    "title": "Discover the Real China",
+    "start": "Search",
+    "aiName": "AI Name Master",
+    "subtitle": "One-stop service from visa guides to travel tips for your China trip",
+    "ultimate": "Your Ultimate Guide for Traveling to China",
+    "searchPlaceholder": "Enter city you want to visit"
+  },
+  "city": {
+    "xian": "Xi\\'an",
+    "xiamen": "Xiamen",
+    "beijing": "Beijing",
+    "chengdu": "Chengdu",
+    "shanghai": "Shanghai",
+    "shenzhen": "Shenzhen",
+    "hangzhou": "Hangzhou",
+    "changsha": "Changsha",
+    "guangzhou": "Guangzhou",
+    "chongqing": "Chongqing",
+    "food": {
+      "title": "Food & Snacks",
+      "subtitle": "Taste the most authentic and popular local specialties",
+      "ingredients": "Ingredients"
+    },
+    "weather": {
+      "area": "Area",
+      "timeTitle": "Time",
+      "population": "Population"
+    },
+    "tags": {
+      "visaFree": "240h Visa-Free"
+    },
+    "history": {
+      "title": "History & Culture"
+    },
+    "explore": {
+      "title": "Explore Deeper",
+      "tools": "Internet Usage & Online Tools",
+      "travel": "Travel Tips",
+      "hotels": "Hotels & Accommodation"
+    },
+    "bestTime": {
+      "title": "Best Travel Time",
+      "descPrefix": "The best time to visit ",
+      "descSuffix": " is "
+    },
+    "transport": {
+      "title": "Transportation",
+      "subtitle": "Must-know transportation for exploring the city"
+    },
+    "attractions": {
+      "time": "Recommended Time",
+      "title": "Attractions",
+      "ticket": "Ticket",
+      "season": "Best Season",
+      "subtitle": "Recommended places to visit"
+    },
+    "stats": {
+      "wantToVisit": "Want to Visit",
+      "recommended": "Recommended"
+    },
+    "heritage": {
+      "world": {
+        "title": "World Heritage",
+        "subtitle": "UNESCO World Heritage Sites"
+      },
+      "intangible": {
+        "title": "Intangible Heritage",
+        "subtitle": "Explore rich intangible cultural heritage and traditional crafts"
+      }
+    }
+  },
+  "tools": {
+    "menu": {
+      "desc": "Upload photos to get translations, ingredients, and prices for easy ordering",
+      "faq": {
+        "q1": "How does ReadMenuAI generate dish images?",
+        "a1": "Our AI system analyzes the text description from the menu, cross-references it with a vast culinary database, and uses generative AI to match or create high-fidelity dish images for you.",
+        "q2": "Can I use it for non-Chinese menus?",
+        "a2": "Currently, we focus primarily on Chinese-to-English translation, but our system supports character recognition for multiple major languages.",
+        "q3": "Is the currency conversion real-time?",
+        "a3": "Yes, we integrate with a real-time exchange rate API to provide accurate conversion between CNY and major foreign currencies based on latest rates.",
+        "q4": "Can I save my menu recognition records?",
+        "a4": "Registered users can view their full recognition history, including translations and generated images, in their personal dashboard.",
+        "q5": "Why are some dishes not recognized correctly?",
+        "a5": "Artistic fonts or messy handwriting can reduce accuracy. For best results, ensure good lighting and keep the menu flat when capturing.",
+        "q6": "How long does it take to process a menu?",
+        "a6": "Typically, the entire process of scanning, translating, and image generation takes only 10-15 seconds.",
+        "q7": "Do I need an internet connection?",
+        "a7": "Yes, the AI processing and image generation run in the cloud, so a stable internet connection is required.",
+        "q8": "How is ReadMenuAI different from standard translators?",
+        "a8": "We go beyond text translation by providing a visual experience, allowing you to see what the dish looks like alongside currency conversions."
+      },
+      "hero": {
+        "desc": "One-click menu scanning with DeepSeek V4 level precision. Get bilingual translations, visual food matches, and currency conversion.",
+        "title": "Transform Chinese Menus into Images"
+      },
+      "label": {
+        "raw": "Raw Recognition Area",
+        "refined": "DeepSeek Optimized Results"
+      },
+      "placeholder": "Please upload a menu first",
+      "upload": {
+        "title": "Upload Menu Image",
+        "button": "Select Image",
+        "subtitle": "Precise Dish Extraction & Instant Translation"
+      },
+      "status": {
+        "reset": "Reset & Retry",
+        "analyzing": "DeepSeek is performing deep analysis..."
+      },
+      "feature": {
+        "1": {
+          "desc": "AI model optimized for handwritten and artistic fonts.",
+          "title": "Deep Recognition"
+        },
+        "2": {
+          "desc": "See the dish visually before you order.",
+          "title": "Visual Generation"
+        },
+        "3": {
+          "desc": "Real-time FX conversion for better budgeting.",
+          "title": "Currency Conversion"
+        },
+        "4": {
+          "desc": "Standard Chinese pronunciation for easy ordering.",
+          "title": "Voice Assistant"
+        }
+      }
+    },
+    "name": {
+      "desc": "AI-powered Chinese name generator for career, travel, or living in China",
+      "male": "Male",
+      "title": "Chinese Name Generator",
+      "gender": "Gender",
+      "female": "Female",
+      "button": "Generate My Chinese Name",
+      "faq": {
+        "q1": "Is this just a direct translation of my name?",
+        "a1": "No, our AI model generates names that truly suit you based on your personal info, profession, personality, and preferences.",
+        "q2": "Can I use this name on official documents?",
+        "a2": "Yes, but we recommend double-checking with Chinese colleagues or friends before official use.",
+        "q3": "What is included in the name card?",
+        "a3": "You will receive Chinese characters, pinyin (pronunciation), detailed meaning of each character, and why it suits you. It will also include your zodiac, five elements, lucky numbers, etc.",
+        "q4": "Is this tool free?",
+        "a4": "Yes, this service is currently free.",
+        "q5": "Are one or two-character names better?",
+        "a5": "It depends on your surname and personal preference; two-character names are mainstream nowadays."
+      },
+      "subtitle": "Use deep inference AI model to generate multiple Chinese names suitable for your career development, travel, and life in China.",
+      "whyTitle": "Why You Need a True Chinese Name",
+      "howTitle": "How it works",
+      "faqTitle": "FAQ",
+      "formTitle": "Start Generating Your Unique Chinese Name",
+      "label": {
+        "dob": "Date of Birth",
+        "name": "Your Full Name",
+        "info": "Other Info (Optional)",
+        "gender": "Gender",
+        "genderMale": "Male",
+        "genderSelect": "Select",
+        "genderFemale": "Female",
+        "namePlaceholder": "e.g. John Doe",
+        "infoPlaceholder": "Describe your education, profession, personality, hobbies, or name preferences..."
+      },
+      "whyBasic1": "Harmonious sound, easy to pronounce",
+      "whyBasic2": "Meaningful, containing beautiful wishes",
+      "whyBasic3": "Harmonious surname-given name combination",
+      "caseTitle": "User Case Studies",
+      "moreTitle": "More Tools",
+      "inputLabel": "Name or Meaning",
+      "generating": "Generating...",
+      "whyBeyond1": "The name should connect with you",
+      "whyBeyond2": "Highlight your characteristics and preferences",
+      "whyBeyond3": "Make you more confident and professional in business and social settings",
+      "howSubtitle": "Our AI combines cultural wisdom and modern linguistics to create your identity.",
+      "articleMore": "More Articles →",
+      "articleDesc": "You can also learn about the culture, history, and methods of Chinese names, then choose a name you like.",
+      "formSubtitle": "Fill in the info and AI will create a name tailored for you",
+      "resultPrefix": "Your generated Chinese name is:",
+      "whyBasicDesc": "A good Chinese name is not just about looks; it must follow Chinese naming conventions.",
+      "howStep1Desc": "Enter your name and birth date, we use it to generate zodiac and five elements.",
+      "howStep2Desc": "You can also tell us your name preferences or profession, AI will think deeply to generate a name you want.",
+      "howStep3Desc": "The card will include your name, pinyin, zodiac, five elements, lucky numbers, etc., you can save or share.",
+      "caseSubtitle": "People from all over the world chose our custom Chinese names.",
+      "moreSubtitle": "You can also use the following tools to generate more interesting content.",
+      "articleTitle": "Recommended Chinese Traditional Culture Articles",
+      "buttonLoading": "Generating...",
+      "whyBasicTitle": "Basic Principles",
+      "whyBeyondDesc": "We want to give you an authentic Chinese name, not a generic transliteration.",
+      "structureDesc": "Chinese names consist of surname and given name, with 2-4 characters total. e.g. \\\"Zhang San\\\"",
+      "howStep1Title": "1. Enter Your Info",
+      "howStep2Title": "2. Define Your Identity",
+      "howStep3Title": "3. Generate Name Card",
+      "whyBeyondTitle": "Beyond Translation",
+      "structureTitle": "Structure of Chinese Names",
+      "articleMoreLink": "Read Article →",
+      "structure": {
+        "surname": "Surname (Family Name)",
+        "givenName": "Given Name (Personal Name)",
+        "surnameDesc": "Placed at the front, usually one character from traditional surnames, with over 500 surnames recorded.",
+        "givenNameDesc": "One or two characters chosen based on meaning, sound, and balance."
+      }
+    },
+    "pinyin": {
+      "desc": "Convert Chinese to Pinyin, smart segmentation, and stroke order animation",
+      "title": "Pinyin Segmentation",
+      "button": "Analyze",
+      "result": "Analysis Result:",
+      "inputPlaceholder": "Enter Chinese sentence to start analyzing..."
+    },
+    "zodiac": {
+      "day": "Birth Day",
+      "desc": "Calculate your Chinese zodiac sign and learn its cultural meaning.",
+      "year": "Birth Year",
+      "month": "Birth Month",
+      "search": "Check Your Zodiac Sign",
+      "button": "Check My Zodiac Sign",
+      "result": "Result: Born in {year}, your zodiac sign is: ",
+      "dayUnit": "",
+      "monthUnit": "",
+      "faq1": {
+        "desc": "The zodiac sign does not change on January 1st, but on the Chinese New Year (Lunar New Year).",
+        "title": "When does the zodiac year change?"
+      },
+      "faq2": {
+        "desc": "There are 12 signs: Rat, Ox, Tiger, Rabbit, Dragon, Snake, Horse, Goat, Monkey, Rooster, Dog, and Pig.",
+        "title": "Twelve Zodiac Signs"
+      }
+    },
+    "counter": {
+      "desc": "Accurate stats for Chinese, English, numbers, and symbols"
+    },
+    "char": {
+      "zh": "Chinese",
+      "en": "English",
+      "desc": "Paste text for quick character statistics.",
+      "punc": "Punctuation",
+      "title": "Character Counter",
+      "total": "Total",
+      "digits": "Digits",
+      "placeholder": "Paste or enter text to start counting..."
+    },
+    "hero": {
+      "title": "Travel Tools",
+      "subtitle": "Handy utilities to make your China trip easier"
+    },
+    "menuName": "Chinese Menu Scanner",
+    "nameName": "Chinese Name Master",
+    "pinyinName": "Pinyin & Segmentation",
+    "zodiacName": "Zodiac Calculator",
+    "counterName": "Character Counter"
+  },
+  "guide": {
+    "prev": "Previous",
+    "next": "Next",
+    "views": "views",
+    "author": "Author",
+    "cat": {
+      "all": "All",
+      "city": "City Guide",
+      "food": "Food Culture",
+      "tools": "Practical Tools",
+      "policy": "National Policy",
+      "payment": "Payment Methods",
+      "transport": "Transportation",
+      "tradition": "Tradition"
+    },
+    "helpful": "found helpful",
+    "updated": "Updated",
+    "readMore": "Read More",
+    "prevPost": "Previous",
+    "nextPost": "Next",
+    "recommend": "Recommended Guides",
+    "hero": {
+      "desc": "This toolkit is designed for foreigners visiting China for the first time, aiming to solve the most urgent and common \\\"pain points\\\" so you can quickly understand China and start a pleasant trip.",
+      "title": "China Travel Kit",
+      "subtitle": "Master China travel in 5 mins. For beginners, a must-see for your first trip"
+    },
+    "noArticles": "No articles found yet, we are working on it...",
+    "inCategory": "In ",
+    "backToList": "Back to List",
+    "toolbox": {
+      "net": "Mobile Network Options",
+      "desc": "Essential guide for internet connection and mobile payments",
+      "title": "Digital Survival Kit",
+      "vpn": {
+        "why": "Why do I need a VPN?",
+        "note": "You MUST download and install a VPN before entering China! It cannot be downloaded inside China.",
+        "important": "IMPORTANT"
+      },
+      "discover": "Discover More",
+      "lang": {
+        "desc": "High-frequency vocabulary and daily conversations",
+        "core": "Core Vocabulary",
+        "title": "Language Toolbox",
+        "phrases": "Scenario Dialogues"
+      },
+      "chars": {
+        "title": "Core Characters Recognition"
+      },
+      "payment": {
+        "setup": "Setup Steps",
+        "status": "China has entered a quasi-cashless society",
+        "manual": "Payment Manual",
+        "alipay": "First Pick: Alipay"
+      },
+      "culture": {
+        "title": "Cultural Compass"
+      }
+    },
+    "recommendCity": "Recommended Cities",
+    "articleNotFound": "Article Not Found"
+  },
+  "footer": {
+    "desc": "TripCNGo provides comprehensive guides and tools for your journey to China.",
+    "copy": "© 2026 tripcngo.com. All rights reserved.",
+    "about": "About Us",
+    "terms": "Terms of Service",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "brand": {
+      "desc": "tripcngo.com is a travel brand focused on reducing information gaps for travelers to China, enhancing the independent travel experience, and sharing Chinese culture with the world.",
+      "title": "tripcngo.com"
+    },
+    "links": {
+      "visa": {
+        "all": "Visa-Free Guide",
+        "nav": "Navigation Info",
+        "dest": "Discover Cities"
+      },
+      "lang": "Language",
+      "about": "About Us",
+      "terms": "Terms of Service",
+      "company": "Company",
+      "privacy": "Privacy Policy",
+      "feedback": "Feedback",
+      "partners": "Partners",
+      "visaName": "Visa Info"
+    }
+  },
+  "share": {
+    "button": "Share",
+    "modal": {
+      "copy": "Copy Link",
+      "title": "Share to",
+      "copied": "Link Copied!"
+    }
+  },
+  "zodiac": {
+    "title": "Chinese Zodiac Calculator",
+    "subtitle": "Check your Chinese zodiac sign by birthday, learn about its culture and travel inspiration."
+  },
+  "feedback": {
+    "name": {
+      "placeholder": "Enter your name"
+    },
+    "title": "Contact Us",
+    "email": {
+      "placeholder": "Enter your email"
+    },
+    "error": "Submission failed, please try again later.",
+    "submit": "Submit",
+    "message": {
+      "placeholder": "What is the biggest problem you face in China? Or give us suggestions, we will provide feedback and help sincerely."
+    },
+    "success": "Submitted successfully! We will reply as soon as possible.",
+    "subtitle": "Submit your suggestions for Wandering China or questions you wish to resolve, we will reply as soon as possible",
+    "nameName": "Name",
+    "emailName": "Email",
+    "messageName": "Message"
+  },
+  "apps": {
+    "ad": {
+      "label": "Ads"
+    },
+    "hero": {
+      "desc": "Google and Uber don\\'t work in China? No worries. This guide lists the 2026 essential apps favored by locals, covering mobile payments, transport, social media, and food delivery, helping you travel China like a pro.",
+      "title": "Must-Have Apps for China 2026",
+      "subtitle": "(v2.0)"
+    },
+    "menu": {
+      "sites": "Official Sites",
+      "hotels": "Hotel Booking",
+      "tiktok": "TikTok Creators",
+      "youtube": "YouTube Creators",
+      "hotline": "Service Hotlines",
+      "essential": "Essential Apps",
+      "transport": "Transportation"
+    }
+  },
+  "common": {
+    "cancel": "Cancel"
+  },
+  "home": {
+    "faq": {
+      "title": "FAQ",
+      "subtitle": "Questions about 144/240-hour transit visa-free policies"
+    },
+    "cities": {
+      "more": "More Cities",
+      "title": "Popular Chinese Cities"
+    },
+    "guides": {
+      "more": "More Stories",
+      "title": "Wandering Guides",
+      "helpful": "people found this helpful"
+    }
+  },
+  "about": {
+    "story": {
+      "p1": "The birth of tripcngo.com stems from our passion for China and obsession with the travel experience.",
+      "p2": "We believe travel should be spontaneous and full of surprises, not just checking in at popular spots.",
+      "p3": "With the 240-hour transit visa-free policy, more friends are visiting China. However, challenges like language, internet, and payments can be daunting.",
+      "p4": "So we created tripcngo.com to bridge the information gap, combining our travel expertise with AI technology.",
+      "p5": "From visa guides to smart helpers, we help you discover the real and beautiful China.",
+      "title": "Our Story"
+    },
+    "hero": {
+      "title": "Why Choose Us?"
+    },
+    "team": {
+      "title": "Our Team",
+      "subtitle": "tripcngo.com was created by these exceptional individuals"
+    },
+    "features": {
+      "ai": {
+        "desc": "Our AI assistant understands your needs, creating custom itineraries and guides for a worry-free trip.",
+        "title": "Smart AI Assistance"
+      },
+      "team": {
+        "desc": "We are a group of travel enthusiasts who understand the latest policies and off-the-beaten-path destinations.",
+        "title": "Local Professional Team"
+      },
+      "focus": {
+        "desc": "We serve free spirits who prefer independent travel, providing personalized and customized solutions.",
+        "title": "Focus on Independent Travel"
+      }
+    }
+  },
+  "discover": {
+    "guides": {
+      "desc": "Practical tips from experts to help you explore China easily"
+    },
+    "pocket": {
+      "desc": "Master China travel in 5 mins. For beginners, a must-see for your first trip"
+    },
+    "hotCities": "Popular Cities",
+    "moreCities": "More Cities",
+    "guidesName": "Travel Stories",
+    "pocketName": "China Travel Kit"
+  },
+  "cities": {
+    "intro": {
+      "p1": "The People\\'s Republic of China is one of the oldest countries in the world, with 5,000 years of civilization.",
+      "p2": "Located in East Asia, China was founded in 1949. It is one of the world\\'s most populous countries with 1.4 billion people and an area of 9.6 million sq km (3rd largest).",
+      "p3": "The terrain follows a three-step ladder from the high Qinghai-Tibet Plateau in the west to the low plains and coastline in the east. This fall creates diverse landscapes including deserts, plateaus, and basins.",
+      "p4": "China is divided into 23 provinces, 5 autonomous regions, 4 municipalities (Beijing, Shanghai, Tianjin, Chongqing), and 2 SARs (Hong Kong, Macau).",
+      "p5": "Unified multi-ethnic country with 56 ethnic groups. Han is the majority. Mandarin is the common language.",
+      "p6": "Chinese culture is profound and colorful. It holds a significant position in world culture. Traditional arts include poetry, opera, calligraphy, and painting.",
+      "title": "Intro to China"
+    },
+    "hero": {
+      "desc": "Explore the most popular cities in China. Discover what\\'s fun in Beijing, Shanghai, Guangzhou, and find top food and shopping recommendations.",
+      "title": "Popular Chinese Cities"
+    }
+  },
+  "terms": {
+    "hero": {
+      "title": "Terms of Service",
+      "subtitle": "By using our website, you agree to these terms."
+    }
+  },
+  "pay": {
+    "success": {
+      "title": "🎉 Payment Successful!",
+      "item2": "Do NOT clear your browser cache, or you will lose access.",
+      "item3": "Cross-device or cross-browser sync is currently not supported.",
+      "button": "Start Browsing",
+      "subtitle": "Content unlocked! Thank you for your support.",
+      "important": "IMPORTANT"
+    }
+  },
+  "privacy": {
+    "hero": {
+      "title": "Privacy Policy",
+      "subtitle": "We are committed to protecting your personal information and privacy."
+    },
+    "lastUpdated": "Last updated: April 26, 2025"
+  }
+}

@@ -1,48 +1,45 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from '@/lib/router-compat';
+import NextLink from 'next/link';
 import { Globe, ChevronDown, Menu, X, CheckSquare, Compass, PlayCircle, BookOpen, Shield, ScanLine, Type, Calculator, Languages, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useLanguage, Language } from '../context/LanguageContext';
+import { useTranslations } from 'next-intl';
+import { useRouter, usePathname } from '@/i18n/navigation';
+import { useLocale } from 'next-intl';
 
 export default function Navbar() {
-  const { language, setLanguage, t } = useLanguage();
+  const t = useTranslations();
+  const router = useRouter();
+  const pathname = usePathname();
+  const currentLocale = useLocale();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
   const [mobileExpandedMenu, setMobileExpandedMenu] = useState<string | null>(null);
   const [showLangBanner, setShowLangBanner] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const langToPrefix: Record<string, string> = {
-    zh: 'cn',
-    tw: 'tw',
-    en: 'en',
-    ja: 'ja',
-    ko: 'ko',
-    ru: 'ru',
-    fr: 'fr',
-    es: 'es',
-    de: 'de',
-    it: 'it'
-  };
-  const langPrefix = langToPrefix[language] || 'en';
 
   const languages = [
-    { code: 'zh', name: '简体中文', flag: 'https://pub-bfcc5034e6b14811955a8bed50650469.r2.dev/ing/%E4%B8%AD%E5%9B%BD%E5%9B%BD%E6%97%97.png' },
-    { code: 'en', name: 'English', flag: 'https://pub-bfcc5034e6b14811955a8bed50650469.r2.dev/ing/USA.png' },
-    { code: 'ja', name: '日本語', flag: 'https://pub-bfcc5034e6b14811955a8bed50650469.r2.dev/ing/%E6%97%A5%E6%9C%AC%E5%9B%BD%E6%97%97.png' },
-    { code: 'ko', name: '한국어', flag: 'https://pub-bfcc5034e6b14811955a8bed50650469.r2.dev/ing/%E9%9F%A9%E5%9B%BD%E5%9B%BD%E6%97%97.png' },
-    { code: 'ru', name: 'Русский', flag: 'https://static.tripcngo.com/%E4%BF%84%E7%BD%97%E6%96%AF%E5%9B%BD%E6%97%97.png' },
-    { code: 'fr', name: 'Français', flag: 'https://pub-bfcc5034e6b14811955a8bed50650469.r2.dev/ing/%E6%B3%95%E5%9B%BD%E5%9B%BD%E6%97%97.png' },
-    { code: 'es', name: 'Español', flag: 'https://static.tripcngo.com/%E8%A5%BF%E7%8F%AD%E7%89%99%E5%9B%BD%E6%97%97-%E6%96%B9.png' },
-    { code: 'de', name: 'Deutsch', flag: 'https://pub-bfcc5034e6b14811955a8bed50650469.r2.dev/ing/%E5%BE%B7%E5%9B%BD%E5%9B%BD%E6%97%97.png' },
-    { code: 'tw', name: '繁體中文', flag: 'https://pub-bfcc5034e6b14811955a8bed50650469.r2.dev/ing/%E7%B9%81%E4%BD%93%E4%B8%AD%E6%96%87.png' },
-    { code: 'it', name: 'Italiano', flag: 'https://static.tripcngo.com/%E6%84%8F%E5%A4%A7%E5%88%A9%E5%9B%BD%E6%97%97.png' }
+    { code: 'zh', locale: 'cn', name: '简体中文', flag: 'https://pub-bfcc5034e6b14811955a8bed50650469.r2.dev/ing/%E4%B8%AD%E5%9B%BD%E5%9B%BD%E6%97%97.png' },
+    { code: 'en', locale: 'en', name: 'English', flag: 'https://pub-bfcc5034e6b14811955a8bed50650469.r2.dev/ing/USA.png' },
+    { code: 'ja', locale: 'ja', name: '日本語', flag: 'https://pub-bfcc5034e6b14811955a8bed50650469.r2.dev/ing/%E6%97%A5%E6%9C%AC%E5%9B%BD%E6%97%97.png' },
+    { code: 'ko', locale: 'ko', name: '한국어', flag: 'https://pub-bfcc5034e6b14811955a8bed50650469.r2.dev/ing/%E9%9F%A9%E5%9B%BD%E5%9B%BD%E6%97%97.png' },
+    { code: 'ru', locale: 'ru', name: 'Русский', flag: 'https://static.tripcngo.com/%E4%BF%84%E7%BD%97%E6%96%AF%E5%9B%BD%E6%97%97.png' },
+    { code: 'fr', locale: 'fr', name: 'Français', flag: 'https://pub-bfcc5034e6b14811955a8bed50650469.r2.dev/ing/%E6%B3%95%E5%9B%BD%E5%9B%BD%E6%97%97.png' },
+    { code: 'es', locale: 'es', name: 'Español', flag: 'https://static.tripcngo.com/%E8%A5%BF%E7%8F%AD%E7%89%99%E5%9B%BD%E6%97%97-%E6%96%B9.png' },
+    { code: 'de', locale: 'de', name: 'Deutsch', flag: 'https://pub-bfcc5034e6b14811955a8bed50650469.r2.dev/ing/%E5%BE%B7%E5%9B%BD%E5%9B%BD%E6%97%97.png' },
+    { code: 'tw', locale: 'tw', name: '繁體中文', flag: 'https://pub-bfcc5034e6b14811955a8bed50650469.r2.dev/ing/%E7%B9%81%E4%BD%93%E4%B8%AD%E6%96%87.png' },
+    { code: 'it', locale: 'it', name: 'Italiano', flag: 'https://static.tripcngo.com/%E6%84%8F%E5%A4%A7%E5%88%A9%E5%9B%BD%E6%97%97.png' }
   ];
 
-  const [detectedLang, setDetectedLang] = useState<Language | null>(null);
+  // Map locale (URL prefix) to language code for display
+  const localeToCode: Record<string, string> = {
+    cn: 'zh', tw: 'tw', en: 'en', ja: 'ja', ko: 'ko',
+    ru: 'ru', fr: 'fr', es: 'es', de: 'de', it: 'it'
+  };
+  const langCode = localeToCode[currentLocale] || 'en';
+
+  const [detectedLang, setDetectedLang] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,37 +53,24 @@ export default function Navbar() {
     const browserLang = navigator.language.toLowerCase();
     const dismissed = localStorage.getItem('hideLangBanner');
     
-    // Find matching language code
     const matchedLang = languages.find(l => 
       browserLang.startsWith(l.code) || 
       (l.code === 'tw' && (browserLang === 'zh-tw' || browserLang === 'zh-hk'))
     );
 
-    if (matchedLang && matchedLang.code !== language && !dismissed) {
-      setDetectedLang(matchedLang.code as Language);
+    if (matchedLang && matchedLang.locale !== currentLocale && !dismissed) {
+      setDetectedLang(matchedLang.locale);
       setShowLangBanner(true);
     } else {
       setShowLangBanner(false);
     }
-  }, [language]);
+  }, [currentLocale]);
 
-  const handleSwitchLanguage = (targetLang: Language) => {
+  const handleSwitchLanguage = (targetLocale: string) => {
     localStorage.setItem('hideLangBanner', 'true');
     setShowLangBanner(false);
-    
-    setLanguage(targetLang);
-    const newLangPrefix = langToPrefix[targetLang] || 'en';
-    
-    let newPath = location.pathname;
-    const pathParts = newPath.split('/');
-    const validPrefixes = ['cn', 'tw', 'en', 'ja', 'ko', 'ru', 'fr', 'es', 'de', 'it'];
-    if (validPrefixes.includes(pathParts[1])) {
-      pathParts[1] = newLangPrefix;
-      newPath = pathParts.join('/');
-    } else {
-      newPath = `/${newLangPrefix}${newPath === '/' ? '' : newPath}`;
-    }
-    navigate(newPath + location.search);
+    router.replace(pathname, { locale: targetLocale });
+    setIsLangDropdownOpen(false);
   };
 
   const handleDismissBanner = () => {
@@ -95,17 +79,17 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { name: t('nav.home'), path: `/${langPrefix}` },
-    { name: t('nav.visa'), path: `/${langPrefix}/visa`, hasDropdown: true },
-    { name: t('nav.discover'), path: `/${langPrefix}/cities`, hasDropdown: true },
-    { name: t('nav.tools'), path: `/${langPrefix}/apps`, hasDropdown: true },
-    { name: t('nav.catalog'), path: `/${langPrefix}/apps` }
+    { name: t('nav.home'), path: `/${currentLocale}` },
+    { name: t('nav.visa'), path: `/${currentLocale}/visa`, hasDropdown: true },
+    { name: t('nav.discover'), path: `/${currentLocale}/cities`, hasDropdown: true },
+    { name: t('nav.tools'), path: `/${currentLocale}/apps`, hasDropdown: true },
+    { name: t('nav.catalog'), path: `/${currentLocale}/apps` }
   ];
 
   return (
     <header 
       className={`fixed top-0 w-full z-50 transition-all duration-300 flex flex-col pt-[env(safe-area-inset-top)] ${
-        location.pathname.includes('/tools/menu') 
+        typeof window !== 'undefined' && window.location.pathname.includes('/tools/menu') 
           ? 'bg-black shadow-md' 
           : (isScrolled ? 'bg-black shadow-md' : 'bg-transparent shadow-none')
       } text-white`}
@@ -122,11 +106,11 @@ export default function Navbar() {
               <div className="flex items-center gap-2 text-white">
                 <Globe className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                 <span className="text-center sm:text-left leading-tight">
-                  {language === 'en' 
-                    ? `Your browser language is ${languages.find(l => l.code === detectedLang)?.name}. Switch?`
-                    : language === 'zh'
-                    ? `检测到浏览器语言为 ${languages.find(l => l.code === detectedLang)?.name}，是否切换？`
-                    : `Browser language: ${languages.find(l => l.code === detectedLang)?.name}. Switch?`}
+                  {currentLocale === 'en' 
+                    ? `Your browser language is ${languages.find(l => l.locale === detectedLang)?.name}. Switch?`
+                    : currentLocale === 'cn'
+                    ? `检测到浏览器语言为 ${languages.find(l => l.locale === detectedLang)?.name}，是否切换？`
+                    : `Browser language: ${languages.find(l => l.locale === detectedLang)?.name}. Switch?`}
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -134,9 +118,9 @@ export default function Navbar() {
                   onClick={() => handleSwitchLanguage(detectedLang)}
                   className="bg-white text-[#179B4D] px-4 py-1.5 rounded-full hover:bg-white/90 font-bold transition-colors whitespace-nowrap"
                 >
-                  {language === 'en' 
+                  {currentLocale === 'en' 
                     ? `Switch`
-                    : language === 'zh'
+                    : currentLocale === 'cn'
                     ? `立即切换`
                     : `Switch`}
                 </button>
@@ -144,7 +128,7 @@ export default function Navbar() {
                   onClick={handleDismissBanner}
                   className="bg-transparent border border-white/30 text-white px-4 py-1.5 rounded-full hover:bg-white/10 transition-colors whitespace-nowrap"
                 >
-                  {language === 'en' ? 'Keep' : language === 'zh' ? '保持当前' : 'Keep'}
+                  {currentLocale === 'en' ? 'Keep' : currentLocale === 'cn' ? '保持当前' : 'Keep'}
                 </button>
               </div>
               <button 
@@ -159,18 +143,18 @@ export default function Navbar() {
       </AnimatePresence>
       <div className={`w-full max-w-[1400px] mx-auto px-6 flex justify-between items-center transition-all duration-300 ${isScrolled ? 'py-3' : 'py-6'}`}>
         {/* Logo */}
-        <Link to={`/${langPrefix}`} className="flex items-center gap-3">
+        <NextLink href={`/${currentLocale}`} className="flex items-center gap-3">
           <img src="https://api.iconify.design/game-icons:mountains.svg?color=white" alt="Logo" className="w-10 h-10" />
           <div className="flex flex-col">
             <span className="text-xl font-bold tracking-tight leading-tight">tripcngo.com</span>
             <span className="text-[11px] text-gray-300 tracking-[0.1em] font-medium">{t('nav.slogan')}</span>
           </div>
-        </Link>
+        </NextLink>
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-10 font-medium relative">
           {navLinks.map((item) => {
-            const isActive = location.pathname === item.path || (item.path !== '/' && location.pathname.startsWith(item.path));
+            const isActive = typeof window !== 'undefined' && (window.location.pathname === item.path || (item.path !== '/' && window.location.pathname.startsWith(item.path)));
             const isDiscover = item.name === t('nav.discover');
             const isVisa = item.name === t('nav.visa');
             const isTools = item.name === t('nav.tools');
@@ -185,13 +169,13 @@ export default function Navbar() {
                     {item.hasDropdown && <ChevronDown className="w-3.5 h-3.5 ml-0.5" />}
                   </button>
                 ) : (
-                  <Link 
-                    to={item.path}
+                  <NextLink 
+                    href={item.path}
                     className={`flex items-center gap-1 text-[15px] transition-colors hover:text-gray-300 py-2 ${isActive ? 'text-green-400' : 'text-white'}`}
                   >
                     {item.name}
                     {item.hasDropdown && <ChevronDown className="w-3.5 h-3.5 ml-0.5" />}
-                  </Link>
+                  </NextLink>
                 )}
 
                 {/* Visa Mega Menu */}
@@ -199,11 +183,9 @@ export default function Navbar() {
                   <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[650px] bg-white rounded-lg shadow-xl border border-gray-100 text-gray-800 transition-all duration-200 transform origin-top z-50
                     opacity-0 invisible -translate-y-2 group-hover/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0
                   `}>
-                    {/* Arrow pointing up */}
                     <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-t border-l border-gray-100 transform rotate-45 z-[-1]" />
                     
                     <div className="flex p-5 h-[320px]">
-                      {/* Left Column: Teal Card */}
                       <div className="w-[300px] bg-[#1b887a] rounded-lg p-6 text-white flex flex-col justify-between flex-shrink-0">
                         <div>
                           <h3 className="text-lg font-medium mb-3">{t('visa.mega.title')}</h3>
@@ -212,20 +194,19 @@ export default function Navbar() {
                           </p>
                         </div>
                         <div className="text-right mt-4">
-                          <Link to={`/${langPrefix}/visa`} className="text-[13px] hover:text-white/80 transition-colors inline-flex items-center">
+                          <NextLink href={`/${currentLocale}/visa`} className="text-[13px] hover:text-white/80 transition-colors inline-flex items-center">
                             {t('visa.mega.view')} <span className="ml-1">→</span>
-                          </Link>
+                          </NextLink>
                         </div>
                       </div>
                       
-                      {/* Right Column: Links */}
                       <div className="flex-1 pl-10 py-2 flex flex-col justify-between">
-                        <Link to={`/${langPrefix}/visa/types`} className="text-[14px] font-medium text-gray-800 hover:text-[#1b887a] block">{t('visa.types')}</Link>
-                        <Link to={`/${langPrefix}/visa/photo`} className="text-[14px] font-medium text-gray-800 hover:text-[#1b887a] block">{t('visa.photo')}</Link>
-                        <Link to={`/${langPrefix}/visa/fees`} className="text-[14px] font-medium text-gray-800 hover:text-[#1b887a] block">{t('visa.fee')}</Link>
-                        <Link to={`/${langPrefix}/visa/form`} className="text-[14px] font-medium text-gray-800 hover:text-[#1b887a] block">{t('visa.form')}</Link>
-                        <Link to={`/${langPrefix}/visa/arrival-card`} className="text-[14px] font-medium text-gray-800 hover:text-[#1b887a] block">{t('visa.card')}</Link>
-                        <Link to={`/${langPrefix}/visa/downloads`} className="text-[14px] font-medium text-gray-800 hover:text-[#1b887a] block">{t('visa.menu.download')}</Link>
+                        <NextLink href={`/${currentLocale}/visa/types`} className="text-[14px] font-medium text-gray-800 hover:text-[#1b887a] block">{t('visa.types')}</NextLink>
+                        <NextLink href={`/${currentLocale}/visa/photo`} className="text-[14px] font-medium text-gray-800 hover:text-[#1b887a] block">{t('visa.photo')}</NextLink>
+                        <NextLink href={`/${currentLocale}/visa/fees`} className="text-[14px] font-medium text-gray-800 hover:text-[#1b887a] block">{t('visa.fee')}</NextLink>
+                        <NextLink href={`/${currentLocale}/visa/form`} className="text-[14px] font-medium text-gray-800 hover:text-[#1b887a] block">{t('visa.form')}</NextLink>
+                        <NextLink href={`/${currentLocale}/visa/arrival-card`} className="text-[14px] font-medium text-gray-800 hover:text-[#1b887a] block">{t('visa.card')}</NextLink>
+                        <NextLink href={`/${currentLocale}/visa/downloads`} className="text-[14px] font-medium text-gray-800 hover:text-[#1b887a] block">{t('visa.menu.download')}</NextLink>
                       </div>
                     </div>
                   </div>
@@ -236,46 +217,43 @@ export default function Navbar() {
                   <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[800px] bg-white rounded-lg shadow-xl border border-gray-100 text-gray-800 transition-all duration-200 transform origin-top z-50
                     opacity-0 invisible -translate-y-2 group-hover/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0
                   `}>
-                    {/* Arrow pointing up */}
                     <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-t border-l border-gray-100 transform rotate-45 z-[-1]" />
                     
                     <div className="flex p-6">
-                      {/* Left Column: Cities */}
                       <div className="w-1/2 pr-6 border-r border-gray-100">
                         <div className="flex justify-between items-center mb-4">
                           <h3 className="text-green-600 font-bold text-[15px]">{t('discover.hotCities')}</h3>
-                          <Link to={`/${langPrefix}/cities`} className="text-green-600 text-[13px] hover:underline">{t('discover.moreCities')} &gt;&gt;</Link>
+                          <NextLink href={`/${currentLocale}/cities`} className="text-green-600 text-[13px] hover:underline">{t('discover.moreCities')} &gt;&gt;</NextLink>
                         </div>
                         <div className="grid grid-cols-2 gap-y-3 gap-x-2 text-[13px]">
-                          <Link to={`/${langPrefix}/cities/beijing`} className="hover:text-green-600 truncate">{t('city.beijing')}(Beijing)</Link>
-                          <Link to={`/${langPrefix}/cities/shanghai`} className="hover:text-green-600 truncate">{t('city.shanghai')}(Shanghai)</Link>
-                          <Link to={`/${langPrefix}/cities/LZ1r5Fsq3bOUHUeKVgIv`} className="hover:text-green-600 truncate">{t('city.guangzhou')}(Guangzhou)</Link>
-                          <Link to={`/${langPrefix}/cities/oNIvYqn2fcHSUN6mpv7G`} className="hover:text-green-600 truncate">{t('city.shenzhen')}(Shenzhen)</Link>
-                          <Link to={`/${langPrefix}/cities/XxxHqxEftFPTAfw09w37`} className="hover:text-green-600 truncate">{t('city.hangzhou')}(Hangzhou)</Link>
-                          <Link to={`/${langPrefix}/cities/eVvE8j6wkETbi3jgn2Kc`} className="hover:text-green-600 truncate">{t('city.chongqing')}(Chongqing)</Link>
-                          <Link to={`/${langPrefix}/cities/lOvgtPfMDTaEi3jIre9D`} className="hover:text-green-600 truncate">{t('city.chengdu')}(Chengdu)</Link>
-                          <Link to={`/${langPrefix}/cities/AM4LKEQcsclFhG1LuSKn`} className="hover:text-green-600 truncate">{t('city.xian')}(Xi'an)</Link>
-                          <Link to={`/${langPrefix}/cities/YF8WzVigZrymgqJJLanF`} className="hover:text-green-600 truncate">{t('city.changsha')}(Changsha)</Link>
-                          <Link to={`/${langPrefix}/cities/KI6GE4ovZK6fmWTqUx5q`} className="hover:text-green-600 truncate">{t('city.xiamen')}(Xiamen)</Link>
+                          <NextLink href={`/${currentLocale}/cities/beijing`} className="hover:text-green-600 truncate">{t('city.beijing')}(Beijing)</NextLink>
+                          <NextLink href={`/${currentLocale}/cities/shanghai`} className="hover:text-green-600 truncate">{t('city.shanghai')}(Shanghai)</NextLink>
+                          <NextLink href={`/${currentLocale}/cities/LZ1r5Fsq3bOUHUeKVgIv`} className="hover:text-green-600 truncate">{t('city.guangzhou')}(Guangzhou)</NextLink>
+                          <NextLink href={`/${currentLocale}/cities/oNIvYqn2fcHSUN6mpv7G`} className="hover:text-green-600 truncate">{t('city.shenzhen')}(Shenzhen)</NextLink>
+                          <NextLink href={`/${currentLocale}/cities/XxxHqxEftFPTAfw09w37`} className="hover:text-green-600 truncate">{t('city.hangzhou')}(Hangzhou)</NextLink>
+                          <NextLink href={`/${currentLocale}/cities/eVvE8j6wkETbi3jgn2Kc`} className="hover:text-green-600 truncate">{t('city.chongqing')}(Chongqing)</NextLink>
+                          <NextLink href={`/${currentLocale}/cities/lOvgtPfMDTaEi3jIre9D`} className="hover:text-green-600 truncate">{t('city.chengdu')}(Chengdu)</NextLink>
+                          <NextLink href={`/${currentLocale}/cities/AM4LKEQcsclFhG1LuSKn`} className="hover:text-green-600 truncate">{t('city.xian')}(Xi'an)</NextLink>
+                          <NextLink href={`/${currentLocale}/cities/YF8WzVigZrymgqJJLanF`} className="hover:text-green-600 truncate">{t('city.changsha')}(Changsha)</NextLink>
+                          <NextLink href={`/${currentLocale}/cities/KI6GE4ovZK6fmWTqUx5q`} className="hover:text-green-600 truncate">{t('city.xiamen')}(Xiamen)</NextLink>
                         </div>
                       </div>
                       
-                      {/* Right Column: Guides */}
                       <div className="w-1/2 pl-6 space-y-6">
-                        <Link to={`/${langPrefix}/articles`} className="flex items-start gap-3 group">
+                        <NextLink href={`/${currentLocale}/articles`} className="flex items-start gap-3 group">
                           <BookOpen className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
                           <div>
                             <div className="font-bold text-[14px] text-gray-900 group-hover:text-green-600 transition-colors">{t('discover.guides')}</div>
                             <div className="text-[12px] text-gray-500 mt-1 leading-relaxed">{t('discover.guides.desc')}</div>
                           </div>
-                        </Link>
-                        <Link to={`/${langPrefix}/guide`} className="flex items-start gap-3 group">
+                        </NextLink>
+                        <NextLink href={`/${currentLocale}/guide`} className="flex items-start gap-3 group">
                           <Compass className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
                           <div>
                             <div className="font-bold text-[14px] text-gray-900 group-hover:text-green-600 transition-colors">{t('discover.pocket')}</div>
                             <div className="text-[12px] text-gray-500 mt-1 leading-relaxed">{t('discover.pocket.desc')}</div>
                           </div>
-                        </Link>
+                        </NextLink>
                       </div>
                     </div>
                   </div>
@@ -286,24 +264,23 @@ export default function Navbar() {
                     <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[600px] bg-white rounded-lg shadow-xl border border-gray-100 text-gray-800 transition-all duration-200 transform origin-top z-50
                       opacity-0 invisible -translate-y-2 group-hover/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0
                     `}>
-                        {/* Arrow pointing up */}
                         <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-t border-l border-gray-100 transform rotate-45 z-[-1]" />
                         
                         <div className="grid grid-cols-2 gap-6 p-6">
                             {[
-                                { icon: ScanLine, title: t('tools.menu'), desc: t('tools.menu.desc'), path: `/${langPrefix}/tools/menu-translator` },
-                                { icon: Shield, title: t('tools.name'), desc: t('tools.name.desc'), path: `/${langPrefix}/tools/name-generator` },
-                                { icon: Languages, title: t('tools.pinyin'), desc: t('tools.pinyin.desc'), path: `/${langPrefix}/tools/pinyin-segmentation` },
-                                { icon: Type, title: t('tools.counter'), desc: t('tools.counter.desc'), path: `/${langPrefix}/tools/character-counter` },
-                                { icon: Calculator, title: t('tools.zodiac'), desc: t('tools.zodiac.desc'), path: `/${langPrefix}/tools/zodiac-calculator` }
+                                { icon: ScanLine, title: t('tools.menu'), desc: t('tools.menu.desc'), path: `/${currentLocale}/tools/menu-translator` },
+                                { icon: Shield, title: t('tools.name'), desc: t('tools.name.desc'), path: `/${currentLocale}/tools/name-generator` },
+                                { icon: Languages, title: t('tools.pinyin'), desc: t('tools.pinyin.desc'), path: `/${currentLocale}/tools/pinyin-segmentation` },
+                                { icon: Type, title: t('tools.counter'), desc: t('tools.counter.desc'), path: `/${currentLocale}/tools/character-counter` },
+                                { icon: Calculator, title: t('tools.zodiac'), desc: t('tools.zodiac.desc'), path: `/${currentLocale}/tools/zodiac-calculator` }
                             ].map((tool, idx) => (
-                                <Link key={idx} to={tool.path} className="flex gap-3 group" onClick={() => {}}>
+                                <NextLink key={idx} href={tool.path} className="flex gap-3 group" onClick={() => {}}>
                                     <tool.icon className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
                                     <div>
                                         <div className="font-bold text-[14px] text-gray-900 group-hover:text-green-600 transition-colors">{tool.title}</div>
                                         <div className="text-[12px] text-gray-500 mt-1 leading-relaxed">{tool.desc}</div>
                                     </div>
-                                </Link>
+                                </NextLink>
                             ))}
                         </div>
                     </div>
@@ -321,7 +298,7 @@ export default function Navbar() {
               onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
             >
               <Globe className="w-4 h-4" />
-              <span className="font-medium tracking-wide uppercase">{t('nav.lang.code')} {t('nav.lang')}</span>
+              <span className="font-medium tracking-wide uppercase">{t('nav.lang.code')} {t('nav.langName')}</span>
               <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isLangDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
 
@@ -333,32 +310,13 @@ export default function Navbar() {
                 <button
                   key={lang.code}
                   className="w-full flex items-center justify-between px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors text-left"
-                  onClick={() => {
-                    setLanguage(lang.code as Language);
-                    const langPrefixMap: Record<string, string> = {
-                      zh: 'cn', tw: 'tw', en: 'en', ja: 'ja',
-                      ko: 'ko', ru: 'ru', fr: 'fr', es: 'es',
-                      de: 'de', it: 'it'
-                    };
-                    const newLangPrefix = langPrefixMap[lang.code] || 'en';
-                    let newPath = location.pathname;
-                    const pathParts = newPath.split('/');
-                    const validPrefixes = ['cn', 'tw', 'en', 'ja', 'ko', 'ru', 'fr', 'es', 'de', 'it'];
-                    if (validPrefixes.includes(pathParts[1])) {
-                      pathParts[1] = newLangPrefix;
-                      newPath = pathParts.join('/');
-                    } else {
-                      newPath = `/${newLangPrefix}${newPath === '/' ? '' : newPath}`;
-                    }
-                    navigate(newPath + location.search);
-                    setIsLangDropdownOpen(false);
-                  }}
+                  onClick={() => handleSwitchLanguage(lang.locale)}
                 >
                   <div className="flex items-center gap-3">
                     <img src={lang.flag} alt={lang.name} className="w-5 h-4 object-cover rounded-sm" />
                     <span className="font-medium">{lang.name}</span>
                   </div>
-                  {language === lang.code && <Check className="w-4 h-4 text-green-600" />}
+                  {langCode === lang.code && <Check className="w-4 h-4 text-green-600" />}
                 </button>
               ))}
             </div>
@@ -391,32 +349,13 @@ export default function Navbar() {
                 <button
                   key={lang.code}
                   className="w-full flex items-center justify-between px-4 py-2.5 text-sm hover:bg-gray-800 transition-colors text-left"
-                  onClick={() => {
-                    setLanguage(lang.code as Language);
-                    const langPrefixMap: Record<string, string> = {
-                      zh: 'cn', tw: 'tw', en: 'en', ja: 'ja',
-                      ko: 'ko', ru: 'ru', fr: 'fr', es: 'es',
-                      de: 'de', it: 'it'
-                    };
-                    const newLangPrefix = langPrefixMap[lang.code] || 'en';
-                    let newPath = location.pathname;
-                    const pathParts = newPath.split('/');
-                    const validPrefixes = ['cn', 'tw', 'en', 'ja', 'ko', 'ru', 'fr', 'es', 'de', 'it'];
-                    if (validPrefixes.includes(pathParts[1])) {
-                      pathParts[1] = newLangPrefix;
-                      newPath = pathParts.join('/');
-                    } else {
-                      newPath = `/${newLangPrefix}${newPath === '/' ? '' : newPath}`;
-                    }
-                    navigate(newPath + location.search);
-                    setIsLangDropdownOpen(false);
-                  }}
+                  onClick={() => handleSwitchLanguage(lang.locale)}
                 >
                   <div className="flex items-center gap-3">
                     <img src={lang.flag} alt={lang.name} className="w-5 h-4 object-cover rounded-sm" />
                     <span className="font-medium">{lang.name}</span>
                   </div>
-                  {language === lang.code && <Check className="w-4 h-4 text-green-400" />}
+                  {langCode === lang.code && <Check className="w-4 h-4 text-green-400" />}
                 </button>
               ))}
             </div>
@@ -463,18 +402,16 @@ export default function Navbar() {
             </div>
             
             <nav className="flex flex-col gap-1">
-              {/* 首页 */}
-              <Link 
-                to={`/${langPrefix}`}
+              <NextLink 
+                href={`/${currentLocale}`}
                 className="text-xl font-medium hover:text-green-400 transition-colors"
                 onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }}
               >
                 <div className="flex items-center justify-between border-b border-white/10 py-4">
                   {t('nav.home')}
                 </div>
-              </Link>
+              </NextLink>
 
-              {/* 签证 - 可展开 */}
               <div className="border-b border-white/10">
                 <button 
                   onClick={() => setMobileExpandedMenu(mobileExpandedMenu === 'visa' ? null : 'visa')}
@@ -493,20 +430,19 @@ export default function Navbar() {
                       className="overflow-hidden"
                     >
                       <div className="pl-4 pb-4 space-y-3">
-                        <Link to={`/${langPrefix}/visa`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('visa.mega.title')}</Link>
-                        <Link to={`/${langPrefix}/visa/types`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('visa.types')}</Link>
-                        <Link to={`/${langPrefix}/visa/photo`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('visa.photo')}</Link>
-                        <Link to={`/${langPrefix}/visa/fees`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('visa.fee')}</Link>
-                        <Link to={`/${langPrefix}/visa/form`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('visa.form')}</Link>
-                        <Link to={`/${langPrefix}/visa/arrival-card`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('visa.card')}</Link>
-                        <Link to={`/${langPrefix}/visa/downloads`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('visa.menu.download')}</Link>
+                        <NextLink href={`/${currentLocale}/visa`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('visa.mega.title')}</NextLink>
+                        <NextLink href={`/${currentLocale}/visa/types`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('visa.types')}</NextLink>
+                        <NextLink href={`/${currentLocale}/visa/photo`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('visa.photo')}</NextLink>
+                        <NextLink href={`/${currentLocale}/visa/fees`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('visa.fee')}</NextLink>
+                        <NextLink href={`/${currentLocale}/visa/form`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('visa.form')}</NextLink>
+                        <NextLink href={`/${currentLocale}/visa/arrival-card`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('visa.card')}</NextLink>
+                        <NextLink href={`/${currentLocale}/visa/downloads`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('visa.menu.download')}</NextLink>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
 
-              {/* 发现 - 可展开 */}
               <div className="border-b border-white/10">
                 <button 
                   onClick={() => setMobileExpandedMenu(mobileExpandedMenu === 'discover' ? null : 'discover')}
@@ -527,22 +463,22 @@ export default function Navbar() {
                       <div className="pl-4 pb-4 space-y-3">
                         <div className="text-green-600 text-sm font-bold mb-2 mt-2">{t('discover.hotCities')}</div>
                         <div className="grid grid-cols-2 gap-2">
-                            <Link to={`/${langPrefix}/cities/beijing`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.beijing')}</Link>
-                            <Link to={`/${langPrefix}/cities/shanghai`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.shanghai')}</Link>
-                            <Link to={`/${langPrefix}/cities/LZ1r5Fsq3bOUHUeKVgIv`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.guangzhou')}</Link>
-                            <Link to={`/${langPrefix}/cities/oNIvYqn2fcHSUN6mpv7G`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.shenzhen')}</Link>
-                            <Link to={`/${langPrefix}/cities/XxxHqxEftFPTAfw09w37`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.hangzhou')}</Link>
-                            <Link to={`/${langPrefix}/cities/eVvE8j6wkETbi3jgn2Kc`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.chongqing')}</Link>
-                            <Link to={`/${langPrefix}/cities/lOvgtPfMDTaEi3jIre9D`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.chengdu')}</Link>
-                            <Link to={`/${langPrefix}/cities/AM4LKEQcsclFhG1LuSKn`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.xian')}</Link>
-                            <Link to={`/${langPrefix}/cities/YF8WzVigZrymgqJJLanF`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.changsha')}</Link>
-                            <Link to={`/${langPrefix}/cities/KI6GE4ovZK6fmWTqUx5q`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.xiamen')}</Link>
+                            <NextLink href={`/${currentLocale}/cities/beijing`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.beijing')}</NextLink>
+                            <NextLink href={`/${currentLocale}/cities/shanghai`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.shanghai')}</NextLink>
+                            <NextLink href={`/${currentLocale}/cities/LZ1r5Fsq3bOUHUeKVgIv`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.guangzhou')}</NextLink>
+                            <NextLink href={`/${currentLocale}/cities/oNIvYqn2fcHSUN6mpv7G`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.shenzhen')}</NextLink>
+                            <NextLink href={`/${currentLocale}/cities/XxxHqxEftFPTAfw09w37`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.hangzhou')}</NextLink>
+                            <NextLink href={`/${currentLocale}/cities/eVvE8j6wkETbi3jgn2Kc`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.chongqing')}</NextLink>
+                            <NextLink href={`/${currentLocale}/cities/lOvgtPfMDTaEi3jIre9D`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.chengdu')}</NextLink>
+                            <NextLink href={`/${currentLocale}/cities/AM4LKEQcsclFhG1LuSKn`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.xian')}</NextLink>
+                            <NextLink href={`/${currentLocale}/cities/YF8WzVigZrymgqJJLanF`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.changsha')}</NextLink>
+                            <NextLink href={`/${currentLocale}/cities/KI6GE4ovZK6fmWTqUx5q`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-sm py-1 truncate">{t('city.xiamen')}</NextLink>
                         </div>
-                        <Link to={`/${langPrefix}/cities`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-green-600 hover:text-green-500 text-sm font-medium py-2">{t('discover.moreCities')} &gt;&gt;</Link>
+                        <NextLink href={`/${currentLocale}/cities`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-green-600 hover:text-green-500 text-sm font-medium py-2">{t('discover.moreCities')} &gt;&gt;</NextLink>
                         <div className="border-t border-gray-100 pt-3 mt-3">
                           <div className="text-green-600 text-sm font-bold mb-2">{t('discover.guides')}</div>
-                          <Link to={`/${langPrefix}/articles`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-base py-1">{t('discover.guides')}</Link>
-                          <Link to={`/${langPrefix}/guide`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-base py-1">{t('discover.pocket')}</Link>
+                          <NextLink href={`/${currentLocale}/articles`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-base py-1">{t('discover.guides')}</NextLink>
+                          <NextLink href={`/${currentLocale}/guide`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-base py-1">{t('discover.pocket')}</NextLink>
                         </div>
                       </div>
                     </motion.div>
@@ -550,7 +486,6 @@ export default function Navbar() {
                 </AnimatePresence>
               </div>
 
-              {/* 工具 - 可展开 */}
               <div className="border-b border-white/10">
                 <button 
                   onClick={() => setMobileExpandedMenu(mobileExpandedMenu === 'tools' ? null : 'tools')}
@@ -569,27 +504,26 @@ export default function Navbar() {
                       className="overflow-hidden"
                     >
                       <div className="pl-4 pb-4 space-y-3">
-                        <Link to={`/${langPrefix}/tools/menu-translator`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('tools.menu')}</Link>
-                        <Link to={`/${langPrefix}/tools/name-generator`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('tools.name')}</Link>
-                        <Link to={`/${langPrefix}/tools/pinyin-segmentation`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('tools.pinyin')}</Link>
-                        <Link to={`/${langPrefix}/tools/character-counter`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('tools.counter')}</Link>
-                        <Link to={`/${langPrefix}/tools/zodiac-calculator`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('tools.zodiac')}</Link>
+                        <NextLink href={`/${currentLocale}/tools/menu-translator`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('tools.menu')}</NextLink>
+                        <NextLink href={`/${currentLocale}/tools/name-generator`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('tools.name')}</NextLink>
+                        <NextLink href={`/${currentLocale}/tools/pinyin-segmentation`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('tools.pinyin')}</NextLink>
+                        <NextLink href={`/${currentLocale}/tools/character-counter`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('tools.counter')}</NextLink>
+                        <NextLink href={`/${currentLocale}/tools/zodiac-calculator`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-300 hover:text-green-400 text-base py-1">{t('tools.zodiac')}</NextLink>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
 
-              {/* 目录应用 */}
-              <Link 
-                to={`/${langPrefix}/apps`}
+              <NextLink 
+                href={`/${currentLocale}/apps`}
                 className="text-xl font-medium hover:text-green-400 transition-colors border-b border-white/10"
                 onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }}
               >
                 <div className="flex items-center justify-between py-4">
                   {t('nav.catalog')}
                 </div>
-              </Link>
+              </NextLink>
             </nav>
           </motion.div>
         )}
@@ -597,4 +531,3 @@ export default function Navbar() {
     </header>
   );
 }
-

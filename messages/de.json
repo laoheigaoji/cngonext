@@ -1,0 +1,617 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "visa": "Visum",
+    "lang": {
+      "code": "DE"
+    },
+    "tools": "Werkzeuge",
+    "slogan": "Reisen Sie nach China",
+    "catalog": "Katalog",
+    "discover": "Entdecken",
+    "langName": "Deutsch"
+  },
+  "visa": {
+    "fee": "Gebühren",
+    "form": "Antragsformular ausfüllen",
+    "card": "Anleitung zur Einreisekarte",
+    "types": "Visumarten",
+    "photo": "Fotoanforderungen",
+    "nav": {
+      "fee": "Gebühren",
+      "form": "Antragsformular",
+      "title": "— Visumdienste —",
+      "types": "Visumarten",
+      "photo": "Fotoanforderungen",
+      "arrival": "Einreisekarte",
+      "downloads": "Herunterladen"
+    },
+    "menu": {
+      "fee": "Gebühren",
+      "form": "Antragsformular",
+      "types": "Visumarten",
+      "photo": "Fotoanforderungen",
+      "download": "Herunterladen",
+      "entryCard": "Einreisekarte"
+    },
+    "mega": {
+      "desc": "Reisen Sie ohne Visum nach China! Erfahren Sie alles über die 240-Stunden-Transit-Visumbefreiung, Länder mit einseitiger Befreiung und Länder mit Gegenseitigkeitsabkommen.",
+      "view": "Jetzt ansehen",
+      "title": "Vollständiger Leitfaden zur Visumbefreiung für China"
+    },
+    "stat": {
+      "stay": {
+        "desc": "Maximale Aufenthaltsdauer"
+      },
+      "ports": {
+        "desc": "Einhäfen"
+      },
+      "countries": {
+        "desc": "Geöffnete Länder"
+      },
+      "provinces": {
+        "desc": "GeöffneteProvinzen"
+      },
+      "stayName": "240h",
+      "portsName": "60+",
+      "countriesName": "54 Länder",
+      "provincesName": "24"
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen"
+    },
+    "hero": {
+      "desc": "Erhalten Sie alle Informationen zu Visa für China, erhalten Sie Ihr Visum problemlos und beginnen Sie Ihre China-Reise",
+      "title": "Visumdienste",
+      "legendFull": "Ganze Provinz/Stadt geöffnet",
+      "legendTitle": "Städte mit 240h Transit ohne Visum",
+      "legendPartial": "Einige Bereiche geöffnet"
+    },
+    "mutual": {
+      "desc": "Bürger beider Länder mit regulärem Reisepass können in der Regel ohne Vorvisum für kurzfristige Aufenthalte reisen",
+      "title": "Liste der Länder mit Gegenseitigkeitsabkommen",
+      "tableDays": "Aufenthaltsdauer",
+      "tableCountry": "Land"
+    },
+    "section": {
+      "desc": "China hat die 144- und 240-Stunden-Transit-Visumbefreiungsrichtlinien auf mehrere Länder ausgeweitet. Berechtigte Reisende und Geschäftsleute können über ausgewiesene Häfen einreisen und sich in den angegebenen Bereichen bis zu 6-10 Tage ohne Vorvisum aufhalten.",
+      "title": "Über die 240-Stunden-Transit-Visumbefreiung"
+    },
+    "transit": {
+      "asia": "Asien (6 Länder):",
+      "title": "240h Transit ohne Visum in China",
+      "europe": "Europa (44 Länder):",
+      "oceania": "Ozeanien (2 Länder):",
+      "americas": "Amerika (6 Länder):",
+      "tableCity": "Stadt",
+      "tablePort": "Name des Einfahrthafens",
+      "tableArea": "Aufenthaltsbereich",
+      "portsTitle": "Anwendbare Häfen:",
+      "countriesTitle": "Geöffnete Länder (54):"
+    },
+    "sidebar": {
+      "notice": "Wichtige Hinweise",
+      "hotline": "Hotline",
+      "niaTitle": "Chinesische Nationale Einwanderungsbehörde",
+      "portTitle": "Hafenauswahl: 60 benannte Einfahrthäfen",
+      "portDesc1": "Zielgruppe: Bürger aus 54 Ländern (USA, Großbritannien, Japan usw.)",
+      "portDesc2": "Anforderung: Gilt nur für die 60 benannten Häfen wie Peking, Shanghai, Guangzhou. Andere Häfen ungültig.",
+      "areaTitle": "Bereichseinhaltung: Grenzen von 24Provinzen",
+      "areaDesc1": "Erlaubt: Tourismus oder interprovinzielle Reisen in 24Provinzen/Städten, einschließlich Peking, Shanghai, Sichuan.",
+      "areaDesc2": "Verboten: Aufenthalt außerhalb des vorgeschriebenen Bereichs.",
+      "ruleTitle": "Regeleinhaltung: Strenge Aufenthaltszeiten und Registrierung",
+      "ruleDesc1": "Aufenthaltsdauer: Maximal 240h (ab 0:00 Uhr des folgenden Tages nach Einreise)",
+      "ruleDesc2": "Überschreitung: Vorherige Beantragung eines Aufenthaltszertifikats bei den Behörden erforderlich (nur für Notfälle oder höhere Gewalt).",
+      "ruleDesc3": "Registrierungspflicht: Unterkunftsregistrierung innerhalb von 24h nach Einreise (Hotel oder Polizeiwache).",
+      "ruleDesc4": "Nur für Kurzzeittourismus/Geschäftsreisen; Arbeit und Studium verboten.",
+      "disclaimer": "Haftungsausschluss: Die bereitgestellten Informationen dienen nur zur Referenz. Für spezifische Richtlinien konsultieren Sie bitte die offiziellen Quellen der chinesischen Einwanderungsbehörde. Richtlinien können jederzeit angepasst werden, bitte überprüfen Sie die neuesten Vorschriften vor der Reise.",
+      "interaction": "Interaktion",
+      "materialTitle": "Vorbereitung: Transitflugticket + gültiger Reisepass",
+      "materialDesc1": "Erforderliche Dokumente: Reisepassgültigkeit > 3 Monate",
+      "materialDesc2": "Bestätigtes Transitflugticket (Flug in ein Drittland innerhalb von 240h nach Einreise, Rückreise ins Herkunftsland nicht erlaubt)",
+      "materialDesc3": "Verfahren: Dokumente bei der Grenzkontrolle bei Einreise vorlegen, Zulassung nach Genehmigung."
+    },
+    "unilateral": {
+      "desc": "China hat die Visumbefreiung für Bürger folgender Länder mit regulärem Reisepass für Tourismus, Geschäftsreisen und Familienbesuche geöffnet",
+      "title": "Liste der Länder mit einseitiger Befreiung",
+      "tableDays": "Aufenthaltsdauer",
+      "tableCountry": "Land"
+    },
+    "breadcrumb": {
+      "home": "Startseite",
+      "mega": "Vollständiger Leitfaden zur Visumbefreiung"
+    }
+  },
+  "hero": {
+    "desc": "Visumbefreiungspolitik, chinesische Kultur und KI-Tools für einfaches Erkunden Chinas",
+    "dest": "Reiseziel",
+    "title": "Entdecken Sie das wahre China",
+    "start": "Loslegen",
+    "aiName": "KI-gestützter sino-englischer Namensgenerator",
+    "subtitle": "Von Visumleitfäden bis Reise-Tipps bieten wir einen vollständigen Service für Ihren Aufenthalt in China",
+    "ultimate": "Ihr ultimativer Leitfaden für China-Reisen",
+    "searchPlaceholder": "Geben Sie die Stadt ein, die Sie besuchen möchten"
+  },
+  "tools": {
+    "menu": {
+      "desc": "Laden Sie ein Foto hoch, um Übersetzung, Zutaten und Preise zu erhalten - einfach bestellen",
+      "faq": {
+        "q1": "Wie generiert ReadMenuAI Gerichtbilder?",
+        "a1": "Unser KI-System analysiert die Textbeschreibung aus der Speisekarte, gleicht sie mit einer großen kulinarischen Datenbank ab und verwendet generative KI um Ihnen passende Gerichtbilder zu erstellen.",
+        "q2": "Kann ich es für nicht-chinesische Speisekarten verwenden?",
+        "a2": "Derzeit konzentrieren wir uns hauptsächlich auf Chinesisch-Englisch-Übersetzung, aber unser System unterstützt Zeichenerkennung für mehrere Hauptsprachen.",
+        "q3": "Ist die Währungsumrechnung in Echtzeit?",
+        "a3": "Ja, wir integrieren eine Echtzeit-Wechselkurs-API um genaue Umrechnungen zwischen CNY und wichtigen Fremdwährungen zu bieten.",
+        "q4": "Kann ich meine Erkennungsaufzeichnungen speichern?",
+        "a4": "Registrierte Benutzer können ihren vollständigen Verlauf einschließlich Übersetzungen und generierter Bilder einsehen.",
+        "q5": "Warum werden einige Gerichte nicht richtig erkannt?",
+        "a5": "Künstlerische Schriften oder unleserliche Handschrift können die Genauigkeit verringern. Sorgen Sie für gute Beleuchtung und halten Sie die Speisekarte flach.",
+        "q6": "Wie lange dauert die Verarbeitung einer Speisekarte?",
+        "a6": "Typischerweise dauert der gesamte Prozess von Scannen, Übersetzen und Bilderzeugung nur 10-15 Sekunden.",
+        "q7": "Brauche ich eine Internetverbindung?",
+        "a7": "Ja, die KI-Verarbeitung und Bilderzeugung laufen in der Cloud, daher wird eine stabile Verbindung benötigt.",
+        "q8": "Wie unterscheidet sich ReadMenuAI von Standard-Übersetzern?",
+        "a8": "Wir gehen über Textübersetzung hinaus, indem wir ein visuelles Erlebnis bieten, das Ihnen ermöglicht zu sehen wie das Gericht aussieht, zusammen mit Preisumrechnungen."
+      },
+      "hero": {
+        "desc": "Ein-Klick-Scan des Menüs mit DeepSeek V4-Präzision. Erhalten Sie zweisprachige Übersetzung, passende Gerichtbilder und Währungsumrechnung.",
+        "title": "Chinesisches Menü in Bild umwandeln"
+      },
+      "label": {
+        "raw": "Originalerkennungsbereich",
+        "refined": "DeepSeek-optimiertes Ergebnis"
+      },
+      "placeholder": "Bitte laden Sie zuerst das Menü hoch",
+      "upload": {
+        "title": "Menübild hochladen",
+        "button": "Bild auswählen",
+        "subtitle": "Präzise Gerichtsextraktion und Sofortübersetzung"
+      },
+      "status": {
+        "reset": "Aufgeben und erneut versuchen",
+        "analyzing": "DeepSeek führt eine tiefe Analyse durch..."
+      },
+      "feature": {
+        "1": {
+          "desc": "KI-Modell optimiert für Handschrift und kunstvolle Schrift.",
+          "title": "Tiefe Erkennung"
+        },
+        "2": {
+          "desc": "Sehen Sie das Gericht vor der Bestellung.",
+          "title": "Visuelle Generierung"
+        },
+        "3": {
+          "desc": "Echtzeit-Währungsumrechnung zur Budgetkontrolle.",
+          "title": "Währungsumrechnung"
+        },
+        "4": {
+          "desc": "Standardmäßige chinesische Aussprache für einfaches Bestellen.",
+          "title": "Sprachassistent"
+        }
+      }
+    },
+    "name": {
+      "desc": "KI zur Auswahl chinesischer Namen für Karriere, Freunde, Reisen oder Leben in China",
+      "male": "Mann",
+      "title": "Chinesischer Namensgenerator",
+      "button": "Meinen chinesischen Namen generieren",
+      "faq": {
+        "q1": "Ist das nur eine direkte Übersetzung meines Namens?",
+        "a1": "Nein, unser KI-Modell generiert Namen, die wirklich zu Ihnen passen, basierend auf Ihren Informationen, Beruf, Persönlichkeit und Präferenzen.",
+        "q2": "Kann ich diesen Namen für offizielle Dokumente verwenden?",
+        "a2": "Ja, aber wir empfehlen, vor der offiziellen Verwendung bei chinesischen Kollegen oder Freunden nachzufragen.",
+        "q3": "Was enthält die Namenskarte?",
+        "a3": "Sie erhalten chinesische Zeichen, Pinyin (Aussprache), detaillierte Erklärung jedes Zeichens und warum es Ihnen passt.",
+        "q4": "Ist dieses Tool kostenlos?",
+        "a4": "Ja, dieser Service ist derzeit kostenlos.",
+        "q5": "Sind ein oder zwei Zeichen besser?",
+        "a5": "Das hängt von Ihrem Nachnamen und persönlicher Präferenz ab; Zwei-Zeichen-Namen sind derzeit Mainstream."
+      },
+      "gender": "Geschlecht",
+      "female": "Frau",
+      "subtitle": "Verwenden Sie das Deep-Inference-KI-Modell, um mehrere chinesische Namen zu generieren, die für Ihre Karriere, Reise und Ihr Leben in China geeignet sind.",
+      "whyTitle": "Warum Sie einen echten chinesischen Namen brauchen",
+      "howTitle": "So funktioniert es",
+      "faqTitle": "Häufig gestellte Fragen",
+      "formTitle": "Beginnen Sie mit der Generierung Ihres einzigartigen chinesischen Namens",
+      "label": {
+        "dob": "Geburtsdatum",
+        "name": "Ihr vollständiger Name",
+        "info": "Weitere Informationen (optional)",
+        "gender": "Geschlecht",
+        "genderMale": "Männlich",
+        "genderSelect": "Auswählen",
+        "genderFemale": "Weiblich",
+        "namePlaceholder": "z.B. Max Mustermann",
+        "infoPlaceholder": "Beschreiben Sie Ihre Ausbildung, Beruf, Persönlichkeit, Hobbys oder Namenspräferenzen..."
+      },
+      "whyBasic1": "Harmonischer Klang, leicht auszusprechen",
+      "whyBasic2": "Bedeutungsvoll, schöne Wünsche enthaltend",
+      "whyBasic3": "Harmonische Kombination aus Nachname und Vorname",
+      "caseTitle": "Benutzer-Fallstudien",
+      "moreTitle": "Weitere Tools",
+      "whyBeyond1": "Der Name sollte mit Ihnen verbunden sein",
+      "whyBeyond2": "Ihre Eigenschaften und Präferenzen hervorheben",
+      "whyBeyond3": "Sie in Geschäft und Gesellschaft selbstbewusster und professioneller machen",
+      "inputLabel": "Englischer Name oder Bedeutung",
+      "generating": "Generiere...",
+      "howSubtitle": "Unsere KI kombiniert kulturelle Weisheit und moderne Linguistik, um Ihre Identität zu schaffen.",
+      "articleMore": "Mehr Artikel →",
+      "articleDesc": "Sie können auch mehr über die Kultur, Geschichte und Methoden chinesischer Namen lernen.",
+      "formSubtitle": "Füllen Sie die Informationen aus und die KI erstellt einen für Sie maßgeschneiderten Namen",
+      "resultPrefix": "Ihr generierter chinesischer Name ist:",
+      "whyBasicDesc": "Ein guter chinesischer Name ist nicht nur eine Frage des Aussehens; er muss den chinesischen Namenskonventionen entsprechen.",
+      "howStep1Desc": "Geben Sie Ihren Namen und Ihr Geburtsdatum ein, wir verwenden es um Tierkreiszeichen und fünf Elemente zu generieren.",
+      "howStep2Desc": "Sie können uns auch Ihre Präferenzen oder Ihren Beruf mitteilen, die KI wird tief nachdenken um den gewünschten Namen zu generieren.",
+      "howStep3Desc": "Die Karte enthält Ihren Namen, Pinyin, Tierkreiszeichen, fünf Elemente, Glückszahlen usw.",
+      "caseSubtitle": "Menschen aus aller Welt haben unsere maßgeschneiderten chinesischen Namen gewählt.",
+      "moreSubtitle": "Sie können auch die folgenden Tools verwenden, um interessantere Inhalte zu generieren.",
+      "articleTitle": "Empfohlene Artikel zur chinesischen traditionellen Kultur",
+      "buttonLoading": "Wird generiert...",
+      "whyBasicTitle": "Grundprinzipien",
+      "whyBeyondDesc": "Wir möchten Ihnen einen authentischen chinesischen Namen geben, keine generische Transliteration.",
+      "structureDesc": "Chinesische Namen bestehen aus Nachname und Vorname, mit insgesamt 2-4 Zeichen.",
+      "howStep1Title": "1. Geben Sie Ihre Informationen ein",
+      "howStep2Title": "2. Definieren Sie Ihre Identität",
+      "howStep3Title": "3. Generieren Sie Ihre Visitenkarte",
+      "whyBeyondTitle": "Jenseits der Übersetzung",
+      "structureTitle": "Struktur chinesischer Namen",
+      "articleMoreLink": "Artikel lesen →",
+      "structure": {
+        "surname": "Nachname",
+        "givenName": "Vorname",
+        "surnameDesc": "An erster Stelle, normalerweise ein Zeichen aus traditionellen Nachnamen, mit über 500 erfassten Nachnamen.",
+        "givenNameDesc": "Ein oder zwei Zeichen, gewählt nach Bedeutung, Klang und Gleichgewicht."
+      }
+    },
+    "pinyin": {
+      "desc": "Konvertieren Sie beliebige chinesische Sätze in Standard-Pinyin mit intelligenter Segmentierung und Strichfolgvisulisierung",
+      "title": "Pinyin-Segmentierungswerkzeug",
+      "button": "Analysieren",
+      "result": "Analyseergebnis:",
+      "inputPlaceholder": "Geben Sie einen chinesischen Satz ein, um die Analyse zu starten..."
+    },
+    "zodiac": {
+      "day": "Geburtstag",
+      "desc": "Berechnen Sie Ihr chinesisches Sternzeichen nach Ihrem Geburtsdatum und entdecken Sie dessen kulturelle Bedeutung.",
+      "year": "Geburtsjahr",
+      "month": "Geburtsmonat",
+      "search": "Ihr Sternzeichen prüfen",
+      "button": "Mein Zeichen entdecken",
+      "result": "Ergebnis:Geboren im Jahr {year}, Ihr Zeichen ist:",
+      "dayUnit": "Tag",
+      "monthUnit": "Monat",
+      "faq1": {
+        "desc": "Das Sternzeichen wechselt nicht am 1. Januar, sondern am chinesischen Neujahr (erster Tag des ersten Mondmonats).",
+        "title": "Wann wechselt das Sternzeichen?"
+      },
+      "faq2": {
+        "desc": "Die chinesische Kultur kennt 12 Sternzeichen: Ratte, Ochse, Tiger, Hase, Drache, Schlange, Pferd, Ziege, Affe, Hahn, Hund und Schwein.",
+        "title": "Die 12 chinesischen Sternzeichen im Detail"
+      }
+    },
+    "counter": {
+      "desc": "Zählen Sie präzise chinesische Zeichen, Englisch, Zahlen, Satzzeichen, Zeilen und Gesamt"
+    },
+    "char": {
+      "zh": "Chinesisch",
+      "en": "Englisch",
+      "desc": "Fügen Sie Text ein für schnelle Zeichenstatistiken.",
+      "punc": "Satzzeichen",
+      "title": "Chinesischer Zeichenzähler",
+      "total": "Gesamtzahl der Zeichen",
+      "digits": "Zahlen",
+      "placeholder": "Fügen Sie Text ein oder geben Sie ihn ein, um zu beginnen..."
+    },
+    "hero": {
+      "title": "Reiseassistent",
+      "subtitle": "Praktische Werkzeuge für eine einfachere China-Reise"
+    },
+    "menuName": "Chinesisches Menü-Konverter",
+    "nameName": "Chinesischer Namensgenerator",
+    "pinyinName": "Pinyin-Konvertierung und Segmentierung",
+    "zodiacName": "Chinesischer Tierkreiskalender-Rechner",
+    "counterName": "Chinesischer Zeichenzähler"
+  },
+  "guide": {
+    "prev": "Vorherige Seite",
+    "next": "Nächste Seite",
+    "views": "Aufrufe",
+    "author": "Autor",
+    "cat": {
+      "all": "Alle",
+      "city": "Stadtführer",
+      "food": "Gastronomie",
+      "tools": "Praktische Werkzeuge",
+      "policy": "Nationale Politik",
+      "payment": "Zahlungsmethoden",
+      "transport": "Transport",
+      "tradition": "Traditionelle Kultur"
+    },
+    "helpful": "Personen finden es hilfreich",
+    "updated": "Letzte Aktualisierung",
+    "readMore": "Weiterlesen",
+    "prevPost": "Vorheriger Artikel",
+    "nextPost": "Nächster Artikel",
+    "hero": {
+      "desc": "Dieser Abschnitt richtet sich an Ausländer, die China zum ersten Mal besuchen, um die dringendsten und häufigsten Probleme während des Aufenthalts zu lösen und ihnen zu helfen, China schnell zu verstehen und eine angenehme Reise zu beginnen.",
+      "title": "China-Reiseführer",
+      "subtitle": "Meistern Sie das Wesentliche einer China-Reise in 5 Minuten. Unverzichtbar für die erste Reise"
+    },
+    "recommend": "Empfohlene Führer",
+    "noArticles": "Inhalt derzeit nicht verfügbar, wir arbeiten daran, ihn hinzuzufügen...",
+    "inCategory": "In ",
+    "backToList": "Zurück zur Liste",
+    "toolbox": {
+      "net": "Wahl des Mobilfunknetzes",
+      "desc": "Wesentlicher Leitfaden für Internetverbindung und mobile Zahlungen",
+      "title": "Digitaler Überlebenskoffer",
+      "vpn": {
+        "why": "Warum wird ein VPN benötigt?",
+        "note": "Sie MÜSSEN ein VPN herunterladen und installieren, BEVOR Sie nach China einreisen! Innerhalb Chinas ist dies nicht möglich.",
+        "important": "Wichtige Erinnerung"
+      },
+      "discover": "Mehr erfahren",
+      "lang": {
+        "desc": "Vokabeln und Dialoge für die tägliche Kommunikation",
+        "core": "Grundlegendes Vokabular",
+        "title": "Sprachwerkzeugkasten",
+        "phrases": "Dialoge nach Situation"
+      },
+      "chars": {
+        "title": "Schnelle Erkennung wesentlicher Zeichen"
+      },
+      "payment": {
+        "setup": "Konfigurationsschritte",
+        "status": "China ist in eine quasi-bargeldlose Gesellschaft eingetreten",
+        "manual": "Zahlungshandbuch",
+        "alipay": "Erste Wahl: Alipay"
+      },
+      "culture": {
+        "title": "Kultureller Kompass"
+      }
+    },
+    "recommendCity": "Empfohlene Städte",
+    "articleNotFound": "Artikel nicht gefunden"
+  },
+  "footer": {
+    "desc": "TripCNGo bietet Ihnen umfassende Reiseführer und Werkzeuge für Ihre China-Reise.",
+    "copy": "© 2026 tripcngo.com. Alle Rechte vorbehalten.",
+    "about": "Über uns",
+    "terms": "Nutzungsbedingungen",
+    "contact": "Kontakt",
+    "privacy": "Datenschutzrichtlinie",
+    "brand": {
+      "desc": "tripcngo.com ist eine Reisemarke, die sich der Verringerung von Informationsungleichheit für China-Reisende, der Verbesserung unabhängiger Reiseerfahrungen und der Vermittlung chinesischer Kultur an die Welt widmet.",
+      "title": "tripcngo.com"
+    },
+    "links": {
+      "visa": {
+        "all": "Vollständiger Leitfaden zur Visumbefreiung",
+        "nav": "Navigationsinformationen",
+        "dest": "Reiseziele entdecken"
+      },
+      "lang": "Sprache",
+      "about": "Über uns",
+      "terms": "Nutzungsbedingungen",
+      "company": "Unternehmen",
+      "privacy": "Datenschutzrichtlinie",
+      "feedback": "Feedback",
+      "partners": "Partner",
+      "visaName": "Visuminformationen"
+    }
+  },
+  "city": {
+    "xiamen": "Xiamen",
+    "beijing": "Peking",
+    "chengdu": "Chengdu",
+    "shanghai": "Shanghai",
+    "shenzhen": "Shenzhen",
+    "hangzhou": "Hangzhou",
+    "changsha": "Changsha",
+    "guangzhou": "Guangzhou",
+    "chongqing": "Chongqing",
+    "food": {
+      "title": "Gastronomie",
+      "subtitle": "Probieren Sie die authentischsten und beliebtesten lokalen Aromen",
+      "ingredients": "Hauptzutaten"
+    },
+    "weather": {
+      "area": "Fläche",
+      "timeTitle": "Zeit",
+      "population": "Bevölkerung"
+    },
+    "tags": {
+      "visaFree": "240h Transit ohne Visum"
+    },
+    "history": {
+      "title": "Geschichte und Kultur"
+    },
+    "explore": {
+      "title": "Vertiefte Erkundung",
+      "tools": "Internetnutzung und Online-Tools",
+      "travel": "Reise",
+      "hotels": "Hotels und Unterkunft"
+    },
+    "bestTime": {
+      "title": "Beste Reisezeit",
+      "descPrefix": "Die beste Zeit für einen Besuch in ",
+      "descSuffix": " ist "
+    },
+    "transport": {
+      "title": "Verkehrsleitfaden",
+      "subtitle": "Verkehrsmittel, die Sie kennen sollten"
+    },
+    "attractions": {
+      "time": "Empfohlene Zeit",
+      "title": "Sehenswürdigkeiten",
+      "ticket": "Eintrittskarte",
+      "season": "Geeignete Jahreszeit",
+      "subtitle": "Interessante Dinge zu sehen"
+    },
+    "stats": {
+      "wantToVisit": "Ich möchte besuchen",
+      "recommended": "Empfohlen"
+    },
+    "heritage": {
+      "world": {
+        "title": "Weltkulturerbeliste",
+        "subtitle": "UNESCO-Welterbestätten"
+      },
+      "intangible": {
+        "title": "Immaterielles Kulturerbe",
+        "subtitle": "Erkunden Sie das reiche immaterielle Erbe und verstehen Sie das Wesen traditioneller Handwerke"
+      }
+    }
+  },
+  "share": {
+    "button": "Teilen",
+    "modal": {
+      "copy": "Link kopieren",
+      "title": "Teilen auf",
+      "copied": "Link kopiert!"
+    }
+  },
+  "zodiac": {
+    "title": "Chinesischer Tierkreiskalender-Rechner",
+    "subtitle": "Entdecken Sie Ihr chinesisches Sternzeichen nach Ihrem Geburtsdatum, verstehen Sie die Tierkreiskultur und erhalten Sie Reiseinspiration."
+  },
+  "feedback": {
+    "name": {
+      "placeholder": "Geben Sie Ihren Namen ein"
+    },
+    "title": "Kontaktieren Sie uns",
+    "email": {
+      "placeholder": "Geben Sie Ihre E-Mail ein"
+    },
+    "error": "Fehler beim Senden, bitte versuchen Sie es später erneut.",
+    "submit": "Senden",
+    "message": {
+      "placeholder": "Was ist das größte Problem, das Sie in China haben? Oder senden Sie uns Ihre Vorschläge, wir werden aufrichtig antworten"
+    },
+    "success": "Erfolgreich gesendet! Wir werden so schnell wie möglich antworten.",
+    "subtitle": "Senden Sie Ihre Vorschläge für China-Reisen oder Fragen, die Sie lösen möchten. Wir werden so schnell wie möglich antworten",
+    "nameName": "Name",
+    "emailName": "E-Mail",
+    "messageName": "Nachricht"
+  },
+  "apps": {
+    "ad": {
+      "label": "Werbung"
+    },
+    "hero": {
+      "desc": "Funktionieren Google und Uber nicht in China? Keine Sorge. Dieser Leitfaden listet die besten Apps von 2026 auf, die bei Einheimischen beliebt sind: mobile Zahlungen, Transport, soziale Medien und Essenlieferung, reisen Sie wie ein本地人.",
+      "title": "Unverzichtbare Apps für China 2026",
+      "subtitle": "(Neueste Version)"
+    },
+    "menu": {
+      "sites": "Offizielle Websites",
+      "hotels": "Hotelbuchungen",
+      "tiktok": "TikToker",
+      "youtube": "Youtuber",
+      "hotline": "Hotlines",
+      "essential": "Unverzichtbare Apps",
+      "transport": "Transport"
+    }
+  },
+  "common": {
+    "cancel": "Abbrechen"
+  },
+  "home": {
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "subtitle": "Fragen zur 144/240-Stunden-Transit-Visumbefreiungsrichtlinie"
+    },
+    "cities": {
+      "more": "Mehr Städte",
+      "title": "Beliebte chinesische Städte"
+    },
+    "guides": {
+      "more": "Mehr Tipps",
+      "title": "Reise-Tipps",
+      "helpful": "Personen finden es hilfreich"
+    }
+  },
+  "about": {
+    "story": {
+      "p1": "Die Gründung von tripcngo.com entsprang unserer Liebe zu China und unserer Leidenschaft für Reiseerlebnisse.",
+      "p2": "Wir glauben, dass Reisen spontan und voller Überraschungen sein sollte, nicht nur eine Reihe von Fotos打卡, sondern ein Erlebnis dem Herzen zu folgen.",
+      "p3": "Mit der 240-Stunden-Transit-Visumbefreiung betreten immer mehr ausländische Freunde dieses alte und geheimnisvolle Land. Die Realität bringt jedoch viele Herausforderungen mit sich: Sprachbarrieren, instabiles Internet, komplexe Zahlungen, fragmentierte Informationen und schwierige Planung. Um die Schönheit Chinas zu erleben, ist ein umfassender, praktischer Leitfaden unverzichtbar.",
+      "p4": "Deshalb haben wir tripcngo.com gegründet, beginnend mit der Präsentation chinesischer Kultur und der Schließung der Informationslücke, unter Kombination der Reiseerfahrung unseres Teams, dem Verständnis chinesischer Kultur und der Leidenschaft für KI-Technologie.",
+      "p5": "Von Visumleitfäden bis Reise-Tipps, von kultureller Erkundung bis zu intelligenten Assistenten, hoffen wir, jedem Reisenden zu helfen, einfach zu planen, tief einzutauchen und ein echtes, wunderschönes China zu entdecken.",
+      "title": "Unsere Geschichte"
+    },
+    "hero": {
+      "title": "Warum uns wählen?"
+    },
+    "team": {
+      "title": "Unser Team",
+      "subtitle": "tripcngo.com wurde von diesen außergewöhnlichen Personen gegründet"
+    },
+    "features": {
+      "ai": {
+        "desc": "Unser KI-Assistent versteht Ihre Bedürfnisse, erstellt personalisierte Inhalte und erleichtert Planung und Reise",
+        "title": "Intelligenter KI-Assistent"
+      },
+      "team": {
+        "desc": "Wir sind ein Team leidenschaftlicher Reisender, die die neuesten Richtlinien und Geheimtipps kennen, und bieten professionelle Informationen und Services",
+        "title": "Professionelles lokales Team"
+      },
+      "focus": {
+        "desc": "Wir bedienen nur unabhängige Reisende mit maßgeschneiderten Reiserouten für unvergessliche Reisen",
+        "title": "Fokus auf unabhängiges Reisen"
+      }
+    }
+  },
+  "discover": {
+    "guides": {
+      "desc": "Erfahrene Reisende teilen praktische Tipps für eine einfache China-Reise"
+    },
+    "pocket": {
+      "desc": "Meistern Sie das Wesentliche einer China-Reise in 5 Minuten. Unverzichtbar für Erstbesucher"
+    },
+    "hotCities": "Beliebte Städte",
+    "moreCities": "Mehr Städte",
+    "guidesName": "Reiseführer",
+    "pocketName": "China-Reiseführer"
+  },
+  "cities": {
+    "intro": {
+      "p1": "Die Volksrepublik China ist eines der ältesten Länder der Welt mit 5000 Jahren Zivilisation.",
+      "p2": "China liegt in Ostasien an der Westküste des Pazifiks, gegründet 1949. Es ist eines der bevölkerungsreichsten Länder der Welt mit 1,4 Milliarden Einwohnern und einer Fläche von etwa 9,6 Millionen km², das drittgrößte Land der Welt.",
+      "p3": "Chinas Gelände weist drei Abstufungen von West nach Ost auf: von der Qinghai-Tibet-Hochebene bis zu Ebenen und Küste. Dieser Höhenunterschied schafft vielfältige Landschaften von den „Dächern der Welt\\\" bis zur Ostküste, mit Wüsten, Hochebenen, Becken und Ebenen, und gibt Anlass zu den beiden großen Flusssystemen des Yangtse und des Gelben Flusses.",
+      "p4": "China ist in 23Provinzen, 5 autonome Regionen, 4 Gemeinden (Peking, Shanghai, Tianjin, Chongqing) und 2 Sonderverwaltungsregionen (Hongkong, Macau) gegliedert. Die Hauptstadt Peking ist das politische und kulturelle Zentrum des Landes, während Shanghai ein wichtiges Wirtschafts- und Finanzzentrum ist.",
+      "p5": "China ist groß und multikulturell, mit 56 offiziell anerkannten ethnischen Gruppen. Die Han bilden die Hauptgruppe, Mandarin ist die gemeinsame Sprache, chinesische Schriftzeichen werden verwendet. Han und Minderheiten werden gemeinsam als „chinesische Nation\\\", „Nachkommen von Yan-Huang\\\", „Erben des Drachen\\\" bezeichnet.",
+      "p6": "Die chinesische Kultur ist tiefgründig, umfassend und strahlend. Als kulturelles Zentrum der ostasiatischen Kulturzone nimmt sie einen wichtigen Platz im Weltkultursystem ein. Zu den traditionellen Kunstformen gehören Dichtung, Oper, Kalligraphie und Malerei. Zu den wichtigen traditionellen Festen gehören Neujahr, Laternenfest, Qingming, Drachenbootfest, Mittherbstfest und Doppeltes Neuntes Fest.",
+      "title": "Über China"
+    },
+    "hero": {
+      "desc": "Erkunden Sie die beliebtesten Städte Chinas. Entdecken Sie, was man in Peking, Shanghai und Guangzhou unternehmen kann, finden Sie die besten Restaurant- und Einkaufsempfehlungen sowie interessante Fakten zur einfachen Reiseplanung.",
+      "title": "Beliebte chinesische Städte"
+    }
+  },
+  "terms": {
+    "hero": {
+      "title": "Nutzungsbedingungen",
+      "subtitle": "Mit der Nutzung unserer Website akzeptieren Sie die Bedingungen"
+    }
+  },
+  "pay": {
+    "success": {
+      "title": "🎉 Zahlung erfolgreich!",
+      "item1": "Ihr Kaufbeleg wird im lokalen Speicher (LocalStorage) des Browsers dieses Geräts gespeichert.",
+      "item2": "Löschen Sie NICHT Ihren Browser-Cache, da Sie sonst den Zugriff verlieren.",
+      "item3": "Die geräte- oder browserübergreifende Synchronisierung wird derzeit nicht unterstützt.",
+      "button": "Browsen starten",
+      "subtitle": "Inhalt freigeschaltet! Vielen Dank für Ihre Unterstützung.",
+      "important": "WICHTIG"
+    }
+  },
+  "privacy": {
+    "hero": {
+      "title": "Datenschutzrichtlinie",
+      "subtitle": "Wir verpflichten uns, Ihre persönlichen Daten und Privatsphäre zu schützen"
+    },
+    "lastUpdated": "Letzte Aktualisierung: 26. April 2025"
+  }
+}

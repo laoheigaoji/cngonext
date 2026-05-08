@@ -1,0 +1,616 @@
+{
+  "nav": {
+    "home": "Home",
+    "visa": "Visto",
+    "lang": {
+      "code": "IT"
+    },
+    "tools": "Strumenti",
+    "slogan": "Viaggia in Cina",
+    "catalog": "Catalogo",
+    "discover": "Scopri",
+    "langName": "Italiano"
+  },
+  "visa": {
+    "fee": "Tariffe",
+    "form": "Compila il modulo",
+    "types": "Tipi di visto",
+    "photo": "Requisiti foto",
+    "nav": {
+      "fee": "Tariffe",
+      "form": "Modulo di domanda",
+      "title": "— Servizi visto —",
+      "types": "Tipi di visti",
+      "photo": "Requisiti foto",
+      "arrival": "Carta d\\'imbarco",
+      "downloads": "Scarica"
+    },
+    "menu": {
+      "fee": "Tariffe",
+      "form": "Modulo di domanda",
+      "types": "Tipi di visti",
+      "photo": "Requisiti foto",
+      "download": "Scarica",
+      "entryCard": "Carta d\\'imbarco"
+    },
+    "mega": {
+      "desc": "Viaggia in Cina senza visto! Scopri la politica di esenzione dal visto di transito di 240 ore, i paesi con esenzione unilaterale e i paesi con accordo di esenzione reciproca.",
+      "view": "Vedi ora"
+    },
+    "stat": {
+      "stay": {
+        "desc": "Durata massima"
+      },
+      "ports": {
+        "desc": "Porti d\\'ingresso"
+      },
+      "countries": {
+        "desc": "Paesi aperti"
+      },
+      "provinces": {
+        "desc": "Province aperte"
+      },
+      "stayName": "240h",
+      "portsName": "60+",
+      "countriesName": "54 paesi",
+      "provincesName": "24"
+    },
+    "faq": {
+      "title": "Domande frequenti"
+    },
+    "hero": {
+      "desc": "Ottieni tutte le informazioni sui visti per la Cina, ottieni facilmente il tuo visto e inizia il tuo viaggio in Cina",
+      "title": "Servizi visto",
+      "legendFull": "Intera provincia/città aperta",
+      "legendTitle": "Città con transito senza visto 240h",
+      "legendPartial": "Alcune aree aperte"
+    },
+    "mutual": {
+      "desc": "I cittadini di entrambi i paesi con passaporto ordinario possono generalmente viaggiare senza visto preventivo per soggiorni brevi",
+      "title": "Lista paesi con accordo di esenzione reciproca",
+      "tableDays": "Durata soggiorno",
+      "tableCountry": "Paese"
+    },
+    "section": {
+      "desc": "La Cina ha ampliato le politiche di esenzione dal visto di transito di 144 e 240 ore a diversi paesi. Viaggiatori e uomini d\\'affari idonei possono entrare attraverso porti designati e soggiornare nelle aree specificate fino a 6-10 giorni senza visto preventivo.",
+      "title": "Sulla politica di esenzione dal visto di transito di 240 ore"
+    },
+    "transit": {
+      "asia": "Asia (6 paesi):",
+      "title": "Transito senza visto 240h in Cina",
+      "europe": "Europa (44 paesi):",
+      "oceania": "Oceania (2 paesi):",
+      "americas": "Americhe (6 paesi):",
+      "tableCity": "Città",
+      "tablePort": "Nome porto d\\'ingresso",
+      "tableArea": "Area di soggiorno",
+      "portsTitle": "Porti applicabili:",
+      "countriesTitle": "Paesi aperti (54):"
+    },
+    "sidebar": {
+      "notice": "Avvisi importanti",
+      "hotline": "Linea diretta",
+      "niaTitle": "Amministrazione Nazionale dell\\'Immigrazione della Cina",
+      "portTitle": "Scelta del porto: 60 punti d\\'ingresso designati",
+      "portDesc1": "Destinatari: Cittadini di 54 paesi (USA, Regno Unito, Giappone, ecc.)",
+      "portDesc2": "Requisito: Valido solo per i 60 porti designati come Pechino, Shanghai, Guangzhou. Altri porti non validi.",
+      "areaTitle": "Rispetto dell\\'area: Limiti di 24 province",
+      "areaDesc1": "Autorizzato: Turismo o spostamento interprovinciale nelle 24 province/città, incluse Pechino, Shanghai, Sichuan.",
+      "areaDesc2": "Proibito: Soggiorno fuori dall\\'area prescritta.",
+      "ruleTitle": "Rispetto delle regole: Durate e registrazione rigide",
+      "ruleDesc1": "Durata: Massimo 240h di soggiorno (dalle 00:00 del giorno successivo all\\'ingresso)",
+      "ruleDesc2": "Superamento: Richiesta preventiva di certificato di soggiorno alle autorità richiesta (solo per urgenze o forza maggiore).",
+      "ruleDesc3": "Obbligo di registrazione: Registrazione dell\\'alloggio entro 24h dopo l\\'ingresso (hotel o commissariato).",
+      "ruleDesc4": "Solo per turismo/affari a breve termine; lavoro e studi proibiti.",
+      "disclaimer": "Clausola di non responsabilità: Le informazioni fornite sono solo di riferimento. Per politiche specifiche, consulta le fonti ufficiali dell\\'Amministrazione dell\\'Immigrazione della Cina. Le politiche possono essere modificate in qualsiasi momento, verifica le ultime normative prima del viaggio.",
+      "interaction": "Interazione",
+      "materialTitle": "Preparazione: Biglietto di transito + passaporto valido",
+      "materialDesc1": "Documenti richiesti: Validità del passaporto > 3 mesi",
+      "materialDesc2": "Biglietto di transito confermato (volo verso un paese terzo entro 240h dall\\'ingresso, non è permesso il ritorno nel paese d\\'origine)",
+      "materialDesc3": "Procedura: Presentare i documenti al controllo di frontiera all\\'ingresso, ammissione dopo approvazione."
+    },
+    "unilateral": {
+      "desc": "La Cina ha aperto l\\'esenzione dal visto per i cittadini dei seguenti paesi con passaporto ordinario per turismo, affari e visite familiari",
+      "title": "Lista paesi con esenzione unilaterale",
+      "tableDays": "Durata soggiorno",
+      "tableCountry": "Paese"
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "mega": "Guida completa esenzione visto"
+    }
+  },
+  "hero": {
+    "desc": "Politica di esenzione dal visto, cultura cinese e strumenti IA per esplorare facilmente la Cina",
+    "dest": "Destinazione",
+    "title": "Scopri la Cina reale",
+    "start": "Inizia",
+    "aiName": "Generatore di nomi sino-inglesi IA",
+    "subtitle": "Dalle guide sui visti ai consigli di viaggio, offriamo un servizio completo per il tuo soggiorno in Cina",
+    "ultimate": "La tua guida definitiva per viaggiare in Cina",
+    "searchPlaceholder": "Inserisci la città che desideri visitare"
+  },
+  "tools": {
+    "menu": {
+      "desc": "Carica una foto per ottenere traduzione, ingredienti e prezzi - ordina facilmente",
+      "faq": {
+        "q1": "Come ReadMenuAI genera le immagini dei piatti?",
+        "a1": "Il nostro sistema IA analizza la descrizione testuale dal menu, la confronta con un vasto database culinario e usa l\\'IA generativa per fornirti immagini di piatti corrispondenti.",
+        "q2": "Posso usarlo per menu non cinesi?",
+        "a2": "Attualmente ci concentriamo principalmente sulla traduzione cinese-inglese, ma il nostro sistema supporta il riconoscimento per diverse lingue principali.",
+        "q3": "La conversione valutaria è in tempo reale?",
+        "a3": "Sì, integriamo un\\'API di tasso di cambio in tempo reale per fornire conversioni accurate tra CNY e valute estere principali.",
+        "q4": "Posso salvare i miei record di riconoscimento?",
+        "a4": "Gli utenti registrati possono vedere la loro cronologia completa, incluse traduzioni e immagini generate.",
+        "q5": "Perché alcuni piatti non vengono riconosciuti correttamente?",
+        "a5": "Font artistici o calligrafia disordinata possono ridurre la precisione. Assicurati una buona illuminazione e tieni il menu piatto.",
+        "q6": "Quanto tempo occorre per elaborare un menu?",
+        "a6": "Generalmente, l\\'intero processo di scansione, traduzione e generazione di immagini richiede solo 10-15 secondi.",
+        "q7": "Ho bisogno di una connessione internet?",
+        "a7": "Sì, l\\'elaborazione IA e la generazione di immagini vengono eseguite nel cloud, quindi è necessaria una connessione stabile.",
+        "q8": "In cosa differisce ReadMenuAI dai traduttori standard?",
+        "a8": "Andiamo oltre la traduzione del testo fornendo un\\'esperienza visiva, permettendoti di vedere come appare il piatto insieme alle conversioni di prezzo."
+      },
+      "hero": {
+        "desc": "Scansione con un clic del menu con precisione a livello DeepSeek V4. Ottieni traduzione bilingue, immagini di piatti corrispondenti e conversione valuta.",
+        "title": "Converti il menu cinese in immagine"
+      },
+      "label": {
+        "raw": "Zona di riconoscimento originale",
+        "refined": "Risultato ottimizzato DeepSeek"
+      },
+      "placeholder": "Per favore carica prima il menu",
+      "upload": {
+        "title": "Carica immagine menu",
+        "button": "Seleziona immagine",
+        "subtitle": "Estrazione precisa dei piatti e traduzione istantanea"
+      },
+      "status": {
+        "reset": "Abbandona e riprova",
+        "analyzing": "DeepSeek sta effettuando un\\'analisi approfondita..."
+      },
+      "feature": {
+        "1": {
+          "desc": "Modello IA ottimizzato per scritture manoscritte e artistiche.",
+          "title": "Riconoscimento profondo"
+        },
+        "2": {
+          "desc": "Visualizza il piatto prima di ordinare.",
+          "title": "Generazione visiva"
+        },
+        "3": {
+          "desc": "Conversione valuta in tempo reale per controllare il budget.",
+          "title": "Conversione valuta"
+        },
+        "4": {
+          "desc": "Pronuncia cinese standard per ordinare facilmente.",
+          "title": "Assistente vocale"
+        }
+      }
+    },
+    "name": {
+      "desc": "IA per scegliere nomi cinesi adatti alla tua carriera, amici, viaggi o vita in Cina",
+      "male": "Uomo",
+      "title": "Generatore di nomi cinesi",
+      "button": "Genera il mio nome cinese",
+      "faq": {
+        "q1": "È solo una traduzione diretta del mio nome?",
+        "a1": "No, il nostro modello IA genera nomi che ti si adattano veramente in base alle tue informazioni, professione, personalità e preferenze.",
+        "q2": "Posso usare questo nome su documenti ufficiali?",
+        "a2": "Sì, ma raccomandiamo di verificare con colleghi o amici cinesi prima dell\\'uso ufficiale.",
+        "q3": "Cosa contiene la carta del nome?",
+        "a3": "Riceverai caratteri cinesi, pinyin (pronuncia), spiegazione dettagliata di ogni carattere e perché ti si addice.",
+        "q4": "Questo strumento è gratuito?",
+        "a4": "Sì, questo servizio è attualmente gratuito.",
+        "q5": "I nomi di uno o due caratteri sono migliori?",
+        "a5": "Dipende dal tuo cognome e preferenza personale; i nomi di due caratteri sono主流 attualmente."
+      },
+      "gender": "Genere",
+      "female": "Donna",
+      "subtitle": "Usa il modello IA di inferenza profonda per generare più nomi cinesi adatti al tuo sviluppo professionale, viaggio e vita in Cina.",
+      "whyTitle": "Perché hai bisogno di un vero nome cinese",
+      "howTitle": "Come funziona",
+      "faqTitle": "FAQ",
+      "formTitle": "Inizia a generare il tuo nome cinese unico",
+      "label": {
+        "dob": "Data di nascita",
+        "name": "Il tuo nome completo",
+        "info": "Altre info (opzionale)",
+        "gender": "Sesso",
+        "genderMale": "Maschio",
+        "genderSelect": "Seleziona",
+        "genderFemale": "Femmina",
+        "namePlaceholder": "es. Mario Rossi",
+        "infoPlaceholder": "Descrivi la tua istruzione, professione, personalità, hobby o preferenze sul nome..."
+      },
+      "whyBasic1": "Suono armonioso, facile da pronunciare",
+      "whyBasic2": "Significativo, contenente bei desideri",
+      "whyBasic3": "Combinazione armonica tra cognome e nome",
+      "caseTitle": "Casi studio degli utenti",
+      "moreTitle": "Altri strumenti",
+      "whyBeyond1": "Il nome dovrebbe essere connesso a te",
+      "whyBeyond2": "Evidenzia le tue caratteristiche e preferenze",
+      "whyBeyond3": "Renderti più sicuro e professionale in ambito professionale e sociale",
+      "inputLabel": "Nome inglese o significato",
+      "generating": "Generazione in corso...",
+      "howSubtitle": "La nostra IA combina saggezza culturale e linguistica moderna per creare la tua identità.",
+      "articleMore": "Altri articoli →",
+      "articleDesc": "Puoi anche approfondire la cultura, la storia e i metodi dei nomi cinesi.",
+      "placeholder": "Ad esempio: Jonathan o \\'coraggio\\'",
+      "formSubtitle": "Compila le informazioni e l\\'IA creerà un nome personalizzato per te",
+      "resultPrefix": "Il tuo nome cinese generato è:",
+      "whyBasicDesc": "Un buon nome cinese non riguarda solo l\\'aspetto; deve seguire le convenzioni cinesi di denominazione.",
+      "howStep1Desc": "Inserisci il tuo nome e data di nascita, li usiamo per generare zodiaco e cinque elementi.",
+      "howStep2Desc": "Puoi anche dirci le tue preferenze o professione, l\\'IA penserà profondamente per generare il nome che desideri.",
+      "howStep3Desc": "La carta includerà il tuo nome, pinyin, zodiaco, cinque elementi, numeri fortunati, ecc.",
+      "caseSubtitle": "Persone da tutto il mondo hanno scelto i nostri nomi cinesi personalizzati.",
+      "moreSubtitle": "Puoi anche usare i seguenti strumenti per generare contenuti più interessanti.",
+      "articleTitle": "Articoli di cultura tradizionale cinese consigliati",
+      "buttonLoading": "Generazione...",
+      "whyBasicTitle": "Principi base",
+      "whyBeyondDesc": "Vogliamo darti un nome cinese autentico, non una translitterazione generica.",
+      "structureDesc": "I nomi cinesi consistono in cognome e nome, con 2-4 caratteri in totale.",
+      "howStep1Title": "1. Inserisci le tue informazioni",
+      "howStep2Title": "2. Definisci la tua identità",
+      "howStep3Title": "3. Genera la tua carta",
+      "whyBeyondTitle": "Oltre la traduzione",
+      "structureTitle": "Struttura dei nomi cinesi",
+      "articleMoreLink": "Leggi articolo →",
+      "structure": {
+        "surname": "Cognome",
+        "givenName": "Nome dato",
+        "surnameDesc": "Posto davanti, di solito un carattere dai cognomi tradizionali, con oltre 500 cognomi registrati.",
+        "givenNameDesc": "Uno o due caratteri scelti in base a significato, suono ed equilibrio."
+      }
+    },
+    "pinyin": {
+      "desc": "Converti qualsiasi frase cinese in pinyin standard con segmentazione intelligente e animazione dell\\'ordine dei tratti",
+      "title": "Strumento di segmentazione Pinyin",
+      "button": "Analizza",
+      "result": "Risultato dell\\'analisi:",
+      "inputPlaceholder": "Inserisci una frase cinese per iniziare l\\'analisi..."
+    },
+    "zodiac": {
+      "day": "Giorno di nascita",
+      "desc": "Calcola il tuo segno zodiacale cinese in base alla data di nascita e scopri il suo significato culturale.",
+      "year": "Anno di nascita",
+      "month": "Mese di nascita",
+      "search": "Verifica il tuo segno zodiacale",
+      "button": "Scopri il mio segno",
+      "result": "Risultato: Nato nel {year}, il tuo segno è:",
+      "dayUnit": "giorno",
+      "monthUnit": "mese",
+      "faq1": {
+        "desc": "Il segno zodiacale non cambia il 1° gennaio, ma durante il Capodanno cinese (primo giorno del primo mese lunare).",
+        "title": "Quando cambia il segno zodiacale?"
+      },
+      "faq2": {
+        "desc": "La cultura cinese conta 12 segni zodiacali: Ratto, Bue, Tigre, Coniglio, Drago, Serpente, Cavallo, Capra, Scimmia, Gallo, Cane e Maiale.",
+        "title": "I 12 segni zodiacali dettagliati"
+      }
+    },
+    "counter": {
+      "desc": "Conta con precisione caratteri cinesi, inglese, numeri, punteggiatura, righe e totale"
+    },
+    "char": {
+      "zh": "Cinese",
+      "en": "Inglese",
+      "desc": "Incolla il testo per statistiche rapide sui caratteri.",
+      "punc": "Punteggiatura",
+      "title": "Contatore caratteri cinesi",
+      "total": "Totale caratteri",
+      "digits": "Numeri",
+      "placeholder": "Incolla o inserisci testo per iniziare..."
+    },
+    "hero": {
+      "title": "Assistente di viaggio",
+      "subtitle": "Strumenti pratici per rendere il tuo viaggio in Cina più facile"
+    },
+    "menuName": "Convertitore menu cinese",
+    "nameName": "Generatore di nomi cinesi",
+    "pinyinName": "Conversione Pinyin e segmentazione",
+    "zodiacName": "Calcolatore zodiaco cinese",
+    "counterName": "Contatore caratteri cinesi"
+  },
+  "guide": {
+    "prev": "Pagina precedente",
+    "next": "Pagina successiva",
+    "views": "visualizzazioni",
+    "author": "Autore",
+    "cat": {
+      "all": "Tutto",
+      "city": "Guide di città",
+      "food": "Gastronomia",
+      "tools": "Strumenti pratici",
+      "policy": "Politica nazionale",
+      "payment": "Metodi di pagamento",
+      "transport": "Trasporti",
+      "tradition": "Cultura tradizionale"
+    },
+    "helpful": "persone lo trovano utile",
+    "updated": "Ultimo aggiornamento",
+    "readMore": "Leggi di più",
+    "prevPost": "Articolo precedente",
+    "nextPost": "Articolo successivo",
+    "hero": {
+      "desc": "Questa sezione è progettata per stranieri che visitano la Cina per la prima volta, per risolvere i problemi più urgenti e comuni durante il soggiorno, aiutandoli a comprendere rapidamente la Cina e iniziare un viaggio piacevole.",
+      "title": "Guida di viaggio in Cina",
+      "subtitle": "In 5 minuti padroneggia gli essenziali per viaggiare in Cina. Imperdibile per il primo viaggio"
+    },
+    "recommend": "Guide consigliate",
+    "noArticles": "Contenuto non disponibile al momento, stiamo lavorando per aggiungerlo...",
+    "inCategory": "In ",
+    "backToList": "Torna alla lista",
+    "toolbox": {
+      "net": "Scelta rete mobile",
+      "desc": "Guida essenziale per connessione internet e pagamenti mobili",
+      "title": "Kit di sopravvivenza digitale",
+      "vpn": {
+        "why": "Perché è necessaria una VPN?",
+        "note": "DEV scaricare e installare una VPN prima di entrare in Cina! È impossibile scaricare all\\'interno della Cina.",
+        "important": "Promemoria importante"
+      },
+      "discover": "Scopri di più",
+      "lang": {
+        "desc": "Vocabolario e dialoghi comuni per la comunicazione quotidiana",
+        "core": "Vocabolario essenziale",
+        "title": "Cassetta degli attrezzi linguistica",
+        "phrases": "Dialoghi per situazione"
+      },
+      "chars": {
+        "title": "Riconoscimento rapido caratteri essenziali"
+      },
+      "payment": {
+        "setup": "Passaggi di configurazione",
+        "status": "La Cina è entrata in una società quasi senza contante",
+        "manual": "Manuale di pagamento",
+        "alipay": "Prima scelta: Alipay"
+      },
+      "culture": {
+        "title": "Bussola culturale"
+      }
+    },
+    "recommendCity": "Città consigliate",
+    "articleNotFound": "Articolo non trovato"
+  },
+  "footer": {
+    "desc": "TripCNGo ti offre guide complete e strumenti per il tuo viaggio in Cina.",
+    "copy": "© 2026 tripcngo.com. Tutti i diritti riservati.",
+    "about": "Chi siamo",
+    "terms": "Termini di utilizzo",
+    "contact": "Contattaci",
+    "privacy": "Informativa sulla privacy",
+    "brand": {
+      "desc": "tripcngo.com è un marchio di viaggio focalizzato sulla riduzione delle disuguaglianze informative per i viaggiatori in Cina, sul miglioramento dell\\'esperienza di viaggio indipendente e sulla condivisione della cultura cinese con il mondo.",
+      "title": "tripcngo.com"
+    },
+    "links": {
+      "visa": {
+        "all": "Guida completa esenzione visto",
+        "nav": "Informazioni di navigazione",
+        "dest": "Scopri le destinazioni"
+      },
+      "lang": "Lingua",
+      "about": "Chi siamo",
+      "terms": "Termini di utilizzo",
+      "company": "Azienda",
+      "privacy": "Informativa sulla privacy",
+      "feedback": "Feedback",
+      "partners": "Partner",
+      "visaName": "Informazioni visto"
+    }
+  },
+  "city": {
+    "xiamen": "Xiamen",
+    "beijing": "Pechino",
+    "chengdu": "Chengdu",
+    "shanghai": "Shanghai",
+    "shenzhen": "Shenzhen",
+    "hangzhou": "Hangzhou",
+    "changsha": "Changsha",
+    "guangzhou": "Guangzhou",
+    "chongqing": "Chongqing",
+    "food": {
+      "title": "Gastronomia",
+      "subtitle": "Assapora i sapori più autentici e popolari locali",
+      "ingredients": "Ingredienti principali"
+    },
+    "weather": {
+      "area": "Superficie",
+      "timeTitle": "Ora",
+      "population": "Popolazione"
+    },
+    "tags": {
+      "visaFree": "Transito senza visto 240h"
+    },
+    "history": {
+      "title": "Storia e cultura"
+    },
+    "explore": {
+      "title": "Esplorazione approfondita",
+      "tools": "Uso di internet e strumenti online",
+      "travel": "Viaggio",
+      "hotels": "Hotel e alloggio"
+    },
+    "bestTime": {
+      "title": "Periodo migliore per viaggiare",
+      "descPrefix": "Il periodo migliore per visitare ",
+      "descSuffix": " è "
+    },
+    "transport": {
+      "title": "Guida ai trasporti",
+      "subtitle": "Trasporti da conoscere"
+    },
+    "attractions": {
+      "time": "Tempo consigliato",
+      "title": "Attrazioni",
+      "ticket": "Biglietto",
+      "season": "Stagione adatta",
+      "subtitle": "Cose interessanti da vedere"
+    },
+    "stats": {
+      "wantToVisit": "Voglio visitare",
+      "recommended": "Consigliato"
+    },
+    "heritage": {
+      "world": {
+        "title": "Lista patrimonio mondiale",
+        "subtitle": "Siti patrimonio mondiale UNESCO"
+      },
+      "intangible": {
+        "title": "Patrimonio culturale immateriale",
+        "subtitle": "Esplora il ricco patrimonio immateriale e comprendi l\\'essenza dei mestieri tradizionali"
+      }
+    }
+  },
+  "share": {
+    "button": "Condividi",
+    "modal": {
+      "copy": "Copia link",
+      "title": "Condividi su",
+      "copied": "Link copiato!"
+    }
+  },
+  "zodiac": {
+    "title": "Calcolatore zodiaco cinese",
+    "subtitle": "Scopri il tuo segno zodiacale cinese in base alla data di nascita, comprendi la cultura zodiacale e consulta periodi propizi e ispirazione di viaggio."
+  },
+  "feedback": {
+    "name": {
+      "placeholder": "Inserisci il tuo nome"
+    },
+    "title": "Contattaci",
+    "email": {
+      "placeholder": "Inserisci la tua email"
+    },
+    "error": "Invio fallito, riprova più tardi.",
+    "submit": "Invia",
+    "message": {
+      "placeholder": "Qual è il problema più grande che incontri in Cina? Oppure inviaci i tuoi suggerimenti, ti risponderemo sinceramente"
+    },
+    "success": "Inviato con successo! Ti risponderemo al più presto.",
+    "subtitle": "Invia i tuoi suggerimenti per viaggiare in Cina o le domande che desideri risolvere, ti risponderemo al più presto",
+    "nameName": "Nome",
+    "emailName": "Email",
+    "messageName": "Messaggio"
+  },
+  "apps": {
+    "ad": {
+      "label": "Pubblicità"
+    },
+    "hero": {
+      "desc": "Google e Uber non funzionano in Cina? Nessun problema. Questa guida raccoglie le migliori app del 2026 apprezzate dagli locals: pagamenti mobili, trasporti, social media e consegna cibo, viaggia come un本地人.",
+      "title": "App indispensabili per la Cina 2026",
+      "subtitle": "(Ultima versione)"
+    },
+    "menu": {
+      "sites": "Siti ufficiali",
+      "hotels": "Prenotazioni hotel",
+      "tiktok": "TikToker",
+      "youtube": "Youtuber",
+      "hotline": "Linee dirette",
+      "essential": "App indispensabili",
+      "transport": "Trasporti"
+    }
+  },
+  "common": {
+    "cancel": "Annulla"
+  },
+  "home": {
+    "faq": {
+      "title": "Domande frequenti",
+      "subtitle": "Domande sulla politica di esenzione dal visto di transito 144/240 ore"
+    },
+    "cities": {
+      "more": "Altre città",
+      "title": "Città cinesi popolari"
+    },
+    "guides": {
+      "more": "Altri consigli",
+      "title": "Consigli di viaggio",
+      "helpful": "persone lo trovano utile"
+    }
+  },
+  "about": {
+    "story": {
+      "p1": "La nascita di tripcngo.com è nata dal nostro amore per la Cina e dalla nostra passione per l\\'esperienza di viaggio.",
+      "p2": "Crediamo che il viaggio debba essere spontaneo e pieno di sorprese, non una semplice serie di foto打卡, è un\\'esperienza di seguire il proprio cuore.",
+      "p3": "Con la politica di esenzione dal visto di transito di 240 ore, sempre più amici stranieri mettono piede su questa terra antica e misteriosa. Tuttavia la realtà presenta molte sfide: barriera linguistica, internet instabile, pagamenti complessi, informazioni frammentate e pianificazione difficile. Per sentire la bellezza della Cina, una guida completa e pratica è indispensabile.",
+      "p4": "Ecco perché abbiamo creato tripcngo.com, iniziando dalla presentazione della cultura cinese e dal colmare il divario informativo, combinando l\\'esperienza di viaggio del team, la comprensione della cultura cinese e la passione per la tecnologia IA.",
+      "p5": "Dalle guide sui visti ai consigli di viaggio, dall\\'esplorazione culturale agli assistenti intelligenti, speriamo di aiutare ogni viaggiatore a pianificare facilmente, immergersi profondamente e scoprire una Cina reale e magnifica.",
+      "title": "La nostra storia"
+    },
+    "hero": {
+      "title": "Perché sceglierci?"
+    },
+    "team": {
+      "title": "Il nostro team",
+      "subtitle": "tripcngo.com è stato creato da queste persone eccezionali"
+    },
+    "features": {
+      "ai": {
+        "desc": "Il nostro assistente IA capisce le tue esigenze, crea contenuti personalizzati e professionali per facilitare pianificazione e viaggio",
+        "title": "Assistente IA intelligente"
+      },
+      "team": {
+        "desc": "Siamo un team di viaggiatori appassionati che conoscono le ultime politiche e i luoghi segreti, pronti a fornire informazioni e servizi professionali",
+        "title": "Team locale professionale"
+      },
+      "focus": {
+        "desc": "Serviamo solo amanti del viaggio indipendente con itinerari personalizzati per un viaggio indimenticabile",
+        "title": "Focus sul viaggio indipendente"
+      }
+    }
+  },
+  "discover": {
+    "guides": {
+      "desc": "Viaggiatori esperti condividono consigli pratici per viaggiare facilmente in Cina"
+    },
+    "pocket": {
+      "desc": "In 5 minuti padroneggia gli essenziali per viaggiare in Cina. Imperdibile per i primi visitatori"
+    },
+    "hotCities": "Città popolari",
+    "moreCities": "Altre città",
+    "guidesName": "Guide di viaggio",
+    "pocketName": "Guida di viaggio in Cina"
+  },
+  "cities": {
+    "intro": {
+      "p1": "La Repubblica Popolare Cinese è uno dei paesi più antichi del mondo con 5.000 anni di civiltà.",
+      "p2": "La Cina si trova nell\\'Asia orientale sulla costa occidentale del Pacifico, fondata nel 1949. È uno dei paesi più popolati al mondo con 1,4 miliardi di abitanti e una superficie di circa 9,6 milioni di km², il terzo paese più grande del mondo.",
+      "p3": "Il rilievo della Cina presenta tre gradini discendenti da ovest a est: dall\\'altopiano del Qinghai-Tibet alle pianure e alla costa. Questo dislivello crea paesaggi diversi dai \\'tetti del mondo\\' alla costa orientale, con deserti, altopiani, bacini e pianure, e dà origine ai due grandi sistemi fluviali dello Yangtze e del Fiume Giallo.",
+      "p4": "La Cina è divisa in 23 province, 5 regioni autonome, 4 municipalità (Pechino, Shanghai, Tianjin, Chongqing) e 2 regioni amministrative speciali (Hong Kong, Macao). La capitale Pechino è il centro politico e culturale del paese, mentre Shanghai è un importante centro economico e finanziario.",
+      "p5": "La Cina è vasta e multiculturale, con 56 gruppi etnici ufficialmente riconosciuti. Gli Han costituiscono il gruppo principale, il mandarino è la lingua comune, vengono utilizzati i caratteri cinesi. Han e minoranze sono collettivamente chiamati \\'nazione cinese\\', \\'discendenti di Yan-Huang\\', \\'eredi del drago\\'.",
+      "p6": "La cultura cinese è profonda, vasta e brillante. Centro culturale della sfera culturale dell\\'Asia orientale, occupa un posto importante nel sistema culturale mondiale. Le forme artistiche tradizionali includono poesia, opera, calligrafia e pittura. Le festività tradizionali importanti includono Capodanno, Festa delle Lanterne, Qingming, Festa delle Barche Drago, Festa di Metà Autunno e Festa del Doppio Nono.",
+      "title": "Sulla Cina"
+    },
+    "hero": {
+      "desc": "Esplora le città più popolari della Cina. Scopri cosa fare a Pechino, Shanghai e Guangzhou, trova i migliori consigli su ristoranti e shopping, oltre a conoscenze interessanti per pianificare facilmente il tuo viaggio.",
+      "title": "Città cinesi popolari"
+    }
+  },
+  "terms": {
+    "hero": {
+      "title": "Termini di utilizzo",
+      "subtitle": "Utilizzando il nostro sito, accetti i termini"
+    }
+  },
+  "pay": {
+    "success": {
+      "title": "🎉 Pagamento riuscito!",
+      "item1": "La tua cronologia degli acquisti è salvata nella memoria locale (LocalStorage) del browser di questo dispositivo.",
+      "item2": "NON svuotare la cache del browser, altrimenti perderai l\\'accesso.",
+      "item3": "La sincronizzazione tra dispositivi o browser non è attualmente supportata.",
+      "button": "Inizia la navigazione",
+      "subtitle": "Contenuto sbloccato! Grazie per il tuo supporto.",
+      "important": "IMPORTANTE"
+    }
+  },
+  "privacy": {
+    "hero": {
+      "title": "Informativa sulla privacy",
+      "subtitle": "Ci impegniamo a proteggere le tue informazioni personali e la tua privacy"
+    },
+    "lastUpdated": "Ultimo aggiornamento: 26 aprile 2025"
+  }
+}
