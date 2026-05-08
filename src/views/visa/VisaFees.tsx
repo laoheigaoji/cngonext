@@ -65,12 +65,31 @@ export default function VisaFees({ initialData, initialTranslations }: { initial
     S2: 'privateS2',
   };
 
-  // 多语言支持：优先使用数据库翻译，否则使用中英文字段
+  // 多语言支持：优先使用locale翻译，其次数据库翻译，最后回退到中英文字段
   const getLocalizedText = (zh: string, en: string | null, key?: string) => {
+    // 优先使用locale翻译（key格式: visa.type.xxx）
+    if (key) {
+      const localeKey = key.startsWith('visa.') ? key : `visa.${key}`;
+      const localeValue = t(localeKey);
+      if (localeValue && localeValue !== localeKey) {
+        return localeValue;
+      }
+    }
+    // 其次从数据库翻译
     if (key && dbTranslations[key]) {
       return dbTranslations[key];
     }
-    return language === 'zh' ? zh : (en || zh);
+    // 回退到中英文字段
+    // 判断zh字段是否实际包含中文，如果不是中文则尝试使用en字段
+    if (language === 'zh' || language === 'tw') {
+      const hasChinese = /[\u4e00-\u9fff]/.test(zh);
+      if (hasChinese) return zh;
+      // zh字段不含中文，尝试en字段
+      if (en && /[\u4e00-\u9fff]/.test(en)) return en;
+      // 都不是中文，返回zh（原始值）
+      return zh;
+    }
+    return en || zh;
   };
 
   // 获取签证类型的翻译名称
@@ -123,81 +142,73 @@ export default function VisaFees({ initialData, initialTranslations }: { initial
 
   if (loading) {
     return (
-      <>
-<VisaLayout breadcrumbTitle={tr.pageTitle}>
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1b887a]"></div>
-          </div>
-        </VisaLayout>
-      </>
+      <VisaLayout breadcrumbTitle={tr.pageTitle}>
+        <div className="flex justify-center items-center py-20">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1b887a]"></div>
+        </div>
+      </VisaLayout>
     );
   }
 
   return (
-    <>
-<VisaLayout breadcrumbTitle={tr.pageTitle}>
-      <div className="p-6">
-        <div className="bg-[#1b887a] text-white p-6 rounded-t-lg">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-[#1b887a]/50">
-                <th className="text-left py-2">{tr.visaType}</th>
-                <th className="text-left py-2">{tr.mainPurpose}</th>
-                <th className="text-left py-2">{tr.costRange}</th>
-                <th className="text-left py-2">{tr.notes}</th>
+    <VisaLayout breadcrumbTitle={tr.pageTitle}>
+      <div className="bg-white rounded-sm border border-gray-200 overflow-hidden shadow-sm">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="bg-[#1b887a] text-white">
+              <th className="text-left px-6 py-4 font-semibold">{tr.visaType}</th>
+              <th className="text-left px-6 py-4 font-semibold">{tr.mainPurpose}</th>
+              <th className="text-left px-6 py-4 font-semibold">{tr.costRange}</th>
+              <th className="text-left px-6 py-4 font-semibold">{tr.notes}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {visaFees.map((v, i) => (
+              <tr key={v.id} className={`border-b border-gray-100 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
+                <td className="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">{v.visa_code} {tr.visaSuffix}</td>
+                <td className="px-6 py-4 text-gray-600">{getLocalizedText(v.purpose, v.purpose_en, getVisaTypeName(v.visa_code))}</td>
+                <td className="px-6 py-4 text-[#1b887a] font-semibold whitespace-nowrap">{v.fee_range}</td>
+                <td className="px-6 py-4 text-gray-500 text-xs">{getLocalizedText(v.note, v.note_en, `visa.fee.${v.visa_code}.note`)}</td>
               </tr>
-            </thead>
-            <tbody>
-              {visaFees.map((v, i) => (
-                <tr key={v.id} className="border-b border-[#1b887a]/50 last:border-none">
-                  <td className="py-3 font-semibold">{v.visa_code} {tr.visaSuffix}</td>
-                  <td className="py-3">{getLocalizedText(v.purpose, v.purpose_en, getVisaTypeName(v.visa_code))}</td>
-                  <td className="py-3 text-[#e0f2f1] font-medium">{v.fee_range}</td>
-                  <td className="py-3 text-xs opacity-90">{getLocalizedText(v.note, v.note_en, `visa.fee.${v.visa_code}.note`)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-6 space-y-6 text-sm text-gray-700">
+        <h3 className="font-bold text-lg text-gray-900">{tr.additionalInfo}</h3>
+
+        <div>
+          <h4 className="font-semibold text-gray-900">{tr.reciprocal}</h4>
+          <ul className="list-disc pl-5 mt-2 space-y-1">
+            <li>{tr.reciprocalDesc}</li>
+          </ul>
         </div>
 
-        <div className="bg-white p-8 rounded-b-lg border-x border-b border-gray-200 shadow-sm">
-          <h3 className="font-bold text-lg mb-4">{tr.additionalInfo}</h3>
-          
-          <div className="space-y-6 text-sm text-gray-700">
-            <div>
-              <h4 className="font-semibold text-gray-900">{tr.reciprocal}</h4>
-              <ul className="list-disc pl-5 mt-2 space-y-1">
-                <li>{tr.reciprocalDesc}</li>
-              </ul>
-            </div>
+        <div>
+          <h4 className="font-semibold text-gray-900">{tr.additionalFees}</h4>
+          <ul className="list-disc pl-5 mt-2 space-y-1">
+            <li>{tr.expedited}</li>
+            <li>{tr.mailing}</li>
+            <li>{tr.medical}</li>
+          </ul>
+        </div>
 
-            <div>
-              <h4 className="font-semibold text-gray-900">{tr.additionalFees}</h4>
-              <ul className="list-disc pl-5 mt-2 space-y-1">
-                <li>{tr.expedited}</li>
-                <li>{tr.mailing}</li>
-                <li>{tr.medical}</li>
-              </ul>
-            </div>
+        <div>
+          <h4 className="font-semibold text-gray-900">{tr.residencePermit}</h4>
+          <ul className="list-disc pl-5 mt-2 space-y-1">
+            <li>{tr.permit1}</li>
+            <li>{tr.permit2}</li>
+            <li>{tr.permit3}</li>
+          </ul>
+        </div>
 
-            <div>
-              <h4 className="font-semibold text-gray-900">{tr.residencePermit}</h4>
-              <ul className="list-disc pl-5 mt-2 space-y-1">
-                <li>{tr.permit1}</li>
-                <li>{tr.permit2}</li>
-                <li>{tr.permit3}</li>
-              </ul>
-            </div>
-
-            <div className="p-4 bg-gray-50 rounded border border-gray-100 text-xs text-gray-500">
-              <p className="font-semibold text-gray-700 mb-1">{tr.note}</p>
-              <p>{tr.feeNote1}</p>
-              <p>{tr.feeNote2}</p>
-            </div>
-          </div>
+        <div className="p-4 bg-gray-50 rounded border border-gray-200 text-xs text-gray-500">
+          <p className="font-semibold text-gray-700 mb-1">{tr.note}</p>
+          <p>{tr.feeNote1}</p>
+          <p>{tr.feeNote2}</p>
         </div>
       </div>
     </VisaLayout>
-    </>
   );
 }

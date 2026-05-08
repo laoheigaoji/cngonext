@@ -136,14 +136,24 @@ export default function VisaTypes({ initialData, initialTranslations }: { initia
     S2: 'privateS2',
   };
 
-  // 多语言支持：优先使用数据库翻译，否则使用中英文字段
+  // 多语言支持：优先使用locale翻译，其次数据库翻译，最后回退到中英文字段
   const getLocalizedText = (zh: string, en: string | null, key?: string) => {
-    // 如果有翻译键，优先从数据库翻译
+    // 优先使用locale翻译（key格式: visa.type.xxx）
+    if (key) {
+      const localeKey = key.startsWith('visa.') ? key : `visa.${key}`;
+      const localeValue = t(localeKey);
+      // t() returns the key itself if not found, so check if it actually resolved
+      if (localeValue && localeValue !== localeKey) {
+        return localeValue;
+      }
+    }
+    // 其次从数据库翻译
     if (key && dbTranslations[key]) {
       return dbTranslations[key];
     }
     // 回退到中英文字段
-    return language === 'zh' ? zh : (en || zh);
+    if (language === 'zh' || language === 'tw') return zh;
+    return en || zh;
   };
 
   // 文档标题到翻译键的映射
@@ -269,21 +279,19 @@ export default function VisaTypes({ initialData, initialTranslations }: { initia
 
   if (loading) {
     return (
-      <>
-<VisaLayout breadcrumbTitle={tr.pageTitle}>
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1b887a]"></div>
-          </div>
-        </VisaLayout>
-      </>
+      <VisaLayout breadcrumbTitle={tr.pageTitle}>
+        <div className="flex justify-center items-center py-20">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1b887a]"></div>
+        </div>
+      </VisaLayout>
     );
   }
 
   return (
-    <>
       <VisaLayout breadcrumbTitle={tr.pageTitle}>
+        <div className="bg-white border border-gray-100 rounded-sm shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">{tr.pageTitle}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6 px-6 pt-6">{tr.pageTitle}</h2>
         <table className="w-full text-sm text-left border-collapse">
           <thead>
             <tr className="bg-[#1b887a] text-white">
@@ -324,6 +332,7 @@ export default function VisaTypes({ initialData, initialTranslations }: { initia
             ))}
           </tbody>
         </table>
+      </div>
       </div>
 
       {/* Dynamic Documents Modal */}
@@ -445,6 +454,5 @@ export default function VisaTypes({ initialData, initialTranslations }: { initia
         </div>
       )}
     </VisaLayout>
-    </>
   );
 }

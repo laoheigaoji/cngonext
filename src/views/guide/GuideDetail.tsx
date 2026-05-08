@@ -714,7 +714,7 @@ export default function GuideDetail({ initialData }: { initialData?: any }) {
                                   >
                                     <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>
                                     {isReplyTranslating 
-                                      ? '...' 
+                                      ? t('comment.translating')
                                       : isReplyTranslated 
                                         ? t('comment.hideTranslation')
                                         : t('comment.translate')}
@@ -755,7 +755,7 @@ export default function GuideDetail({ initialData }: { initialData?: any }) {
                               disabled={submittingReply || !replyText.trim() || !replyName.trim()}
                               className="bg-[#1b887a] text-white px-4 py-1.5 rounded-lg text-sm font-bold hover:bg-[#156d61] transition-colors disabled:opacity-50 whitespace-nowrap"
                             >
-                              {submittingReply ? '...' : t('comment.reply')}
+                              {submittingReply ? t('comment.submitting') : t('comment.reply')}
                             </button>
                           </div>
                         </div>
@@ -828,7 +828,7 @@ export default function GuideDetail({ initialData }: { initialData?: any }) {
                   <Link to={`/${langPrefix}/articles/${prevArticle._id}`} className="p-4 rounded-xl border border-gray-100 hover:border-[#1b887a] hover:bg-gray-50 transition-all flex items-center gap-4 text-left">
                     {prevArticle.thumbnail && <img src={prevArticle.thumbnail} alt="" className="w-16 h-16 rounded-lg object-cover" />}
                     <div className="flex flex-col">
-                      <span className="text-[10px] uppercase font-bold text-gray-400 mb-1">{language === 'zh' ? '上一篇' : 'Previous'}</span>
+                      <span className="text-[10px] uppercase font-bold text-gray-400 mb-1">{t('article.prev')}</span>
                       <h4 className="font-bold text-gray-900 line-clamp-2">
                         {getI18n(prevArticle, 'title') || prevArticle.title || prevArticle.titleEn || ''}
                       </h4>
@@ -838,7 +838,7 @@ export default function GuideDetail({ initialData }: { initialData?: any }) {
                 {nextArticle ? (
                   <Link to={`/${langPrefix}/articles/${nextArticle._id}`} className="p-4 rounded-xl border border-gray-100 hover:border-[#1b887a] hover:bg-gray-50 transition-all flex items-center gap-4 text-right justify-end">
                     <div className="flex flex-col text-right">
-                      <span className="text-[10px] uppercase font-bold text-gray-400 mb-1">{language === 'zh' ? '下一篇' : 'Next'}</span>
+                      <span className="text-[10px] uppercase font-bold text-gray-400 mb-1">{t('article.next')}</span>
                       <h4 className="font-bold text-gray-900 line-clamp-2">
                         {getI18n(nextArticle, 'title') || nextArticle.title || nextArticle.titleEn || ''}
                       </h4>

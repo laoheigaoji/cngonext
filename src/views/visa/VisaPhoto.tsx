@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import VisaLayout from '../../components/visa/VisaLayout';
 import { X } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
@@ -31,8 +31,9 @@ export default function VisaPhoto() {
   const baseImage = 'https://static.tripcngo.com/ing/zhaopian1.jpg';
   const childImage = 'https://static.tripcngo.com/ing/zhaopian2.png';
   const badImage = 'https://static.tripcngo.com/ing/zhaopian3.png';
+  const [lightbox, setLightbox] = useState<string | null>(null);
 
-  const isZh = language === 'zh';
+  const isZh = language === 'zh' || language === 'tw';
   const getLocalizedText = (zh: string, en: string) => isZh ? zh : en;
 
   // 翻译键
@@ -59,8 +60,8 @@ export default function VisaPhoto() {
   };
 
   return (
-    <>
-<VisaLayout breadcrumbTitle={tr.pageTitle}>
+    <VisaLayout breadcrumbTitle={tr.pageTitle}>
+        <div className="bg-white border border-gray-100 rounded-sm shadow-sm p-6">
         <h2 className="text-2xl font-bold text-center mb-10 text-gray-900">{tr.pageTitle}</h2>
       
       <div className="flex flex-col lg:flex-row gap-10 mb-12">
@@ -115,37 +116,52 @@ export default function VisaPhoto() {
                <div className="absolute top-1/2 -left-8 -translate-y-1/2 text-[10px] text-gray-600">{tr.dimensionLabel2}</div>
                <div className="absolute border-l border-blue-500 h-[28px] top-1/2 -left-2 -translate-y-1/2"></div>
                
-               <img src={baseImage} alt={tr.dimensionIllustration} className="w-[120px] h-[160px] object-cover object-top" />
+               <img src={baseImage} alt={tr.dimensionIllustration} className="w-[120px] h-[160px] object-cover object-top cursor-pointer hover:opacity-80 transition-opacity" onClick={() => setLightbox(baseImage)} />
             </div>
           </div>
           <p className="text-xs text-gray-500 mb-6 text-center">{tr.photoSize}</p>
 
           <div className="w-full">
             <h4 className="text-sm font-bold text-gray-900 mb-3">{tr.qualifiedExample}</h4>
-            <img src={childImage} alt={tr.qualifiedExample} className="rounded-sm" />
+            <img src={childImage} alt={tr.qualifiedExample} className="rounded-sm cursor-pointer hover:opacity-80 transition-opacity" onClick={() => setLightbox(childImage)} />
           </div>
         </div>
       </div>
 
       {/* Bad Examples Matrix */}
-      <div className="bg-gray-50/50 border border-gray-100 rounded-sm p-6">
+      <div>
         <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center">
           <X className="w-5 h-5 text-red-500 mr-2" strokeWidth={3} />
           {tr.unqualifiedTitle}
         </h3>
         <div className="flex flex-col items-center">
-            <div className="bg-white overflow-hidden mb-2 relative flex items-center justify-center border border-gray-200">
+            <div className="overflow-hidden mb-2 relative flex items-center justify-center cursor-pointer" onClick={() => setLightbox(badImage)}>
                 <img 
                     src={badImage} 
                     alt={tr.unqualifiedExample}
-                    className=""
+                    className="hover:opacity-80 transition-opacity"
                 />
             </div>
             <span className="text-[14px] font-bold text-gray-700 text-center px-1">{tr.unqualifiedExample}</span>
         </div>
       </div>
+      </div>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center" onClick={() => setLightbox(null)}>
+          <div className="relative" onClick={e => e.stopPropagation()}>
+            <button
+              className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors"
+              onClick={() => setLightbox(null)}
+            >
+              <X className="w-8 h-8" />
+            </button>
+            <img src={lightbox} alt="Preview" className="max-w-[90vw] max-h-[85vh] object-contain rounded-lg" style={{ minWidth: '300px' }} />
+          </div>
+        </div>
+      )}
 
     </VisaLayout>
-    </>
   );
 }

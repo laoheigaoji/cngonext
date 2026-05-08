@@ -7,7 +7,7 @@ import { useLanguage } from '../../context/LanguageContext';
 export default function VisaArrivalCard() {
   const { language, t } = useLanguage();
 
-  const isZh = language === 'zh';
+  const isZh = language === 'zh' || language === 'tw';
   const getLocalizedText = (zh: string, en: string) => isZh ? zh : en;
 
   // 翻译键
@@ -73,8 +73,8 @@ export default function VisaArrivalCard() {
   ];
 
   return (
-    <>
-<VisaLayout breadcrumbTitle={tr.pageTitle}>
+    <VisaLayout breadcrumbTitle={tr.pageTitle}>
+        <div className="bg-white border border-gray-100 rounded-sm shadow-sm p-6">
         <h2 className="text-2xl font-bold text-center mb-10 text-gray-900">{tr.pageTitle}</h2>
       <div className="space-y-12">
         {steps.map((step) => (
@@ -102,7 +102,7 @@ export default function VisaArrivalCard() {
           </div>
         ))}
       </div>
+      </div>
     </VisaLayout>
-    </>
   );
 }

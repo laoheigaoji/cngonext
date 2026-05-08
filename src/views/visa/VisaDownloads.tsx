@@ -8,7 +8,7 @@ import { useLanguage } from '../../context/LanguageContext';
 export default function VisaDownloads() {
   const { language, t } = useLanguage();
 
-  const isZh = language === 'zh';
+  const isZh = language === 'zh' || language === 'tw';
 
   // 翻译键
   const tr = {
@@ -28,9 +28,8 @@ export default function VisaDownloads() {
   ];
 
   return (
-    <>
-<VisaLayout breadcrumbTitle={tr.pageTitle}>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <VisaLayout breadcrumbTitle={tr.pageTitle}>
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
           <table className="w-full text-left">
           <thead className="bg-[#1b887a] text-white">
             <tr>
@@ -60,6 +59,5 @@ export default function VisaDownloads() {
         </table>
       </div>
     </VisaLayout>
-    </>
   );
 }
