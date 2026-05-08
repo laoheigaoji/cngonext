@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "article": {
+      "title": "Article",
+      "description": "An article published on the site.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "titleEn": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "subtitleEn": { "type": "string" },
+        "content": { "type": "string" },
+        "contentEn": { "type": "string" },
+        "thumbnail": { "type": "string" },
+        "category": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "category", "createdAt", "updatedAt"]
+    },
+    "city": {
+      "title": "City",
+      "description": "City detail data.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "enName": { "type": "string" },
+        "heroImage": { "type": "string" },
+        "listCover": { "type": "string" }
+      },
+      "required": ["id", "name", "enName"]
+    },
+    "feedback": {
+      "title": "Feedback",
+      "description": "User feedback.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "message", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/articles/{articleId}": {
+      "schema": { "$ref": "#/entities/article" },
+      "description": "Articles collection"
+    },
+    "/cities/{cityId}": {
+      "schema": { "$ref": "#/entities/city" },
+      "description": "Cities collection"
+    },
+    "/feedbacks/{feedbackId}": {
+      "schema": { "$ref": "#/entities/feedback" },
+      "description": "Feedbacks from users"
+    }
+  }
+}

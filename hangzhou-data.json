@@ -1,0 +1,267 @@
+{
+  "name": "杭州",
+  "enName": "Hangzhou",
+  "paragraphs": [
+    "杭州位于中国东南沿海，浙江省北部，钱塘江下游，京杭大运河南端。属亚热带季风气候，四季分明，雨量充沛。夏季炎热潮湿，冬季湿冷，春秋两季气候宜人，是最佳旅游季节。",
+    "杭州有2200多年历史，是吴越国和南宋的都城。以西湖文化闻名，被马可·波罗誉为‘世界上最美丽华贵之天城’。宋代文人苏轼、白居易等在此留下大量诗词，赋予城市深厚的人文底蕴。",
+    "杭州文化氛围浓郁，茶文化、丝绸文化、佛教文化交融。美食以杭帮菜为代表，清淡鲜美，讲究原汁原味。龙井茶、西湖醋鱼、东坡肉等闻名遐迩。市民生活闲适，品茶、赏景、泛舟湖上。",
+    "现代杭州是中国数字经济重镇，阿里巴巴总部所在地，科技与创新活力十足。国际知名度高，2016年G20峰会、2022年亚运会在此举办。未来目标是打造‘数字经济第一城’和国际重要旅游目的地。"
+  ],
+  "enParagraphs": [
+    "Hangzhou is located on the southeast coast of China, northern Zhejiang Province, at the lower reaches of the Qiantang River and the southern end of the Beijing-Hangzhou Grand Canal. It has a subtropical monsoon climate with four distinct seasons and abundant rainfall. Summers are hot and humid, winters are wet and cold, while spring and autumn are pleasant, making them the best travel seasons.",
+    "With a history of over 2,200 years, Hangzhou served as the capital of the Wuyue Kingdom and the Southern Song Dynasty. Famous for West Lake culture, it was praised by Marco Polo as 'the most beautiful and magnificent city in the world'. Literati like Su Shi and Bai Juyi left numerous poems, giving the city profound cultural heritage.",
+    "Hangzhou has a rich cultural atmosphere blending tea culture, silk culture, and Buddhism. Its cuisine, exemplified by Hangzhou dishes, is light, fresh, and emphasizes original flavors. Longjing tea, West Lake Vinegar Fish, and Dongpo Pork are renowned. Locals enjoy a leisurely lifestyle of tea tasting, sightseeing, and boating on the lake.",
+    "Modern Hangzhou is a digital economy hub in China, headquarters of Alibaba, full of technology and innovation. It enjoys high international recognition, having hosted the 2016 G20 Summit and 2022 Asian Games. Future goals include becoming the 'No.1 Digital Economy City' and an international tourism destination."
+  ],
+  "tags": [
+    {"text": "西湖", "enText": "West Lake", "color": "#5B9BD5"},
+    {"text": "杭帮菜", "enText": "Hangzhou Cuisine", "color": "#ED7D31"},
+    {"text": "龙井茶", "enText": "Longjing Tea", "color": "#70AD47"},
+    {"text": "数字之都", "enText": "Digital Capital", "color": "#4472C4"}
+  ],
+  "info": {
+    "area": "16,853平方公里",
+    "population": "1,237万(2023年)"
+  },
+  "stats": {
+    "wantToVisit": 99999,
+    "recommended": 99999
+  },
+  "bestTravelTime": {
+    "strongText": "3-5月和9-11月",
+    "enStrongText": "March-May and September-November",
+    "paragraphs": [
+      "杭州的最佳旅游时间是春季（3-5月）和秋季（9-11月）。这两个季节气温适中，降雨较少，湿度适宜。春季花开遍地，秋季天高气爽，西湖及周边景色最为迷人。夏季炎热多雨，冬季湿冷，但各有特色。",
+      "春季（3-5月）的杭州温暖宜人，平均气温15-25℃。推荐前往西湖苏堤春晓赏桃花，白堤看垂柳，太子湾公园赏郁金香和樱花。清明节前后龙井茶园采茶，体验茶文化。建议带薄外套和雨具。",
+      "秋季（9-11月）天气凉爽，平均气温10-20℃。满陇桂雨赏桂花，北山路看梧桐落叶，杨公堤骑行惬意。中秋前后钱塘江观潮，农历八月十八最壮观。秋季适合品蟹，推荐大闸蟹。"
+    ],
+    "enParagraphs": [
+      "The best time to visit Hangzhou is spring (March-May) and autumn (September-November), when temperatures are moderate, rainfall is low, and humidity is comfortable. Spring brings blooming flowers, while autumn offers clear skies—the perfect time to enjoy West Lake and surrounding scenery. Summer is hot and rainy, winter is wet and cold, but each season has its charm.",
+      "Spring (March-May) in Hangzhou is warm and pleasant, with average temperatures of 15-25°C. Recommended spots: Su Causeway for peach blossoms, Bai Causeway for weeping willows, Taiziwan Park for tulips and cherry blossoms. Longjing tea plantation offers tea-picking experiences around Qingming Festival. Bring a light jacket and rain gear.",
+      "Autumn (September-November) is cool with average temperatures of 10-20°C. Visit Manjuelong for osmanthus flowers, Beishan Road for plane tree leaves, and cycle on Yanggong Causeway. Enjoy the Qiantang River tidal bore around Mid-Autumn Festival (best on the 18th day of the eighth lunar month). It's also the season for hairy crabs."
+    ]
+  },
+  "history": [
+    {
+      "year": "公元前210年",
+      "enYear": "210 BC",
+      "title": "秦置钱唐县",
+      "enTitle": "Qin Dynasty Establishes Qiantang County",
+      "desc": "秦始皇统一中国后，在杭州设钱唐县，属会稽郡，标志着杭州建置之始。",
+      "enDesc": "After unifying China, the First Emperor of Qin established Qiantang County in Hangzhou under Kuaiji Commandery, marking the beginning of Hangzhou's administrative history."
+    },
+    {
+      "year": "907年",
+      "enYear": "907 AD",
+      "title": "吴越国建都",
+      "enTitle": "Capital of Wuyue Kingdom",
+      "desc": "钱镠建立吴越国，定都杭州，修筑海塘，发展经济，使杭州成为东南重镇。",
+      "enDesc": "Qian Liu founded the Wuyue Kingdom, made Hangzhou its capital, built seawalls, and developed the economy, turning Hangzhou into a major southeastern city."
+    },
+    {
+      "year": "1138年",
+      "enYear": "1138 AD",
+      "title": "南宋定都临安",
+      "enTitle": "Capital of Southern Song",
+      "desc": "赵构定都临安（今杭州），杭州成为全国政治、经济、文化中心，人口超过百万。",
+      "enDesc": "Zhao Gou established Lin'an (present-day Hangzhou) as the capital of the Southern Song Dynasty, making it the political, economic, and cultural center with a population over one million."
+    },
+    {
+      "year": "2016年",
+      "enYear": "2016",
+      "title": "G20杭州峰会",
+      "enTitle": "G20 Hangzhou Summit",
+      "desc": "2016年G20峰会在杭州举行，提升了杭州的国际知名度和影响力。",
+      "enDesc": "The 2016 G20 Summit was held in Hangzhou, enhancing its international reputation and influence."
+    },
+    {
+      "year": "2022年",
+      "enYear": "2022",
+      "title": "第19届亚运会",
+      "enTitle": "19th Asian Games",
+      "desc": "2022年杭州亚运会举办，虽延期至2023年，但展示了杭州的现代化水平和组织能力。",
+      "enDesc": "The 2022 Asian Games in Hangzhou (delayed to 2023) showcased the city's modernization and organizational capabilities."
+    }
+  ],
+  "attractions": [
+    {
+      "name": "西湖",
+      "enName": "West Lake",
+      "desc": "世界文化遗产，以“西湖十景”闻名，可乘船游湖、漫步苏堤、参观雷峰塔。",
+      "enDesc": "A UNESCO World Heritage site famous for 'Ten Scenes of West Lake'. Boating on the lake, strolling Su Causeway, and visiting Leifeng Pagoda are recommended.",
+      "price": "免费开放",
+      "enPrice": "Free",
+      "season": "全年",
+      "enSeason": "All year",
+      "time": "全天",
+      "enTime": "All day"
+    },
+    {
+      "name": "灵隐寺",
+      "enName": "Lingyin Temple",
+      "desc": "中国佛教禅宗十大古刹之一，始建于东晋，寺内有飞来峰石刻造像。",
+      "enDesc": "One of the ten great ancient Buddhist temples of the Chan sect, built in the Eastern Jin Dynasty, featuring Feilai Peak stone carvings.",
+      "price": "门票45元，飞来峰45元",
+      "enPrice": "Ticket 45 RMB, Feilai Peak 45 RMB",
+      "season": "全年",
+      "enSeason": "All year",
+      "time": "07:00-18:00",
+      "enTime": "07:00-18:00"
+    },
+    {
+      "name": "宋城",
+      "enName": "Songcheng (Song Dynasty Town)",
+      "desc": "大型宋代文化主题公园，以《宋城千古情》演出闻名，体验宋代市井生活。",
+      "enDesc": "A large Song Dynasty-themed cultural park famous for the show 'Romance of the Song Dynasty', offering a glimpse into Song dynasty street life.",
+      "price": "门票300元起",
+      "enPrice": "Ticket from 300 RMB",
+      "season": "全年",
+      "enSeason": "All year",
+      "time": "09:00-21:00",
+      "enTime": "09:00-21:00"
+    },
+    {
+      "name": "千岛湖",
+      "enName": "Thousand Island Lake",
+      "desc": "人工水库，拥有1078个岛屿，以清澈湖水和群岛景观著称，可乘船游览。",
+      "enDesc": "A man-made reservoir with 1,078 islands, known for its clear water and archipelago scenery. Boat tours available.",
+      "price": "门票130元，船票65元",
+      "enPrice": "Ticket 130 RMB, boat 65 RMB",
+      "season": "全年",
+      "enSeason": "All year",
+      "time": "08:00-17:00",
+      "enTime": "08:00-17:00"
+    },
+    {
+      "name": "西溪湿地",
+      "enName": "Xixi Wetland",
+      "desc": "国家湿地公园，以“一曲溪流一曲烟”闻名，可乘船游览、观鸟、体验民俗。",
+      "enDesc": "A national wetland park known for its winding streams and mist, offering boat rides, bird watching, and folk culture experiences.",
+      "price": "门票80元，船票60元",
+      "enPrice": "Ticket 80 RMB, boat 60 RMB",
+      "season": "全年",
+      "enSeason": "All year",
+      "time": "08:00-17:30",
+      "enTime": "08:00-17:30"
+    }
+  ],
+  "worldHeritage": [
+    {
+      "name": "杭州西湖文化景观",
+      "enName": "West Lake Cultural Landscape of Hangzhou",
+      "year": "2011年",
+      "enYear": "2011",
+      "desc": "西湖湖光山色与人文景观完美结合，包含苏堤、白堤、雷峰塔等，是东方山水美学的典范。",
+      "enDesc": "West Lake integrates natural scenery and cultural heritage, including Su Causeway, Bai Causeway, and Leifeng Pagoda, exemplifying oriental landscape aesthetics."
+    },
+    {
+      "name": "中国大运河（杭州段）",
+      "enName": "The Grand Canal (Hangzhou Section)",
+      "year": "2014年",
+      "enYear": "2014",
+      "desc": "京杭大运河南端终点，拱宸桥、小河直街等见证运河文化，是活态的遗产。",
+      "enDesc": "The southern terminus of the Beijing-Hangzhou Grand Canal, with Gongchen Bridge and Xiaohe Historic Street bearing witness to canal culture, a living heritage."
+    }
+  ],
+  "intangibleHeritage": [
+    {
+      "name": "西湖龙井茶制作技艺",
+      "enName": "West Lake Longjing Tea Processing Technique",
+      "year": "2008年",
+      "enYear": "2008",
+      "desc": "国家级非遗，传统手工炒制龙井茶，包括采摘、摊放、杀青、回潮、辉锅等工序。",
+      "enDesc": "National intangible heritage, traditional handcrafted Longjing tea processing including picking, spreading, fixing, moisture regaining, and finishing.",
+      "imageUrl": ""
+    },
+    {
+      "name": "杭州织锦技艺",
+      "enName": "Hangzhou Brocade Weaving Technique",
+      "year": "2008年",
+      "enYear": "2008",
+      "desc": "国家级非遗，以桑蚕丝为原料，织造精美丝绸制品，代表为“西湖绸伞”。",
+      "enDesc": "National intangible heritage, using mulberry silk to weave exquisite silk products, represented by 'West Lake silk umbrella'.",
+      "imageUrl": ""
+    }
+  ],
+  "transportation": [
+    {
+      "iconName": "Plane",
+      "title": "杭州萧山国际机场",
+      "enTitle": "Hangzhou Xiaoshan International Airport",
+      "desc": "位于萧山区，距市中心约27公里。国内外航线覆盖广泛，机场大巴直达市区、火车站及周边城市，票价20-30元。地铁1号线、7号线、19号线连接机场与市区，打车约100-150元。",
+      "enDesc": "Located in Xiaoshan, about 27km from city center. Extensive domestic and international routes. Airport shuttles to city, train stations, and nearby cities (20-30 RMB). Metro lines 1, 7, and 19 connect airport to downtown. Taxi around 100-150 RMB.",
+      "price": "机场大巴20-30元",
+      "enPrice": "Airport shuttle 20-30 RMB"
+    },
+    {
+      "iconName": "Train",
+      "title": "杭州东站/城站/南站",
+      "enTitle": "Hangzhou East/Chengzhan/South Station",
+      "desc": "杭州东站为主要高铁站，连接上海（约1小时）、北京（约4.5小时）等。杭州城站（杭州站）位于市中心，以普速列车为主。杭州南站为辅助站。地铁1、4、5、6号线覆盖主要车站。",
+      "enDesc": "Hangzhou East is the main high-speed rail station with connections to Shanghai (~1h), Beijing (~4.5h), etc. Hangzhou Chengzhan (Hangzhou Station) is central, mainly for conventional trains. Hangzhou South is auxiliary. Metro lines 1, 4, 5, 6 serve major stations.",
+      "price": "高铁票价因距离而异，如杭州-上海约73元",
+      "enPrice": "High-speed rail fares vary, e.g., Hangzhou-Shanghai about 73 RMB"
+    },
+    {
+      "iconName": "Bus",
+      "title": "杭州地铁及公交",
+      "enTitle": "Hangzhou Metro and Bus",
+      "desc": "杭州地铁目前运营12条线，票价2-12元，覆盖主要景点和城区。公交发达，BRT快速公交多条线路，票价2元。出租车起步价11元，网约车方便。西湖周边有公交专线和共享单车。",
+      "enDesc": "Hangzhou Metro operates 12 lines, fare 2-12 RMB, covering major attractions and urban areas. Buses are extensive, including BRT lines, fare 2 RMB. Taxi starts at 11 RMB, ride-hailing available. West Lake area has special bus routes and shared bikes.",
+      "price": "地铁2-12元，公交2元",
+      "enPrice": "Metro 2-12 RMB, Bus 2 RMB"
+    }
+  ],
+  "food": [
+    {
+      "name": "西湖醋鱼",
+      "enName": "West Lake Vinegar Fish",
+      "pinyin": "Xī Hú Cù Yú",
+      "price": "约88-128元",
+      "desc": "杭州经典名菜，选用草鱼，用醋和糖烹制，酸甜可口，鱼肉鲜嫩。",
+      "desc": "Hangzhou classic dish made with grass carp, cooked with vinegar and sugar, sweet and sour, tender fish.",
+      "ingredients": "草鱼、醋、糖、酱油、料酒、姜末",
+      "enIngredients": "Grass carp, vinegar, sugar, soy sauce, cooking wine, minced ginger"
+    },
+    {
+      "name": "东坡肉",
+      "enName": "Dongpo Pork",
+      "pinyin": "Dōng Pō Ròu",
+      "price": "约68-98元",
+      "desc": "以苏轼（东坡）命名的红烧肉，慢炖至酥烂，肥而不腻，入口即化。",
+      "desc": "Braised pork belly named after Su Shi (Dongpo), slow-cooked until tender, fatty but not greasy, melts in the mouth.",
+      "ingredients": "五花肉、酱油、绍酒、冰糖、葱、姜",
+      "enIngredients": "Pork belly, soy sauce, Shaoxing wine, rock sugar, scallion, ginger"
+    },
+    {
+      "name": "龙井虾仁",
+      "enName": "Longjing Shrimp",
+      "pinyin": "Lóng Jǐng Xiā Rén",
+      "price": "约98-168元",
+      "desc": "用龙井茶烹制虾仁，茶香与虾鲜融合，口感清爽，色泽素雅。",
+      "desc": "Stir-fried shrimp with Longjing tea leaves, combining tea fragrance and shrimp freshness, light and elegant.",
+      "ingredients": "河虾仁、龙井茶叶、蛋清、淀粉、盐",
+      "enIngredients": "River shrimp, Longjing tea leaves, egg white, starch, salt"
+    },
+    {
+      "name": "葱包烩",
+      "enName": "Scallion Wrap",
+      "pinyin": "Cōng Bāo Huǐ",
+      "price": "约5-10元",
+      "desc": "杭州街头小吃，面皮包裹油条和葱，煎至金黄，涂上甜面酱或辣酱。",
+      "desc": "Street snack: flour wrapper filled with fried dough stick and scallions, pan-fried until golden, served with sweet bean or chili sauce.",
+      "ingredients": "面粉、油条、葱、甜面酱、辣酱",
+      "enIngredients": "Flour, fried dough stick, scallion, sweet bean sauce, chili sauce"
+    },
+    {
+      "name": "定胜糕",
+      "enName": "Dingsheng Cake",
+      "pinyin": "Dìng Shèng Gāo",
+      "price": "约3-5元/块",
+      "desc": "传统米粉糕点，中间有豆沙馅，松软香甜，寓意吉祥，常见于节庆。",
+      "desc": "Traditional rice cake with red bean paste filling, soft and sweet, auspicious symbol, often seen during festivals.",
+      "ingredients": "糯米粉、粳米粉、豆沙、白糖",
+      "enIngredients": "Glutinous rice flour, rice flour, red bean paste, sugar"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+  --color-primary: #009966;
+  --color-footer: #006b54;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f7f7f7;
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 20px;
+  }
+
+  /* Custom typography for Markdown */
+  .markdown-body h1 {
+    @apply text-3xl md:text-4xl font-extrabold text-gray-900 mt-14 mb-8 tracking-tight;
+  }
+  .markdown-body h2 {
+    @apply text-2xl md:text-3xl font-bold text-gray-900 mt-12 mb-6;
+  }
+  .markdown-body h3 {
+    @apply text-xl md:text-2xl font-bold text-gray-900 mt-10 mb-5;
+  }
+  .markdown-body h4 {
+    @apply text-lg sm:text-xl font-semibold text-gray-900 mt-8 mb-4;
+  }
+  .markdown-body p {
+    @apply text-base md:text-[17px] text-[#333] leading-[2.2] mb-8 break-words text-justify;
+  }
+  .markdown-body ul {
+    @apply list-disc list-outside pl-6 mb-8 space-y-3 text-base md:text-[17px] text-[#333] leading-[2.2];
+  }
+  .markdown-body ol {
+    @apply list-decimal list-outside pl-6 mb-8 space-y-3 text-base md:text-[17px] text-[#333] leading-[2.2];
+  }
+  .markdown-body li > p {
+    @apply mb-0;
+  }
+  .markdown-body blockquote {
+    @apply border-l-4 border-[#1b887a] pl-5 italic text-gray-600 my-8 bg-gray-50 py-4 pr-5 rounded-r-lg;
+  }
+  .markdown-body img {
+    @apply rounded-xl shadow-md my-10 mx-auto w-full object-cover max-w-full;
+  }
+  .markdown-body strong {
+    @apply font-bold text-gray-900;
+  }
+  .markdown-body a {
+    @apply text-[#1b887a] hover:underline;
+  }
+  .markdown-body hr {
+    @apply my-12 border-t border-gray-200;
+  }
+}

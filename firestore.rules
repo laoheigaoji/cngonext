@@ -1,0 +1,95 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitive Helpers
+    function isValidId(id) { 
+      return id is string && id.size() > 0 && id.size() <= 256; 
+    }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isSignedIn() { return request.auth != null; }
+    
+    function isAdmin() { 
+      // Check if user is logged in AND has the specific admin email
+      return isSignedIn() && 
+             "email" in request.auth.token && 
+             (request.auth.token.email.lower() == "lianwo88@gmail.com" || 
+              request.auth.token.email.lower() == "1546912750@qq.com");
+    }
+
+    // Validation for Cities
+    function isValidCity(data) {
+      return data.keys().hasAll(['id', 'name', 'enName']) &&
+             data.name is string && data.name.size() > 0 &&
+             data.enName is string && data.enName.size() > 0;
+    }
+
+    function isCurrentUserAdmin() {
+      return request.auth.token.email == "lianwo88@gmail.com";
+    }
+
+    match /cities/{cityId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidId(cityId) && isValidCity(incoming());
+      allow update: if isValidId(cityId) && (
+        (isAdmin() && isValidCity(incoming())) ||
+        (isSignedIn() && incoming().diff(existing()).affectedKeys().hasOnly(['stats']))
+      );
+      allow delete: if isAdmin() && isValidId(cityId);
+    }
+
+    // Validation for Articles
+    // Blueprint:
+    // title (str), subtitle (str), content (str), category (str), views (number), likes (number), createdAt (timestamp), updatedAt (timestamp)
+    // Optional: titleEn, subtitleEn, contentEn, thumbnail, author
+    // Note: To support increment, the views and likes need to exist initially or be added. Wait, the app adds views and likes using increment.
+    
+    function isValidArticle(data) {
+      return data.keys().hasAll(['title', 'category']) &&
+             data.title is string && data.title.size() <= 500 && data.title.size() > 0 &&
+             data.category is string && data.category.size() <= 100;
+    }
+
+    match /articles/{articleId} {
+      allow read: if true;
+      
+      allow create: if isAdmin() && isValidId(articleId) && isValidArticle(incoming());
+      
+      allow update: if isValidId(articleId) && (
+        (isAdmin() && isValidArticle(incoming())) ||
+        (incoming().diff(existing()).affectedKeys().hasOnly(['views', 'likes'])) ||
+        (incoming().diff(existing()).affectedKeys().hasOnly(['views'])) ||
+        (incoming().diff(existing()).affectedKeys().hasOnly(['likes']))
+      );
+
+      allow delete: if isAdmin() && isValidId(articleId);
+    }
+
+    // Validation for Feedbacks
+    function isValidFeedback(data) {
+      return data.keys().hasAll(['name', 'email', 'message', 'createdAt']) &&
+             data.name is string && data.name.size() <= 100 &&
+             data.email is string && data.email.size() <= 150 &&
+             data.message is string && data.message.size() <= 1000 &&
+             data.createdAt is timestamp;
+    }
+
+    match /feedbacks/{feedbackId} {
+      // Admin can read and delete feedbacks
+      allow read: if isAdmin();
+      allow delete: if isAdmin() && isValidId(feedbackId);
+      
+      // Anyone can create a feedback
+      allow create: if isValidId(feedbackId) && isValidFeedback(incoming()) && incoming().createdAt == request.time && incoming().keys().hasOnly(['name', 'email', 'message', 'createdAt']);
+      
+      allow update: if false; // Feedbacks are immutable
+    }
+  }
+}
