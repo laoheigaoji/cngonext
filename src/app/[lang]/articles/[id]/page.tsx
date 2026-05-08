@@ -2,6 +2,8 @@ import { LANGUAGES, getArticleIds } from "@/lib/static-params";
 import { getArticleData } from "@/lib/server-data";
 import ArticleDetailClient from "./ArticleDetailClient";
 
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
   const articleIds = await getArticleIds();
   return LANGUAGES.flatMap((lang) =>

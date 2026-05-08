@@ -2,6 +2,8 @@ import { LANGUAGES, GUIDE_IDS } from "@/lib/static-params";
 import { getGuideDetailData, getTranslations } from "@/lib/server-data";
 import GuideDetailClient from "./GuideDetailClient";
 
+export const dynamicParams = true;
+
 export function generateStaticParams() {
   return LANGUAGES.flatMap((lang) =>
     GUIDE_IDS.map((id) => ({ lang, id }))

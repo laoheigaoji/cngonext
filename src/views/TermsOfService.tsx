@@ -51,7 +51,7 @@ const getLocalizedField = (section: PageSection | undefined, field: 'title' | 'c
   };
   
   const lang = langMap[language] || 'en';
-  const suffix = lang === 'zh' ? '' : `_${lang}`;
+  const suffix = `_${lang}`;
   
   if (field === 'title') {
     return (section as any)[`title${suffix}`] || section.title_en || '';
@@ -78,8 +78,9 @@ const renderContent = (content: string) => {
   });
 };
 
-const TermsOfService = ({ initialData }: { initialData?: any[] }) => {
+const TermsOfService = ({ initialData, lang }: { initialData?: any[]; lang?: string }) => {
   const { language, t } = useLanguage();
+  const currentLang = (lang || language) as any;
   const [sections, setSections] = useState<PageSection[]>(() => (initialData || []) as PageSection[]);
   const [loading, setLoading] = useState(!initialData);
 
@@ -127,7 +128,7 @@ const TermsOfService = ({ initialData }: { initialData?: any[] }) => {
       <SEO 
         title={t('terms.hero.title')}
         description={t('terms.hero.subtitle')}
-        keywords={language === 'zh' ? '服务条款, tripcngo条款' : 'Terms of Service, tripcngo terms'}
+        keywords={currentLang === 'zh' ? '服务条款, tripcngo条款' : 'Terms of Service, tripcngo terms'}
       />
       
       {/* Hero Section */}
@@ -147,8 +148,8 @@ const TermsOfService = ({ initialData }: { initialData?: any[] }) => {
           <p className="text-sm text-gray-500 mb-8">{t('privacy.lastUpdated')}</p>
           
           {contentSections.map((section) => {
-            const title = getLocalizedField(section, 'title', language);
-            const content = getLocalizedField(section, 'content', language);
+            const title = getLocalizedField(section, 'title', currentLang);
+            const content = getLocalizedField(section, 'content', currentLang);
 
             return (
               <div key={section.id}>

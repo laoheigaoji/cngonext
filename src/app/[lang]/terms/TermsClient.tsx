@@ -2,6 +2,6 @@
 
 import TermsOfService from "@/app-views/TermsOfService";
 
-export default function TermsClient({ initialData }: { initialData?: any[] }) {
-  return <TermsOfService initialData={initialData} />;
+export default function TermsClient({ initialData, lang }: { initialData?: any[]; lang?: string }) {
+  return <TermsOfService initialData={initialData} lang={lang} />;
 }

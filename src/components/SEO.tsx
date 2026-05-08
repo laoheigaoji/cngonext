@@ -77,10 +77,11 @@ const SEO: React.FC<SEOProps> = ({
 
     const setMeta = (name: string, content: string, isProperty = false) => {
       const attr = isProperty ? 'property' : 'name';
-      let el = document.querySelector(`meta[${attr}="${name}"]`);
+      let el = document.querySelector(`meta[${attr}="${name}"][data-seo="1"]`);
       if (!el) {
         el = document.createElement('meta');
         el.setAttribute(attr, name);
+        el.setAttribute('data-seo', '1');
         document.head.appendChild(el);
       }
       el.setAttribute('content', content);
@@ -88,17 +89,21 @@ const SEO: React.FC<SEOProps> = ({
 
     const setLink = (rel: string, href: string, hrefLang?: string) => {
       const selector = hrefLang
-        ? `link[rel="${rel}"][hreflang="${hrefLang}"]`
-        : `link[rel="${rel}"][href="${href}"]`;
+        ? `link[rel="${rel}"][hreflang="${hrefLang}"][data-seo="1"]`
+        : `link[rel="${rel}"][data-seo="1"][href="${href}"]`;
       let el = document.querySelector(selector) as HTMLLinkElement | null;
       if (!el) {
         el = document.createElement('link');
         el.setAttribute('rel', rel);
         if (hrefLang) el.setAttribute('hreflang', hrefLang);
+        el.setAttribute('data-seo', '1');
         document.head.appendChild(el);
       }
       el.setAttribute('href', href);
     };
+
+    // Only remove SEO-managed elements to avoid React DOM conflicts
+    document.querySelectorAll('[data-seo="1"]').forEach(el => el.remove());
 
     setMeta('description', metaDescription);
     setMeta('keywords', metaKeywords);
@@ -118,20 +123,14 @@ const SEO: React.FC<SEOProps> = ({
     setMeta('twitter:description', metaDescription);
     setMeta('twitter:image', image);
 
-    // Remove old hreflang tags and re-add
-    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(el => el.remove());
     hreflangTags.forEach(({ lang, href }) => setLink('alternate', href, lang));
     setLink('alternate', `${BASE_URL}/en`, 'x-default');
 
     // JSON-LD
-    const schemaId = 'seo-schema';
-    let scriptEl = document.getElementById(schemaId) as HTMLScriptElement | null;
-    if (!scriptEl) {
-      scriptEl = document.createElement('script');
-      scriptEl.type = 'application/ld+json';
-      scriptEl.id = schemaId;
-      document.head.appendChild(scriptEl);
-    }
+    const scriptEl = document.createElement('script');
+    scriptEl.type = 'application/ld+json';
+    scriptEl.id = 'seo-schema';
+    scriptEl.setAttribute('data-seo', '1');
     scriptEl.textContent = JSON.stringify(schemaData || {
       "@context": "https://schema.org",
       "@type": "WebSite",
@@ -143,6 +142,7 @@ const SEO: React.FC<SEOProps> = ({
         "query-input": "required name=search_term_string"
       }
     });
+    document.head.appendChild(scriptEl);
   }, [fullTitle, metaDescription, metaKeywords, url, type, image, ogLocale, JSON.stringify(ogLocales), JSON.stringify(hreflangTags), schemaData]);
 
   return null;

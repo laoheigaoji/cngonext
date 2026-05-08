@@ -49,7 +49,7 @@ const getLocalizedField = (section: PageSection, field: 'title' | 'content', lan
   };
   
   const lang = langMap[language] || 'en';
-  const suffix = lang === 'zh' ? '' : `_${lang}`;
+  const suffix = `_${lang}`;
   
   if (field === 'title') {
     return (section as any)[`title${suffix}`] || section.title_en || '';
@@ -57,8 +57,10 @@ const getLocalizedField = (section: PageSection, field: 'title' | 'content', lan
   return (section as any)[`content${suffix}`] || section.content_en || '';
 };
 
-const AboutUs = ({ initialData }: { initialData?: any[] }) => {
+const AboutUs = ({ initialData, lang }: { initialData?: any[]; lang?: string }) => {
   const { language, t } = useLanguage();
+  // Use prop lang for SSR when context may not be available yet
+  const currentLang = (lang || language) as any;
   const [sections, setSections] = useState<PageSection[]>(() => (initialData || []) as PageSection[]);
   const [loading, setLoading] = useState(!initialData);
 
@@ -103,11 +105,11 @@ const AboutUs = ({ initialData }: { initialData?: any[] }) => {
   const storySection = getSection('story');
   const teamSection = getSection('team');
 
-  const heroTitle = heroSection ? getLocalizedField(heroSection, 'title', language) : t('about.hero.title');
+  const heroTitle = heroSection ? getLocalizedField(heroSection, 'title', currentLang) : t('about.hero.title');
   const heroBgImage = heroSection?.extra_data?.bg_image || 'https://static.tripcngo.com/ing/banner_bg_1.jpg';
 
-  const storyTitle = storySection ? getLocalizedField(storySection, 'title', language) : t('about.story.title');
-  const storyContent = storySection ? getLocalizedField(storySection, 'content', language) : '';
+  const storyTitle = storySection ? getLocalizedField(storySection, 'title', currentLang) : t('about.story.title');
+  const storyContent = storySection ? getLocalizedField(storySection, 'content', currentLang) : '';
   const storyParagraphs = storyContent ? storyContent.split('|') : [
     t('about.story.p1'),
     t('about.story.p2'),
@@ -116,7 +118,7 @@ const AboutUs = ({ initialData }: { initialData?: any[] }) => {
     t('about.story.p5')
   ];
 
-  const teamTitle = teamSection ? getLocalizedField(teamSection, 'title', language) : t('about.team.title');
+  const teamTitle = teamSection ? getLocalizedField(teamSection, 'title', currentLang) : t('about.team.title');
 
   if (loading) {
     return (
@@ -130,10 +132,10 @@ const AboutUs = ({ initialData }: { initialData?: any[] }) => {
     <div className="bg-white">
       <SEO 
         title={heroTitle}
-        description={language === 'zh' 
+        description={currentLang === 'zh' 
           ? '了解 tripcngo.com 的使命和故事。我们是一个热爱旅行的本土团队，致力于利用智能AI技术帮助全球旅行者探索真实而美好的中国。' 
           : 'Learn about the mission and story of tripcngo.com. We are a local team of travel enthusiasts dedicated to helping global travelers explore the real and beautiful China using smart AI technology.'}
-        keywords={language === 'zh' ? '关于 tripcngo, 中国旅行团队, 旅行AI助手' : 'About tripcngo, China travel team, travel AI assistant'}
+        keywords={currentLang === 'zh' ? '关于 tripcngo, 中国旅行团队, 旅行AI助手' : 'About tripcngo, China travel team, travel AI assistant'}
       />
       
       {/* Hero Section */}
@@ -150,18 +152,18 @@ const AboutUs = ({ initialData }: { initialData?: any[] }) => {
         <div className="grid md:grid-cols-3 gap-12 mb-16 text-center">
           <div>
             <div className="text-5xl mb-4">📍</div>
-            <h3 className="text-xl font-bold mb-4">{featureTeam ? getLocalizedField(featureTeam, 'title', language) : t('about.features.team.title')}</h3>
-            <p className="text-gray-600">{featureTeam ? getLocalizedField(featureTeam, 'content', language) : t('about.features.team.desc')}</p>
+            <h3 className="text-xl font-bold mb-4">{featureTeam ? getLocalizedField(featureTeam, 'title', currentLang) : t('about.features.team.title')}</h3>
+            <p className="text-gray-600">{featureTeam ? getLocalizedField(featureTeam, 'content', currentLang) : t('about.features.team.desc')}</p>
           </div>
           <div>
             <div className="text-5xl mb-4">📅</div>
-            <h3 className="text-xl font-bold mb-4">{featureFocus ? getLocalizedField(featureFocus, 'title', language) : t('about.features.focus.title')}</h3>
-            <p className="text-gray-600">{featureFocus ? getLocalizedField(featureFocus, 'content', language) : t('about.features.focus.desc')}</p>
+            <h3 className="text-xl font-bold mb-4">{featureFocus ? getLocalizedField(featureFocus, 'title', currentLang) : t('about.features.focus.title')}</h3>
+            <p className="text-gray-600">{featureFocus ? getLocalizedField(featureFocus, 'content', currentLang) : t('about.features.focus.desc')}</p>
           </div>
           <div>
             <div className="text-5xl mb-4">🤖</div>
-            <h3 className="text-xl font-bold mb-4">{featureAi ? getLocalizedField(featureAi, 'title', language) : t('about.features.ai.title')}</h3>
-            <p className="text-gray-600">{featureAi ? getLocalizedField(featureAi, 'content', language) : t('about.features.ai.desc')}</p>
+            <h3 className="text-xl font-bold mb-4">{featureAi ? getLocalizedField(featureAi, 'title', currentLang) : t('about.features.ai.title')}</h3>
+            <p className="text-gray-600">{featureAi ? getLocalizedField(featureAi, 'content', currentLang) : t('about.features.ai.desc')}</p>
           </div>
         </div>
 
@@ -196,7 +198,7 @@ const AboutUs = ({ initialData }: { initialData?: any[] }) => {
                   <img src={member.img} alt={member.name} className="w-full h-full object-cover" />
                 </div>
                 <h3 className="font-bold">{member.name}</h3>
-                <p className="text-sm text-gray-600">{language === 'zh' ? member.role_zh : member.role_en}</p>
+                <p className="text-sm text-gray-600">{currentLang === 'zh' ? member.role_zh : member.role_en}</p>
               </div>
             ))}
           </div>

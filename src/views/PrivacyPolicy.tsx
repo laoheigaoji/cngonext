@@ -51,7 +51,7 @@ const getLocalizedField = (section: PageSection | undefined, field: 'title' | 'c
   };
   
   const lang = langMap[language] || 'en';
-  const suffix = lang === 'zh' ? '' : `_${lang}`;
+  const suffix = `_${lang}`;
   
   if (field === 'title') {
     return (section as any)[`title${suffix}`] || section.title_en || '';
@@ -78,8 +78,9 @@ const renderContent = (content: string) => {
   });
 };
 
-const PrivacyPolicy = ({ initialData }: { initialData?: any[] }) => {
+const PrivacyPolicy = ({ initialData, lang }: { initialData?: any[]; lang?: string }) => {
   const { language, t } = useLanguage();
+  const currentLang = (lang || language) as any;
   const [sections, setSections] = useState<PageSection[]>(() => (initialData || []) as PageSection[]);
   const [loading, setLoading] = useState(!initialData);
 
@@ -128,7 +129,7 @@ const PrivacyPolicy = ({ initialData }: { initialData?: any[] }) => {
       <SEO 
         title={t('privacy.hero.title')}
         description={t('privacy.hero.subtitle')}
-        keywords={language === 'zh' ? '隐私政策, tripcngo隐私' : 'Privacy Policy, tripcngo privacy'}
+        keywords={currentLang === 'zh' ? '隐私政策, tripcngo隐私' : 'Privacy Policy, tripcngo privacy'}
       />
       
       {/* Hero Section */}
@@ -152,8 +153,8 @@ const PrivacyPolicy = ({ initialData }: { initialData?: any[] }) => {
           <p>欢迎使用我们的网站。本隐私政策旨在告知您我们如何收集、使用、存储和保护您的个人信息。</p>
           
           {contentSections.map((section) => {
-            const title = getLocalizedField(section, 'title', language);
-            const content = getLocalizedField(section, 'content', language);
+            const title = getLocalizedField(section, 'title', currentLang);
+            const content = getLocalizedField(section, 'content', currentLang);
 
             return (
               <div key={section.id}>

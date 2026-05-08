@@ -101,15 +101,67 @@ export default function GuideDetail({ initialData }: { initialData?: any }) {
   const [commentText, setCommentText] = useState('');
   const [comments, setComments] = useState<any[]>([]);
   const [submittingComment, setSubmittingComment] = useState(false);
-  const [captcha, setCaptcha] = useState({ a: 0, b: 0, userAns: '' });
+  const [captcha, setCaptcha] = useState({ code: '', userAns: '' });
+  const captchaCanvasRef = React.useRef<HTMLCanvasElement>(null);
+  const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null);
+  const [replyText, setReplyText] = useState('');
+  const [replyName, setReplyName] = useState('');
+  const [submittingReply, setSubmittingReply] = useState(false);
+  const [commentPage, setCommentPage] = useState(1);
+  const [translatedComments, setTranslatedComments] = useState<Record<string, string>>({});
+  const [translatingIds, setTranslatingIds] = useState<Set<string>>(new Set());
+  const COMMENTS_PER_PAGE = 10;
 
+  const CAPTCHA_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   const generateCaptcha = () => {
-    setCaptcha({
-      a: Math.floor(Math.random() * 10) + 1,
-      b: Math.floor(Math.random() * 10) + 1,
-      userAns: ''
-    });
+    let code = '';
+    for (let i = 0; i < 4; i++) {
+      code += CAPTCHA_CHARS[Math.floor(Math.random() * CAPTCHA_CHARS.length)];
+    }
+    setCaptcha({ code, userAns: '' });
   };
+
+  // 绘制图形验证码
+  React.useEffect(() => {
+    if (!captcha.code || !captchaCanvasRef.current) return;
+    const canvas = captchaCanvasRef.current;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const W = 120, H = 40;
+    canvas.width = W;
+    canvas.height = H;
+    // 背景
+    ctx.fillStyle = '#f0f0f0';
+    ctx.fillRect(0, 0, W, H);
+    // 干扰线
+    for (let i = 0; i < 4; i++) {
+      ctx.strokeStyle = `hsl(${Math.random() * 360}, 60%, 70%)`;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(Math.random() * W, Math.random() * H);
+      ctx.lineTo(Math.random() * W, Math.random() * H);
+      ctx.stroke();
+    }
+    // 噪点
+    for (let i = 0; i < 30; i++) {
+      ctx.fillStyle = `hsl(${Math.random() * 360}, 50%, 60%)`;
+      ctx.fillRect(Math.random() * W, Math.random() * H, 2, 2);
+    }
+    // 绘制字符
+    const colors = ['#1b887a', '#d97706', '#7c3aed', '#dc2626'];
+    for (let i = 0; i < captcha.code.length; i++) {
+      ctx.save();
+      const x = 18 + i * 25;
+      const y = 28 + Math.random() * 6 - 3;
+      const angle = (Math.random() - 0.5) * 0.4;
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      ctx.font = `bold ${22 + Math.random() * 4}px monospace`;
+      ctx.fillStyle = colors[i % colors.length];
+      ctx.fillText(captcha.code[i], 0, 0);
+      ctx.restore();
+    }
+  }, [captcha.code]);
 
   const fetchComments = async () => {
     try {
@@ -117,20 +169,75 @@ export default function GuideDetail({ initialData }: { initialData?: any }) {
         .from('article_comments')
         .select('*')
         .eq('articleId', id)
-        .order('createdAt', { ascending: false });
+        .order('createdAt', { ascending: true });
       if (!error && data) setComments(data);
     } catch (err) {
       console.error("Error fetching comments:", err);
     }
   };
 
+  // 构建楼层结构：顶级评论 + 回复
+  const topLevelComments = comments.filter(c => !c.parentId);
+  const getReplies = (parentId: string) => comments.filter(c => c.parentId === parentId);
+  const getFloorNumber = (commentId: string) => {
+    const idx = topLevelComments.findIndex(c => c.id === commentId);
+    return idx !== -1 ? idx + 1 : -1;
+  };
+
+  // 分页逻辑
+  const totalCommentPages = Math.ceil(topLevelComments.length / COMMENTS_PER_PAGE);
+  const paginatedComments = topLevelComments.slice(
+    (commentPage - 1) * COMMENTS_PER_PAGE,
+    commentPage * COMMENTS_PER_PAGE
+  );
+  const floorOffset = (commentPage - 1) * COMMENTS_PER_PAGE;
+
+  // 翻译评论 - 翻译到当前选择的语言
+  const handleTranslate = async (commentId: string, content: string) => {
+    if (translatedComments[commentId]) {
+      setTranslatedComments(prev => {
+        const next = { ...prev };
+        delete next[commentId];
+        return next;
+      });
+      return;
+    }
+    setTranslatingIds(prev => new Set(prev).add(commentId));
+    try {
+      const { askDeepSeek } = await import('../../lib/deepseek');
+      const targetLangMap: Record<string, string> = {
+        zh: 'Simplified Chinese', en: 'English', ja: 'Japanese', ko: 'Korean',
+        ru: 'Russian', fr: 'French', es: 'Spanish', de: 'German', tw: 'Traditional Chinese', it: 'Italian'
+      };
+      const targetLang = targetLangMap[language] || 'Simplified Chinese';
+      const translated = await askDeepSeek(
+        `Translate the following text to ${targetLang}. If the text is already in ${targetLang}, just output the original text. Only output the translation, nothing else:\n\n${content}`
+      );
+      setTranslatedComments(prev => ({ ...prev, [commentId]: translated.trim() }));
+    } catch (err) {
+      console.error('Translation failed:', err);
+      alert(t('comment.translateFail'));
+    } finally {
+      setTranslatingIds(prev => {
+        const next = new Set(prev);
+        next.delete(commentId);
+        return next;
+      });
+    }
+  };
+
+  // 切换语言时清除翻译缓存
+  React.useEffect(() => {
+    setTranslatedComments({});
+  }, [language]);
+
   const handleSubmitComment = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!commentText.trim() || !commentName.trim()) return;
 
-    // CAPTCHA check
-    if (parseInt(captcha.userAns) !== (captcha.a + captcha.b)) {
-      alert(language === 'zh' ? '算术题答案错误，请重试' : 'Wrong answer for the math quiz, please try again.');
+    // CAPTCHA check (case-insensitive)
+    if (captcha.userAns.toUpperCase() !== captcha.code) {
+      alert(t('comment.captchaWrong'));
       return;
     }
 
@@ -151,11 +258,39 @@ export default function GuideDetail({ initialData }: { initialData?: any }) {
       setCaptcha(prev => ({ ...prev, userAns: '' }));
       generateCaptcha();
       fetchComments();
-      alert(language === 'zh' ? '评论提交成功！' : 'Comment submitted successfully!');
+      alert(t('comment.submitSuccess'));
     } catch (err: any) {
-      alert(language === 'zh' ? '提交失败' : 'Failed to submit comment: ' + err.message);
+      alert(t('comment.submitFail') + ': ' + err.message);
     } finally {
       setSubmittingComment(false);
+    }
+  };
+
+  const handleReply = async (parentId: string) => {
+    if (!replyText.trim() || !replyName.trim() || !replyTo) return;
+
+    setSubmittingReply(true);
+    try {
+      const { error } = await supabase
+        .from('article_comments')
+        .insert([{
+          articleId: id,
+          name: replyName,
+          content: replyText,
+          parentId: parentId,
+          createdAt: new Date().toISOString()
+        }]);
+      
+      if (error) throw error;
+      
+      setReplyText('');
+      setReplyName('');
+      setReplyTo(null);
+      fetchComments();
+    } catch (err: any) {
+      alert(t('comment.submitFail') + ': ' + err.message);
+    } finally {
+      setSubmittingReply(false);
     }
   };
 
@@ -472,37 +607,43 @@ export default function GuideDetail({ initialData }: { initialData?: any }) {
             <div className="mt-16 pt-12 border-t border-gray-100">
               <h3 className="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-2">
                 <MessageSquare className="w-6 h-6 text-[#1b887a]" />
-                {language === 'zh' ? '社区互动' : 'Community Discussion'}
+                {t('comment.title')}
                 <span className="text-sm font-normal text-gray-500 ml-2">({comments.length})</span>
               </h3>
 
               {/* Comment Form */}
               <form onSubmit={handleSubmitComment} className="bg-gray-50 p-6 rounded-xl mb-12">
-                <h4 className="font-bold text-gray-800 mb-4">{language === 'zh' ? '发表评论' : 'Leave a Comment'}</h4>
+                <h4 className="font-bold text-gray-800 mb-4">{t('comment.leaveComment')}</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <input 
                     type="text" 
-                    placeholder={language === 'zh' ? '您的昵称' : 'Your Name'}
+                    placeholder={t('comment.yourName')}
                     className="bg-white border border-gray-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-[#1b887a] outline-none"
                     value={commentName}
                     onChange={(e) => setCommentName(e.target.value)}
                     required
                   />
                   <div className="flex items-center gap-3 bg-white border border-gray-200 rounded-lg px-4 py-2">
-                    <span className="text-gray-500 font-bold whitespace-nowrap">{captcha.a} + {captcha.b} = </span>
+                    <canvas 
+                      ref={captchaCanvasRef} 
+                      className="rounded cursor-pointer h-10" 
+                      title={t('comment.captchaRefresh') || 'Click to refresh'}
+                      onClick={generateCaptcha}
+                    />
                     <input 
-                      type="number" 
-                      placeholder="?"
-                      className="w-full outline-none"
+                      type="text" 
+                      placeholder={t('comment.captchaPlaceholder') || 'Code'}
+                      className="w-full outline-none uppercase"
                       value={captcha.userAns}
                       onChange={(e) => setCaptcha(prev => ({ ...prev, userAns: e.target.value }))}
                       required
+                      maxLength={4}
                     />
                   </div>
                 </div>
                 <textarea 
                   rows={4}
-                  placeholder={language === 'zh' ? '分享您的想法或经验...' : 'Share your ideas or experiences...'}
+                  placeholder={t('comment.yourThoughts')}
                   className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1b887a] outline-none mb-4"
                   value={commentText}
                   onChange={(e) => setCommentText(e.target.value)}
@@ -514,35 +655,200 @@ export default function GuideDetail({ initialData }: { initialData?: any }) {
                   className="bg-[#1b887a] text-white px-8 py-3 rounded-lg font-bold hover:bg-[#156d61] transition-colors disabled:opacity-50"
                 >
                   {submittingComment 
-                    ? (language === 'zh' ? '提交中...' : 'Submitting...') 
-                    : (language === 'zh' ? '提交评论' : 'Post Comment')}
+                    ? t('comment.submitting')
+                    : t('comment.submit')}
                 </button>
               </form>
 
-              {/* Comments List */}
-              <div className="space-y-8">
-                {comments.map((comment, idx) => (
-                  <div key={idx} className="flex gap-4">
-                    <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center text-[#1b887a] font-bold uppercase">
-                      {comment.name[0]}
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="font-bold text-gray-900">{comment.name}</span>
-                        <span className="text-xs text-gray-400">
-                          {new Date(comment.createdAt).toLocaleDateString()}
-                        </span>
+              {/* Comments List - 楼层式 + 分页 */}
+              <div className="space-y-0">
+                {paginatedComments.map((comment, idx) => {
+                  const replies = getReplies(comment.id);
+                  const floor = floorOffset + idx + 1;
+                  const isTranslated = !!translatedComments[comment.id];
+                  const isTranslating = translatingIds.has(comment.id);
+                  return (
+                    <div key={comment.id} className="border-b border-gray-100 py-6">
+                      {/* 主评论（楼层） */}
+                      <div className="flex gap-4">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1b887a] to-[#0d6b5e] flex-shrink-0 flex items-center justify-center text-white font-bold uppercase text-sm shadow-sm">
+                          {comment.name[0]}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-3 mb-2">
+                            <span className="font-bold text-gray-900 text-sm">{comment.name}</span>
+                            <span className="text-[11px] font-bold text-[#1b887a] bg-[#1b887a]/8 px-2 py-0.5 rounded-full">
+                              {floor}F
+                            </span>
+                            <span className="text-xs text-gray-400">
+                              {new Date(comment.createdAt).toLocaleDateString()} {new Date(comment.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </span>
+                          </div>
+                          <p className="text-gray-600 leading-relaxed text-sm md:text-base mb-1">{comment.content}</p>
+                          {/* 翻译结果 */}
+                          {isTranslated && (
+                            <div className="mt-2 pl-3 border-l-2 border-blue-300 bg-blue-50/50 rounded-r-lg py-2 pr-3">
+                              <p className="text-blue-700/80 text-sm leading-relaxed">{translatedComments[comment.id]}</p>
+                            </div>
+                          )}
+                          <div className="flex items-center gap-4 mt-3">
+                            <button 
+                              onClick={() => handleTranslate(comment.id, comment.content)}
+                              disabled={isTranslating}
+                              className="text-xs text-gray-400 hover:text-blue-500 transition-colors flex items-center gap-1 disabled:opacity-50"
+                            >
+                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>
+                              {isTranslating 
+                                ? t('comment.translating')
+                                : isTranslated 
+                                  ? t('comment.hideTranslation')
+                                  : t('comment.translate')}
+                            </button>
+                            <button 
+                              onClick={() => setReplyTo(replyTo?.id === comment.id ? null : { id: comment.id, name: comment.name })}
+                              className="text-xs text-gray-400 hover:text-[#1b887a] transition-colors flex items-center gap-1"
+                            >
+                              <MessageSquare className="w-3 h-3" />
+                              {t('comment.reply')}
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                      <p className="text-gray-600 leading-relaxed text-sm md:text-base">{comment.content}</p>
+
+                      {/* 回复列表 */}
+                      {replies.length > 0 && (
+                        <div className="ml-14 mt-3 space-y-3 pl-4 border-l-2 border-[#1b887a]/10">
+                          {replies.map(reply => {
+                            const isReplyTranslated = !!translatedComments[reply.id];
+                            const isReplyTranslating = translatingIds.has(reply.id);
+                            return (
+                              <div key={reply.id} className="flex gap-3">
+                                <div className="w-7 h-7 rounded-full bg-gray-100 flex-shrink-0 flex items-center justify-center text-gray-500 font-bold uppercase text-xs">
+                                  {reply.name[0]}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <span className="font-bold text-gray-800 text-xs">{reply.name}</span>
+                                    <span className="text-[10px] text-gray-400">{new Date(reply.createdAt).toLocaleDateString()}</span>
+                                  </div>
+                                  <p className="text-gray-500 text-sm leading-relaxed">{reply.content}</p>
+                                  {isReplyTranslated && (
+                                    <div className="mt-1.5 pl-2 border-l-2 border-blue-300 bg-blue-50/50 rounded-r-lg py-1.5 pr-2">
+                                      <p className="text-blue-700/80 text-xs leading-relaxed">{translatedComments[reply.id]}</p>
+                                    </div>
+                                  )}
+                                  <button 
+                                    onClick={() => handleTranslate(reply.id, reply.content)}
+                                    disabled={isReplyTranslating}
+                                    className="text-[10px] text-gray-400 hover:text-blue-500 transition-colors flex items-center gap-1 mt-1.5 disabled:opacity-50"
+                                  >
+                                    <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>
+                                    {isReplyTranslating 
+                                      ? '...' 
+                                      : isReplyTranslated 
+                                        ? t('comment.hideTranslation')
+                                        : t('comment.translate')}
+                                  </button>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+
+                      {/* 回复输入框 */}
+                      {replyTo?.id === comment.id && (
+                        <div className="ml-14 mt-3 p-4 bg-gray-50 rounded-xl border border-gray-100">
+                          <p className="text-xs text-gray-500 mb-3">
+                            {t('comment.replyTo')} <span className="font-bold text-[#1b887a]">{replyTo.name}</span>
+                          </p>
+                          <div className="flex gap-3 mb-3">
+                            <input 
+                              type="text" 
+                              placeholder={t('comment.yourName')}
+                              className="flex-1 bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-[#1b887a] outline-none"
+                              value={replyName}
+                              onChange={(e) => setReplyName(e.target.value)}
+                            />
+                          </div>
+                          <div className="flex gap-3">
+                            <input 
+                              type="text" 
+                              placeholder={t('comment.writeReply')}
+                              className="flex-1 bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-[#1b887a] outline-none"
+                              value={replyText}
+                              onChange={(e) => setReplyText(e.target.value)}
+                              onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey && replyText.trim() && replyName.trim()) { e.preventDefault(); handleReply(comment.id); } }}
+                            />
+                            <button 
+                              onClick={() => handleReply(comment.id)}
+                              disabled={submittingReply || !replyText.trim() || !replyName.trim()}
+                              className="bg-[#1b887a] text-white px-4 py-1.5 rounded-lg text-sm font-bold hover:bg-[#156d61] transition-colors disabled:opacity-50 whitespace-nowrap"
+                            >
+                              {submittingReply ? '...' : t('comment.reply')}
+                            </button>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                ))}
-                {comments.length === 0 && (
+                  );
+                })}
+                {topLevelComments.length === 0 && (
                   <p className="text-center text-gray-400 py-8">
-                    {language === 'zh' ? '暂无评论，来当第一个发言的人吧！' : 'No comments yet. Be the first to share!'}
+                    {t('comment.noComments')}
                   </p>
                 )}
               </div>
+
+              {/* 分页导航 */}
+              {totalCommentPages > 1 && (
+                <div className="flex items-center justify-center gap-2 mt-8 pt-6 border-t border-gray-100">
+                  <button
+                    onClick={() => setCommentPage(p => Math.max(1, p - 1))}
+                    disabled={commentPage === 1}
+                    className="px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 hover:border-[#1b887a] hover:text-[#1b887a] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    {t('comment.prevPage')}
+                  </button>
+                  {Array.from({ length: totalCommentPages }, (_, i) => i + 1)
+                    .filter(p => {
+                      // 显示首页、末页、当前页附近
+                      if (p === 1 || p === totalCommentPages) return true;
+                      if (Math.abs(p - commentPage) <= 1) return true;
+                      return false;
+                    })
+                    .reduce<(number | string)[]>((acc, p, i, arr) => {
+                      if (i > 0 && p - (arr[i - 1] as number) > 1) acc.push('...');
+                      acc.push(p);
+                      return acc;
+                    }, [])
+                    .map((p, i) => 
+                      typeof p === 'string' ? (
+                        <span key={`ellipsis-${i}`} className="px-2 text-gray-400">...</span>
+                      ) : (
+                        <button
+                          key={p}
+                          onClick={() => setCommentPage(p)}
+                          className={`w-9 h-9 rounded-lg text-sm font-bold transition-all ${
+                            commentPage === p 
+                              ? 'bg-[#1b887a] text-white shadow-md' 
+                              : 'border border-gray-200 hover:border-[#1b887a] hover:text-[#1b887a]'
+                          }`}
+                        >
+                          {p}
+                        </button>
+                      )
+                    )
+                  }
+                  <button
+                    onClick={() => setCommentPage(p => Math.min(totalCommentPages, p + 1))}
+                    disabled={commentPage === totalCommentPages}
+                    className="px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 hover:border-[#1b887a] hover:text-[#1b887a] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    {t('comment.nextPage')}
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Prev/Next Section */}
