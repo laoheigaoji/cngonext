@@ -14,7 +14,9 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-6 gap-x-6 md:gap-x-10 gap-y-12">
           {/* Brand & Social - Always top or left */}
           <div className="col-span-2 md:col-span-2">
-            <h4 className="text-white text-[15px] md:text-[18px] font-bold mb-4">{t('footer.brand.title')}</h4>
+            <div className="mb-4">
+              <img src="/logo1.png" alt="tripcngo.com" className="h-10 object-contain" />
+            </div>
             <p className="mb-6 leading-relaxed text-[#e5f5ef] text-[13px] md:text-[14px] md:pr-10">
               {t('footer.brand.desc')}
             </p>

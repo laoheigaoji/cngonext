@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   description: "Your ultimate guide to traveling China. Explore authentic Chinese culture, detailed visa policies, practical travel tips. Payment, transport, and essential app guides make trip planning easy.",
   icons: {
     icon: '/favicon.ico',
+    apple: '/logo.png',
   },
 };
 

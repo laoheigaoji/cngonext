@@ -109,9 +109,9 @@ export default function Navbar() {
     <header 
       className={`fixed top-0 w-full z-50 transition-all duration-300 flex flex-col pt-[env(safe-area-inset-top)] ${
         location.pathname.includes('/tools/menu') 
-          ? 'bg-black shadow-md' 
-          : (isScrolled ? 'bg-black shadow-md' : 'bg-transparent shadow-none')
-      } text-white`}
+          ? 'bg-white/40 backdrop-blur-xl shadow-sm text-gray-800' 
+          : (isScrolled ? 'bg-white/40 backdrop-blur-xl shadow-sm text-gray-800' : 'bg-transparent shadow-none text-white')
+      }`}
     >
       <AnimatePresence>
         {showLangBanner && detectedLang && (
@@ -162,12 +162,8 @@ export default function Navbar() {
       </AnimatePresence>
       <div className={`w-full max-w-[1400px] mx-auto px-6 flex justify-between items-center transition-all duration-300 ${isScrolled ? 'py-3' : 'py-6'}`}>
         {/* Logo */}
-        <Link to={`/${langPrefix}`} className="flex items-center gap-3">
-          <img src="https://api.iconify.design/game-icons:mountains.svg?color=white" alt="Logo" className="w-10 h-10" />
-          <div className="flex flex-col">
-            <span className="text-xl font-bold tracking-tight leading-tight">tripcngo.com</span>
-            <span className="text-[11px] text-gray-300 tracking-[0.1em] font-medium">{t('nav.slogan')}</span>
-          </div>
+        <Link to={`/${langPrefix}`} className="flex items-center">
+          <img src="/logo.png" alt="tripcngo.com" className="h-10 object-contain" />
         </Link>
 
         {/* Desktop Nav */}
@@ -182,7 +178,7 @@ export default function Navbar() {
               <div key={item.name} className="relative group/nav">
                 {isTools ? (
                   <button 
-                    className={`flex items-center gap-1 text-[15px] transition-colors hover:text-gray-300 py-2 cursor-pointer ${isActive ? 'text-green-400' : 'text-white'}`}
+                    className={`flex items-center gap-1 text-[15px] transition-colors hover:text-gray-400 py-2 cursor-pointer ${isActive ? 'text-green-400' : (isScrolled ? 'text-gray-800' : 'text-white')}`}
                   >
                     {item.name}
                     {item.hasDropdown && <ChevronDown className="w-3.5 h-3.5 ml-0.5" />}
@@ -190,7 +186,7 @@ export default function Navbar() {
                 ) : (
                   <Link 
                     to={item.path}
-                    className={`flex items-center gap-1 text-[15px] transition-colors hover:text-gray-300 py-2 ${isActive ? 'text-green-400' : 'text-white'}`}
+                    className={`flex items-center gap-1 text-[15px] transition-colors hover:text-gray-400 py-2 ${isActive ? 'text-green-400' : (isScrolled ? 'text-gray-800' : 'text-white')}`}
                   >
                     {item.name}
                     {item.hasDropdown && <ChevronDown className="w-3.5 h-3.5 ml-0.5" />}
@@ -320,7 +316,7 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-6">
           <div className="relative group/lang">
             <button 
-              className="flex items-center gap-2 cursor-pointer hover:bg-white/20 transition-all bg-white/10 px-4 py-2 rounded-full border border-white/20 backdrop-blur-sm text-sm"
+              className={`flex items-center gap-2 cursor-pointer hover:bg-black/10 transition-all ${isScrolled ? 'bg-black/5 border-black/10' : 'bg-white/10 border-white/20'} px-4 py-2 rounded-full border backdrop-blur-sm text-sm`}
               onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
             >
               <Globe className="w-4 h-4" />
@@ -375,7 +371,7 @@ export default function Navbar() {
         <div className="lg:hidden flex items-center gap-2">
           <div className="relative">
             <button 
-              className="p-2 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mr-1"
+              className={`p-2 rounded-full ${isScrolled ? 'bg-black/5 border border-black/10' : 'bg-white/10 border border-white/20'} flex items-center justify-center mr-1`}
               onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
             >
               <Globe className="w-5 h-5" />
