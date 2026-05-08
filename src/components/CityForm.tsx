@@ -615,7 +615,9 @@ export default function CityForm({ city, onClose, onSave }: CityFormProps) {
 
       const data = JSON.parse(cleanJSON(responseText));
       
-      setFormData(prev => ({ ...prev, ...data, id: prev.id }));
+      // 保留手动填写的字段（videoUrl等），不被AI生成结果覆盖
+      const { videoUrl: _videoUrl, ...dataWithoutVideo } = data;
+      setFormData(prev => ({ ...prev, ...dataWithoutVideo, id: prev.id }));
     } catch (err) {
       console.error(err);
       alert('生成失败: ' + (err instanceof Error ? err.message : String(err)));
