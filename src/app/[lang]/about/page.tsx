@@ -6,6 +6,8 @@ export function generateStaticParams() {
   return LANGUAGES.map((lang) => ({ lang }));
 }
 
+export const dynamic = "force-static";
+
 const langMap: Record<string, string> = {
   cn: 'zh', tw: 'tw', en: 'en', ja: 'ja', ko: 'ko',
   ru: 'ru', fr: 'fr', es: 'es', de: 'de', it: 'it'

@@ -2,7 +2,7 @@ import { LANGUAGES, getCityIds } from "@/lib/static-params";
 import { getCityData } from "@/lib/server-data";
 import CityDetailClient from "./CityDetailClient";
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 export const dynamic = "force-static";
 
 export async function generateStaticParams() {

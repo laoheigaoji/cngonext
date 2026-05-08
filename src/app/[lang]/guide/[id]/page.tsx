@@ -2,7 +2,7 @@ import { LANGUAGES, GUIDE_IDS } from "@/lib/static-params";
 import { getGuideDetailData, getTranslations } from "@/lib/server-data";
 import GuideDetailClient from "./GuideDetailClient";
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 export const dynamic = "force-static";
 
 export function generateStaticParams() {

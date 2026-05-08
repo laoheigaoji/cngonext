@@ -8,6 +8,8 @@ export function generateStaticParams() {
   return LANGUAGES.map((lang) => ({ lang }));
 }
 
+export const dynamic = "force-static";
+
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const htmlLang = lang === 'cn' ? 'zh-CN' : lang === 'tw' ? 'zh-TW' : lang;
