@@ -3,6 +3,7 @@ import { getGuideDetailData, getTranslations } from "@/lib/server-data";
 import GuideDetailClient from "./GuideDetailClient";
 
 export const dynamicParams = true;
+export const dynamic = "force-static";
 
 export function generateStaticParams() {
   return LANGUAGES.flatMap((lang) =>

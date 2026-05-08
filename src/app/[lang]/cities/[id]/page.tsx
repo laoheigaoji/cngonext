@@ -3,6 +3,7 @@ import { getCityData } from "@/lib/server-data";
 import CityDetailClient from "./CityDetailClient";
 
 export const dynamicParams = true;
+export const dynamic = "force-static";
 
 export async function generateStaticParams() {
   const cityIds = await getCityIds();

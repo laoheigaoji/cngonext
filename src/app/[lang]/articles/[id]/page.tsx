@@ -3,6 +3,7 @@ import { getArticleData } from "@/lib/server-data";
 import ArticleDetailClient from "./ArticleDetailClient";
 
 export const dynamicParams = true;
+export const dynamic = "force-static";
 
 export async function generateStaticParams() {
   const articleIds = await getArticleIds();
