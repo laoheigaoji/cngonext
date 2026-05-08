@@ -1,7 +1,8 @@
-import { LANGUAGES, getCityIds } from "@/lib/static-params";
 import CityDetailClient from "./CityDetailClient";
 import { getHreflangAlternates, baseUrl, getSEO, citiesSEO, generateCityJsonLd } from "@/lib/seo-config";
 import { getCityData } from "@/lib/server-data";
+
+export const dynamic = 'force-dynamic';
 
 function getLocalizedField(obj: any, field: string, lang: string): string {
   const langSuffixMap: Record<string, string> = {
@@ -12,13 +13,6 @@ function getLocalizedField(obj: any, field: string, lang: string): string {
   if (suffix && obj?.[`${field}${suffix}`]) return obj[`${field}${suffix}`];
   if (obj?.[`${field}_en`]) return obj[`${field}_en`];
   return obj?.[field] || '';
-}
-
-export async function generateStaticParams() {
-  const cityIds = await getCityIds();
-  return LANGUAGES.flatMap((lang) =>
-    cityIds.map((id) => ({ lang, id }))
-  );
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string; id: string }> }) {

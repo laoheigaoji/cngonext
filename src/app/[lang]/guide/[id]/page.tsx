@@ -1,6 +1,7 @@
-import { LANGUAGES, GUIDE_IDS } from "@/lib/static-params";
 import GuideDetailClient from "./GuideDetailClient";
 import { getHreflangAlternates, baseUrl, getSEO, guideSEO } from "@/lib/seo-config";
+
+export const dynamic = 'force-dynamic';
 
 const GUIDE_SEO_OVERRIDES: Record<string, Record<string, { title: string; description: string }>> = {
   vpn: {
@@ -39,12 +40,6 @@ const GUIDE_SEO_OVERRIDES: Record<string, Record<string, { title: string; descri
     tw: { title: '中國社交文化指南 - tripcngo.com', description: '中國社交文化和禮儀指南，了解中國人的社交習慣、面子文化和人情世故。' },
   },
 };
-
-export function generateStaticParams() {
-  return LANGUAGES.flatMap((lang) =>
-    GUIDE_IDS.map((id) => ({ lang, id }))
-  );
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string; id: string }> }) {
   const { lang, id } = await params;
