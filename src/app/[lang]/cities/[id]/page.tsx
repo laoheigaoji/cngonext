@@ -56,10 +56,12 @@ export default async function CityDetailPage({ params }: { params: Promise<{ lan
   const { lang, id } = await params;
 
   let cityJsonLd = null;
+  let cityData = null;
   try {
     const city = await getCityData(id);
     if (city) {
       cityJsonLd = generateCityJsonLd(city, lang);
+      cityData = city;
     }
   } catch {}
 
@@ -71,7 +73,7 @@ export default async function CityDetailPage({ params }: { params: Promise<{ lan
           dangerouslySetInnerHTML={{ __html: JSON.stringify(cityJsonLd) }}
         />
       )}
-      <CityDetailClient />
+      <CityDetailClient initialData={cityData} />
     </>
   );
 }

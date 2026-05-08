@@ -1,5 +1,6 @@
 import GuideDetailClient from "./GuideDetailClient";
 import { getHreflangAlternates, baseUrl, getSEO, guideSEO } from "@/lib/seo-config";
+import { getArticleData } from "@/lib/server-data";
 
 export const dynamic = 'force-dynamic';
 
@@ -65,6 +66,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export default function Page() {
-  return <GuideDetailClient />;
+export default async function Page({ params }: { params: Promise<{ lang: string; id: string }> }) {
+  const { lang, id } = await params;
+
+  let articleData = null;
+  try {
+    articleData = await getArticleData(id);
+  } catch {}
+
+  return <GuideDetailClient initialData={articleData} />;
 }

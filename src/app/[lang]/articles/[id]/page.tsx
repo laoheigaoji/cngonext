@@ -56,10 +56,12 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
   const { lang, id } = await params;
 
   let articleJsonLd = null;
+  let articleData = null;
   try {
     const article = await getArticleData(id);
     if (article) {
       articleJsonLd = generateArticleJsonLd(article, lang);
+      articleData = article;
     }
   } catch {}
 
@@ -71,7 +73,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
         />
       )}
-      <ArticleDetailClient />
+      <ArticleDetailClient initialData={articleData} />
     </>
   );
 }
