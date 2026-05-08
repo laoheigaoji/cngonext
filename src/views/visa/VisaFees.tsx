@@ -152,7 +152,8 @@ export default function VisaFees({ initialData, initialTranslations }: { initial
 
   return (
     <VisaLayout breadcrumbTitle={tr.pageTitle}>
-      <div className="bg-white rounded-sm border border-gray-200 overflow-hidden shadow-sm">
+      {/* 桌面端表格 */}
+      <div className="hidden md:block bg-white rounded-sm border border-gray-200 overflow-hidden shadow-sm">
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-[#1b887a] text-white">
@@ -173,6 +174,30 @@ export default function VisaFees({ initialData, initialTranslations }: { initial
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* 移动端卡片列表 */}
+      <div className="md:hidden space-y-3">
+        {visaFees.map((v, i) => (
+          <div key={v.id} className={`rounded-lg border border-gray-200 overflow-hidden ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
+            {/* 卡片头部：签证类型 + 费用 */}
+            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-[#1b887a]/5">
+              <span className="font-bold text-gray-900">{v.visa_code} {tr.visaSuffix}</span>
+              <span className="text-[#1b887a] font-bold">{v.fee_range}</span>
+            </div>
+            {/* 卡片内容：用途 + 备注 */}
+            <div className="px-4 py-3 space-y-1.5">
+              <div className="flex items-start gap-2">
+                <span className="text-xs text-gray-400 whitespace-nowrap mt-0.5">{tr.mainPurpose}</span>
+                <span className="text-sm text-gray-700">{getLocalizedText(v.purpose, v.purpose_en, getVisaTypeName(v.visa_code))}</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-xs text-gray-400 whitespace-nowrap mt-0.5">{tr.notes}</span>
+                <span className="text-xs text-gray-500">{getLocalizedText(v.note, v.note_en, `visa.fee.${v.visa_code}.note`)}</span>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="mt-6 space-y-6 text-sm text-gray-700">

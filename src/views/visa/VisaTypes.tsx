@@ -289,51 +289,77 @@ export default function VisaTypes({ initialData, initialTranslations }: { initia
 
   return (
       <VisaLayout breadcrumbTitle={tr.pageTitle}>
-        <div className="bg-white border border-gray-100 rounded-sm shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 px-6 pt-6">{tr.pageTitle}</h2>
-        <table className="w-full text-sm text-left border-collapse">
-          <thead>
-            <tr className="bg-[#1b887a] text-white">
-              <th className="py-4 px-6 font-medium whitespace-nowrap border-b border-[#1b887a]">
-                {tr.visaName}
-              </th>
-              <th className="py-4 px-6 font-medium whitespace-nowrap border-b border-[#1b887a]">
-                {tr.visaCode}
-              </th>
-              <th className="py-4 px-6 font-medium border-b border-[#1b887a]">
-                {tr.description}
-              </th>
-              <th className="py-4 px-6 font-medium whitespace-nowrap border-b border-[#1b887a]"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {visaTypes.map((item, index) => (
-              <tr 
-                key={item.id} 
-                className={`border-b border-gray-100 hover:bg-gray-50/50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}`}
-              >
-                <td className="py-4 px-6 text-gray-700 whitespace-nowrap">
-                  {getVisaTypeName(item)}
-                </td>
-                <td className="py-4 px-6 font-bold text-gray-900 text-center whitespace-nowrap">{item.code}</td>
-                <td className="py-4 px-6 text-gray-600 leading-relaxed min-w-[300px]">
-                  {getVisaTypeDesc(item)}
-                </td>
-                <td className="py-4 px-6 text-center whitespace-nowrap">
-                  <button 
-                    onClick={() => fetchDocuments(item.code, getVisaTypeName(item))}
-                    className="text-[#1b887a] hover:underline text-[13px]"
-                  >
-                    {tr.viewDocs}
-                  </button>
-                </td>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">{tr.pageTitle}</h2>
+
+        {/* 桌面端表格 */}
+        <div className="hidden md:block bg-white border border-gray-100 rounded-sm shadow-sm overflow-hidden">
+          <table className="w-full text-sm text-left border-collapse">
+            <thead>
+              <tr className="bg-[#1b887a] text-white">
+                <th className="py-4 px-6 font-medium whitespace-nowrap border-b border-[#1b887a]">
+                  {tr.visaName}
+                </th>
+                <th className="py-4 px-6 font-medium whitespace-nowrap border-b border-[#1b887a]">
+                  {tr.visaCode}
+                </th>
+                <th className="py-4 px-6 font-medium border-b border-[#1b887a]">
+                  {tr.description}
+                </th>
+                <th className="py-4 px-6 font-medium whitespace-nowrap border-b border-[#1b887a]"></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      </div>
+            </thead>
+            <tbody>
+              {visaTypes.map((item, index) => (
+                <tr 
+                  key={item.id} 
+                  className={`border-b border-gray-100 hover:bg-gray-50/50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}`}
+                >
+                  <td className="py-4 px-6 text-gray-700 whitespace-nowrap">
+                    {getVisaTypeName(item)}
+                  </td>
+                  <td className="py-4 px-6 font-bold text-gray-900 text-center whitespace-nowrap">{item.code}</td>
+                  <td className="py-4 px-6 text-gray-600 leading-relaxed min-w-[300px]">
+                    {getVisaTypeDesc(item)}
+                  </td>
+                  <td className="py-4 px-6 text-center whitespace-nowrap">
+                    <button 
+                      onClick={() => fetchDocuments(item.code, getVisaTypeName(item))}
+                      className="text-[#1b887a] hover:underline text-[13px]"
+                    >
+                      {tr.viewDocs}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* 移动端卡片列表 */}
+        <div className="md:hidden space-y-3">
+          {visaTypes.map((item, index) => (
+            <div key={item.id} className={`rounded-lg border border-gray-200 overflow-hidden ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
+              {/* 卡片头部：签证代码 + 类型名称 */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-[#1b887a]/5">
+                <div className="flex items-center gap-2">
+                  <span className="bg-[#1b887a] text-white text-xs font-bold px-2 py-0.5 rounded">{item.code}</span>
+                  <span className="font-bold text-gray-900">{getVisaTypeName(item)}</span>
+                </div>
+                <button 
+                  onClick={() => fetchDocuments(item.code, getVisaTypeName(item))}
+                  className="text-[#1b887a] hover:underline text-xs font-medium"
+                >
+                  {tr.viewDocs}
+                </button>
+              </div>
+              {/* 卡片内容：描述 */}
+              <div className="px-4 py-3">
+                <span className="text-xs text-gray-400">{tr.description}</span>
+                <p className="text-sm text-gray-600 mt-1 leading-relaxed">{getVisaTypeDesc(item)}</p>
+              </div>
+            </div>
+          ))}
+        </div>
 
       {/* Dynamic Documents Modal */}
       {activeModal && (
