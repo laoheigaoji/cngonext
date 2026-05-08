@@ -1,144 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <!-- Home -->
-  <url>
-    <loc>https://tripcngo.com/</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <!-- Visa Main Page -->
-  <url>
-    <loc>https://tripcngo.com/visa</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tripcngo.com/visa/types</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://tripcngo.com/visa/photo</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://tripcngo.com/visa/fees</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://tripcngo.com/visa/form</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://tripcngo.com/visa/arrival-card</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tripcngo.com/visa/downloads</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Cities -->
-  <url>
-    <loc>https://tripcngo.com/cities</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Guides -->
-  <url>
-    <loc>https://tripcngo.com/guide</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://tripcngo.com/articles</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Tools -->
-  <url>
-    <loc>https://tripcngo.com/tools/zodiac</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://tripcngo.com/tools/name</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://tripcngo.com/tools/menu</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://tripcngo.com/tools/pinyin</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://tripcngo.com/tools/counter</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <!-- Apps -->
-  <url>
-    <loc>https://tripcngo.com/apps</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- About -->
-  <url>
-    <loc>https://tripcngo.com/about</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://tripcngo.com/privacy</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://tripcngo.com/terms</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-
-  <!-- Contact -->
-  <url>
-    <loc>https://tripcngo.com/feedback</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
-  </url>
-</urlset>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://tripcngo.com/sitemap-cn.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://tripcngo.com/sitemap-tw.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://tripcngo.com/sitemap-en.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://tripcngo.com/sitemap-ja.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://tripcngo.com/sitemap-ko.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://tripcngo.com/sitemap-ru.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://tripcngo.com/sitemap-fr.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://tripcngo.com/sitemap-es.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://tripcngo.com/sitemap-de.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://tripcngo.com/sitemap-it.xml</loc>
+  </sitemap>
+</sitemapindex>

@@ -19,6 +19,19 @@ const langMap: Record<string, Language> = {
   it: 'it'
 };
 
+const htmlLangMap: Record<string, string> = {
+  cn: 'zh-CN',
+  tw: 'zh-TW',
+  en: 'en',
+  ja: 'ja',
+  ko: 'ko',
+  ru: 'ru',
+  fr: 'fr',
+  es: 'es',
+  de: 'de',
+  it: 'it'
+};
+
 function LangLayoutInner({ children }: { children: React.ReactNode }) {
   const { lang } = useParams();
   const { language, setLanguage } = useLanguage();
@@ -44,6 +57,12 @@ function LangLayoutInner({ children }: { children: React.ReactNode }) {
       isManualSwitch.current = true;
     }
   }, [language, lang]);
+
+  // Update <html lang> attribute for SEO
+  useEffect(() => {
+    const htmlLang = htmlLangMap[lang as string] || 'en';
+    document.documentElement.lang = htmlLang;
+  }, [lang]);
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-[#f7f7f7] text-gray-800">

@@ -4,14 +4,4 @@ Disallow: /admin
 Disallow: /migration
 Disallow: /feedback
 
-# Sitemaps for all languages
-Sitemap: https://tripcngo.com/sitemap-en.xml
-Sitemap: https://tripcngo.com/sitemap-zh.xml
-Sitemap: https://tripcngo.com/sitemap-ja.xml
-Sitemap: https://tripcngo.com/sitemap-ko.xml
-Sitemap: https://tripcngo.com/sitemap-ru.xml
-Sitemap: https://tripcngo.com/sitemap-fr.xml
-Sitemap: https://tripcngo.com/sitemap-es.xml
-Sitemap: https://tripcngo.com/sitemap-de.xml
-Sitemap: https://tripcngo.com/sitemap-tw.xml
-Sitemap: https://tripcngo.com/sitemap-it.xml
+Sitemap: https://tripcngo.com/sitemap.xml
