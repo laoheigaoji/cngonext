@@ -19,24 +19,16 @@ const langMap: Record<string, Language> = {
   it: 'it'
 };
 
-const htmlLangMap: Record<string, string> = {
-  cn: 'zh-CN',
-  tw: 'zh-TW',
-  en: 'en',
-  ja: 'ja',
-  ko: 'ko',
-  ru: 'ru',
-  fr: 'fr',
-  es: 'es',
-  de: 'de',
-  it: 'it'
-};
-
-function LangLayoutInner({ children }: { children: React.ReactNode }) {
+function LangLayoutInner({ children, htmlLang }: { children: React.ReactNode; htmlLang: string }) {
   const { lang } = useParams();
   const { language, setLanguage } = useLanguage();
   const targetLang = langMap[lang as string] || 'en';
   const isManualSwitch = useRef(false);
+
+  // Set html lang attribute from server-provided value
+  useEffect(() => {
+    document.documentElement.lang = htmlLang;
+  }, [htmlLang]);
 
   // Sync language from URL param only on initial mount or actual navigation
   useEffect(() => {
@@ -58,8 +50,6 @@ function LangLayoutInner({ children }: { children: React.ReactNode }) {
     }
   }, [language, lang]);
 
-  // Language sync is handled by URL param
-
   return (
     <div className="min-h-screen flex flex-col font-sans bg-[#f7f7f7] text-gray-800">
       <Navbar />
@@ -73,8 +63,10 @@ function LangLayoutInner({ children }: { children: React.ReactNode }) {
 
 export default function LangLayoutClient({
   children,
+  htmlLang,
 }: {
   children: React.ReactNode;
+  htmlLang: string;
 }) {
   const { lang } = useParams();
   const initialLang = langMap[lang as string] || 'en';
@@ -86,7 +78,7 @@ export default function LangLayoutClient({
       </div>
     }>
       <LanguageProvider initialLang={initialLang}>
-        <LangLayoutInner>{children}</LangLayoutInner>
+        <LangLayoutInner htmlLang={htmlLang}>{children}</LangLayoutInner>
       </LanguageProvider>
     </Suspense>
   );

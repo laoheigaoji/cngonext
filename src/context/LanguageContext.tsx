@@ -5259,7 +5259,9 @@ export const LanguageProvider = ({ children, initialLang }: { children: ReactNod
   useEffect(() => {
     if (typeof window === 'undefined') return;
     localStorage.setItem('tripcngo_lang', language);
-    document.documentElement.lang = language;
+    // Use proper BCP47 lang tags
+    const langMap: Record<string, string> = { zh: 'zh-CN', tw: 'zh-TW', en: 'en', ja: 'ja', ko: 'ko', ru: 'ru', fr: 'fr', es: 'es', de: 'de', it: 'it' };
+    document.documentElement.lang = langMap[language] || language;
   }, [language]);
 
   // 翻译键别名映射：兼容不同的翻译键格式

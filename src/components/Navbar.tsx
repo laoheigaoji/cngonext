@@ -77,7 +77,7 @@ export default function Navbar() {
     setLanguage(targetLang);
     const newLangPrefix = langToPrefix[targetLang] || 'en';
     
-    // Replace URL without page reload - just update the lang prefix in the browser address bar
+    // Build new path with the target language prefix
     let newPath = location.pathname || '';
     const pathParts = newPath.split('/');
     const validPrefixes = ['cn', 'tw', 'en', 'ja', 'ko', 'ru', 'fr', 'es', 'de', 'it'];
@@ -88,10 +88,8 @@ export default function Navbar() {
     }
     newPath = pathParts.join('/') || '/';
     
-    // Use history.replaceState to update URL without triggering Next.js navigation
-    if (typeof window !== 'undefined') {
-      window.history.replaceState(null, '', newPath + (location.search || ''));
-    }
+    // Use Next.js router.replace to trigger proper navigation and metadata update
+    navigate(newPath + (location.search || ''), { replace: true });
   };
 
   const handleDismissBanner = () => {
@@ -350,9 +348,7 @@ export default function Navbar() {
                       pathParts.splice(1, 0, newLangPrefix);
                     }
                     newPath = pathParts.join('/') || '/';
-                    if (typeof window !== 'undefined') {
-                      window.history.replaceState(null, '', newPath + (location.search || ''));
-                    }
+                    navigate(newPath + (location.search || ''), { replace: true });
                     setIsLangDropdownOpen(false);
                   }}
                 >
@@ -405,9 +401,7 @@ export default function Navbar() {
                       pathParts.splice(1, 0, newLangPrefix);
                     }
                     newPath = pathParts.join('/') || '/';
-                    if (typeof window !== 'undefined') {
-                      window.history.replaceState(null, '', newPath + (location.search || ''));
-                    }
+                    navigate(newPath + (location.search || ''), { replace: true });
                     setIsLangDropdownOpen(false);
                   }}
                 >

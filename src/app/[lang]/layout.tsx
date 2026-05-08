@@ -1,6 +1,19 @@
 import { Metadata } from "next";
 import LangLayoutClient from "./LangLayoutClient";
 
+const htmlLangMap: Record<string, string> = {
+  cn: 'zh-CN',
+  tw: 'zh-TW',
+  en: 'en',
+  ja: 'ja',
+  ko: 'ko',
+  ru: 'ru',
+  fr: 'fr',
+  es: 'es',
+  de: 'de',
+  it: 'it',
+};
+
 export const metadata: Metadata = {
   robots: {
     index: true,
@@ -8,10 +21,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function LangLayout({
+export default async function LangLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ lang: string }>;
 }) {
-  return <LangLayoutClient>{children}</LangLayoutClient>;
+  const { lang } = await params;
+  const htmlLang = htmlLangMap[lang] || lang;
+
+  return (
+    <>
+      {/* Set html lang attribute immediately on SSR, before any client JS runs */}
+      <script dangerouslySetInnerHTML={{ __html: `document.documentElement.lang="${htmlLang}"` }} />
+      <LangLayoutClient htmlLang={htmlLang}>{children}</LangLayoutClient>
+    </>
+  );
 }
