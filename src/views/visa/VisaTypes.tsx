@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from 'react';
 import VisaLayout from '../../components/visa/VisaLayout';
 import { X, FileText, CheckCircle, Upload, Plane, Hotel, Mail, Building2, CreditCard, Heart, User } from 'lucide-react';

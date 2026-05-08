@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import VisaLayout from '../../components/visa/VisaLayout';
 import { useLanguage } from '../../context/LanguageContext';

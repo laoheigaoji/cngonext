@@ -1,15 +1,30 @@
-"use client";
-
-import { useParams } from "@/lib/router-compat";
 import TermsClient from "./TermsClient";
+import { getPageSections } from "@/lib/server-data";
+import { getSEO, termsSEO, getHreflangAlternates, baseUrl } from "@/lib/seo-config";
 
-const langMap: Record<string, string> = {
-  cn: 'zh', tw: 'tw', en: 'en', ja: 'ja', ko: 'ko',
-  ru: 'ru', fr: 'fr', es: 'es', de: 'de', it: 'it'
-};
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const seo = getSEO(termsSEO, lang);
 
-export default function Page() {
-  const { lang } = useParams<{ lang: string }>();
-  const language = langMap[lang] || 'en';
-  return <TermsClient lang={language} />;
+  return {
+    title: seo.title,
+    description: seo.description,
+    alternates: {
+      canonical: `${baseUrl}/${lang}/terms`,
+      languages: getHreflangAlternates('/terms'),
+    },
+  };
+}
+
+export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  let initialData = null;
+
+  try {
+    initialData = await getPageSections('terms');
+  } catch (e) {
+    console.error('Failed to fetch terms data:', e);
+  }
+
+  return <TermsClient initialData={initialData ?? undefined} lang={lang} />;
 }

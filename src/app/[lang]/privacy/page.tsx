@@ -1,15 +1,30 @@
-"use client";
-
-import { useParams } from "@/lib/router-compat";
 import PrivacyClient from "./PrivacyClient";
+import { getPageSections } from "@/lib/server-data";
+import { getSEO, privacySEO, getHreflangAlternates, baseUrl } from "@/lib/seo-config";
 
-const langMap: Record<string, string> = {
-  cn: 'zh', tw: 'tw', en: 'en', ja: 'ja', ko: 'ko',
-  ru: 'ru', fr: 'fr', es: 'es', de: 'de', it: 'it'
-};
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const seo = getSEO(privacySEO, lang);
 
-export default function Page() {
-  const { lang } = useParams<{ lang: string }>();
-  const language = langMap[lang] || 'en';
-  return <PrivacyClient lang={language} />;
+  return {
+    title: seo.title,
+    description: seo.description,
+    alternates: {
+      canonical: `${baseUrl}/${lang}/privacy`,
+      languages: getHreflangAlternates('/privacy'),
+    },
+  };
+}
+
+export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  let initialData = null;
+
+  try {
+    initialData = await getPageSections('privacy');
+  } catch (e) {
+    console.error('Failed to fetch privacy data:', e);
+  }
+
+  return <PrivacyClient initialData={initialData ?? undefined} lang={lang} />;
 }

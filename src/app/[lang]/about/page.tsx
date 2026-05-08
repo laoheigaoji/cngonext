@@ -1,15 +1,30 @@
-"use client";
-
-import { useParams } from "@/lib/router-compat";
 import AboutUsClient from "./AboutUsClient";
+import { getPageSections } from "@/lib/server-data";
+import { getSEO, aboutSEO, getHreflangAlternates, baseUrl } from "@/lib/seo-config";
 
-const langMap: Record<string, string> = {
-  cn: 'zh', tw: 'tw', en: 'en', ja: 'ja', ko: 'ko',
-  ru: 'ru', fr: 'fr', es: 'es', de: 'de', it: 'it'
-};
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const seo = getSEO(aboutSEO, lang);
 
-export default function Page() {
-  const { lang } = useParams<{ lang: string }>();
-  const language = langMap[lang] || 'en';
-  return <AboutUsClient lang={language} />;
+  return {
+    title: seo.title,
+    description: seo.description,
+    alternates: {
+      canonical: `${baseUrl}/${lang}/about`,
+      languages: getHreflangAlternates('/about'),
+    },
+  };
+}
+
+export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  let initialData = null;
+
+  try {
+    initialData = await getPageSections('about');
+  } catch (e) {
+    console.error('Failed to fetch about data:', e);
+  }
+
+  return <AboutUsClient initialData={initialData ?? undefined} lang={lang} />;
 }

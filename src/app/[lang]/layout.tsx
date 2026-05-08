@@ -1,18 +1,16 @@
 import LangLayoutClient from "./LangLayoutClient";
-
-const langPrefixes = ['cn', 'en', 'ja', 'ko', 'ru', 'fr', 'es', 'de', 'tw', 'it'];
-const baseUrl = 'https://tripcngo.com';
+import { LANGUAGES, baseUrl, getHtmlLang } from "@/lib/seo-config";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  const htmlLang = lang === 'cn' ? 'zh-CN' : lang === 'tw' ? 'zh-TW' : lang;
+  const htmlLang = getHtmlLang(lang);
 
   // Generate hreflang alternates for all languages
   const languages: Record<string, string> = {
     'x-default': `${baseUrl}/en`,
   };
-  langPrefixes.forEach(prefix => {
-    const hreflang = prefix === 'cn' ? 'zh-CN' : prefix === 'tw' ? 'zh-TW' : prefix;
+  LANGUAGES.forEach(prefix => {
+    const hreflang = getHtmlLang(prefix);
     languages[hreflang] = `${baseUrl}/${prefix}`;
   });
 
