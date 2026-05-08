@@ -1,13 +1,7 @@
-import { LANGUAGES } from "@/lib/static-params";
-import { getHomeData } from "@/lib/server-data";
+"use client";
+
 import HomeClient from "./HomeClient";
 
-export function generateStaticParams() {
-  return LANGUAGES.map((lang) => ({ lang }));
-}
-
-export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
-  const { lang } = await params;
-  const homeData = await getHomeData();
-  return <HomeClient initialData={homeData} />;
+export default function Page() {
+  return <HomeClient />;
 }

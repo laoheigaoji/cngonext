@@ -1,12 +1,7 @@
-import { LANGUAGES } from "@/lib/static-params";
 import LangLayoutClient from "./LangLayoutClient";
 
 const langPrefixes = ['cn', 'en', 'ja', 'ko', 'ru', 'fr', 'es', 'de', 'tw', 'it'];
 const baseUrl = 'https://tripcngo.com';
-
-export function generateStaticParams() {
-  return LANGUAGES.map((lang) => ({ lang }));
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

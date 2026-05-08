@@ -1,19 +1,15 @@
-import { LANGUAGES } from "@/lib/static-params";
-import { getPageSections } from "@/lib/server-data";
-import TermsClient from "./TermsClient";
+"use client";
 
-export function generateStaticParams() {
-  return LANGUAGES.map((lang) => ({ lang }));
-}
+import { useParams } from "@/lib/router-compat";
+import TermsClient from "./TermsClient";
 
 const langMap: Record<string, string> = {
   cn: 'zh', tw: 'tw', en: 'en', ja: 'ja', ko: 'ko',
   ru: 'ru', fr: 'fr', es: 'es', de: 'de', it: 'it'
 };
 
-export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
-  const { lang } = await params;
-  const sections = await getPageSections('terms_of_service');
+export default function Page() {
+  const { lang } = useParams<{ lang: string }>();
   const language = langMap[lang] || 'en';
-  return <TermsClient initialData={sections} lang={language} />;
+  return <TermsClient lang={language} />;
 }
