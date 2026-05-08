@@ -175,19 +175,49 @@ const fallbackFAQS = [
   }
 ];
 
-export default function Home() {
+interface HomeInitialData {
+  articles: any[];
+  cities: any[];
+  faqs: any[];
+}
+
+export default function Home({ initialData }: { initialData?: HomeInitialData }) {
   const { t, language } = useLanguage();
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [guides, setGuides] = useState<any[]>([]);
-  const [cities, setCities] = useState<any[]>([]);
-  const [faqs, setFaqs] = useState<HomeFAQ[]>([]);
-  const [loading, setLoading] = useState(true);
+
+  // Map initial articles to guide format
+  const mapArticlesToGuides = (articles: any[]) => {
+    const mappedData = articles.map((doc: any) => ({
+       id: doc.id,
+       img: doc.thumbnail || '',
+       title: doc.title || '',
+       enTitle: doc.title_en || doc.title || '',
+       jaTitle: doc.title_ja || doc.title_en || doc.title || '',
+       koTitle: doc.title_ko || doc.title_en || doc.title || '',
+       desc: doc.subtitle || '',
+       enDesc: doc.subtitle_en || doc.subtitle || '',
+       jaDesc: doc.subtitle_ja || doc.subtitle_en || doc.subtitle || '',
+       koDesc: doc.subtitle_ko || doc.subtitle_en || doc.subtitle || '',
+       views: doc.views || undefined
+    }));
+    return mappedData.length > 0 ? mappedData : fallbackArticles;
+  };
+
+  const [guides, setGuides] = useState<any[]>(() =>
+    initialData?.articles ? mapArticlesToGuides(initialData.articles) : []
+  );
+  const [cities, setCities] = useState<any[]>(() => initialData?.cities || []);
+  const [faqs, setFaqs] = useState<HomeFAQ[]>(() => initialData?.faqs || []);
+  const [loading, setLoading] = useState(() => !initialData);
   const navigate = useNavigate();
   const langPrefix = language === 'zh' ? 'cn' : 'en';
 
   useEffect(() => {
+    // If we already have initialData from SSR, skip the client-side fetch
+    if (initialData) return;
+
     const fetchData = async () => {
       setLoading(true);
       // Parallelize all fetches

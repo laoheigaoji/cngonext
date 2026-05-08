@@ -1,5 +1,6 @@
 import Home from "@/app-views/Home";
 import { getSEO, homeSEO, getHreflangAlternates, baseUrl, generateWebsiteJsonLd, generateOrganizationJsonLd } from "@/lib/seo-config";
+import { getHomeData } from "@/lib/server-data";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -29,6 +30,13 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const websiteJsonLd = generateWebsiteJsonLd(lang);
   const orgJsonLd = generateOrganizationJsonLd();
 
+  let initialData = null;
+  try {
+    initialData = await getHomeData();
+  } catch (e) {
+    console.error('Failed to fetch home data:', e);
+  }
+
   return (
     <>
       <script
@@ -39,7 +47,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
       />
-      <Home />
+      <Home initialData={initialData ?? undefined} />
     </>
   );
 }
