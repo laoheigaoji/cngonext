@@ -11,7 +11,14 @@ const headers = {
 
 async function fetchFromSupabase(table: string, query: string): Promise<any[] | null> {
   try {
-    const res = await fetch(`${supabaseUrl}/rest/v1/${table}?${query}`, { headers });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    const res = await fetch(`${supabaseUrl}/rest/v1/${table}?${query}`, {
+      headers,
+      signal: controller.signal,
+      next: { revalidate: 300 },
+    });
+    clearTimeout(timeout);
     if (!res.ok) return null;
     return await res.json();
   } catch {
