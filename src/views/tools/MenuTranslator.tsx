@@ -23,27 +23,40 @@ const MenuTranslator = () => {
         }
     };
 
-    // Crop dish region from original menu image using canvas
-    const cropDishFromMenu = (idx: number): string | null => {
-        if (!uploadedImage) return null;
+    // Cache loaded menu image element
+    const menuImgRef = React.useRef<HTMLImageElement | null>(null);
+    const [menuImgReady, setMenuImgReady] = React.useState(false);
+
+    React.useEffect(() => {
+        if (!uploadedImage) { menuImgRef.current = null; setMenuImgReady(false); return; }
+        const img = new Image();
+        img.onload = () => { menuImgRef.current = img; setMenuImgReady(true); };
+        img.src = uploadedImage;
+    }, [uploadedImage]);
+
+    // Crop dish region from original menu image using AI-returned bbox coordinates
+    const cropDishFromMenu = (item: any): string | null => {
+        const bbox: number[] | null = item.bbox;
+        if (!menuImgRef.current || !bbox || bbox.length !== 4 || bbox.some(v => v == null || v < 0)) return null;
         try {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
             if (!ctx) return null;
-            const img = new Image();
-            img.src = uploadedImage;
-            // Use deterministic crop positions based on index
+            const img = menuImgRef.current;
+            const natW = img.naturalWidth;
+            const natH = img.naturalHeight;
+            const [rx, ry, rw, rh] = bbox;
+            // Convert normalized coords to pixel coords with small padding
+            const pad = 0.01;
+            const sx = Math.max(0, (rx - pad) * natW);
+            const sy = Math.max(0, (ry - pad) * natH);
+            const sw = Math.min((rw + pad * 2) * natW, natW - sx);
+            const sh = Math.min((rh + pad * 2) * natH, natH - sy);
+            if (sw < 10 || sh < 10) return null;
             const size = 160;
             canvas.width = size;
             canvas.height = size;
-            // Calculate crop region - distribute across the image
-            const cols = 2;
-            const col = idx % cols;
-            const row = Math.floor(idx / cols);
-            const srcSize = Math.min(img.naturalWidth || 800, img.naturalHeight || 800) / 3;
-            const sx = col * srcSize + srcSize * 0.2;
-            const sy = row * srcSize + srcSize * 0.3;
-            ctx.drawImage(img, sx, sy, srcSize * 0.6, srcSize * 0.6, 0, 0, size, size);
+            ctx.drawImage(img, sx, sy, sw, sh, 0, 0, size, size);
             return canvas.toDataURL('image/jpeg', 0.85);
         } catch {
             return null;
@@ -326,7 +339,7 @@ const MenuTranslator = () => {
                                             >
                                                 <div className="w-40 h-40 flex-shrink-0 bg-gray-100 rounded-[2rem] overflow-hidden group-hover:scale-105 transition-transform duration-500 border border-gray-50 relative">
                                                     {(() => {
-                                                        const cropped = cropDishFromMenu(idx);
+                                                        const cropped = cropDishFromMenu(item);
                                                         return cropped ? (
                                                             <img src={cropped} alt={item.name} className="w-full h-full object-cover" />
                                                         ) : (

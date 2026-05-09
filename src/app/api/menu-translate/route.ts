@@ -57,10 +57,11 @@ function buildPrompt(lang: string): string {
 6. 中文分类(category)和英文分类(enCategory)。
 7. 英文过敏原(allergens)，如["peanuts","shellfish","soy","gluten"]。
 8. 英文膳食标签(dietary)，如["spicy","vegetarian","vegan","halal"]。
+9. 每道菜在图片中的位置(bbox)，格式为[x,y,width,height]，所有值为0-1之间的归一化比例（x=左边缘比例,y=上边缘比例,width=区域宽度比例,height=区域高度比例）。如果无法确定位置，设为null。
 
 只输出JSON数组，不要解释。示例：
-[{"name":"宫保鸡丁","enName":"Kung Pao Chicken","price":38,"description":"经典川菜","enDescription":"Classic Sichuan dish","ingredients":["鸡肉","花生"],"enIngredients":["chicken","peanuts"],"category":"川菜","enCategory":"Sichuan","allergens":["peanuts"],"dietary":["spicy"]}]
-无价格示例：{"name":"拍黄瓜","enName":"Smashed Cucumber","price":null,...}`;
+[{"name":"宫保鸡丁","enName":"Kung Pao Chicken","price":38,"description":"经典川菜","enDescription":"Classic Sichuan dish","ingredients":["鸡肉","花生"],"enIngredients":["chicken","peanuts"],"category":"川菜","enCategory":"Sichuan","allergens":["peanuts"],"dietary":["spicy"],"bbox":[0.05,0.1,0.4,0.15]}]
+无价格示例：{"name":"拍黄瓜","enName":"Smashed Cucumber","price":null,"bbox":[0.05,0.3,0.4,0.15],...}`;
   }
 
   const localFields = isTw
@@ -86,10 +87,11 @@ ${localFields}
 6. English category (enCategory).
 7. Common allergens in English (allergens).
 8. Dietary info in English (dietary).
+9. Bounding box of each dish in the image (bbox) as [x,y,width,height], all values normalized 0-1 (x=left edge ratio, y=top edge ratio, width=region width ratio, height=region height ratio). Set to null if position cannot be determined.
 
 CRITICAL: Output ONLY a JSON array. No explanation. Example:
-[{"name":"宫保鸡丁",${localExample},"enName":"Kung Pao Chicken","price":38,"enDescription":"Classic Sichuan dish","enIngredients":["chicken","peanuts"],"enCategory":"Sichuan","allergens":["peanuts"],"dietary":["spicy"]}]
-No price example: {"name":"拍黄瓜","enName":"Smashed Cucumber","price":null,...}`;
+[{"name":"宫保鸡丁",${localExample},"enName":"Kung Pao Chicken","price":38,"enDescription":"Classic Sichuan dish","enIngredients":["chicken","peanuts"],"enCategory":"Sichuan","allergens":["peanuts"],"dietary":["spicy"],"bbox":[0.05,0.1,0.4,0.15]}]
+No price example: {"name":"拍黄瓜","enName":"Smashed Cucumber","price":null,"bbox":[0.05,0.3,0.4,0.15],...}`;
 }
 
 // Call vision model with timeout
