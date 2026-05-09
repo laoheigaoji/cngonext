@@ -5,6 +5,17 @@ export const runtime = 'edge';
 
 const CF_ACCOUNT_ID = '0a28250e63bf217f833feabaf84a25a1';
 
+function getApiToken(): string {
+  // 1. Try Cloudflare env (wrangler secret / Pages env var)
+  try {
+    const { env } = getCloudflareContext();
+    const token = (env as any).CF_AI_API_TOKEN;
+    if (token) return token;
+  } catch {}
+  // 2. Fallback to process.env (local dev .env.local)
+  return process.env.CF_AI_API_TOKEN || '';
+}
+
 const LANG_NAMES: Record<string, string> = {
   en: 'English', ja: 'Japanese', ko: 'Korean', ru: 'Russian',
   fr: 'French', es: 'Spanish', de: 'German', it: 'Italian', tw: 'Traditional Chinese',
@@ -78,7 +89,10 @@ const VISION_MODELS = [
 ];
 
 // Call Workers AI via REST API
-async function callViaRestAPI(modelId: string, image: string, mimeType: string, prompt: string, apiToken: string): Promise<string> {
+async function callAI(modelId: string, image: string, mimeType: string, prompt: string): Promise<string> {
+  const apiToken = getApiToken();
+  if (!apiToken) throw new Error('CF_AI_API_TOKEN not configured');
+
   const url = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/ai/run/${modelId}`;
 
   const response = await fetch(url, {
@@ -103,33 +117,11 @@ async function callViaRestAPI(modelId: string, image: string, mimeType: string, 
 
   if (!response.ok) {
     const errText = await response.text().catch(() => '');
-    throw new Error(`REST API ${modelId} returned ${response.status}: ${errText.slice(0, 200)}`);
+    throw new Error(`REST API ${modelId} returned ${response.status}: ${errText.slice(0, 300)}`);
   }
 
   const data: any = await response.json();
   return data?.result?.response || data?.response || '';
-}
-
-// Call Workers AI via binding
-async function callViaBinding(modelId: string, image: string, mimeType: string, prompt: string): Promise<string> {
-  const { env } = getCloudflareContext();
-  const ai = env.AI;
-  if (!ai) throw new Error('AI binding not available');
-
-  const response = await ai.run(modelId, {
-    messages: [
-      {
-        role: 'user',
-        content: [
-          { type: 'text', text: prompt },
-          { type: 'image_url', image_url: { url: `data:${mimeType};base64,${image}` } }
-        ]
-      }
-    ],
-    max_tokens: 2048,
-  });
-
-  return (response as any)?.response || '';
 }
 
 export async function POST(req: NextRequest) {
@@ -142,60 +134,27 @@ export async function POST(req: NextRequest) {
 
     const prompt = buildPrompt(lang);
 
-    // Read API token from Cloudflare env (wrangler secret) or process.env
-    let cfApiToken = '';
-    try {
-      const { env } = getCloudflareContext();
-      cfApiToken = (env as any).CF_AI_API_TOKEN || process.env.CF_AI_API_TOKEN || '';
-    } catch {
-      cfApiToken = process.env.CF_AI_API_TOKEN || '';
-    }
-
-    console.log('[menu-translate] Token available:', !!cfApiToken, 'Token length:', cfApiToken.length);
-
-    // Try vision models in order, with REST API preferred over binding
+    // Try vision models in order via REST API
     let lastError: any;
     for (const modelId of VISION_MODELS) {
-      // Strategy 1: REST API (if token available)
-      if (cfApiToken) {
-        try {
-          console.log(`[menu-translate] Trying REST API with ${modelId}...`);
-          const text = await callViaRestAPI(modelId, image, mimeType, prompt, cfApiToken);
-          console.log(`[menu-translate] REST API ${modelId} response length:`, text?.length);
-          if (text && text.trim().length >= 10) {
-            const menuItems = extractJSON(text);
-            if (menuItems.length > 0) {
-              console.log(`[menu-translate] Success with REST API ${modelId}, items:`, menuItems.length);
-              return NextResponse.json({ items: addPriceConversions(menuItems, lang) });
-            }
-          }
-          lastError = new Error(`REST API ${modelId}: empty or unparseable response, raw: ${(text || '').slice(0, 100)}`);
-        } catch (restErr: any) {
-          console.error(`[menu-translate] REST API ${modelId} failed:`, restErr.message);
-          lastError = restErr;
-        }
-      }
-
-      // Strategy 2: Binding fallback
       try {
-        console.log(`[menu-translate] Trying Binding with ${modelId}...`);
-        const text = await callViaBinding(modelId, image, mimeType, prompt);
-        console.log(`[menu-translate] Binding ${modelId} response length:`, text?.length);
+        console.log(`[menu-translate] Trying ${modelId}...`);
+        const text = await callAI(modelId, image, mimeType, prompt);
+        console.log(`[menu-translate] ${modelId} response length:`, text?.length);
         if (text && text.trim().length >= 10) {
           const menuItems = extractJSON(text);
           if (menuItems.length > 0) {
-            console.log(`[menu-translate] Success with Binding ${modelId}, items:`, menuItems.length);
+            console.log(`[menu-translate] Success with ${modelId}, items:`, menuItems.length);
             return NextResponse.json({ items: addPriceConversions(menuItems, lang) });
           }
         }
-        lastError = new Error(`Binding ${modelId}: empty or unparseable response, raw: ${(text || '').slice(0, 100)}`);
-      } catch (bindErr: any) {
-        console.error(`[menu-translate] Binding ${modelId} failed:`, bindErr.message);
-        lastError = bindErr;
+        lastError = new Error(`${modelId}: empty or unparseable response, raw: ${(text || '').slice(0, 100)}`);
+      } catch (err: any) {
+        console.error(`[menu-translate] ${modelId} failed:`, err.message);
+        lastError = err;
       }
     }
 
-    // All models and methods failed
     console.error('[menu-translate] All models failed. Last error:', lastError?.message);
     return NextResponse.json(
       { error: `All AI models failed. Last error: ${lastError?.message || 'Unknown'}` },
