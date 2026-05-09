@@ -12,8 +12,6 @@ const MenuTranslator = () => {
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
     const [analysisResult, setAnalysisResult] = useState<any[]>([]);
     const [streamingText, setStreamingText] = useState('');
-    const [generatingImages, setGeneratingImages] = useState<Set<number>>(new Set());
-
     // Chinese pronunciation using Web Speech API
     const speakChinese = (text: string) => {
         if ('speechSynthesis' in window) {
@@ -25,29 +23,30 @@ const MenuTranslator = () => {
         }
     };
 
-    // Generate AI dish image
-    const generateDishImage = async (idx: number, dishName: string) => {
-        setGeneratingImages(prev => new Set(prev).add(idx));
+    // Crop dish region from original menu image using canvas
+    const cropDishFromMenu = (idx: number): string | null => {
+        if (!uploadedImage) return null;
         try {
-            const res = await fetch('/api/generate-dish-image', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ dishName })
-            });
-            const data = await res.json();
-            if (data.imageUrl) {
-                setAnalysisResult(prev => prev.map((item, i) =>
-                    i === idx ? { ...item, aiImageUrl: data.imageUrl } : item
-                ));
-            }
-        } catch (e) {
-            console.error('Image generation failed:', e);
-        } finally {
-            setGeneratingImages(prev => {
-                const next = new Set(prev);
-                next.delete(idx);
-                return next;
-            });
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return null;
+            const img = new Image();
+            img.src = uploadedImage;
+            // Use deterministic crop positions based on index
+            const size = 160;
+            canvas.width = size;
+            canvas.height = size;
+            // Calculate crop region - distribute across the image
+            const cols = 2;
+            const col = idx % cols;
+            const row = Math.floor(idx / cols);
+            const srcSize = Math.min(img.naturalWidth || 800, img.naturalHeight || 800) / 3;
+            const sx = col * srcSize + srcSize * 0.2;
+            const sy = row * srcSize + srcSize * 0.3;
+            ctx.drawImage(img, sx, sy, srcSize * 0.6, srcSize * 0.6, 0, 0, size, size);
+            return canvas.toDataURL('image/jpeg', 0.85);
+        } catch {
+            return null;
         }
     };
 
@@ -326,24 +325,17 @@ const MenuTranslator = () => {
                                                 className="flex flex-col md:flex-row gap-8 group"
                                             >
                                                 <div className="w-40 h-40 flex-shrink-0 bg-gray-100 rounded-[2rem] overflow-hidden group-hover:scale-105 transition-transform duration-500 border border-gray-50 relative">
-                                                    {item.aiImageUrl ? (
-                                                        <img src={item.aiImageUrl} alt={item.name} className="w-full h-full object-cover" />
-                                                    ) : (
-                                                        <button
-                                                            onClick={() => generateDishImage(idx, item.enName || item.name)}
-                                                            disabled={generatingImages.has(idx)}
-                                                            className="w-full h-full flex flex-col items-center justify-center gap-2 text-gray-400 hover:text-purple-500 transition-colors cursor-pointer"
-                                                        >
-                                                            {generatingImages.has(idx) ? (
-                                                                <Loader2 className="w-8 h-8 animate-spin" />
-                                                            ) : (
-                                                                <>
-                                                                    <ImageIcon className="w-8 h-8" />
-                                                                    <span className="text-xs font-bold">AI生图</span>
-                                                                </>
-                                                            )}
-                                                        </button>
-                                                    )}
+                                                    {(() => {
+                                                        const cropped = cropDishFromMenu(idx);
+                                                        return cropped ? (
+                                                            <img src={cropped} alt={item.name} className="w-full h-full object-cover" />
+                                                        ) : (
+                                                            <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-gray-400">
+                                                                <Utensils className="w-8 h-8" />
+                                                                <span className="text-xs font-bold">{item.name?.slice(0, 2) || '菜'}</span>
+                                                            </div>
+                                                        );
+                                                    })()}
                                                 </div>
                                                 <div className="flex-1">
                                                     <div className="flex justify-between items-start mb-4">
@@ -364,16 +356,18 @@ const MenuTranslator = () => {
                                                                 {language === 'zh' ? (item.enName || item.localName) : item.name}
                                                             </span>
                                                         </div>
-                                                        <div className="flex flex-col items-end gap-1">
-                                                            <div className="px-4 py-2 bg-purple-50 text-purple-700 rounded-xl font-black text-xl">
-                                                                ¥{item.price}
-                                                            </div>
-                                                            {item.currencyCode && item.currencyCode !== 'CNY' && (
-                                                                <div className="text-sm font-bold text-gray-400">
-                                                                    ≈ {item.currencySymbol}{item.convertedPrice}
+                                                        {item.hasPrice && item.price > 0 && (
+                                                            <div className="flex flex-col items-end gap-1">
+                                                                <div className="px-4 py-2 bg-purple-50 text-purple-700 rounded-xl font-black text-xl">
+                                                                    ¥{item.price}
                                                                 </div>
-                                                            )}
-                                                        </div>
+                                                                {item.currencyCode && item.currencyCode !== 'CNY' && (
+                                                                    <div className="text-sm font-bold text-gray-400">
+                                                                        ≈ {item.currencySymbol}{item.convertedPrice}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        )}
                                                     </div>
                                                      <p className="text-gray-500 text-[15px] leading-relaxed mb-4 font-medium">
                                                          {language === 'zh' ? (item.description || item.enDescription) : (item.localDescription || item.enDescription || item.description)}
