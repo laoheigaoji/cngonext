@@ -22,6 +22,7 @@ export async function GET() {
 
 // Only models verified to work with vision + REST API
 const VISION_MODELS = [
+  '@cf/moonshotai/kimi-k2.6',
   '@cf/meta/llama-4-scout-17b-16e-instruct',
   '@cf/mistralai/mistral-small-3.1-24b-instruct',
 ];
