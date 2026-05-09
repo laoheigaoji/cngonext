@@ -333,7 +333,6 @@ export default function Navbar() {
                   key={lang.code}
                   className="w-full flex items-center justify-between px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors text-left"
                   onClick={() => {
-                    setLanguage(lang.code as Language);
                     const newLangPrefix = langToPrefix[lang.code] || 'en';
                     let newPath = location.pathname || '';
                     const pathParts = newPath.split('/');
@@ -344,8 +343,9 @@ export default function Navbar() {
                       pathParts.splice(1, 0, newLangPrefix);
                     }
                     newPath = pathParts.join('/') || '/';
-                    navigate(newPath + (location.search || ''), { replace: true });
                     setIsLangDropdownOpen(false);
+                    setLanguage(lang.code as Language);
+                    window.location.replace(newPath + (location.search || ''));
                   }}
                 >
                   <div className="flex items-center gap-3">
@@ -386,7 +386,6 @@ export default function Navbar() {
                   key={lang.code}
                   className="w-full flex items-center justify-between px-4 py-2.5 text-sm hover:bg-gray-800 transition-colors text-left"
                   onClick={() => {
-                    setLanguage(lang.code as Language);
                     const newLangPrefix = langToPrefix[lang.code] || 'en';
                     let newPath = location.pathname || '';
                     const pathParts = newPath.split('/');
@@ -397,8 +396,9 @@ export default function Navbar() {
                       pathParts.splice(1, 0, newLangPrefix);
                     }
                     newPath = pathParts.join('/') || '/';
-                    navigate(newPath + (location.search || ''), { replace: true });
                     setIsLangDropdownOpen(false);
+                    setLanguage(lang.code as Language);
+                    window.location.replace(newPath + (location.search || ''));
                   }}
                 >
                   <div className="flex items-center gap-3">
