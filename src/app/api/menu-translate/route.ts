@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 export const runtime = 'edge';
 
@@ -70,7 +71,7 @@ CRITICAL: Output ONLY a JSON array. No explanation. Example:
 
 export async function POST(req: NextRequest) {
   try {
-    const { image, mimeType, lang = 'en' } = await req.json();
+    const { image, mimeType, lang = 'en' }: { image?: string; mimeType?: string; lang?: string } = await req.json();
 
     if (!image || !mimeType) {
       return NextResponse.json({ error: 'Missing image or mimeType' }, { status: 400 });
@@ -79,11 +80,11 @@ export async function POST(req: NextRequest) {
     const prompt = buildPrompt(lang);
 
     // Use Cloudflare Workers AI binding
-    const env = (process as any).env || {};
+    const { env } = getCloudflareContext();
     const ai = env.AI;
 
     if (!ai) {
-      const geminiKey = env.GEMINI_API_KEY || process.env.GEMINI_API_KEY || '';
+      const geminiKey = process.env.GEMINI_API_KEY || '';
       if (!geminiKey) {
         return NextResponse.json({ error: 'No AI service available' }, { status: 500 });
       }

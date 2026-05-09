@@ -193,6 +193,44 @@
           "title": "Sprachassistent"
         }
       },
+      "howitworks": {
+        "title": "So funktioniert's",
+        "subtitle": "Fotografieren Sie die chinesische Speisekarte mit einem Klick, erhalten Sie sofort Übersetzung, echte Bilder und Preisumrechnung, keine Verwirrung mehr",
+        "step1": {
+          "title": "Chinesische Speisekarte hochladen",
+          "desc": "JPG, PNG, GIF unterstützt, bis zu 10 MB"
+        },
+        "step2": {
+          "title": "KI-Analyse",
+          "desc": "Intelligente Menüanalyse mit HD-Bildgenerierung"
+        },
+        "step3": {
+          "title": "Ansehen & Bestellen",
+          "desc": "Bilder und Preise ansehen, mit Aussprache bestellen"
+        },
+        "original": "Original chinesische Speisekarte",
+        "result": "KI-Analyseergebnis",
+        "uploadHint": "Laden Sie Ihr Menübild hoch",
+        "dish1": {
+          "name": "Hongshao Jikuai",
+          "enName": "Braised Chicken",
+          "desc": "Ein klassisches chinesisches Hausgericht. Hähnchenstücke werden geschmort, bis sie zart sind, mit einer glänzenden roten Soße — herzhaft und leicht süßlich.",
+          "ingredients": "Hauptzutaten: Hähnchen, Kartoffel, grüne Paprika"
+        },
+        "dish2": {
+          "name": "Jiachang Doufu",
+          "enName": "Home-style Tofu",
+          "desc": "Ein beliebtes Hausgericht. Gebratener Tofu mit Schweinefleisch und Gemüse. Außen knusprig, innen zart, mit einer leichten Schärfe.",
+          "ingredients": "Hauptzutaten: Tofu, Schweinefleisch, Mu-Err-Pilze, Gemüse"
+        },
+        "dish3": {
+          "name": "Lazi Ji",
+          "enName": "Spicy Chicken",
+          "desc": "Ein Sichuan-Klassiker. Knuspriges Hähnchen mit reichlich getrockneten Chilis und Szechuan-Pfeffer. Betäubend scharf und unglaublich aromatisch.",
+          "ingredients": "Hauptzutaten: Hähnchen, Frühlingszwiebel, Ingwer, Chili",
+          "allergens": "⚠️ Viel Chili und Szechuan-Pfeffer — sehr scharf und betäubend; kann Erdnüsse enthalten"
+        }
+      },
       "title": "Laden Sie ein Foto hoch, um Übersetzung, Zutaten und Preise zu erhalten - einfach bestellen"
     },
     "name": {

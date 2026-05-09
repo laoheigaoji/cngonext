@@ -244,6 +244,44 @@
           "title": "Voice Assistant"
         }
       },
+      "howitworks": {
+        "title": "How It Works",
+        "subtitle": "Snap a photo of the Chinese menu, instantly get dish name translations, real images and price conversions, no more menu confusion",
+        "step1": {
+          "title": "Upload Chinese Menu",
+          "desc": "Supports JPG, PNG, GIF formats, up to 10MB"
+        },
+        "step2": {
+          "title": "AI Analysis",
+          "desc": "Smart menu analysis with HD image generation"
+        },
+        "step3": {
+          "title": "View & Order",
+          "desc": "View images, prices, and order with pronunciation"
+        },
+        "original": "Original Chinese Menu",
+        "result": "AI Analysis Result",
+        "uploadHint": "Upload your menu image",
+        "dish1": {
+          "name": "红烧鸡块",
+          "enName": "Braised Chicken",
+          "desc": "A classic Chinese home-style dish. Chicken pieces are braised until tender and flavorful, with a glossy red sauce that's savory and slightly sweet.",
+          "ingredients": "Key ingredients: Chicken, Potato, Green Pepper"
+        },
+        "dish2": {
+          "name": "家常豆腐",
+          "enName": "Home-style Tofu",
+          "desc": "A common home-style dish featuring pan-fried tofu cubes stir-fried with pork and vegetables. Crispy on the outside, tender inside, savory with a hint of spice.",
+          "ingredients": "Key ingredients: Tofu, Pork, Wood Ear Mushroom, Greens"
+        },
+        "dish3": {
+          "name": "辣子鸡",
+          "enName": "Spicy Chicken",
+          "desc": "A Sichuan classic. Crispy chicken pieces stir-fried with generous amounts of dried chilies and Sichuan peppercorns. Numbing, spicy, and incredibly aromatic.",
+          "ingredients": "Key ingredients: Chicken, Scallion, Ginger, Chili",
+          "allergens": "⚠️ Contains large amounts of chili and Sichuan peppercorn — very spicy and numbing; may contain peanuts"
+        }
+      },
       "title": "Upload photos to get translations, ingredients, and prices for easy ordering"
     },
     "name": {

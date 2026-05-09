@@ -193,6 +193,44 @@
           "title": "Asistente de voz"
         }
       },
+      "howitworks": {
+        "title": "Cómo funciona",
+        "subtitle": "Fotografía el menú chino con un clic, obtén al instante la traducción, imágenes reales y conversión de precios, ya no más confusión",
+        "step1": {
+          "title": "Sube el menú en chino",
+          "desc": "Formatos JPG, PNG, GIF, hasta 10 MB"
+        },
+        "step2": {
+          "title": "Análisis IA",
+          "desc": "Análisis inteligente del menú con generación de imágenes HD"
+        },
+        "step3": {
+          "title": "Ver y pedir",
+          "desc": "Ver imágenes, precios y pedir con pronunciación"
+        },
+        "original": "Menú chino original",
+        "result": "Resultado del análisis IA",
+        "uploadHint": "Sube tu imagen del menú",
+        "dish1": {
+          "name": "Hongshao Jikuai",
+          "enName": "Braised Chicken",
+          "desc": "Un plato casero chino clásico. Trozos de pollo estofados hasta que están tiernos, con una salsa roja brillante, sabrosa y ligeramente dulce.",
+          "ingredients": "Ingredientes principales: Pollo, Patata, Pimiento verde"
+        },
+        "dish2": {
+          "name": "Jiachang Doufu",
+          "enName": "Home-style Tofu",
+          "desc": "Un plato casero común. Tofu salteado con cerdo y verduras. Crujiente por fuera, tierno por dentro, con un toque picante.",
+          "ingredients": "Ingredientes principales: Tofu, Cerdo, Hongo negro, Verduras"
+        },
+        "dish3": {
+          "name": "Lazi Ji",
+          "enName": "Spicy Chicken",
+          "desc": "Un clásico de Sichuan. Pollo crujiente salteado con chiles secos y pimienta de Sichuan. Picante e increíblemente aromático.",
+          "ingredients": "Ingredientes principales: Pollo, Cebolleta, Jengibre, Chile",
+          "allergens": "⚠️ Contiene mucho chile y pimienta de Sichuan — muy picante y entumecedor; puede contener cacahuetes"
+        }
+      },
       "title": "Sube una foto para obtener traducción, ingredientes y precios - ordena fácilmente"
     },
     "name": {

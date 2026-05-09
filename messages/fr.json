@@ -257,6 +257,44 @@
           "title": "Assistant vocal"
         }
       },
+      "howitworks": {
+        "title": "Comment ça marche",
+        "subtitle": "Photographiez le menu chinois en un clic, obtenez instantanément la traduction, les images réelles et la conversion de prix, ne soyez plus confus",
+        "step1": {
+          "title": "Téléchargez le menu chinois",
+          "desc": "Formats JPG, PNG, GIF supportés, jusqu'à 10 Mo"
+        },
+        "step2": {
+          "title": "Analyse IA",
+          "desc": "Analyse intelligente du menu avec génération d'images HD"
+        },
+        "step3": {
+          "title": "Voir et commander",
+          "desc": "Voir les images, les prix et commander avec prononciation"
+        },
+        "original": "Menu chinois original",
+        "result": "Résultat de l'analyse IA",
+        "uploadHint": "Téléchargez votre image de menu",
+        "dish1": {
+          "name": "Hongshao Jikuai",
+          "enName": "Braised Chicken",
+          "desc": "Un plat familial chinois classique. Morceaux de poulet braisés jusqu'à tendreté, avec une sauce rouge brillante, savoureuse et légèrement sucrée.",
+          "ingredients": "Ingrédients clés : Poulet, Pomme de terre, Poivron vert"
+        },
+        "dish2": {
+          "name": "Jiachang Doufu",
+          "enName": "Home-style Tofu",
+          "desc": "Un plat familial courant. Tofu poêlé avec du porc et des légumes. Croustillant à l'extérieur, tendre à l'intérieur, avec une touche épicée.",
+          "ingredients": "Ingrédients clés : Tofu, Porc, Champignon noir, Légumes verts"
+        },
+        "dish3": {
+          "name": "Lazi Ji",
+          "enName": "Spicy Chicken",
+          "desc": "Un classique du Sichuan. Poulet croustillant sauté avec des piments secs et du poivre du Sichuan. Piquant et incroyablement aromatique.",
+          "ingredients": "Ingrédients clés : Poulet, Cébette, Gingembre, Piment",
+          "allergens": "⚠️ Contient beaucoup de piment et de poivre du Sichuan — très épicé et engourdissant ; peut contenir des arachides"
+        }
+      },
       "title": "Téléchargez une photo pour obtenir traduction, ingrédients et prix - commandez facilement"
     },
     "name": {

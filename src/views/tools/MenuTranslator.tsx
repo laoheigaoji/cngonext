@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Upload, Camera, ImageIcon, Languages, Wallet, MessageSquare, ChevronDown, Check, Star, ScanLine, X, Loader2, Volume2, AlertTriangle, Leaf } from 'lucide-react';
+import { Upload, Camera, ImageIcon, Languages, Wallet, MessageSquare, ChevronDown, Check, Star, ScanLine, X, Loader2, Volume2, AlertTriangle, Leaf, CameraOff, Brain, Utensils, Globe } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 const MenuTranslator = () => {
     const { language, t } = useLanguage();
@@ -106,17 +106,12 @@ const MenuTranslator = () => {
             
             <div className="max-w-[1400px] mx-auto px-6">
                 {!uploadedImage && !isAnalyzing && (
-                    <section className="relative pt-24 pb-32 overflow-hidden bg-white rounded-[3rem] shadow-sm border border-gray-100 mb-12">
-                        <div className="absolute inset-0 pointer-events-none opacity-[0.2]" style={{ 
-                            backgroundImage: 'radial-gradient(#d1d5db 1px, transparent 1px)', 
-                            backgroundSize: '24px 24px' 
-                        }}></div>
-                        
+                    <section className="relative pt-12 pb-8 overflow-hidden mb-6">
                         <div className="relative z-10 max-w-4xl mx-auto text-center">
                             <motion.h1 
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="text-5xl md:text-6xl font-black tracking-tight mb-8 text-gray-900"
+                                className="text-4xl md:text-5xl font-black tracking-tight mb-4 text-gray-900"
                             >
                                 {t('tools.menu.hero.title')}
                             </motion.h1>
@@ -124,7 +119,7 @@ const MenuTranslator = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.2 }}
-                                className="text-lg md:text-xl text-gray-500 mb-16 max-w-2xl mx-auto leading-relaxed"
+                                className="text-base md:text-lg text-gray-500 mb-8 max-w-2xl mx-auto leading-relaxed"
                             >
                                 {t('tools.menu.hero.desc')}
                             </motion.p>
@@ -136,13 +131,13 @@ const MenuTranslator = () => {
                                 className="max-w-xl mx-auto"
                             >
                                 <label className="cursor-pointer block group">
-                                    <div className="relative bg-white border-2 border-dashed border-purple-200 rounded-[40px] p-16 flex flex-col items-center justify-center transition-all hover:border-purple-400 shadow-sm">
-                                        <div className="w-24 h-24 bg-purple-50 rounded-[2.5rem] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
-                                            <Upload className="w-12 h-12 text-purple-600" />
+                                    <div className="relative border-2 border-dashed border-purple-200 rounded-3xl p-10 flex flex-col items-center justify-center transition-all hover:border-purple-400">
+                                        <div className="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500">
+                                            <Upload className="w-8 h-8 text-purple-600" />
                                         </div>
-                                        <p className="text-gray-900 font-black text-2xl mb-3">{t('tools.menu.upload.title')}</p>
-                                        <p className="text-sm text-gray-400 mb-10 font-bold">{t('tools.menu.upload.subtitle')}</p>
-                                        <div className="bg-purple-600 text-white px-12 py-5 rounded-3xl font-black transition-all shadow-xl shadow-purple-100 text-xl flex items-center justify-center hover:bg-purple-700">
+                                        <p className="text-gray-900 font-black text-xl mb-2">{t('tools.menu.upload.title')}</p>
+                                        <p className="text-sm text-gray-400 mb-6 font-bold">{t('tools.menu.upload.subtitle')}</p>
+                                        <div className="bg-purple-600 text-white px-8 py-3 rounded-2xl font-black transition-all shadow-lg shadow-purple-100 text-base flex items-center justify-center hover:bg-purple-700">
                                             {t('tools.menu.upload.button')}
                                         </div>
                                         <input type="file" className="hidden" accept="image/*" onChange={handleFileUpload} />
@@ -305,37 +300,174 @@ const MenuTranslator = () => {
                     </section>
                 )}
 
-                {/* Features and FAQ Section - Same as before but styled more consistently */}
+                {/* How It Works Section */}
                 {!uploadedImage && (
                     <>
-                        <section className="py-24 grid grid-cols-1 md:grid-cols-4 gap-8">
+                        <section className="py-10 mb-6">
+                            <div className="max-w-5xl mx-auto px-4">
+                                {/* Title */}
+                                <div className="text-center mb-8">
+                                    <h2 className="text-3xl font-black text-gray-900 mb-2">{t('tools.menu.howitworks.title') || '工作原理'}</h2>
+                                    <p className="text-gray-500 text-base">{t('tools.menu.howitworks.subtitle') || '简单三步，即可轻松享受中国美食'}</p>
+                                </div>
+
+                                {/* Three Steps */}
+                                <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 mb-10">
+                                    {[
+                                        { 
+                                            icon: Upload, 
+                                            title: t('tools.menu.howitworks.step1.title') || '上传中文菜单', 
+                                            desc: t('tools.menu.howitworks.step1.desc') || '支持 JPG、PNG、GIF 格式，不超过10MB'
+                                        },
+                                        { 
+                                            icon: Brain, 
+                                            title: t('tools.menu.howitworks.step2.title') || 'AI分析', 
+                                            desc: t('tools.menu.howitworks.step2.desc') || '智能分析菜单，生成高清图片'
+                                        },
+                                        { 
+                                            icon: Utensils, 
+                                            title: t('tools.menu.howitworks.step3.title') || '查看下单', 
+                                            desc: t('tools.menu.howitworks.step3.desc') || '查看图片、价格，点餐发音下单'
+                                        }
+                                    ].map((step, i) => (
+                                        <React.Fragment key={i}>
+                                            <div className="flex flex-col items-center text-center max-w-[200px]">
+                                                <div className="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center mb-4 text-purple-600">
+                                                    <step.icon className="w-8 h-8" />
+                                                </div>
+                                                <h3 className="font-black text-lg text-gray-900 mb-2">{step.title}</h3>
+                                                <p className="text-sm text-gray-400 leading-relaxed">{step.desc}</p>
+                                            </div>
+                                            {i < 2 && (
+                                                <div className="hidden md:block w-24 h-px bg-gradient-to-r from-purple-200 to-purple-300"></div>
+                                            )}
+                                            {i < 2 && (
+                                                <div className="md:hidden w-px h-8 bg-gradient-to-b from-purple-200 to-purple-300 my-2"></div>
+                                            )}
+                                        </React.Fragment>
+                                    ))}
+                                </div>
+
+                                {/* Demo Comparison */}
+                                <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-0">
+                                    {/* Left: Original Menu */}
+                                    <div className="bg-gray-50 rounded-[2rem] p-6">
+                                        <h3 className="text-center font-black text-gray-700 mb-4">{t('tools.menu.howitworks.original') || '原始中文菜单'}</h3>
+                                        <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 aspect-[3/4] flex items-center justify-center">
+                                            <img src="https://static.tripcngo.com/ing/caidan.jpg" alt="Chinese Menu" className="w-full h-full object-contain" />
+                                        </div>
+                                    </div>
+
+                                    {/* Center: Arrow */}
+                                    <div className="hidden lg:flex flex-col items-center justify-center px-6">
+                                        <div className="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center">
+                                            <svg className="w-7 h-7 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                            </svg>
+                                        </div>
+                                        <span className="text-xs font-bold text-purple-400 mt-2">AI</span>
+                                    </div>
+                                    {/* Mobile: Down Arrow */}
+                                    <div className="flex lg:hidden items-center justify-center py-3">
+                                        <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                                            <svg className="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    {/* Right: AI Result */}
+                                    <div className="bg-gray-50 rounded-[2rem] p-6">
+                                        <h3 className="text-center font-black text-gray-700 mb-4">{t('tools.menu.howitworks.result')}</h3>
+                                        <div className="space-y-3">
+                                            {[
+                                                { 
+                                                    name: t('tools.menu.howitworks.dish1.name'), 
+                                                    enName: t('tools.menu.howitworks.dish1.enName'),
+                                                    price: '¥30', currency: 'CNY', 
+                                                    desc: t('tools.menu.howitworks.dish1.desc'), 
+                                                    ingredients: t('tools.menu.howitworks.dish1.ingredients'),
+                                                    allergens: t('tools.menu.howitworks.dish1.allergens'),
+                                                    img: 'https://static.tripcngo.com/ing/%E7%BA%A2%E7%83%A7%E9%B8%A1%E5%9D%97.jpg'
+                                                },
+                                                { 
+                                                    name: t('tools.menu.howitworks.dish2.name'), 
+                                                    enName: t('tools.menu.howitworks.dish2.enName'),
+                                                    price: '¥15', currency: 'CNY', 
+                                                    desc: t('tools.menu.howitworks.dish2.desc'), 
+                                                    ingredients: t('tools.menu.howitworks.dish2.ingredients'),
+                                                    allergens: t('tools.menu.howitworks.dish2.allergens'),
+                                                    img: 'https://static.tripcngo.com/ing/%E5%AE%B6%E5%B8%B8%E8%B1%86%E8%85%90.jpg'
+                                                },
+                                                { 
+                                                    name: t('tools.menu.howitworks.dish3.name'), 
+                                                    enName: t('tools.menu.howitworks.dish3.enName'),
+                                                    price: '¥35', currency: 'CNY', 
+                                                    desc: t('tools.menu.howitworks.dish3.desc'), 
+                                                    ingredients: t('tools.menu.howitworks.dish3.ingredients'),
+                                                    allergens: t('tools.menu.howitworks.dish3.allergens'),
+                                                    img: 'https://static.tripcngo.com/ing/%E8%BE%A3%E5%AD%90%E9%B8%A1.jpg'
+                                                }
+                                            ].map((dish, i) => (
+                                                <div key={i} className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex gap-4">
+                                                    <div className="w-20 h-20 bg-orange-100 rounded-xl flex-shrink-0 overflow-hidden">
+                                                        <img src={dish.img} alt={dish.name} className="w-full h-full object-cover" />
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <div className="flex justify-between items-start mb-1">
+                                                            <div>
+                                                                <h4 className="font-black text-gray-900 text-sm">{language === 'zh' || language === 'tw' ? dish.name : dish.enName}</h4>
+                                                                {(language !== 'zh' && language !== 'tw') && (
+                                                                    <span className="text-xs text-gray-400 font-bold">{dish.name}</span>
+                                                                )}
+                                                            </div>
+                                                            <span className="text-purple-600 font-black text-sm">{dish.price}</span>
+                                                        </div>
+                                                        <p className="text-xs text-gray-500 leading-relaxed mb-1 line-clamp-2">{dish.desc}</p>
+                                                        <p className="text-xs text-gray-400 mb-1">{dish.ingredients}</p>
+                                                        {dish.allergens && (
+                                                            <div className="bg-amber-50 border border-amber-200 rounded-lg px-2 py-1 mt-1">
+                                                                <p className="text-xs text-amber-700 font-medium leading-relaxed">{dish.allergens}</p>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Features Section */}
+                        <section className="py-10 grid grid-cols-2 md:grid-cols-4 gap-4">
                             {[
                                 { icon: ScanLine, title: t('tools.menu.feature.1.title'), desc: t('tools.menu.feature.1.desc') },
                                 { icon: ImageIcon, title: t('tools.menu.feature.2.title'), desc: t('tools.menu.feature.2.desc') },
                                 { icon: Wallet, title: t('tools.menu.feature.3.title'), desc: t('tools.menu.feature.3.desc') },
                                 { icon: Star, title: t('tools.menu.feature.4.title'), desc: t('tools.menu.feature.4.desc') }
                             ].map((f, i) => (
-                                <div key={i} className="bg-white p-10 rounded-[2.5rem] border border-gray-100 hover:shadow-xl transition-all group">
-                                    <div className="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-8 text-purple-600 group-hover:scale-110 transition-transform">
-                                        <f.icon className="w-7 h-7" />
+                                <div key={i} className="bg-white p-5 rounded-2xl border border-gray-100 hover:shadow-xl transition-all group">
+                                    <div className="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center mb-3 text-purple-600 group-hover:scale-110 transition-transform">
+                                        <f.icon className="w-5 h-5" />
                                     </div>
-                                    <h5 className="font-black text-xl mb-4">{f.title}</h5>
-                                    <p className="text-gray-400 text-sm font-medium leading-relaxed">{f.desc}</p>
+                                    <h5 className="font-black text-sm mb-1">{f.title}</h5>
+                                    <p className="text-gray-400 text-xs font-medium leading-relaxed">{f.desc}</p>
                                 </div>
                             ))}
                         </section>
 
-                        <section className="py-24 border-t border-gray-100">
+                        <section className="py-10 border-t border-gray-100">
                             <div className="max-w-3xl mx-auto">
-                                <h2 className="text-3xl font-black text-center mb-16 uppercase tracking-widest text-gray-400">FAQS</h2>
-                                <div className="space-y-6">
+                                <h2 className="text-2xl font-black text-center mb-6 uppercase tracking-widest text-gray-400">FAQS</h2>
+                                <div className="space-y-3">
                                     {faqs.map((f, i) => (
-                                        <div key={i} className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
+                                        <div key={i} className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
                                             <button 
                                                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                                                className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-gray-50 transition-all"
+                                                className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-gray-50 transition-all"
                                             >
-                                                <span className="font-bold text-lg text-gray-800">{f.q}</span>
+                                                <span className="font-bold text-base text-gray-800">{f.q}</span>
                                                 <ChevronDown className={`w-5 h-5 text-gray-300 transition-transform ${openFaq === i ? 'rotate-180 text-purple-600' : ''}`} />
                                             </button>
                                             <AnimatePresence>
@@ -344,7 +476,7 @@ const MenuTranslator = () => {
                                                         initial={{ height: 0, opacity: 0 }}
                                                         animate={{ height: 'auto', opacity: 1 }}
                                                         exit={{ height: 0, opacity: 0 }}
-                                                        className="px-8 pb-8 text-gray-500 font-medium leading-relaxed border-t border-gray-50 pt-4"
+                                                        className="px-6 pb-6 text-gray-500 font-medium leading-relaxed border-t border-gray-50 pt-3"
                                                     >
                                                         {f.a}
                                                     </motion.div>

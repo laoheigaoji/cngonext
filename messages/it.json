@@ -191,6 +191,44 @@
           "title": "Assistente vocale"
         }
       },
+      "howitworks": {
+        "title": "Come funziona",
+        "subtitle": "Fotografa il menu cinese con un clic, ottieni subito traduzione, immagini reali e conversione dei prezzi, niente più confusione",
+        "step1": {
+          "title": "Carica il menu cinese",
+          "desc": "Formati JPG, PNG, GIF supportati, fino a 10 MB"
+        },
+        "step2": {
+          "title": "Analisi IA",
+          "desc": "Analisi intelligente del menu con generazione di immagini HD"
+        },
+        "step3": {
+          "title": "Visualizza e ordina",
+          "desc": "Vedi immagini, prezzi e ordina con pronuncia"
+        },
+        "original": "Menu cinese originale",
+        "result": "Risultato analisi IA",
+        "uploadHint": "Carica l'immagine del tuo menu",
+        "dish1": {
+          "name": "Hongshao Jikuai",
+          "enName": "Braised Chicken",
+          "desc": "Un classico piatto casalingo cinese. Pezzi di pollo stufati fino a renderli teneri, con una salsa rossa lucida, saporita e leggermente dolce.",
+          "ingredients": "Ingredienti principali: Pollo, Patata, Peperone verde"
+        },
+        "dish2": {
+          "name": "Jiachang Doufu",
+          "enName": "Home-style Tofu",
+          "desc": "Un comune piatto casalingo. Tofu saltato con maiale e verdure. Croccante fuori, tenero dentro, con un tocco piccante.",
+          "ingredients": "Ingredienti principali: Tofu, Maiale, Fungo nero, Verdure"
+        },
+        "dish3": {
+          "name": "Lazi Ji",
+          "enName": "Spicy Chicken",
+          "desc": "Un classico del Sichuan. Pollo croccante saltato con peperoncini secchi e pepe del Sichuan. Piccante e incredibilmente aromatico.",
+          "ingredients": "Ingredienti principali: Pollo, Cipollotto, Zenzero, Peperoncino",
+          "allergens": "⚠️ Contiene molto peperoncino e pepe del Sichuan — molto piccante e intorpidente; può contenere arachidi"
+        }
+      },
       "title": "Carica una foto per ottenere traduzione, ingredienti e prezzi - ordina facilmente"
     },
     "name": {

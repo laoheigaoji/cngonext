@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 export const runtime = 'edge';
 
@@ -9,7 +10,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing dishName' }, { status: 400 });
     }
 
-    const env = (process as any).env || {};
+    const { env } = getCloudflareContext();
     const ai = env.AI;
 
     if (!ai) {
