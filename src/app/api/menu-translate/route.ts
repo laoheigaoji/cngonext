@@ -84,8 +84,9 @@ CRITICAL: Output ONLY a JSON array. No explanation. Example:
 
 const VISION_MODELS = [
   '@cf/meta/llama-4-scout-17b-16e-instruct',
-  '@cf/meta/llama-3.2-11b-vision-instruct',
-  '@cf/meta/llama-3.2-90b-vision-instruct',
+  '@cf/mistralai/mistral-small-3.1-24b-instruct',
+  '@cf/moonshotai/kimi-k2.6',
+  '@cf/google/gemma-4-26b-a4b-it',
 ];
 
 // Call Workers AI via REST API
