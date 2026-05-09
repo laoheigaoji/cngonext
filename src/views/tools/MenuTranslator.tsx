@@ -11,6 +11,7 @@ const MenuTranslator = () => {
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
     const [analysisResult, setAnalysisResult] = useState<any[]>([]);
+    const [streamingText, setStreamingText] = useState('');
     const [generatingImages, setGeneratingImages] = useState<Set<number>>(new Set());
 
     // Chinese pronunciation using Web Speech API
@@ -88,6 +89,7 @@ const MenuTranslator = () => {
         if (!file) return;
 
         setIsAnalyzing(true);
+        setStreamingText('');
         try {
             // Compress image to reduce payload
             const base64Image = await compressImage(file);
@@ -114,8 +116,47 @@ const MenuTranslator = () => {
                         throw new Error(errData.error || `API error: ${response.status}`);
                     }
 
-                    const data = await response.json();
-                    setAnalysisResult(data.items || []);
+                    // Check if response is SSE stream or regular JSON
+                    const contentType = response.headers.get('content-type') || '';
+                    if (contentType.includes('text/event-stream') && response.body) {
+                        // SSE streaming mode
+                        const reader = response.body.getReader();
+                        const decoder = new TextDecoder();
+                        let accumulatedText = '';
+
+                        while (true) {
+                            const { done, value } = await reader.read();
+                            if (done) break;
+
+                            const chunk = decoder.decode(value, { stream: true });
+                            const lines = chunk.split('\n');
+                            for (const line of lines) {
+                                if (line.startsWith('data: ')) {
+                                    const jsonStr = line.slice(6).trim();
+                                    if (!jsonStr) continue;
+                                    try {
+                                        const parsed = JSON.parse(jsonStr);
+                                        if (parsed.type === 'token') {
+                                            accumulatedText += parsed.content;
+                                            setStreamingText(accumulatedText);
+                                        } else if (parsed.type === 'result') {
+                                            setAnalysisResult(parsed.items || []);
+                                            setStreamingText('');
+                                        } else if (parsed.type === 'error') {
+                                            throw new Error(parsed.error);
+                                        }
+                                    } catch (parseErr: any) {
+                                        if (parseErr.message && !parseErr.message.includes('JSON')) throw parseErr;
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        // Regular JSON response
+                        const data = await response.json();
+                        setAnalysisResult(data.items || []);
+                    }
+
                     lastError = null;
                     break;
                 } catch (fetchErr: any) {
@@ -140,7 +181,13 @@ const MenuTranslator = () => {
 
     return (
         <>
-<div className="bg-[#f8f9fa] min-h-screen font-sans text-gray-900 overflow-x-hidden pt-20">
+        <style>{`
+            @keyframes scanLine {
+                0% { transform: translateY(-100%); }
+                50% { transform: translateY(400%); }
+                100% { transform: translateY(-100%); }
+            }
+        `}</style><div className="bg-[#f8f9fa] min-h-screen font-sans text-gray-900 overflow-x-hidden pt-20">
             {/* Minimalist Header Area - Already handled by main layout Navbar */}
             
             <div className="max-w-[1400px] mx-auto px-6">
@@ -191,7 +238,7 @@ const MenuTranslator = () => {
                     <section className="py-12">
                         <div className="flex justify-between items-center mb-10">
                             <button 
-                                onClick={() => { setUploadedImage(null); setAnalysisResult([]); }}
+                                onClick={() => { setUploadedImage(null); setAnalysisResult([]); setStreamingText(''); }}
                                 className="flex items-center gap-2 text-gray-500 hover:text-red-500 transition-colors font-black px-6 py-3 rounded-2xl bg-white border border-gray-100 shadow-sm"
                             >
                                 <X className="w-5 h-5" /> {t('tools.menu.status.reset')}
@@ -213,8 +260,29 @@ const MenuTranslator = () => {
                                         <img src={uploadedImage} alt="Menu" className="w-full h-full object-contain" />
                                     )}
                                     {isAnalyzing && (
-                                        <div className="absolute inset-0 bg-white/40 backdrop-blur-md flex flex-col items-center justify-center z-10">
-                                            <div className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+                                        <div className="absolute inset-0 z-10 overflow-hidden">
+                                            {/* Scan line effect */}
+                                            <div className="absolute inset-0" style={{
+                                                background: 'linear-gradient(180deg, transparent 0%, rgba(139,92,246,0.15) 48%, rgba(139,92,246,0.5) 50%, rgba(139,92,246,0.15) 52%, transparent 100%)',
+                                                animation: 'scanLine 2s ease-in-out infinite',
+                                                boxShadow: '0 0 40px 10px rgba(139,92,246,0.3) inset',
+                                            }} />
+                                            {/* Scan glow */}
+                                            <div className="absolute left-0 right-0 h-16" style={{
+                                                background: 'linear-gradient(180deg, transparent, rgba(139,92,246,0.25), transparent)',
+                                                animation: 'scanLine 2s ease-in-out infinite',
+                                                filter: 'blur(8px)',
+                                            }} />
+                                            {/* Top/bottom fade overlay */}
+                                            <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-white/60 to-transparent" />
+                                            <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-white/60 to-transparent" />
+                                            {/* Status text */}
+                                            <div className="absolute bottom-4 left-0 right-0 flex items-center justify-center gap-2">
+                                                <div className="bg-purple-600/90 backdrop-blur-sm text-white px-5 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-lg shadow-purple-500/30">
+                                                    <ScanLine className="w-4 h-4 animate-pulse" />
+                                                    <span>AI 扫描识别中...</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     )}
                                 </div>
@@ -226,16 +294,26 @@ const MenuTranslator = () => {
                                 
                                 {isAnalyzing ? (
                                     <div className="space-y-12">
-                                        {[1, 2, 3].map(i => (
-                                            <div key={i} className="animate-pulse flex gap-8">
-                                                <div className="w-40 h-40 bg-gray-100 rounded-[2rem]"></div>
-                                                <div className="flex-1 space-y-4 py-2">
-                                                    <div className="h-8 bg-gray-100 rounded-lg w-1/2"></div>
-                                                    <div className="h-4 bg-gray-100 rounded-lg w-full"></div>
-                                                    <div className="h-4 bg-gray-100 rounded-lg w-3/4"></div>
+                                        {streamingText ? (
+                                            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                                                <div className="flex items-center gap-2 mb-3">
+                                                    <Brain className="w-5 h-5 text-purple-500 animate-pulse" />
+                                                    <span className="text-xs font-black text-purple-500 uppercase tracking-widest">AI 正在分析...</span>
                                                 </div>
+                                                <pre className="text-sm text-gray-700 whitespace-pre-wrap font-mono leading-relaxed max-h-[500px] overflow-y-auto">{streamingText}</pre>
                                             </div>
-                                        ))}
+                                        ) : (
+                                            [1, 2, 3].map(i => (
+                                                <div key={i} className="animate-pulse flex gap-8">
+                                                    <div className="w-40 h-40 bg-gray-100 rounded-[2rem]"></div>
+                                                    <div className="flex-1 space-y-4 py-2">
+                                                        <div className="h-8 bg-gray-100 rounded-lg w-1/2"></div>
+                                                        <div className="h-4 bg-gray-100 rounded-lg w-full"></div>
+                                                        <div className="h-4 bg-gray-100 rounded-lg w-3/4"></div>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        )}
                                     </div>
                                 ) : analysisResult.length > 0 ? (
                                     <div className="space-y-16">

@@ -134,18 +134,86 @@ export async function POST(req: NextRequest) {
 
     const prompt = buildPrompt(lang);
 
+    // First, try to get a response from any model (non-stream for reliability)
+    let fullText = '';
+    let usedModel = '';
     let lastError: any;
+
     for (const modelId of VISION_MODELS) {
       try {
-        console.log(`[menu-translate] Trying ${modelId}...`);
+        console.log(`[menu-translate] Trying ${modelId} (non-stream)...`);
+
+        // Try streaming first (faster UX)
+        const streamUrl = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/ai/run/${modelId}`;
+        const streamResp = await fetch(streamUrl, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${getApiToken()}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            messages: [
+              {
+                role: 'user',
+                content: [
+                  { type: 'text', text: prompt },
+                  { type: 'image_url', image_url: { url: `data:${mimeType};base64,${image}` } }
+                ]
+              }
+            ],
+            max_tokens: 2048,
+            stream: true,
+          }),
+        });
+
+        if (streamResp.ok && streamResp.body) {
+          // Read streaming response
+          const reader = streamResp.body.getReader();
+          const decoder = new TextDecoder();
+          let streamText = '';
+          let streamFailed = false;
+
+          try {
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+              const chunk = decoder.decode(value, { stream: true });
+              const lines = chunk.split('\n');
+              for (const line of lines) {
+                if (line.startsWith('data: ')) {
+                  const jsonStr = line.slice(6).trim();
+                  if (jsonStr === '[DONE]') continue;
+                  try {
+                    const parsed = JSON.parse(jsonStr);
+                    const token = parsed?.response || '';
+                    if (token) streamText += token;
+                  } catch {
+                    // Skip malformed chunks
+                  }
+                }
+              }
+            }
+          } catch (e) {
+            streamFailed = true;
+          }
+
+          if (!streamFailed && streamText.trim().length >= 10) {
+            fullText = streamText;
+            usedModel = modelId;
+            console.log(`[menu-translate] Stream success with ${modelId}, length:`, streamText.length);
+            break;
+          }
+          console.log(`[menu-translate] Stream from ${modelId} produced empty result, falling back to non-stream`);
+        }
+
+        // Fallback: non-stream call
+        console.log(`[menu-translate] Trying ${modelId} (non-stream fallback)...`);
         const text = await callModel(modelId, image, mimeType, prompt);
         console.log(`[menu-translate] ${modelId} response length:`, text?.length);
         if (text && text.trim().length >= 10) {
-          const menuItems = extractJSON(text);
-          if (menuItems.length > 0) {
-            console.log(`[menu-translate] Success with ${modelId}, items:`, menuItems.length);
-            return NextResponse.json({ items: addPriceConversions(menuItems, lang) });
-          }
+          fullText = text;
+          usedModel = modelId;
+          break;
         }
         lastError = new Error(`${modelId}: empty or unparseable response`);
       } catch (err: any) {
@@ -154,11 +222,26 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    console.error('[menu-translate] All models failed. Last error:', lastError?.message);
-    return NextResponse.json(
-      { error: `All AI models failed. Last error: ${lastError?.message || 'Unknown'}` },
-      { status: 500 }
-    );
+    if (!fullText || fullText.trim().length < 10) {
+      console.error('[menu-translate] All models failed. Last error:', lastError?.message);
+      return NextResponse.json(
+        { error: `All AI models failed. Last error: ${lastError?.message || 'Unknown'}` },
+        { status: 500 }
+      );
+    }
+
+    const menuItems = extractJSON(fullText);
+    if (menuItems.length === 0) {
+      console.error('[menu-translate] Could not parse JSON from response. Raw text length:', fullText.length);
+      return NextResponse.json(
+        { error: 'AI returned a response but it could not be parsed into menu items. Please try again.' },
+        { status: 500 }
+      );
+    }
+
+    const items = addPriceConversions(menuItems, lang);
+    console.log(`[menu-translate] Success with ${usedModel}, items:`, items.length);
+    return NextResponse.json({ items });
   } catch (error: any) {
     console.error('[menu-translate] Fatal error:', error);
     return NextResponse.json(
