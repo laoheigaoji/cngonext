@@ -61,42 +61,81 @@ const MenuTranslator = () => {
         { q: t('tools.menu.faq.q8'), a: t('tools.menu.faq.a8') }
     ];
 
+    // Compress image before upload to reduce payload size
+    const compressImage = (file: File, maxWidth = 1600, quality = 0.8): Promise<string> => {
+        return new Promise((resolve) => {
+            const canvas = document.createElement('canvas');
+            const img = new Image();
+            img.onload = () => {
+                let { width, height } = img;
+                if (width > maxWidth) {
+                    height = (height * maxWidth) / width;
+                    width = maxWidth;
+                }
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d')!;
+                ctx.drawImage(img, 0, 0, width, height);
+                const compressed = canvas.toDataURL(file.type === 'image/png' ? 'image/jpeg' : file.type, quality);
+                resolve(compressed);
+            };
+            img.src = URL.createObjectURL(file);
+        });
+    };
+
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-            const base64Image = event.target?.result as string;
+        setIsAnalyzing(true);
+        try {
+            // Compress image to reduce payload
+            const base64Image = await compressImage(file);
             setUploadedImage(base64Image);
             
-            setIsAnalyzing(true);
-            try {
-                // Call Worker API (uses Cloudflare Workers AI in production, Gemini fallback in dev)
-                const response = await fetch('/api/menu-translate', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        image: base64Image.split(',')[1],
-                        mimeType: file.type,
-                        lang: language
-                    })
-                });
+            const imageBase64 = base64Image.split(',')[1];
+            
+            // Retry logic for network errors
+            let lastError: any;
+            for (let attempt = 0; attempt < 2; attempt++) {
+                try {
+                    const response = await fetch('/api/menu-translate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            image: imageBase64,
+                            mimeType: 'image/jpeg',
+                            lang: language
+                        })
+                    });
 
-                if (!response.ok) {
-                    throw new Error(`API error: ${response.status}`);
+                    if (!response.ok) {
+                        const errData = await response.json().catch(() => ({}));
+                        throw new Error(errData.error || `API error: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    setAnalysisResult(data.items || []);
+                    lastError = null;
+                    break;
+                } catch (fetchErr: any) {
+                    lastError = fetchErr;
+                    if (attempt === 0 && (fetchErr.message?.includes('SSL') || fetchErr.message?.includes('network') || fetchErr.name === 'TypeError')) {
+                        // Wait 1s before retry
+                        await new Promise(r => setTimeout(r, 1000));
+                        continue;
+                    }
+                    break;
                 }
-
-                const data = await response.json();
-                setAnalysisResult(data.items || []);
-            } catch (error) {
-                console.error("Menu Analysis failed:", error);
-                alert("识别失败，请确保图片清晰并重试。");
-            } finally {
-                setIsAnalyzing(false);
             }
-        };
-        reader.readAsDataURL(file);
+            
+            if (lastError) throw lastError;
+        } catch (error) {
+            console.error("Menu Analysis failed:", error);
+            alert("识别失败，请确保图片清晰并重试。" + (error instanceof Error ? `\n${error.message}` : ''));
+        } finally {
+            setIsAnalyzing(false);
+        }
     };
 
     return (
