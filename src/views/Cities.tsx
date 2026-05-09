@@ -69,10 +69,10 @@ export default function Cities({ initialData }: { initialData?: any[] }) {
       </div>
 
       <div className="max-w-[1240px] mx-auto px-6">
-        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ${loading ? 'animate-pulse' : ''}`}>
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ${loading ? '' : ''}`}>
           {loading ? (
              [...Array(ITEMS_PER_PAGE)].map((_, i) => (
-               <div key={i} className="bg-white rounded-md border border-gray-100 overflow-hidden h-[300px] flex flex-col shadow-sm">
+               <div key={i} className="bg-white rounded-md border border-gray-100 overflow-hidden h-[300px] flex flex-col shadow-sm animate-pulse">
                  <div className="bg-gray-200 h-[240px] w-full" />
                  <div className="p-4 space-y-2 flex-1 flex flex-col justify-center">
                    <div className="h-4 bg-gray-200 rounded w-1/2" />

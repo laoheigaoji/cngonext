@@ -280,8 +280,40 @@ export default function VisaTypes({ initialData, initialTranslations }: { initia
   if (loading) {
     return (
       <VisaLayout breadcrumbTitle={tr.pageTitle}>
-        <div className="flex justify-center items-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1b887a]"></div>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">{tr.pageTitle}</h2>
+
+        {/* 桌面端骨架屏 */}
+        <div className="hidden md:block bg-white border border-gray-100 rounded-sm shadow-sm overflow-hidden">
+          <div className="bg-[#1b887a] h-12" />
+          {[1,2,3,4,5,6,7,8].map(i => (
+            <div key={i} className={`flex items-center gap-4 px-6 py-4 border-b border-gray-100 ${i % 2 === 0 ? 'bg-gray-50/30' : 'bg-white'}`}>
+              <div className="h-4 bg-gray-200/60 rounded w-28 animate-pulse" />
+              <div className="h-5 bg-gray-200/60 rounded w-8 animate-pulse" />
+              <div className="flex-1 space-y-2">
+                <div className="h-4 bg-gray-200/40 rounded w-3/4 animate-pulse" />
+              </div>
+              <div className="h-4 bg-gray-200/40 rounded w-16 animate-pulse" />
+            </div>
+          ))}
+        </div>
+
+        {/* 移动端骨架屏 */}
+        <div className="md:hidden space-y-3">
+          {[1,2,3,4,5,6].map(i => (
+            <div key={i} className="rounded-lg border border-gray-200 overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-[#1b887a]/5">
+                <div className="flex items-center gap-2">
+                  <div className="h-5 w-8 bg-[#1b887a]/20 rounded animate-pulse" />
+                  <div className="h-4 bg-gray-200/60 rounded w-20 animate-pulse" />
+                </div>
+                <div className="h-3 bg-gray-200/40 rounded w-16 animate-pulse" />
+              </div>
+              <div className="px-4 py-3 space-y-2">
+                <div className="h-3 bg-gray-200/40 rounded w-12 animate-pulse" />
+                <div className="h-4 bg-gray-200/50 rounded w-full animate-pulse" />
+              </div>
+            </div>
+          ))}
         </div>
       </VisaLayout>
     );

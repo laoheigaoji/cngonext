@@ -143,8 +143,55 @@ export default function VisaFees({ initialData, initialTranslations }: { initial
   if (loading) {
     return (
       <VisaLayout breadcrumbTitle={tr.pageTitle}>
-        <div className="flex justify-center items-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1b887a]"></div>
+        {/* 桌面端骨架屏 */}
+        <div className="hidden md:block bg-white rounded-sm border border-gray-200 overflow-hidden shadow-sm">
+          <div className="bg-[#1b887a] h-12" />
+          {[1,2,3,4,5,6,7,8].map(i => (
+            <div key={i} className={`flex items-center gap-4 px-6 py-4 border-b border-gray-100 ${i % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'}`}>
+              <div className="h-4 bg-gray-200/60 rounded w-20 animate-pulse" />
+              <div className="h-4 bg-gray-200/50 rounded w-24 animate-pulse" />
+              <div className="h-4 bg-[#1b887a]/15 rounded w-28 animate-pulse" />
+              <div className="flex-1 h-3 bg-gray-200/40 rounded w-3/4 animate-pulse" />
+            </div>
+          ))}
+        </div>
+
+        {/* 移动端骨架屏 */}
+        <div className="md:hidden space-y-3">
+          {[1,2,3,4,5,6].map(i => (
+            <div key={i} className="rounded-lg border border-gray-200 overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-[#1b887a]/5">
+                <div className="h-4 bg-gray-200/60 rounded w-16 animate-pulse" />
+                <div className="h-4 bg-[#1b887a]/15 rounded w-20 animate-pulse" />
+              </div>
+              <div className="px-4 py-3 space-y-2">
+                <div className="flex items-start gap-2">
+                  <div className="h-3 bg-gray-200/40 rounded w-12 animate-pulse" />
+                  <div className="h-4 bg-gray-200/50 rounded w-24 animate-pulse" />
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="h-3 bg-gray-200/40 rounded w-8 animate-pulse" />
+                  <div className="h-3 bg-gray-200/40 rounded w-3/4 animate-pulse" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* 附加信息骨架屏 */}
+        <div className="mt-6 space-y-6">
+          <div className="h-6 bg-gray-200/50 rounded w-32 animate-pulse" />
+          {[1,2,3].map(i => (
+            <div key={i} className="space-y-2">
+              <div className="h-5 bg-gray-200/50 rounded w-40 animate-pulse" />
+              <div className="h-4 bg-gray-200/40 rounded w-full animate-pulse" />
+            </div>
+          ))}
+          <div className="p-4 bg-gray-50 rounded border border-gray-200 space-y-2">
+            <div className="h-4 bg-gray-200/50 rounded w-10 animate-pulse" />
+            <div className="h-3 bg-gray-200/40 rounded w-full animate-pulse" />
+            <div className="h-3 bg-gray-200/40 rounded w-4/5 animate-pulse" />
+          </div>
         </div>
       </VisaLayout>
     );

@@ -1,7 +1,7 @@
 export default function Loading() {
   return (
     <div className="w-full bg-[#f9f9f9] pb-20">
-      {/* Hero Banner - 直接显示，不需要骨架屏 */}
+      {/* Hero Banner - 直接显示 */}
       <section className="relative h-[400px] flex items-center pt-16 bg-gray-900 overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://static.tripcngo.com/ing/Fbanner_bg_2.jpg')] bg-cover bg-center" />
         <div className="absolute inset-0 bg-black/40" />
@@ -27,7 +27,7 @@ export default function Loading() {
         </div>
       </div>
 
-      {/* Cards skeleton - 只有卡片区域需要骨架屏 */}
+      {/* Cards skeleton */}
       <div className="max-w-[1240px] mx-auto px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1,2,3,4,5,6,7,8,9].map(i => (
