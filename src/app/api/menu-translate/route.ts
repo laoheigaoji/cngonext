@@ -69,6 +69,11 @@ CRITICAL: Output ONLY a JSON array. No explanation. Example:
 [{"name":"宫保鸡丁",${localExample},"enName":"Kung Pao Chicken","price":38,"enDescription":"Classic Sichuan dish","enIngredients":["chicken","peanuts"],"enCategory":"Sichuan","allergens":["peanuts"],"dietary":["spicy"]}]`;
 }
 
+const VISION_MODELS = [
+  '@cf/meta/llama-4-scout-17b-16e-instruct',
+  '@cf/meta/llama-3.2-11b-vision-instruct',
+];
+
 export async function POST(req: NextRequest) {
   try {
     const { image, mimeType, lang = 'en' }: { image?: string; mimeType?: string; lang?: string } = await req.json();
@@ -91,24 +96,48 @@ export async function POST(req: NextRequest) {
       return await fallbackGemini(image, mimeType, geminiKey, prompt);
     }
 
-    // Cloudflare Workers AI - Llama 3.2 Vision
-    const response = await ai.run('@cf/meta/llama-3.2-11b-vision-instruct', {
-      messages: [
-        {
-          role: 'user',
-          content: [
-            { type: 'text', text: prompt },
-            { type: 'image_url', image_url: { url: `data:${mimeType};base64,${image}` } }
-          ]
+    // Try vision models in order, fallback to next on failure
+    let lastError: any;
+    for (const modelId of VISION_MODELS) {
+      try {
+        const response = await ai.run(modelId, {
+          messages: [
+            {
+              role: 'user',
+              content: [
+                { type: 'text', text: prompt },
+                { type: 'image_url', image_url: { url: `data:${mimeType};base64,${image}` } }
+              ]
+            }
+          ],
+          max_tokens: 2048,
+        });
+
+        const text = (response as any)?.response || '';
+        if (!text || text.trim().length < 10) {
+          lastError = new Error(`Model ${modelId} returned empty response`);
+          continue;
         }
-      ],
-      max_tokens: 2048,
-    });
 
-    const text = (response as any)?.response || '';
-    const menuItems = extractJSON(text);
+        const menuItems = extractJSON(text);
+        if (menuItems.length === 0) {
+          lastError = new Error(`Model ${modelId} returned unparseable response`);
+          continue;
+        }
 
-    return NextResponse.json({ items: addPriceConversions(menuItems, lang) });
+        return NextResponse.json({ items: addPriceConversions(menuItems, lang) });
+      } catch (modelError: any) {
+        console.error(`Model ${modelId} failed:`, modelError.message);
+        lastError = modelError;
+        continue;
+      }
+    }
+
+    // All models failed
+    return NextResponse.json(
+      { error: `All AI models failed. Last error: ${lastError?.message || 'Unknown'}` },
+      { status: 500 }
+    );
   } catch (error: any) {
     console.error('Menu translation error:', error);
     return NextResponse.json(
