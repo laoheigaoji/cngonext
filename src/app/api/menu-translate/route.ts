@@ -3,6 +3,8 @@ import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 export const runtime = 'edge';
 
+const CF_ACCOUNT_ID = '0a28250e63bf217f833feabaf84a25a1';
+
 const LANG_NAMES: Record<string, string> = {
   en: 'English', ja: 'Japanese', ko: 'Korean', ru: 'Russian',
   fr: 'French', es: 'Spanish', de: 'German', it: 'Italian', tw: 'Traditional Chinese',
@@ -74,6 +76,61 @@ const VISION_MODELS = [
   '@cf/meta/llama-3.2-11b-vision-instruct',
 ];
 
+// Call Workers AI via REST API
+async function callViaRestAPI(modelId: string, image: string, mimeType: string, prompt: string, apiToken: string): Promise<string> {
+  const url = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/ai/run/${modelId}`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      messages: [
+        {
+          role: 'user',
+          content: [
+            { type: 'text', text: prompt },
+            { type: 'image_url', image_url: { url: `data:${mimeType};base64,${image}` } }
+          ]
+        }
+      ],
+      max_tokens: 2048,
+    }),
+  });
+
+  if (!response.ok) {
+    const errText = await response.text().catch(() => '');
+    throw new Error(`REST API ${modelId} returned ${response.status}: ${errText.slice(0, 200)}`);
+  }
+
+  const data = await response.json();
+  return data?.result?.response || data?.response || '';
+}
+
+// Call Workers AI via binding
+async function callViaBinding(modelId: string, image: string, mimeType: string, prompt: string): Promise<string> {
+  const { env } = getCloudflareContext();
+  const ai = env.AI;
+  if (!ai) throw new Error('AI binding not available');
+
+  const response = await ai.run(modelId, {
+    messages: [
+      {
+        role: 'user',
+        content: [
+          { type: 'text', text: prompt },
+          { type: 'image_url', image_url: { url: `data:${mimeType};base64,${image}` } }
+        ]
+      }
+    ],
+    max_tokens: 2048,
+  });
+
+  return (response as any)?.response || '';
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { image, mimeType, lang = 'en' }: { image?: string; mimeType?: string; lang?: string } = await req.json();
@@ -83,57 +140,45 @@ export async function POST(req: NextRequest) {
     }
 
     const prompt = buildPrompt(lang);
+    const cfApiToken = process.env.CF_AI_API_TOKEN || '';
 
-    // Use Cloudflare Workers AI binding
-    const { env } = getCloudflareContext();
-    const ai = env.AI;
-
-    if (!ai) {
-      const geminiKey = process.env.GEMINI_API_KEY || '';
-      if (!geminiKey) {
-        return NextResponse.json({ error: 'No AI service available' }, { status: 500 });
-      }
-      return await fallbackGemini(image, mimeType, geminiKey, prompt);
-    }
-
-    // Try vision models in order, fallback to next on failure
+    // Try vision models in order, with REST API preferred over binding
     let lastError: any;
     for (const modelId of VISION_MODELS) {
-      try {
-        const response = await ai.run(modelId, {
-          messages: [
-            {
-              role: 'user',
-              content: [
-                { type: 'text', text: prompt },
-                { type: 'image_url', image_url: { url: `data:${mimeType};base64,${image}` } }
-              ]
+      // Strategy 1: REST API (if token available)
+      if (cfApiToken) {
+        try {
+          const text = await callViaRestAPI(modelId, image, mimeType, prompt, cfApiToken);
+          if (text && text.trim().length >= 10) {
+            const menuItems = extractJSON(text);
+            if (menuItems.length > 0) {
+              return NextResponse.json({ items: addPriceConversions(menuItems, lang) });
             }
-          ],
-          max_tokens: 2048,
-        });
-
-        const text = (response as any)?.response || '';
-        if (!text || text.trim().length < 10) {
-          lastError = new Error(`Model ${modelId} returned empty response`);
-          continue;
+          }
+          lastError = new Error(`REST API ${modelId}: empty or unparseable response`);
+        } catch (restErr: any) {
+          console.error(`REST API ${modelId} failed:`, restErr.message);
+          lastError = restErr;
         }
+      }
 
-        const menuItems = extractJSON(text);
-        if (menuItems.length === 0) {
-          lastError = new Error(`Model ${modelId} returned unparseable response`);
-          continue;
+      // Strategy 2: Binding fallback
+      try {
+        const text = await callViaBinding(modelId, image, mimeType, prompt);
+        if (text && text.trim().length >= 10) {
+          const menuItems = extractJSON(text);
+          if (menuItems.length > 0) {
+            return NextResponse.json({ items: addPriceConversions(menuItems, lang) });
+          }
         }
-
-        return NextResponse.json({ items: addPriceConversions(menuItems, lang) });
-      } catch (modelError: any) {
-        console.error(`Model ${modelId} failed:`, modelError.message);
-        lastError = modelError;
-        continue;
+        lastError = new Error(`Binding ${modelId}: empty or unparseable response`);
+      } catch (bindErr: any) {
+        console.error(`Binding ${modelId} failed:`, bindErr.message);
+        lastError = bindErr;
       }
     }
 
-    // All models failed
+    // All models and methods failed
     return NextResponse.json(
       { error: `All AI models failed. Last error: ${lastError?.message || 'Unknown'}` },
       { status: 500 }
@@ -145,26 +190,6 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
-}
-
-async function fallbackGemini(image: string, mimeType: string, apiKey: string, prompt: string) {
-  const { GoogleGenAI } = await import('@google/genai');
-  const ai = new GoogleGenAI({ apiKey });
-
-  const result = await ai.models.generateContent({
-    model: 'gemini-2.0-flash',
-    contents: {
-      parts: [
-        { text: prompt },
-        { inlineData: { data: image, mimeType } }
-      ]
-    }
-  });
-
-  const text = result.text || '';
-  const menuItems = extractJSON(text);
-
-  return NextResponse.json({ items: addPriceConversions(menuItems, 'en') });
 }
 
 function extractJSON(text: string): any[] {
