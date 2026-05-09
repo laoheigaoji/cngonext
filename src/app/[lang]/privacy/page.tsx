@@ -34,7 +34,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   let initialData = null;
 
   try {
-    initialData = await getPageSections('privacy');
+    initialData = await getPageSections('privacy_policy');
   } catch (e) {
     console.error('Failed to fetch privacy data:', e);
   }

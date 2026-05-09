@@ -34,7 +34,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   let initialData = null;
 
   try {
-    initialData = await getPageSections('terms');
+    initialData = await getPageSections('terms_of_service');
   } catch (e) {
     console.error('Failed to fetch terms data:', e);
   }
