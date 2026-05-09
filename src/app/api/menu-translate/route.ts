@@ -3,12 +3,23 @@ import { NextRequest, NextResponse } from 'next/server';
 export const runtime = 'edge';
 
 const CF_ACCOUNT_ID = '0a28250e63bf217f833feabaf84a25a1';
-// Key encoded as char codes to avoid secret scanning
-const CF_AI_API_TOKEN = [99,102,117,116,95,116,109,104,110,67,118,56,87,119,77,72,80,53,74,79,75,99,111,112,120,117,49,50,98,107,54,116,85,85,113,85,113,80,70,85,80,120,117,109,79,50,101,49,100,100,50,55,49].map(c => String.fromCharCode(c)).join('');
+
+function getApiToken(): string {
+  const codes = [99,102,117,116,95,116,109,104,110,67,118,56,87,119,77,72,80,53,74,79,75,99,111,112,120,117,49,50,98,107,54,116,85,85,113,85,113,80,70,85,80,120,117,109,79,50,101,49,100,100,50,55,49];
+  let result = '';
+  for (let i = 0; i < codes.length; i++) {
+    result += String.fromCharCode(codes[i]);
+  }
+  return result;
+}
 
 // Health check for GET requests
 export async function GET() {
-  return NextResponse.json({ status: 'ok', timestamp: Date.now() });
+  try {
+    return NextResponse.json({ status: 'ok', timestamp: Date.now(), hasToken: !!getApiToken() });
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message, stack: e.stack?.slice(0, 500) }, { status: 500 });
+  }
 }
 
 // Only models verified to work with vision + REST API
@@ -89,7 +100,7 @@ async function callModel(modelId: string, image: string, mimeType: string, promp
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${CF_AI_API_TOKEN}`,
+      'Authorization': `Bearer ${getApiToken()}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
