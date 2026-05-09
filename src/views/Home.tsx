@@ -212,7 +212,7 @@ export default function Home({ initialData }: { initialData?: HomeInitialData })
   const [faqs, setFaqs] = useState<HomeFAQ[]>(() => initialData?.faqs || []);
   const [loading, setLoading] = useState(() => !initialData);
   const navigate = useNavigate();
-  const langPrefix = language === 'zh' ? 'cn' : 'en';
+  const langPrefix = language === 'zh' ? 'cn' : language;
 
   useEffect(() => {
     // If we already have initialData from SSR, skip the client-side fetch
