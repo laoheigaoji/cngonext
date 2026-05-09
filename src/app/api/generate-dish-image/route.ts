@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCloudflareContext } from '@opennextjs/cloudflare';
 
-export const runtime = 'edge';
-
 export async function POST(req: NextRequest) {
   try {
     const { dishName } = await req.json();
@@ -31,7 +29,7 @@ export async function POST(req: NextRequest) {
     // Response is a ReadableStream of image data
     if (response instanceof ReadableStream) {
       const blob = await new Response(response).arrayBuffer();
-      const base64 = Buffer.from(blob).toString('base64');
+      const base64 = btoa(String.fromCharCode(...new Uint8Array(blob)));
       return NextResponse.json({
         imageUrl: `data:image/png;base64,${base64}`
       });

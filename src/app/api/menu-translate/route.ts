@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export const runtime = 'edge';
-
 const CF_ACCOUNT_ID = '0a28250e63bf217f833feabaf84a25a1';
 
 function getApiToken(): string {
