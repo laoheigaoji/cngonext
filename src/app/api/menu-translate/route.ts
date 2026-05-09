@@ -6,13 +6,11 @@ export const runtime = 'edge';
 const CF_ACCOUNT_ID = '0a28250e63bf217f833feabaf84a25a1';
 
 function getApiToken(): string {
-  // 1. Try Cloudflare env (wrangler secret / Pages env var)
   try {
     const { env } = getCloudflareContext();
     const token = (env as any).CF_AI_API_TOKEN;
     if (token) return token;
   } catch {}
-  // 2. Fallback to process.env (local dev .env.local)
   return process.env.CF_AI_API_TOKEN || '';
 }
 
@@ -89,8 +87,30 @@ const VISION_MODELS = [
   '@cf/google/gemma-4-26b-a4b-it',
 ];
 
-// Call Workers AI via REST API
-async function callAI(modelId: string, image: string, mimeType: string, prompt: string): Promise<string> {
+// Call via AI binding (preferred in Cloudflare Workers/Pages)
+async function callViaBinding(modelId: string, image: string, mimeType: string, prompt: string): Promise<string> {
+  const { env } = getCloudflareContext();
+  const ai = (env as any).AI;
+  if (!ai) throw new Error('AI binding not available');
+
+  const response = await ai.run(modelId, {
+    messages: [
+      {
+        role: 'user',
+        content: [
+          { type: 'text', text: prompt },
+          { type: 'image_url', image_url: { url: `data:${mimeType};base64,${image}` } }
+        ]
+      }
+    ],
+    max_tokens: 2048,
+  });
+
+  return (response as any)?.response || '';
+}
+
+// Call via REST API (fallback)
+async function callViaRestAPI(modelId: string, image: string, mimeType: string, prompt: string): Promise<string> {
   const apiToken = getApiToken();
   if (!apiToken) throw new Error('CF_AI_API_TOKEN not configured');
 
@@ -135,24 +155,43 @@ export async function POST(req: NextRequest) {
 
     const prompt = buildPrompt(lang);
 
-    // Try vision models in order via REST API
+    // Try vision models in order: Binding first, REST API fallback
     let lastError: any;
     for (const modelId of VISION_MODELS) {
+      // Strategy 1: AI Binding (works in Cloudflare Workers/Pages natively)
       try {
-        console.log(`[menu-translate] Trying ${modelId}...`);
-        const text = await callAI(modelId, image, mimeType, prompt);
-        console.log(`[menu-translate] ${modelId} response length:`, text?.length);
+        console.log(`[menu-translate] Trying Binding with ${modelId}...`);
+        const text = await callViaBinding(modelId, image, mimeType, prompt);
+        console.log(`[menu-translate] Binding ${modelId} response length:`, text?.length);
         if (text && text.trim().length >= 10) {
           const menuItems = extractJSON(text);
           if (menuItems.length > 0) {
-            console.log(`[menu-translate] Success with ${modelId}, items:`, menuItems.length);
+            console.log(`[menu-translate] Success via Binding with ${modelId}, items:`, menuItems.length);
             return NextResponse.json({ items: addPriceConversions(menuItems, lang) });
           }
         }
-        lastError = new Error(`${modelId}: empty or unparseable response, raw: ${(text || '').slice(0, 100)}`);
-      } catch (err: any) {
-        console.error(`[menu-translate] ${modelId} failed:`, err.message);
-        lastError = err;
+        lastError = new Error(`Binding ${modelId}: empty or unparseable response`);
+      } catch (bindErr: any) {
+        console.error(`[menu-translate] Binding ${modelId} failed:`, bindErr.message);
+        lastError = bindErr;
+      }
+
+      // Strategy 2: REST API fallback
+      try {
+        console.log(`[menu-translate] Trying REST API with ${modelId}...`);
+        const text = await callViaRestAPI(modelId, image, mimeType, prompt);
+        console.log(`[menu-translate] REST API ${modelId} response length:`, text?.length);
+        if (text && text.trim().length >= 10) {
+          const menuItems = extractJSON(text);
+          if (menuItems.length > 0) {
+            console.log(`[menu-translate] Success via REST API with ${modelId}, items:`, menuItems.length);
+            return NextResponse.json({ items: addPriceConversions(menuItems, lang) });
+          }
+        }
+        lastError = new Error(`REST API ${modelId}: empty or unparseable response`);
+      } catch (restErr: any) {
+        console.error(`[menu-translate] REST API ${modelId} failed:`, restErr.message);
+        lastError = restErr;
       }
     }
 
