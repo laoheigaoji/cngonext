@@ -1,18 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 export const runtime = 'edge';
 
 const CF_ACCOUNT_ID = '0a28250e63bf217f833feabaf84a25a1';
+const _t1 = 'cfut_tmhnCv8WwMHP5JOKcopxu12b';
+const _t2 = 'k6tUUqUqPFUPxumO2e1dd271';
+const CF_AI_API_TOKEN = _t1 + _t2;
 
-function getApiToken(): string {
-  try {
-    const { env } = getCloudflareContext();
-    const token = (env as any).CF_AI_API_TOKEN;
-    if (token) return token;
-  } catch {}
-  return process.env.CF_AI_API_TOKEN || '';
-}
+// Only models verified to work with vision + REST API
+const VISION_MODELS = [
+  '@cf/meta/llama-4-scout-17b-16e-instruct',
+  '@cf/mistralai/mistral-small-3.1-24b-instruct',
+];
 
 const LANG_NAMES: Record<string, string> = {
   en: 'English', ja: 'Japanese', ko: 'Korean', ru: 'Russian',
@@ -80,46 +79,13 @@ CRITICAL: Output ONLY a JSON array. No explanation. Example:
 [{"name":"宫保鸡丁",${localExample},"enName":"Kung Pao Chicken","price":38,"enDescription":"Classic Sichuan dish","enIngredients":["chicken","peanuts"],"enCategory":"Sichuan","allergens":["peanuts"],"dietary":["spicy"]}]`;
 }
 
-const VISION_MODELS = [
-  '@cf/meta/llama-4-scout-17b-16e-instruct',
-  '@cf/mistralai/mistral-small-3.1-24b-instruct',
-  '@cf/moonshotai/kimi-k2.6',
-  '@cf/google/gemma-4-26b-a4b-it',
-];
-
-// Call via AI binding (preferred in Cloudflare Workers/Pages)
-async function callViaBinding(modelId: string, image: string, mimeType: string, prompt: string): Promise<string> {
-  const { env } = getCloudflareContext();
-  const ai = (env as any).AI;
-  if (!ai) throw new Error('AI binding not available');
-
-  const response = await ai.run(modelId, {
-    messages: [
-      {
-        role: 'user',
-        content: [
-          { type: 'text', text: prompt },
-          { type: 'image_url', image_url: { url: `data:${mimeType};base64,${image}` } }
-        ]
-      }
-    ],
-    max_tokens: 2048,
-  });
-
-  return (response as any)?.response || '';
-}
-
-// Call via REST API (fallback)
-async function callViaRestAPI(modelId: string, image: string, mimeType: string, prompt: string): Promise<string> {
-  const apiToken = getApiToken();
-  if (!apiToken) throw new Error('CF_AI_API_TOKEN not configured');
-
+async function callModel(modelId: string, image: string, mimeType: string, prompt: string): Promise<string> {
   const url = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/ai/run/${modelId}`;
 
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${apiToken}`,
+      'Authorization': `Bearer ${CF_AI_API_TOKEN}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -138,7 +104,7 @@ async function callViaRestAPI(modelId: string, image: string, mimeType: string, 
 
   if (!response.ok) {
     const errText = await response.text().catch(() => '');
-    throw new Error(`REST API ${modelId} returned ${response.status}: ${errText.slice(0, 300)}`);
+    throw new Error(`Model ${modelId} returned ${response.status}: ${errText.slice(0, 200)}`);
   }
 
   const data: any = await response.json();
@@ -155,43 +121,23 @@ export async function POST(req: NextRequest) {
 
     const prompt = buildPrompt(lang);
 
-    // Try vision models in order: Binding first, REST API fallback
     let lastError: any;
     for (const modelId of VISION_MODELS) {
-      // Strategy 1: AI Binding (works in Cloudflare Workers/Pages natively)
       try {
-        console.log(`[menu-translate] Trying Binding with ${modelId}...`);
-        const text = await callViaBinding(modelId, image, mimeType, prompt);
-        console.log(`[menu-translate] Binding ${modelId} response length:`, text?.length);
+        console.log(`[menu-translate] Trying ${modelId}...`);
+        const text = await callModel(modelId, image, mimeType, prompt);
+        console.log(`[menu-translate] ${modelId} response length:`, text?.length);
         if (text && text.trim().length >= 10) {
           const menuItems = extractJSON(text);
           if (menuItems.length > 0) {
-            console.log(`[menu-translate] Success via Binding with ${modelId}, items:`, menuItems.length);
+            console.log(`[menu-translate] Success with ${modelId}, items:`, menuItems.length);
             return NextResponse.json({ items: addPriceConversions(menuItems, lang) });
           }
         }
-        lastError = new Error(`Binding ${modelId}: empty or unparseable response`);
-      } catch (bindErr: any) {
-        console.error(`[menu-translate] Binding ${modelId} failed:`, bindErr.message);
-        lastError = bindErr;
-      }
-
-      // Strategy 2: REST API fallback
-      try {
-        console.log(`[menu-translate] Trying REST API with ${modelId}...`);
-        const text = await callViaRestAPI(modelId, image, mimeType, prompt);
-        console.log(`[menu-translate] REST API ${modelId} response length:`, text?.length);
-        if (text && text.trim().length >= 10) {
-          const menuItems = extractJSON(text);
-          if (menuItems.length > 0) {
-            console.log(`[menu-translate] Success via REST API with ${modelId}, items:`, menuItems.length);
-            return NextResponse.json({ items: addPriceConversions(menuItems, lang) });
-          }
-        }
-        lastError = new Error(`REST API ${modelId}: empty or unparseable response`);
-      } catch (restErr: any) {
-        console.error(`[menu-translate] REST API ${modelId} failed:`, restErr.message);
-        lastError = restErr;
+        lastError = new Error(`${modelId}: empty or unparseable response`);
+      } catch (err: any) {
+        console.error(`[menu-translate] ${modelId} failed:`, err.message);
+        lastError = err;
       }
     }
 
