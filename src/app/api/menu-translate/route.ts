@@ -74,6 +74,7 @@ CRITICAL: Output ONLY a JSON array. No explanation. Example:
 const VISION_MODELS = [
   '@cf/meta/llama-4-scout-17b-16e-instruct',
   '@cf/meta/llama-3.2-11b-vision-instruct',
+  '@cf/meta/llama-3.2-90b-vision-instruct',
 ];
 
 // Call Workers AI via REST API
@@ -105,7 +106,7 @@ async function callViaRestAPI(modelId: string, image: string, mimeType: string, 
     throw new Error(`REST API ${modelId} returned ${response.status}: ${errText.slice(0, 200)}`);
   }
 
-  const data = await response.json();
+  const data: any = await response.json();
   return data?.result?.response || data?.response || '';
 }
 
@@ -140,7 +141,17 @@ export async function POST(req: NextRequest) {
     }
 
     const prompt = buildPrompt(lang);
-    const cfApiToken = process.env.CF_AI_API_TOKEN || '';
+
+    // Read API token from Cloudflare env (wrangler secret) or process.env
+    let cfApiToken = '';
+    try {
+      const { env } = getCloudflareContext();
+      cfApiToken = (env as any).CF_AI_API_TOKEN || process.env.CF_AI_API_TOKEN || '';
+    } catch {
+      cfApiToken = process.env.CF_AI_API_TOKEN || '';
+    }
+
+    console.log('[menu-translate] Token available:', !!cfApiToken, 'Token length:', cfApiToken.length);
 
     // Try vision models in order, with REST API preferred over binding
     let lastError: any;
@@ -148,43 +159,50 @@ export async function POST(req: NextRequest) {
       // Strategy 1: REST API (if token available)
       if (cfApiToken) {
         try {
+          console.log(`[menu-translate] Trying REST API with ${modelId}...`);
           const text = await callViaRestAPI(modelId, image, mimeType, prompt, cfApiToken);
+          console.log(`[menu-translate] REST API ${modelId} response length:`, text?.length);
           if (text && text.trim().length >= 10) {
             const menuItems = extractJSON(text);
             if (menuItems.length > 0) {
+              console.log(`[menu-translate] Success with REST API ${modelId}, items:`, menuItems.length);
               return NextResponse.json({ items: addPriceConversions(menuItems, lang) });
             }
           }
-          lastError = new Error(`REST API ${modelId}: empty or unparseable response`);
+          lastError = new Error(`REST API ${modelId}: empty or unparseable response, raw: ${(text || '').slice(0, 100)}`);
         } catch (restErr: any) {
-          console.error(`REST API ${modelId} failed:`, restErr.message);
+          console.error(`[menu-translate] REST API ${modelId} failed:`, restErr.message);
           lastError = restErr;
         }
       }
 
       // Strategy 2: Binding fallback
       try {
+        console.log(`[menu-translate] Trying Binding with ${modelId}...`);
         const text = await callViaBinding(modelId, image, mimeType, prompt);
+        console.log(`[menu-translate] Binding ${modelId} response length:`, text?.length);
         if (text && text.trim().length >= 10) {
           const menuItems = extractJSON(text);
           if (menuItems.length > 0) {
+            console.log(`[menu-translate] Success with Binding ${modelId}, items:`, menuItems.length);
             return NextResponse.json({ items: addPriceConversions(menuItems, lang) });
           }
         }
-        lastError = new Error(`Binding ${modelId}: empty or unparseable response`);
+        lastError = new Error(`Binding ${modelId}: empty or unparseable response, raw: ${(text || '').slice(0, 100)}`);
       } catch (bindErr: any) {
-        console.error(`Binding ${modelId} failed:`, bindErr.message);
+        console.error(`[menu-translate] Binding ${modelId} failed:`, bindErr.message);
         lastError = bindErr;
       }
     }
 
     // All models and methods failed
+    console.error('[menu-translate] All models failed. Last error:', lastError?.message);
     return NextResponse.json(
       { error: `All AI models failed. Last error: ${lastError?.message || 'Unknown'}` },
       { status: 500 }
     );
   } catch (error: any) {
-    console.error('Menu translation error:', error);
+    console.error('[menu-translate] Fatal error:', error);
     return NextResponse.json(
       { error: error.message || 'Analysis failed' },
       { status: 500 }
