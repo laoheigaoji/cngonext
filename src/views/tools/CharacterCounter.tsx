@@ -58,7 +58,6 @@ const CharacterCounter = () => {
                     placeholder={t('tools.char.placeholder')}
                 />
             </main>
-            <Footer />
         </div>
     );
 };

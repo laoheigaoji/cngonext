@@ -49,7 +49,6 @@ const PinyinSegmentation = () => {
                     )}
                 </section>
             </main>
-            <Footer />
         </div>
     );
 };
