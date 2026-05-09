@@ -21,10 +21,11 @@ export async function GET() {
 }
 
 // Only models verified to work with vision + REST API
+// llama-4-scout & mistral-small confirmed working; kimi-k2.6 may not support image_url via REST API
 const VISION_MODELS = [
-  '@cf/moonshotai/kimi-k2.6',
   '@cf/meta/llama-4-scout-17b-16e-instruct',
   '@cf/mistralai/mistral-small-3.1-24b-instruct',
+  '@cf/moonshotai/kimi-k2.6',
 ];
 
 const LANG_NAMES: Record<string, string> = {
@@ -112,7 +113,7 @@ async function callModel(modelId: string, image: string, mimeType: string, promp
           ]
         }
       ],
-      max_tokens: 2048,
+      max_tokens: 4096,
     }),
   });
 
@@ -162,7 +163,7 @@ export async function POST(req: NextRequest) {
                 ]
               }
             ],
-            max_tokens: 2048,
+            max_tokens: 4096,
             stream: true,
           }),
         });
@@ -231,11 +232,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    console.log(`[menu-translate] Used model: ${usedModel}, raw response (first 500 chars):`, fullText.slice(0, 500));
     const menuItems = extractJSON(fullText);
     if (menuItems.length === 0) {
-      console.error('[menu-translate] Could not parse JSON from response. Raw text length:', fullText.length);
+      console.error('[menu-translate] Could not parse JSON from response. Raw text length:', fullText.length, 'First 1000 chars:', fullText.slice(0, 1000));
       return NextResponse.json(
-        { error: 'AI returned a response but it could not be parsed into menu items. Please try again.' },
+        { error: 'AI returned a response but it could not be parsed into menu items.', rawPreview: fullText.slice(0, 500), usedModel },
         { status: 500 }
       );
     }
