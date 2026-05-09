@@ -2,11 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Upload, Camera, ImageIcon, Languages, Wallet, MessageSquare, ChevronDown, Check, Star, ScanLine, X, Loader2 } from 'lucide-react';
+import { Upload, Camera, ImageIcon, Languages, Wallet, MessageSquare, ChevronDown, Check, Star, ScanLine, X, Loader2, Volume2, AlertTriangle, Leaf } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
-import { GoogleGenAI } from '@google/genai';
-import { askDeepSeek } from '../../lib/deepseek';
-
 const MenuTranslator = () => {
     const { language, t } = useLanguage();
     const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -14,6 +11,44 @@ const MenuTranslator = () => {
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
     const [analysisResult, setAnalysisResult] = useState<any[]>([]);
+    const [generatingImages, setGeneratingImages] = useState<Set<number>>(new Set());
+
+    // Chinese pronunciation using Web Speech API
+    const speakChinese = (text: string) => {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.8;
+            window.speechSynthesis.speak(utterance);
+        }
+    };
+
+    // Generate AI dish image
+    const generateDishImage = async (idx: number, dishName: string) => {
+        setGeneratingImages(prev => new Set(prev).add(idx));
+        try {
+            const res = await fetch('/api/generate-dish-image', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ dishName })
+            });
+            const data = await res.json();
+            if (data.imageUrl) {
+                setAnalysisResult(prev => prev.map((item, i) =>
+                    i === idx ? { ...item, aiImageUrl: data.imageUrl } : item
+                ));
+            }
+        } catch (e) {
+            console.error('Image generation failed:', e);
+        } finally {
+            setGeneratingImages(prev => {
+                const next = new Set(prev);
+                next.delete(idx);
+                return next;
+            });
+        }
+    };
 
     const faqs = [
         { q: t('tools.menu.faq.q1'), a: t('tools.menu.faq.a1') },
@@ -37,63 +72,25 @@ const MenuTranslator = () => {
             
             setIsAnalyzing(true);
             try {
-                // Step 1: Gemini Vision Extraction
-                // Using the @google/genai SDK pattern
-                const geminiKey = process.env.GEMINI_API_KEY || "";
-                const ai = new GoogleGenAI({ apiKey: geminiKey });
-
-                const visionPrompt = `You are a world-class Chinese food expert and translator. Analyze this menu image. 
-                1. Extract EVERY dish with its Chinese name.
-                2. Provide a professional, appetizing English name.
-                3. Extract the price as a number.
-                4. Write a 2-sentence tempting description of the dish and its cultural background in BOTH Chinese (description) and English (enDescription).
-                5. List 3-5 main ingredients in BOTH Chinese (ingredients) and English (enIngredients).
-                6. Categorize the dish in BOTH Chinese (category) and English (enCategory).
-
-                Return the data as a VALID JSON array of objects with keys: name, enName, price, description, enDescription, ingredients, enIngredients, category, enCategory.`;
-
-                const result = await ai.models.generateContent({
-                    model: "gemini-3-flash-preview",
-                    contents: {
-                        parts: [
-                            { text: visionPrompt },
-                            {
-                                inlineData: {
-                                    data: base64Image.split(',')[1],
-                                    mimeType: file.type
-                                }
-                            }
-                        ]
-                    }
-                });
-                
-                const responseText = result.text || "[]";
-                const cleanedText = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
-                let menuItems = JSON.parse(cleanedText);
-
-                // Step 2: AI Refinement with DeepSeek
-                const refinementPrompt = `As a top Chinese culinary critic, refine these menu items for a world-class food app. Improve descriptions and ensure consistency.
-                Input JSON: ${JSON.stringify(menuItems)}
-                Return ONLY the refined JSON array with the SAME keys.`;
-
-                const refinedText = await askDeepSeek(refinementPrompt, true);
-                menuItems = JSON.parse(refinedText);
-
-                // Add random relevant food images and handle price conversions
-                const EXCHANGE_RATE = 0.14; // 1 CNY ≈ 0.14 USD
-                menuItems = menuItems.map((item: any, i: number) => {
-                    const priceInCny = parseFloat(item.price) || 0;
-                    return {
-                        ...item,
-                        price: priceInCny,
-                        usdPrice: (priceInCny * EXCHANGE_RATE).toFixed(2),
-                        imageUrl: `https://images.unsplash.com/photo-${1546069901 + i}-ba9599a7e63c?auto=format&fit=crop&q=80&w=600&h=600`
-                    };
+                // Call Worker API (uses Cloudflare Workers AI in production, Gemini fallback in dev)
+                const response = await fetch('/api/menu-translate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        image: base64Image.split(',')[1],
+                        mimeType: file.type,
+                        lang: language
+                    })
                 });
 
-                setAnalysisResult(menuItems);
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                setAnalysisResult(data.items || []);
             } catch (error) {
-                console.error("Deep Analysis failed:", error);
+                console.error("Menu Analysis failed:", error);
                 alert("识别失败，请确保图片清晰并重试。");
             } finally {
                 setIsAnalyzing(false);
@@ -216,44 +213,83 @@ const MenuTranslator = () => {
                                                 transition={{ delay: idx * 0.1 }}
                                                 className="flex flex-col md:flex-row gap-8 group"
                                             >
-                                                <div className="w-40 h-40 flex-shrink-0 bg-gray-100 rounded-[2rem] overflow-hidden group-hover:scale-105 transition-transform duration-500 border border-gray-50">
-                                                    <img 
-                                                        src={item.imageUrl || `https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=400&h=400`} 
-                                                        alt={item.name} 
-                                                        className="w-full h-full object-cover"
-                                                    />
+                                                <div className="w-40 h-40 flex-shrink-0 bg-gray-100 rounded-[2rem] overflow-hidden group-hover:scale-105 transition-transform duration-500 border border-gray-50 relative">
+                                                    {item.aiImageUrl ? (
+                                                        <img src={item.aiImageUrl} alt={item.name} className="w-full h-full object-cover" />
+                                                    ) : (
+                                                        <button
+                                                            onClick={() => generateDishImage(idx, item.enName || item.name)}
+                                                            disabled={generatingImages.has(idx)}
+                                                            className="w-full h-full flex flex-col items-center justify-center gap-2 text-gray-400 hover:text-purple-500 transition-colors cursor-pointer"
+                                                        >
+                                                            {generatingImages.has(idx) ? (
+                                                                <Loader2 className="w-8 h-8 animate-spin" />
+                                                            ) : (
+                                                                <>
+                                                                    <ImageIcon className="w-8 h-8" />
+                                                                    <span className="text-xs font-bold">AI生图</span>
+                                                                </>
+                                                            )}
+                                                        </button>
+                                                    )}
                                                 </div>
                                                 <div className="flex-1">
                                                     <div className="flex justify-between items-start mb-4">
                                                         <div className="flex flex-col">
-                                                            <h4 className="text-2xl font-black text-[#e11d48] tracking-tight">
-                                                                {language === 'zh' ? item.name : (item.enName || item.name)}
-                                                            </h4>
+                                                            <div className="flex items-center gap-2">
+                                                                <h4 className="text-2xl font-black text-[#e11d48] tracking-tight">
+                                                                    {language === 'zh' ? item.name : (item.localName || item.enName || item.name)}
+                                                                </h4>
+                                                                <button 
+                                                                    onClick={() => speakChinese(item.name)}
+                                                                    className="p-1.5 rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-500 transition-colors"
+                                                                    title="播放中文发音"
+                                                                >
+                                                                    <Volume2 className="w-4 h-4" />
+                                                                </button>
+                                                            </div>
                                                             <span className="text-sm font-bold text-gray-400 mt-1">
-                                                                {language === 'zh' ? item.enName : item.name}
+                                                                {language === 'zh' ? (item.enName || item.localName) : item.name}
                                                             </span>
                                                         </div>
                                                         <div className="flex flex-col items-end gap-1">
                                                             <div className="px-4 py-2 bg-purple-50 text-purple-700 rounded-xl font-black text-xl">
                                                                 ¥{item.price}
                                                             </div>
-                                                            <div className="text-sm font-bold text-gray-400">
-                                                                ≈ ${item.usdPrice}
-                                                            </div>
+                                                            {item.currencyCode && item.currencyCode !== 'CNY' && (
+                                                                <div className="text-sm font-bold text-gray-400">
+                                                                    ≈ {item.currencySymbol}{item.convertedPrice}
+                                                                </div>
+                                                            )}
                                                         </div>
                                                     </div>
-                                                     <p className="text-gray-500 text-[15px] leading-relaxed mb-5 font-medium">
-                                                         {language === 'zh' ? (item.description || item.enDescription) : (item.enDescription || item.description)}
+                                                     <p className="text-gray-500 text-[15px] leading-relaxed mb-4 font-medium">
+                                                         {language === 'zh' ? (item.description || item.enDescription) : (item.localDescription || item.enDescription || item.description)}
                                                      </p>
-                                                     <div className="flex flex-wrap gap-2">
-                                                         {((Array.isArray(language === 'zh' ? item.ingredients : item.enIngredients) 
-                                                             ? (language === 'zh' ? item.ingredients : item.enIngredients) 
-                                                             : [(language === 'zh' ? item.ingredients : item.enIngredients)]) || []).map((ing: string, i: number) => (
+                                                     <div className="flex flex-wrap gap-2 mb-3">
+                                                         {((Array.isArray(language === 'zh' ? item.ingredients : (item.localIngredients || item.enIngredients)) 
+                                                             ? (language === 'zh' ? item.ingredients : (item.localIngredients || item.enIngredients)) 
+                                                             : [(language === 'zh' ? item.ingredients : (item.localIngredients || item.enIngredients))]) || []).map((ing: string, i: number) => (
                                                              <span key={i} className="text-xs font-bold text-gray-600 bg-gray-100 px-4 py-2 rounded-xl">
                                                                  {ing}
                                                              </span>
                                                          ))}
                                                      </div>
+                                                     {/* Allergen & Dietary Info */}
+                                                     {(item.allergens?.length > 0 || item.dietary?.length > 0) && (
+                                                         <div className="flex flex-wrap gap-2">
+                                                             {(item.allergens || []).map((a: string, i: number) => (
+                                                                 <span key={`a${i}`} className="text-xs font-bold text-red-600 bg-red-50 px-3 py-1.5 rounded-lg flex items-center gap-1">
+                                                                     <AlertTriangle className="w-3 h-3" /> {a}
+                                                                 </span>
+                                                             ))}
+                                                             {(item.dietary || []).map((d: string, i: number) => (
+                                                                 <span key={`d${i}`} className="text-xs font-bold text-green-600 bg-green-50 px-3 py-1.5 rounded-lg flex items-center gap-1">
+                                                                     <Leaf className="w-3 h-3" /> {d}
+                                                                 </span>
+                                                             ))}
+                                                         </div>
+                                                     )}
                                                 </div>
                                             </motion.div>
                                         ))}
