@@ -389,7 +389,7 @@ export default function Home({ initialData }: { initialData?: HomeInitialData })
                 {t('hero.dest')}
               </button>
               <button 
-                onClick={() => navigate(`/${langPrefix}/tools/name`)}
+                onClick={() => navigate(`/${langPrefix}/tools/name-generator`)}
                 className="px-6 py-2.5 rounded-full text-[15px] font-bold text-white hover:bg-white/10 transition-colors"
               >
                 {t('hero.aiName')}

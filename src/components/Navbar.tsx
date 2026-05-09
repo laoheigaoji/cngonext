@@ -290,11 +290,11 @@ export default function Navbar() {
                         
                         <div className="grid grid-cols-2 gap-6 p-6">
                             {[
-                                { icon: ScanLine, title: t('tools.menu'), desc: t('tools.menu.desc'), path: `/${langPrefix}/tools/menu` },
-                                { icon: Shield, title: t('tools.name'), desc: t('tools.name.desc'), path: `/${langPrefix}/tools/name` },
-                                { icon: Languages, title: t('tools.pinyin'), desc: t('tools.pinyin.desc'), path: `/${langPrefix}/tools/pinyin` },
-                                { icon: Type, title: t('tools.counter'), desc: t('tools.counter.desc'), path: `/${langPrefix}/tools/counter` },
-                                { icon: Calculator, title: t('tools.zodiac'), desc: t('tools.zodiac.desc'), path: `/${langPrefix}/tools/zodiac` }
+                                { icon: ScanLine, title: t('tools.menu'), desc: t('tools.menu.desc'), path: `/${langPrefix}/tools/menu-translator` },
+                                { icon: Shield, title: t('tools.name'), desc: t('tools.name.desc'), path: `/${langPrefix}/tools/name-generator` },
+                                { icon: Languages, title: t('tools.pinyin'), desc: t('tools.pinyin.desc'), path: `/${langPrefix}/tools/pinyin-segmentation` },
+                                { icon: Type, title: t('tools.counter'), desc: t('tools.counter.desc'), path: `/${langPrefix}/tools/character-counter` },
+                                { icon: Calculator, title: t('tools.zodiac'), desc: t('tools.zodiac.desc'), path: `/${langPrefix}/tools/zodiac-calculator` }
                             ].map((tool, idx) => (
                                 <Link key={idx} to={tool.path} className="flex gap-3 group" onClick={() => {}}>
                                     <tool.icon className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
@@ -567,11 +567,11 @@ export default function Navbar() {
                       className="overflow-hidden"
                     >
                       <div className="pl-4 pb-4 space-y-3">
-                        <Link to={`/${langPrefix}/tools/menu`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-base py-1">{t('tools.menu')}</Link>
-                        <Link to={`/${langPrefix}/tools/name`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-base py-1">{t('tools.name')}</Link>
-                        <Link to={`/${langPrefix}/tools/pinyin`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-base py-1">{t('tools.pinyin')}</Link>
-                        <Link to={`/${langPrefix}/tools/counter`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-base py-1">{t('tools.counter')}</Link>
-                        <Link to={`/${langPrefix}/tools/zodiac`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-base py-1">{t('tools.zodiac')}</Link>
+                        <Link to={`/${langPrefix}/tools/menu-translator`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-base py-1">{t('tools.menu')}</Link>
+                        <Link to={`/${langPrefix}/tools/name-generator`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-base py-1">{t('tools.name')}</Link>
+                        <Link to={`/${langPrefix}/tools/pinyin-segmentation`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-base py-1">{t('tools.pinyin')}</Link>
+                        <Link to={`/${langPrefix}/tools/character-counter`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-base py-1">{t('tools.counter')}</Link>
+                        <Link to={`/${langPrefix}/tools/zodiac-calculator`} onClick={() => { setIsMobileMenuOpen(false); setMobileExpandedMenu(null); }} className="block text-gray-700 hover:text-green-600 text-base py-1">{t('tools.zodiac')}</Link>
                       </div>
                     </motion.div>
                   )}

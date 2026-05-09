@@ -105,11 +105,11 @@ function LangRoute() {
         <Route path="privacy" element={<PrivacyPolicy />} />
         <Route path="terms" element={<TermsOfService />} />
         <Route path="feedback" element={<Feedback />} />
-        <Route path="tools/zodiac" element={<ZodiacCalculator />} />
-        <Route path="tools/counter" element={<CharacterCounter />} />
-        <Route path="tools/pinyin" element={<PinyinSegmentation />} />
-        <Route path="tools/name" element={<NameGenerator />} />
-        <Route path="tools/menu" element={<MenuTranslator />} />
+        <Route path="tools/zodiac-calculator" element={<ZodiacCalculator />} />
+        <Route path="tools/character-counter" element={<CharacterCounter />} />
+        <Route path="tools/pinyin-segmentation" element={<PinyinSegmentation />} />
+        <Route path="tools/name-generator" element={<NameGenerator />} />
+        <Route path="tools/menu-translator" element={<MenuTranslator />} />
         <Route path="cities" element={<Cities />} />
         <Route path="cities/:id" element={<CityDetail />} />
         <Route path="apps" element={<Apps />} />
