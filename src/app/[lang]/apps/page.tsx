@@ -2,6 +2,8 @@ import AppsClient from "./AppsClient";
 import { getAppsData } from "@/lib/server-data";
 import { getSEO, appsSEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
 
+export const revalidate = 3600;
+
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const seo = getSEO(appsSEO, lang);

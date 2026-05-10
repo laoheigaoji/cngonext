@@ -2,6 +2,8 @@ import GuideClient from "./GuideClient";
 import { getGuidePageData, getTranslations } from "@/lib/server-data";
 import { getSEO, guideSEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
 
+export const revalidate = 300;
+
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const seo = getSEO(guideSEO, lang);

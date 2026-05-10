@@ -2,7 +2,7 @@ import CityDetailClient from "./CityDetailClient";
 import { getHreflangAlternates, baseUrl, getSEO, citiesSEO, generateCityJsonLd, defaultOgImage } from "@/lib/seo-config";
 import { getCityData } from "@/lib/server-data";
 
-export const dynamic = 'force-static';
+export const revalidate = 300;
 
 function getLocalizedField(obj: any, field: string, lang: string): string {
   const langSuffixMap: Record<string, string> = {
