@@ -10,6 +10,7 @@ interface AuthContextType {
   loading: boolean;
   hasPurchased: boolean;
   signInWithGoogle: () => Promise<void>;
+  signInWithEmail: (email: string) => Promise<{ success: boolean; error?: string }>;
   signOut: () => Promise<void>;
   initiateCheckout: () => Promise<void>;
   completePayment: () => Promise<void>;
@@ -148,6 +149,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const signInWithEmail = async (email: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: window.location.origin + '/auth/callback',
+        },
+      });
+      if (error) {
+        return { success: false, error: error.message };
+      }
+      return { success: true };
+    } catch (error: any) {
+      return { success: false, error: error.message || 'Failed to send email' };
+    }
+  };
+
   const signOut = async () => {
     try {
       await supabase.auth.signOut();
@@ -224,7 +242,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, hasPurchased, signInWithGoogle, signOut, initiateCheckout, completePayment }}>
+    <AuthContext.Provider value={{ user, loading, hasPurchased, signInWithGoogle, signInWithEmail, signOut, initiateCheckout, completePayment }}>
       {children}
       <PaymentSuccessModal 
         isOpen={isSuccessModalOpen} 
