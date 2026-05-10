@@ -199,37 +199,47 @@ const MenuTranslator = () => {
                 50% { transform: translateY(400%); }
                 100% { transform: translateY(-100%); }
             }
-        `}</style><div className="bg-[#f8f9fa] min-h-screen font-sans text-gray-900 overflow-x-hidden pt-20">
-            {/* Minimalist Header Area - Already handled by main layout Navbar */}
+        `}</style><div className="bg-[#f8f9fa] min-h-screen font-sans text-gray-900 overflow-x-hidden">
+            {/* Hero Section with Background Image */}
+            <div 
+                className="relative h-[360px] w-full flex items-center pt-16"
+                style={{
+                    backgroundImage: 'url(https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2670&auto=format&fit=crop)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                }}
+            >
+                <div className="absolute inset-0 bg-black/50"></div>
+                <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 text-white">
+                    <motion.h1 
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-4xl md:text-5xl font-black tracking-tight mb-4"
+                    >
+                        {t('tools.menu.hero.title')}
+                    </motion.h1>
+                    <motion.p 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed"
+                    >
+                        {t('tools.menu.hero.desc')}
+                    </motion.p>
+                </div>
+            </div>
             
             <div className="max-w-[1400px] mx-auto px-6">
                 {!uploadedImage && !isAnalyzing && (
-                    <section className="relative pt-12 pb-8 overflow-hidden mb-6">
-                        <div className="relative z-10 max-w-4xl mx-auto text-center">
-                            <motion.h1 
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="text-4xl md:text-5xl font-black tracking-tight mb-4 text-gray-900"
-                            >
-                                {t('tools.menu.hero.title')}
-                            </motion.h1>
-                            <motion.p 
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
-                                className="text-base md:text-lg text-gray-500 mb-8 max-w-2xl mx-auto leading-relaxed"
-                            >
-                                {t('tools.menu.hero.desc')}
-                            </motion.p>
-
+                    <section className="relative -mt-20 z-20 pb-8 overflow-hidden mb-6">
+                        <div className="relative z-10 max-w-xl mx-auto">
                             <motion.div 
                                 initial={{ opacity: 0, y: 40 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.4 }}
-                                className="max-w-xl mx-auto"
                             >
                                 <label className="cursor-pointer block group">
-                                    <div className="relative border-2 border-dashed border-purple-200 rounded-3xl p-10 flex flex-col items-center justify-center transition-all hover:border-purple-400">
+                                    <div className="relative border-2 border-dashed border-purple-200 rounded-3xl p-10 flex flex-col items-center justify-center transition-all hover:border-purple-400 bg-white shadow-xl">
                                         <div className="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500">
                                             <Upload className="w-8 h-8 text-purple-600" />
                                         </div>
