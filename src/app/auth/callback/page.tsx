@@ -5,32 +5,33 @@ import { useEffect } from "react";
 export default function AuthCallback() {
   useEffect(() => {
     const fullUrl = window.location.href;
-    console.log("[AuthCallback] Popup loaded, URL:", fullUrl);
-    console.log("[AuthCallback] Has opener:", !!window.opener);
+    console.log("[AuthCallback] Loaded, URL:", fullUrl);
 
-    // The popup callback page: pass the URL back to the opener window
-    // so the opener can exchange the code for a session (PKCE code_verifier
-    // is stored in the opener's localStorage, not accessible from the popup)
-    if (window.opener) {
-      // Try postMessage first
+    // When redirected back from Google OAuth (direct redirect, not popup)
+    // Exchange the code for a session right here
+    const exchangeCode = async () => {
       try {
-        window.opener.postMessage(
-          { type: "google_login_callback", url: fullUrl },
-          window.location.origin
-        );
-        console.log("[AuthCallback] postMessage sent successfully");
+        const { createClient } = await import('@supabase/supabase-js');
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.VITE_SUPABASE_URL || 'https://cxegaqhwexiidezycbyg.supabase.co';
+        const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || process.env.VITE_SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN4ZWdhcWh3ZXhpaWRlenljYnlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NDIyMjUsImV4cCI6MjA5MzUxODIyNX0.7Tp0V5WoTfWOIhbHOH-SKoTH7VRJeGDQDcQXIaJuz6g';
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        const { error, data } = await supabase.auth.exchangeCodeForSession(fullUrl);
+        if (error) {
+          console.error("[AuthCallback] Exchange error:", error.message);
+        } else {
+          console.log("[AuthCallback] Exchange success, session:", !!data.session);
+        }
       } catch (err) {
-        console.error("[AuthCallback] postMessage failed:", err);
+        console.error("[AuthCallback] Exchange failed:", err);
       }
-      // Close the popup after a short delay
-      setTimeout(() => {
-        console.log("[AuthCallback] Closing popup");
-        window.close();
-      }, 500);
-    } else {
-      // If opened directly (not a popup), handle locally
-      window.location.href = "/";
-    }
+
+      // Always redirect back to the main page after handling
+      // Use replace to not leave callback in browser history
+      window.location.replace("/");
+    };
+
+    exchangeCode();
   }, []);
 
   return (

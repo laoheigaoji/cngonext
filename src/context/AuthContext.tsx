@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { supabase } from '../lib/supabase';
 
 import PaymentSuccessModal from '../components/PaymentSuccessModal';
@@ -21,8 +21,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [hasPurchased, setHasPurchased] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const userRef = useRef<any>(null);
-  userRef.current = user;
 
   useEffect(() => {
     // 优先检查本地存储的购买状态
@@ -111,54 +109,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (event.data === 'creem_payment_success') {
         completePayment();
       }
-      // Google login callback from popup: exchange code for session
-      if (event.data?.type === 'google_login_callback' && event.data?.url) {
-        console.log('[AuthContext] Received google_login_callback:', event.data.url);
-        try {
-          const { error, data } = await supabase.auth.exchangeCodeForSession(event.data.url);
-          if (error) {
-            console.error('[AuthContext] Google login exchange error:', error.message);
-          } else {
-            console.log('[AuthContext] Google login exchange success, session:', !!data.session);
-          }
-          // onAuthStateChange will pick up the new session automatically
-        } catch (err) {
-          console.error('[AuthContext] Google login callback error:', err);
-        }
-      }
     };
-
-    // Poll for session changes as a fallback (popup may close before postMessage arrives)
-    let sessionPollInterval: ReturnType<typeof setInterval> | null = null;
-    const pollSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user && !userRef.current) {
-        console.log('[AuthContext] Session detected via polling, updating user');
-        setUser(session.user);
-        // Check purchases
-        const { data: purchases } = await supabase
-          .from('purchases')
-          .select('*')
-          .eq('user_id', session.user.id)
-          .eq('item_id', 'all_access')
-          .limit(1);
-        if (purchases && purchases.length > 0) {
-          setHasPurchased(true);
-          localStorage.setItem('hasPurchased', 'true');
-        }
-      }
-    };
-    sessionPollInterval = setInterval(pollSession, 2000);
 
     window.addEventListener('message', handleMessage);
     return () => {
       window.removeEventListener('message', handleMessage);
-      if (sessionPollInterval) clearInterval(sessionPollInterval);
     };
   }, []);
 
   const signInWithGoogle = async () => {
     try {
+      // Use direct redirect (not popup) to avoid Cloudflare Worker Error 1102
+      // The popup callback page (/auth/callback) can crash on CF Workers due to resource limits
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
@@ -166,55 +128,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             prompt: 'select_account',
           },
           redirectTo: `${window.location.origin}/auth/callback`,
-          skipBrowserRedirect: true,
         },
       });
       if (error) throw error;
-
-      if (data?.url) {
-        const width = 600;
-        const height = 700;
-        const left = window.screenX + (window.outerWidth - width) / 2;
-        const top = window.screenY + (window.outerHeight - height) / 2;
-
-        const authWindow = window.open(
-          data.url,
-          'google-login',
-          `width=${width},height=${height},left=${left},top=${top}`
-        );
-
-        if (!authWindow) {
-          alert('弹窗被拦截，请允许弹窗后重试。浏览器可能阻止了弹窗。');
-        } else {
-          // Watch for popup closing — when it closes, check session as fallback
-          const checkClosed = setInterval(() => {
-            if (authWindow.closed) {
-              clearInterval(checkClosed);
-              console.log('[AuthContext] Popup closed, checking session...');
-              // Small delay to allow exchangeCodeForSession to complete if postMessage worked
-              setTimeout(async () => {
-                if (!userRef.current) {
-                  const { data: { session } } = await supabase.auth.getSession();
-                  if (session?.user) {
-                    console.log('[AuthContext] Got session after popup close');
-                    setUser(session.user);
-                    const { data: purchases } = await supabase
-                      .from('purchases')
-                      .select('*')
-                      .eq('user_id', session.user.id)
-                      .eq('item_id', 'all_access')
-                      .limit(1);
-                    if (purchases && purchases.length > 0) {
-                      setHasPurchased(true);
-                      localStorage.setItem('hasPurchased', 'true');
-                    }
-                  }
-                }
-              }, 1000);
-            }
-          }, 500);
-        }
-      }
+      // Without skipBrowserRedirect, the browser will navigate directly to Google
+      // After OAuth, it redirects back to /auth/callback which handles the code exchange
     } catch (error) {
       console.error('Login error:', error);
       alert('登录失败，请重试');
