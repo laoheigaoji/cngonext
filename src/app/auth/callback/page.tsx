@@ -6,6 +6,29 @@ import { supabase } from "../../../lib/supabase";
 export default function AuthCallback() {
   const [status, setStatus] = useState('Logging in...');
 
+  // Extract language prefix from a redirect path to build default path
+  const getLangPrefix = (path: string | null): string => {
+    if (!path) return 'cn';
+    const validPrefixes = ['cn', 'tw', 'en', 'ja', 'ko', 'ru', 'fr', 'es', 'de', 'it'];
+    const parts = path.split('/');
+    if (parts.length > 1 && validPrefixes.includes(parts[1])) {
+      return parts[1];
+    }
+    return 'cn';
+  };
+
+  const getRedirectPath = (): string => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlRedirect = urlParams.get('redirect');
+    const storageRedirect = sessionStorage.getItem('auth_redirect_path');
+    const redirect = urlRedirect || storageRedirect;
+    sessionStorage.removeItem('auth_redirect_path');
+    if (redirect) return redirect;
+    // Default: use language prefix from URL param or fallback to cn
+    const lang = getLangPrefix(urlRedirect) || 'cn';
+    return `/${lang}/tools/menu-translator/`;
+  };
+
   useEffect(() => {
     const handleCallback = async () => {
       try {
@@ -39,23 +62,18 @@ export default function AuthCallback() {
         }
 
         // Try multiple times to get session with delay
-        // Supabase client may need time to sync from storage
         let session: any = null;
         for (let i = 0; i < 5; i++) {
           const result = await supabase.auth.getSession();
           session = result.data.session;
           console.log(`[AuthCallback] getSession attempt ${i + 1}:`, session ? "found" : "not found");
           if (session) break;
-          // Wait 500ms before retry
           await new Promise(r => setTimeout(r, 500));
         }
 
         if (session) {
           setStatus('Login successful! Redirecting...');
-          // Priority: URL param > sessionStorage > default
-          const urlParams = new URLSearchParams(window.location.search);
-          const redirectPath = urlParams.get('redirect') || sessionStorage.getItem('auth_redirect_path') || '/cn/tools/menu-translator/';
-          sessionStorage.removeItem('auth_redirect_path');
+          const redirectPath = getRedirectPath();
           console.log("[AuthCallback] Redirecting to:", redirectPath);
           setTimeout(() => {
             window.location.replace(redirectPath);
@@ -72,9 +90,7 @@ export default function AuthCallback() {
             if (event === 'SIGNED_IN' || session) {
               resolved = true;
               setStatus('Login successful! Redirecting...');
-              const urlParams = new URLSearchParams(window.location.search);
-              const redirectPath = urlParams.get('redirect') || sessionStorage.getItem('auth_redirect_path') || '/cn/tools/menu-translator/';
-              sessionStorage.removeItem('auth_redirect_path');
+              const redirectPath = getRedirectPath();
               console.log("[AuthCallback] onAuthStateChange redirecting to:", redirectPath);
               setTimeout(() => {
                 window.location.replace(redirectPath);
@@ -84,23 +100,21 @@ export default function AuthCallback() {
           }
         );
 
-        // Timeout fallback - redirect to menu translator
+        // Timeout fallback
         setTimeout(() => {
           if (!resolved) {
             resolved = true;
             subscription.unsubscribe();
-            console.log("[AuthCallback] Timed out, redirecting to menu translator");
+            console.log("[AuthCallback] Timed out, redirecting");
             setStatus('Login timed out. Redirecting...');
-            const urlParams = new URLSearchParams(window.location.search);
-            const redirectPath = urlParams.get('redirect') || '/cn/tools/menu-translator/';
+            const redirectPath = getRedirectPath();
             setTimeout(() => window.location.replace(redirectPath), 1000);
           }
         }, 10000);
       } catch (err) {
         console.error("[AuthCallback] Error:", err);
         setStatus('Login failed. Redirecting...');
-        const urlParams = new URLSearchParams(window.location.search);
-        const redirectPath = urlParams.get('redirect') || '/cn/tools/menu-translator/';
+        const redirectPath = getRedirectPath();
         setTimeout(() => window.location.replace(redirectPath), 2000);
       }
     };

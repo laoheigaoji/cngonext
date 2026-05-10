@@ -6,6 +6,28 @@ import { supabase } from '../lib/supabase';
 export default function AuthCallback() {
   const [status, setStatus] = useState('Logging in...');
 
+  // Extract language prefix from a redirect path to build default path
+  const getLangPrefix = (path: string | null): string => {
+    if (!path) return 'cn';
+    const validPrefixes = ['cn', 'tw', 'en', 'ja', 'ko', 'ru', 'fr', 'es', 'de', 'it'];
+    const parts = path.split('/');
+    if (parts.length > 1 && validPrefixes.includes(parts[1])) {
+      return parts[1];
+    }
+    return 'cn';
+  };
+
+  const getRedirectPath = (): string => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlRedirect = urlParams.get('redirect');
+    const storageRedirect = sessionStorage.getItem('auth_redirect_path');
+    const redirect = urlRedirect || storageRedirect;
+    sessionStorage.removeItem('auth_redirect_path');
+    if (redirect) return redirect;
+    const lang = getLangPrefix(urlRedirect) || 'cn';
+    return `/${lang}/tools/menu-translator/`;
+  };
+
   useEffect(() => {
     const handleAuth = async () => {
       try {
@@ -30,9 +52,7 @@ export default function AuthCallback() {
 
         if (session) {
           setStatus('Login successful! Redirecting...');
-          const urlParams = new URLSearchParams(window.location.search);
-          const redirectPath = urlParams.get('redirect') || sessionStorage.getItem('auth_redirect_path') || '/cn/tools/menu-translator/';
-          sessionStorage.removeItem('auth_redirect_path');
+          const redirectPath = getRedirectPath();
           setTimeout(() => {
             window.location.replace(redirectPath);
           }, 500);
@@ -41,9 +61,7 @@ export default function AuthCallback() {
             (event, session) => {
               if (event === 'SIGNED_IN' || session) {
                 setStatus('Login successful! Redirecting...');
-                const urlParams = new URLSearchParams(window.location.search);
-                const redirectPath = urlParams.get('redirect') || sessionStorage.getItem('auth_redirect_path') || '/cn/tools/menu-translator/';
-                sessionStorage.removeItem('auth_redirect_path');
+                const redirectPath = getRedirectPath();
                 setTimeout(() => {
                   window.location.replace(redirectPath);
                 }, 500);
@@ -55,16 +73,14 @@ export default function AuthCallback() {
           setTimeout(() => {
             subscription.unsubscribe();
             setStatus('Login timed out. Redirecting...');
-            const urlParams = new URLSearchParams(window.location.search);
-            const redirectPath = urlParams.get('redirect') || '/cn/tools/menu-translator/';
+            const redirectPath = getRedirectPath();
             setTimeout(() => window.location.replace(redirectPath), 1000);
           }, 10000);
         }
       } catch (err) {
         console.error('Auth callback error:', err);
         setStatus('Login failed. Redirecting...');
-        const urlParams = new URLSearchParams(window.location.search);
-        const redirectPath = urlParams.get('redirect') || '/cn/tools/menu-translator/';
+        const redirectPath = getRedirectPath();
         setTimeout(() => window.location.replace(redirectPath), 2000);
       }
     };
