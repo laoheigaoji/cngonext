@@ -133,11 +133,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const currentPath = window.location.pathname + window.location.search;
       sessionStorage.setItem('auth_redirect_path', currentPath);
 
+      // Also encode redirect path in callback URL for reliability
+      const callbackUrl = new URL(window.location.origin + '/auth/callback');
+      callbackUrl.searchParams.set('redirect', currentPath);
+
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           queryParams: { prompt: 'select_account' },
-          redirectTo: window.location.origin + '/auth/callback',
+          redirectTo: callbackUrl.toString(),
         },
       });
 
@@ -168,7 +172,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = async () => {
     try {
-      await supabase.auth.signOut();
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Supabase signOut error:', error.message);
+      }
     } catch (error) {
       console.error('Sign out error:', error);
     }
@@ -176,6 +183,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
     setHasPurchased(false);
     localStorage.removeItem('hasPurchased');
+    localStorage.removeItem('device_purchase_token');
+    // Redirect to home page after sign out
+    if (typeof window !== 'undefined') {
+      window.location.href = '/';
+    }
   };
 
   const initiateCheckout = async () => {

@@ -55,7 +55,15 @@ export default function Navbar() {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    // Listen for open-login-modal event from other components
+    const handleOpenLogin = () => setShowEmailLogin(true);
+    window.addEventListener('open-login-modal', handleOpenLogin);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('open-login-modal', handleOpenLogin);
+    };
   }, []);
 
   useEffect(() => {
@@ -357,15 +365,8 @@ export default function Navbar() {
                     </>
                   )}
                 </>
-              ) : (
-                <button
-                    onClick={() => setShowEmailLogin(true)}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 transition-all text-sm"
-                  >
-                    <Mail className="w-4 h-4" />
-                    <span className="font-medium text-xs">{language === 'zh' || language === 'cn' ? '登录' : 'Sign in'}</span>
-                  </button>
-              )}
+              ) : null}
+
             </div>
           )}
           <div className="relative group/lang">

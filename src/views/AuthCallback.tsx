@@ -30,7 +30,8 @@ export default function AuthCallback() {
 
         if (session) {
           setStatus('Login successful! Redirecting...');
-          const redirectPath = sessionStorage.getItem('auth_redirect_path') || '/';
+          const urlParams = new URLSearchParams(window.location.search);
+          const redirectPath = urlParams.get('redirect') || sessionStorage.getItem('auth_redirect_path') || '/cn/tools/menu-translator/';
           sessionStorage.removeItem('auth_redirect_path');
           setTimeout(() => {
             window.location.replace(redirectPath);
@@ -40,7 +41,8 @@ export default function AuthCallback() {
             (event, session) => {
               if (event === 'SIGNED_IN' || session) {
                 setStatus('Login successful! Redirecting...');
-                const redirectPath = sessionStorage.getItem('auth_redirect_path') || '/';
+                const urlParams = new URLSearchParams(window.location.search);
+                const redirectPath = urlParams.get('redirect') || sessionStorage.getItem('auth_redirect_path') || '/cn/tools/menu-translator/';
                 sessionStorage.removeItem('auth_redirect_path');
                 setTimeout(() => {
                   window.location.replace(redirectPath);
@@ -53,13 +55,17 @@ export default function AuthCallback() {
           setTimeout(() => {
             subscription.unsubscribe();
             setStatus('Login timed out. Redirecting...');
-            setTimeout(() => window.location.replace('/'), 1000);
+            const urlParams = new URLSearchParams(window.location.search);
+            const redirectPath = urlParams.get('redirect') || '/cn/tools/menu-translator/';
+            setTimeout(() => window.location.replace(redirectPath), 1000);
           }, 10000);
         }
       } catch (err) {
         console.error('Auth callback error:', err);
         setStatus('Login failed. Redirecting...');
-        setTimeout(() => window.location.replace('/'), 2000);
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectPath = urlParams.get('redirect') || '/cn/tools/menu-translator/';
+        setTimeout(() => window.location.replace(redirectPath), 2000);
       }
     };
 
