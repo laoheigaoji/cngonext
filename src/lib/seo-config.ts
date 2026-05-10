@@ -317,16 +317,16 @@ const menuTranslatorSEO: Record<string, PageSEO> = {
 };
 
 const pinyinSEO: Record<string, PageSEO> = {
-  cn: { title: '拼音分词工具 - tripcngo.com', description: '将连续拼音分词为单独词语。有助于学习中文发音和拼音转汉字。' },
-  en: { title: 'Pinyin Segmentation Tool - tripcngo.com', description: 'Segment continuous pinyin into individual words. Useful for learning Chinese pronunciation and converting pinyin to Chinese characters.' },
-  ja: { title: 'ピンイン分割ツール - tripcngo.com', description: '連続ピンインを個別の単語に分割。中国語の発音学習やピンインから漢字への変換に便利。' },
-  ko: { title: '병음 분할 도구 - tripcngo.com', description: '연속 병음을 개별 단어로 분할하세요. 중국어 발음 학습과 병음-한자 변환에 유용합니다.' },
-  ru: { title: 'Инструмент сегментации пиньинь - tripcngo.com', description: 'Разделяйте непрерывный пиньинь на отдельные слова.' },
-  fr: { title: 'Outil de segmentation pinyin - tripcngo.com', description: 'Segmentez le pinyin continu en mots individuels.' },
-  es: { title: 'Herramienta de segmentación pinyin - tripcngo.com', description: 'Segmenta el pinyin continuo en palabras individuales.' },
-  de: { title: 'Pinyin-Segmentierungstool - tripcngo.com', description: 'Segmentieren Sie fortlaufendes Pinyin in einzelne Wörter.' },
-  tw: { title: '拼音分詞工具 - tripcngo.com', description: '將連續拼音分詞為單獨詞語。有助於學習中文發音和拼音轉漢字。' },
-  it: { title: 'Strumento di segmentazione pinyin - tripcngo.com', description: 'Segmenta il pinyin continuo in parole individuali.' },
+  cn: { title: '中文转拼音与分词工具 - tripcngo.com', description: '将中文句子转换为标准拼音，智能分词，查看笔顺动画，获得英文翻译。全面的中文语言分析工具。' },
+  en: { title: 'Chinese to Pinyin & Segmentation Tool - tripcngo.com', description: 'Convert Chinese to standard Pinyin, smart word segmentation, stroke order animation, and English translation. A comprehensive Chinese language analysis tool.' },
+  ja: { title: '中国語ピンイン変換＆分詞ツール - tripcngo.com', description: '中国語を標準ピンインに変換、スマート分詞、筆順アニメーション、英語翻訳。総合的な中国語言語分析ツール。' },
+  ko: { title: '중국어 병음 변환 & 분사 도구 - tripcngo.com', description: '중국어를 표준 병음으로 변환, 스마트 분사, 필순 애니메이션, 영어 번역. 종합 중국어 언어 분석 도구.' },
+  ru: { title: 'Инструмент китайского в пиньинь и сегментации - tripcngo.com', description: 'Конвертируйте китайский в стандартный пиньинь, умная сегментация, анимация порядка черт и перевод на английский.' },
+  fr: { title: 'Outil chinois vers pinyin et segmentation - tripcngo.com', description: 'Convertissez le chinois en pinyin standard, segmentation intelligente, animation des traits et traduction anglaise.' },
+  es: { title: 'Herramienta de chino a pinyin y segmentación - tripcngo.com', description: 'Convierte chino a pinyin estándar, segmentación inteligente, animación de trazos y traducción al inglés.' },
+  de: { title: 'Chinesisch zu Pinyin & Segmentierungstool - tripcngo.com', description: 'Konvertieren Sie Chinesisch in Standard-Pinyin, intelligente Segmentierung, Strichfolge-Animation und englische Übersetzung.' },
+  tw: { title: '中文轉拼音與分詞工具 - tripcngo.com', description: '將中文句子轉換為標準拼音，智能分詞，查看筆順動畫，獲得英文翻譯。全面的中文語言分析工具。' },
+  it: { title: 'Strumento da cinese a pinyin e segmentazione - tripcngo.com', description: 'Converti il cinese in pinyin standard, segmentazione intelligente, animazione dei tratti e traduzione inglese.' },
 };
 
 const characterCounterSEO: Record<string, PageSEO> = {
