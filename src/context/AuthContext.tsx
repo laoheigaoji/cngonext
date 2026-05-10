@@ -105,9 +105,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     }
 
-    const handleMessage = (event: MessageEvent) => {
+    const handleMessage = async (event: MessageEvent) => {
       if (event.data === 'creem_payment_success') {
         completePayment();
+      }
+      // Google login callback from popup: exchange code for session
+      if (event.data?.type === 'google_login_callback' && event.data?.url) {
+        try {
+          const { error } = await supabase.auth.exchangeCodeForSession(event.data.url);
+          if (error) {
+            console.error('Google login exchange error:', error.message);
+          }
+          // onAuthStateChange will pick up the new session automatically
+        } catch (err) {
+          console.error('Google login callback error:', err);
+        }
       }
     };
 
