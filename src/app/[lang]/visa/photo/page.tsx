@@ -1,5 +1,10 @@
 import VisaPhoto from "@/app-views/visa/VisaPhoto";
 import { getHreflangAlternates, baseUrl, getSEO, visaPhotoSEO, defaultOgImage } from "@/lib/seo-config";
+import { LANGUAGES } from "@/lib/static-params";
+
+export function generateStaticParams() {
+  return LANGUAGES.map(lang => ({ lang }));
+}
 
 export const revalidate = false;
 

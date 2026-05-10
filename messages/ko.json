@@ -301,7 +301,63 @@
           "allergens": "⚠️ 고추와 화자오 다량 사용 — 매운 맛과 저린 맛; 땅콩이 포함될 수 있음"
         }
       },
-      "title": "사진을 업로드하여 번역, 재료, 가격을 확인하여 쉽게 주문하세요"
+      "title": "사진을 업로드하여 번역, 재료, 가격을 확인하여 쉽게 주문하세요",
+      "pricing": {
+        "title": "요금제 및 가격",
+        "subtitle": "무료로 시작하세요. 더 많은 크레딧과 기능을 위해 업그레이드하세요.",
+        "monthly": "월간",
+        "yearly": "연간",
+        "save": "20% 할인",
+        "current": "현재 요금제",
+        "select": "요금제 선택",
+        "popular": "가장 인기",
+        "perMonth": "월",
+        "perYear": "년",
+        "free": {
+          "name": "무료",
+          "desc": "무료로 시작하세요",
+          "feature1": "월 500 크레딧",
+          "feature2": "동시 작업 1개",
+          "feature3": "메뉴의 모든 요리 추출",
+          "feature4": "실시간 환율 변환",
+          "feature5": "주문 발음"
+        },
+        "traveler": {
+          "name": "트래블러",
+          "desc": "10일 이용권, 단기 여행에 적합",
+          "feature1": "5,000 크레딧",
+          "feature2": "동시 작업 2개",
+          "feature3": "메뉴의 모든 요리 추출",
+          "feature4": "HD 음식 이미지",
+          "feature5": "실시간 환율 변환",
+          "feature6": "주문 발음",
+          "feature7": "우선 지원"
+        },
+        "starter": {
+          "name": "스타터",
+          "desc": "잦은 여행자 및 유학생용",
+          "feature1": "월 11,000 크레딧",
+          "feature1Yearly": "월 11,000 크레딧",
+          "feature2": "동시 작업 2개",
+          "feature3": "메뉴의 모든 요리 추출",
+          "feature4": "HD 음식 이미지",
+          "feature5": "실시간 환율 변환",
+          "feature6": "주문 발음",
+          "feature7": "우선 지원"
+        },
+        "pro": {
+          "name": "프로",
+          "desc": "여행 블로거 및 미식가용",
+          "feature1": "월 25,000 크레딧",
+          "feature1Yearly": "월 25,000 크레딧",
+          "feature2": "동시 작업 4개",
+          "feature3": "메뉴의 모든 요리 추출",
+          "feature4": "HD 음식 이미지",
+          "feature5": "실시간 환율 변환",
+          "feature6": "주문 발음",
+          "feature7": "우선 지원"
+        }
+      }
     },
     "name": {
       "desc": "AI推理模型로 중국 이름을 추천, 중국 직장,交友, 여행 또는 생활에 적합",

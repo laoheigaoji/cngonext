@@ -1,6 +1,11 @@
 import AboutUsClient from "./AboutUsClient";
 import { getPageSections } from "@/lib/server-data";
 import { getSEO, aboutSEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
+import { LANGUAGES } from "@/lib/static-params";
+
+export function generateStaticParams() {
+  return LANGUAGES.map(lang => ({ lang }));
+}
 
 export const revalidate = false;
 

@@ -1,6 +1,11 @@
 import { Metadata } from "next";
 import LangLayoutClient from "./LangLayoutClient";
 import { getServerTranslations } from "@/lib/server-i18n";
+import { LANGUAGES } from "@/lib/static-params";
+
+export function generateStaticParams() {
+  return LANGUAGES.map(lang => ({ lang }));
+}
 
 const htmlLangMap: Record<string, string> = {
   cn: 'zh-CN',

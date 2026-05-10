@@ -2,6 +2,12 @@ import CityDetailClient from "./CityDetailClient";
 import { getHreflangAlternates, baseUrl, getSEO, citiesSEO, generateCityJsonLd, defaultOgImage } from "@/lib/seo-config";
 import { getCityData } from "@/lib/server-data";
 import { getServerTranslation } from "@/lib/server-i18n";
+import { LANGUAGES, getCityIds } from "@/lib/static-params";
+
+export async function generateStaticParams() {
+  const cityIds = await getCityIds();
+  return LANGUAGES.flatMap(lang => cityIds.map(id => ({ lang, id })));
+}
 
 export const revalidate = false;
 

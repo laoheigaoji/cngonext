@@ -5,6 +5,12 @@ import HomeVisa from "@/components/HomeVisa";
 import { getSEO, homeSEO, getHreflangAlternates, baseUrl, generateWebsiteJsonLd, generateOrganizationJsonLd, defaultOgImage, getOgLocale } from "@/lib/seo-config";
 import { getHomeData } from "@/lib/server-data";
 import { getServerTranslations } from "@/lib/server-i18n";
+import { LANGUAGES } from "@/lib/static-params";
+
+// Static generation for all languages
+export function generateStaticParams() {
+  return LANGUAGES.map(lang => ({ lang }));
+}
 
 // Permanent cache - only revalidate on-demand via /api/revalidate
 export const revalidate = false;

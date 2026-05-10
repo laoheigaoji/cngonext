@@ -1,5 +1,10 @@
 import VisaArrivalCard from "@/app-views/visa/VisaArrivalCard";
 import { getHreflangAlternates, baseUrl, getSEO, visaArrivalCardSEO, defaultOgImage } from "@/lib/seo-config";
+import { LANGUAGES } from "@/lib/static-params";
+
+export function generateStaticParams() {
+  return LANGUAGES.map(lang => ({ lang }));
+}
 
 export const revalidate = false;
 

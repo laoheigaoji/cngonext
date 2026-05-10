@@ -301,7 +301,63 @@
           "ingredients": "主要食材: 雞肉, 蔥, 薑, 辣椒"
         }
       },
-      "title": "上傳照片，可獲得圖片、翻譯、食材和價格，助您輕鬆點餐"
+      "title": "上傳照片，可獲得圖片、翻譯、食材和價格，助您輕鬆點餐",
+      "pricing": {
+        "title": "方案與定價",
+        "subtitle": "立即免費開始使用。升級即可獲得更多積分、使用量和功能。",
+        "monthly": "月付",
+        "yearly": "年付",
+        "save": "節省20%",
+        "current": "目前方案",
+        "select": "選擇方案",
+        "popular": "最受歡迎",
+        "perMonth": "月付",
+        "perYear": "年付",
+        "free": {
+          "name": "免費",
+          "desc": "免費開始嘗試",
+          "feature1": "每月500積分",
+          "feature2": "1個並行任務",
+          "feature3": "提取菜單上所有菜品",
+          "feature4": "即時貨幣轉換",
+          "feature5": "點餐發音"
+        },
+        "traveler": {
+          "name": "旅行者",
+          "desc": "10天有效期，適合短期旅行者",
+          "feature1": "5,000積分",
+          "feature2": "2個並行任務",
+          "feature3": "提取菜單上所有菜品",
+          "feature4": "高清食物圖片展示",
+          "feature5": "即時貨幣轉換",
+          "feature6": "點餐發音",
+          "feature7": "優先支援"
+        },
+        "starter": {
+          "name": "入門",
+          "desc": "適合頻繁遊客/留學生",
+          "feature1": "每月11,000積分",
+          "feature1Yearly": "每月11,000積分",
+          "feature2": "2個並行任務",
+          "feature3": "提取菜單上所有菜品",
+          "feature4": "高清食物圖片展示",
+          "feature5": "即時貨幣轉換",
+          "feature6": "點餐發音",
+          "feature7": "優先支援"
+        },
+        "pro": {
+          "name": "專業",
+          "desc": "旅行部落客/美食愛好者",
+          "feature1": "每月25,000積分",
+          "feature1Yearly": "每月25,000積分",
+          "feature2": "4個並行任務",
+          "feature3": "提取菜單上所有菜品",
+          "feature4": "高清食物圖片展示",
+          "feature5": "即時貨幣轉換",
+          "feature6": "點餐發音",
+          "feature7": "優先支援"
+        }
+      }
     },
     "name": {
       "desc": "使用AI推理模型中文名，適合在中國職業發展、交友、旅遊或生活",

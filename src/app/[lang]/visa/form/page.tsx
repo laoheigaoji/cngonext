@@ -1,5 +1,10 @@
 import VisaForm from "@/app-views/visa/VisaForm";
 import { getHreflangAlternates, baseUrl, getSEO, visaFormSEO, defaultOgImage } from "@/lib/seo-config";
+import { LANGUAGES } from "@/lib/static-params";
+
+export function generateStaticParams() {
+  return LANGUAGES.map(lang => ({ lang }));
+}
 
 export const revalidate = false;
 

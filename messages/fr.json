@@ -301,7 +301,63 @@
           "allergens": "⚠️ Contient beaucoup de piment et de poivre du Sichuan — très épicé et engourdissant ; peut contenir des arachides"
         }
       },
-      "title": "Téléchargez une photo pour obtenir traduction, ingrédients et prix - commandez facilement"
+      "title": "Téléchargez une photo pour obtenir traduction, ingrédients et prix - commandez facilement",
+      "pricing": {
+        "title": "Forfaits et Tarifs",
+        "subtitle": "Commencez gratuitement. Passez à un forfait supérieur pour plus de crédits et de fonctionnalités.",
+        "monthly": "Mensuel",
+        "yearly": "Annuel",
+        "save": "Économisez 20%",
+        "current": "Forfait Actuel",
+        "select": "Choisir le Forfait",
+        "popular": "Le Plus Populaire",
+        "perMonth": "mois",
+        "perYear": "an",
+        "free": {
+          "name": "Gratuit",
+          "desc": "Commencez gratuitement",
+          "feature1": "500 crédits/mois",
+          "feature2": "1 tâche simultanée",
+          "feature3": "Extraire tous les plats du menu",
+          "feature4": "Conversion de devise en temps réel",
+          "feature5": "Prononciation des commandes"
+        },
+        "traveler": {
+          "name": "Voyageur",
+          "desc": "Accès de 10 jours, parfait pour les courts séjours",
+          "feature1": "5 000 crédits",
+          "feature2": "2 tâches simultanées",
+          "feature3": "Extraire tous les plats du menu",
+          "feature4": "Images HD de plats",
+          "feature5": "Conversion de devise en temps réel",
+          "feature6": "Prononciation des commandes",
+          "feature7": "Support prioritaire"
+        },
+        "starter": {
+          "name": "Débutant",
+          "desc": "Pour les voyageurs fréquents et les étudiants",
+          "feature1": "11 000 crédits/mois",
+          "feature1Yearly": "11 000 crédits/mois",
+          "feature2": "2 tâches simultanées",
+          "feature3": "Extraire tous les plats du menu",
+          "feature4": "Images HD de plats",
+          "feature5": "Conversion de devise en temps réel",
+          "feature6": "Prononciation des commandes",
+          "feature7": "Support prioritaire"
+        },
+        "pro": {
+          "name": "Pro",
+          "desc": "Pour les blogueurs voyage et les gastronomes",
+          "feature1": "25 000 crédits/mois",
+          "feature1Yearly": "25 000 crédits/mois",
+          "feature2": "4 tâches simultanées",
+          "feature3": "Extraire tous les plats du menu",
+          "feature4": "Images HD de plats",
+          "feature5": "Conversion de devise en temps réel",
+          "feature6": "Prononciation des commandes",
+          "feature7": "Support prioritaire"
+        }
+      }
     },
     "name": {
       "desc": "IA pour choisir des noms chinois adaptés à votre carrière, amis, voyages ou vie en Chine",

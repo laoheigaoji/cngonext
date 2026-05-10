@@ -5,9 +5,22 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Upload, Camera, ImageIcon, Languages, Wallet, MessageSquare, ChevronDown, Check, Star, ScanLine, X, Loader2, Volume2, AlertTriangle, Leaf, CameraOff, Brain, Utensils, Globe } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { useAuth } from '../../context/AuthContext';
-const MenuTranslator = () => {
+
+interface MenuTranslatorProps {
+  translations?: Record<string, string>;
+}
+
+const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
     const { language, t } = useLanguage();
     const { user, loading: authLoading, signInWithGoogle } = useAuth();
+
+    // tt: prefer server-side JSON translations, fallback to client-side t()
+    const tt = (key: string): string => {
+        if (translations && translations[key] && translations[key] !== key) {
+            return translations[key];
+        }
+        return t(key);
+    };
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
@@ -105,12 +118,6 @@ const MenuTranslator = () => {
     };
 
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        // Require login before using
-        if (!user) {
-            setShowLoginModal(true);
-            e.target.value = '';
-            return;
-        }
         const file = e.target.files?.[0];
         if (!file) return;
 
@@ -260,7 +267,7 @@ const MenuTranslator = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.4 }}
                             >
-                                <label className="cursor-pointer block group">
+                                <div className="cursor-pointer block group" onClick={() => { if (!user) { setShowLoginModal(true); return; } document.getElementById('menu-file-input')?.click(); }}>
                                     <div className="relative border-2 border-dashed border-purple-200 rounded-3xl p-10 flex flex-col items-center justify-center transition-all hover:border-purple-400 bg-white shadow-xl">
                                         <div className="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500">
                                             <Upload className="w-8 h-8 text-purple-600" />
@@ -270,9 +277,9 @@ const MenuTranslator = () => {
                                         <div className="bg-purple-600 text-white px-8 py-3 rounded-2xl font-black transition-all shadow-lg shadow-purple-100 text-base flex items-center justify-center hover:bg-purple-700">
                                             {t('tools.menu.upload.button')}
                                         </div>
-                                        <input type="file" className="hidden" accept="image/*" onChange={handleFileUpload} />
+                                        <input id="menu-file-input" type="file" className="hidden" accept="image/*" onChange={handleFileUpload} />
                                     </div>
-                                </label>
+                                </div>
                             </motion.div>
                         </div>
                     </section>
@@ -608,6 +615,220 @@ const MenuTranslator = () => {
                                                 </div>
                                             ))}
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Pricing Section */}
+                        <section className="py-10 border-t border-gray-100">
+                            <div className="max-w-6xl mx-auto">
+                                {/* Title */}
+                                <div className="text-center mb-8">
+                                    <h2 className="text-3xl font-black text-gray-900 mb-2">{tt('tools.menu.pricing.title')}</h2>
+                                    <p className="text-gray-500 text-base">{tt('tools.menu.pricing.subtitle')}</p>
+                                </div>
+
+                                {/* Billing Toggle */}
+                                <div className="flex items-center justify-center gap-3 mb-10">
+                                    <span className={`text-sm font-bold ${billingCycle === 'monthly' ? 'text-gray-900' : 'text-gray-400'}`}>{tt('tools.menu.pricing.monthly')}</span>
+                                    <button
+                                        onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
+                                        className="relative w-14 h-7 bg-purple-600 rounded-full transition-colors"
+                                    >
+                                        <div className={`absolute top-1 w-5 h-5 bg-white rounded-full transition-all ${billingCycle === 'yearly' ? 'left-8' : 'left-1'}`} />
+                                    </button>
+                                    <span className={`text-sm font-bold ${billingCycle === 'yearly' ? 'text-gray-900' : 'text-gray-400'}`}>{tt('tools.menu.pricing.yearly')}</span>
+                                    {billingCycle === 'yearly' && (
+                                        <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-bold">{tt('tools.menu.pricing.save')}</span>
+                                    )}
+                                </div>
+
+                                {/* Pricing Cards */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                    {/* Free Plan */}
+                                    <div className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-lg transition-shadow">
+                                        <div className="text-center mb-6">
+                                            <h3 className="font-black text-xl text-gray-900 mb-1">{tt('tools.menu.pricing.free.name')}</h3>
+                                            <p className="text-sm text-gray-400">{tt('tools.menu.pricing.free.desc')}</p>
+                                            <div className="mt-4">
+                                                <span className="text-4xl font-black text-gray-900">$0</span>
+                                            </div>
+                                        </div>
+                                        <button className="w-full py-3 rounded-xl bg-gray-100 text-gray-400 font-bold cursor-not-allowed mb-6">
+                                            {tt('tools.menu.pricing.current')}
+                                        </button>
+                                        <ul className="space-y-3 text-sm">
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.free.feature1')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.free.feature2')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.free.feature3')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.free.feature4')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.free.feature5')}
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    {/* Traveler Plan */}
+                                    <div className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-lg transition-shadow">
+                                        <div className="text-center mb-6">
+                                            <h3 className="font-black text-xl text-gray-900 mb-1">{tt('tools.menu.pricing.traveler.name')}</h3>
+                                            <p className="text-sm text-gray-400">{tt('tools.menu.pricing.traveler.desc')}</p>
+                                            <div className="mt-4">
+                                                <span className="text-4xl font-black text-gray-900">$4.99</span>
+                                                <span className="text-gray-400 text-sm">/10天</span>
+                                            </div>
+                                            <p className="text-xs text-gray-400 mt-1">$0.1/100积分</p>
+                                        </div>
+                                        <button className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
+                                            {tt('tools.menu.pricing.select')}
+                                        </button>
+                                        <ul className="space-y-3 text-sm">
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.traveler.feature1')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.traveler.feature2')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.traveler.feature3')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.traveler.feature4')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.traveler.feature5')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.traveler.feature6')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.traveler.feature7')}
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    {/* Starter Plan - Popular */}
+                                    <div className="bg-white rounded-2xl border-2 border-purple-600 p-6 hover:shadow-lg transition-shadow relative">
+                                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                            {tt('tools.menu.pricing.popular')}
+                                        </div>
+                                        <div className="text-center mb-6">
+                                            <h3 className="font-black text-xl text-gray-900 mb-1">{tt('tools.menu.pricing.starter.name')}</h3>
+                                            <p className="text-sm text-gray-400">{tt('tools.menu.pricing.starter.desc')}</p>
+                                            <div className="mt-4">
+                                                <span className="text-4xl font-black text-gray-900">
+                                                    {billingCycle === 'monthly' ? '$9.99' : '$99'}
+                                                </span>
+                                                <span className="text-gray-400 text-sm">/{billingCycle === 'monthly' ? tt('tools.menu.pricing.perMonth') : tt('tools.menu.pricing.perYear')}</span>
+                                            </div>
+                                            <p className="text-xs text-gray-400 mt-1">
+                                                {billingCycle === 'monthly' ? '$0.09/100积分' : '$0.075/100积分'}
+                                            </p>
+                                        </div>
+                                        <button className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
+                                            {tt('tools.menu.pricing.select')}
+                                        </button>
+                                        <ul className="space-y-3 text-sm">
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {billingCycle === 'monthly' ? tt('tools.menu.pricing.starter.feature1') : tt('tools.menu.pricing.starter.feature1Yearly')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.starter.feature2')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.starter.feature3')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.starter.feature4')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.starter.feature5')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.starter.feature6')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.starter.feature7')}
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    {/* Pro Plan */}
+                                    <div className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-lg transition-shadow">
+                                        <div className="text-center mb-6">
+                                            <h3 className="font-black text-xl text-gray-900 mb-1">{tt('tools.menu.pricing.pro.name')}</h3>
+                                            <p className="text-sm text-gray-400">{tt('tools.menu.pricing.pro.desc')}</p>
+                                            <div className="mt-4">
+                                                <span className="text-4xl font-black text-gray-900">
+                                                    {billingCycle === 'monthly' ? '$19.99' : '$199'}
+                                                </span>
+                                                <span className="text-gray-400 text-sm">/{billingCycle === 'monthly' ? tt('tools.menu.pricing.perMonth') : tt('tools.menu.pricing.perYear')}</span>
+                                            </div>
+                                            <p className="text-xs text-gray-400 mt-1">
+                                                {billingCycle === 'monthly' ? '$0.08/100积分' : '$0.066/100积分'}
+                                            </p>
+                                        </div>
+                                        <button className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
+                                            {tt('tools.menu.pricing.select')}
+                                        </button>
+                                        <ul className="space-y-3 text-sm">
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {billingCycle === 'monthly' ? tt('tools.menu.pricing.pro.feature1') : tt('tools.menu.pricing.pro.feature1Yearly')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.pro.feature2')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.pro.feature3')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.pro.feature4')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.pro.feature5')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.pro.feature6')}
+                                            </li>
+                                            <li className="flex items-center gap-2 text-gray-600">
+                                                <Check className="w-4 h-4 text-purple-600" />
+                                                {tt('tools.menu.pricing.pro.feature7')}
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

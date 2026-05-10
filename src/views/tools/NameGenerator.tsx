@@ -1194,7 +1194,7 @@ export default function NameGenerator({ skipHero, relatedArticles }: { skipHero?
             <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('tools.name.moreTitle')}</h2>
             <p className="text-gray-500 mb-8">{t('tools.name.moreSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white rounded-xl p-6 border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+              <a href={`/${language === 'zh' ? 'cn' : language}/tools/pinyin-segmentation`} className="bg-white rounded-xl p-6 border border-gray-100 hover:shadow-md transition-shadow cursor-pointer block">
                 <div className="w-10 h-10 bg-[#1b887a]/10 rounded-lg flex items-center justify-center mb-4">
                   <svg className="w-5 h-5 text-[#1b887a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
@@ -1202,8 +1202,8 @@ export default function NameGenerator({ skipHero, relatedArticles }: { skipHero?
                 </div>
                 <h3 className="font-bold text-gray-900 mb-1">{labels.pinyinTool}</h3>
                 <p className="text-sm text-gray-500">{labels.pinyinToolDesc}</p>
-              </div>
-              <div className="bg-white rounded-xl p-6 border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+              </a>
+              <a href={`/${language === 'zh' ? 'cn' : language}/tools/character-counter`} className="bg-white rounded-xl p-6 border border-gray-100 hover:shadow-md transition-shadow cursor-pointer block">
                 <div className="w-10 h-10 bg-[#1b887a]/10 rounded-lg flex items-center justify-center mb-4">
                   <svg className="w-5 h-5 text-[#1b887a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
@@ -1211,7 +1211,7 @@ export default function NameGenerator({ skipHero, relatedArticles }: { skipHero?
                 </div>
                 <h3 className="font-bold text-gray-900 mb-1">{labels.charCounterTool}</h3>
                 <p className="text-sm text-gray-500">{labels.charCounterToolDesc}</p>
-              </div>
+              </a>
             </div>
           </section>
 

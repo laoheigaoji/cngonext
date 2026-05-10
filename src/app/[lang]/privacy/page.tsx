@@ -1,6 +1,11 @@
 import PrivacyClient from "./PrivacyClient";
 import { getPageSections } from "@/lib/server-data";
 import { getSEO, privacySEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
+import { LANGUAGES } from "@/lib/static-params";
+
+export function generateStaticParams() {
+  return LANGUAGES.map(lang => ({ lang }));
+}
 
 export const revalidate = false;
 

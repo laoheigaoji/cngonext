@@ -3,6 +3,11 @@ import ArticlesHero from "@/components/ArticlesHero";
 import { getArticlesListData } from "@/lib/server-data";
 import { getSEO, articlesSEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
 import { getServerTranslations } from "@/lib/server-i18n";
+import { LANGUAGES } from "@/lib/static-params";
+
+export function generateStaticParams() {
+  return LANGUAGES.map(lang => ({ lang }));
+}
 
 export const revalidate = false;
 

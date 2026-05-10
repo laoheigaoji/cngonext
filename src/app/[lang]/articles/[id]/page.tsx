@@ -3,6 +3,12 @@ import { getHreflangAlternates, baseUrl, getSEO, articlesSEO, generateArticleJso
 import { getArticleData } from "@/lib/server-data";
 import { getServerTranslation } from "@/lib/server-i18n";
 import { marked } from "marked";
+import { LANGUAGES, getArticleIds } from "@/lib/static-params";
+
+export async function generateStaticParams() {
+  const articleIds = await getArticleIds();
+  return LANGUAGES.flatMap(lang => articleIds.map(id => ({ lang, id })));
+}
 
 export const revalidate = false;
 

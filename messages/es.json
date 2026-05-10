@@ -237,7 +237,63 @@
           "allergens": "⚠️ Contiene mucho chile y pimienta de Sichuan — muy picante y entumecedor; puede contener cacahuetes"
         }
       },
-      "title": "Sube una foto para obtener traducción, ingredientes y precios - ordena fácilmente"
+      "title": "Sube una foto para obtener traducción, ingredientes y precios - ordena fácilmente",
+      "pricing": {
+        "title": "Planes y Precios",
+        "subtitle": "Comienza gratis. Mejora para obtener más créditos, uso y funciones.",
+        "monthly": "Mensual",
+        "yearly": "Anual",
+        "save": "Ahorra 20%",
+        "current": "Plan Actual",
+        "select": "Seleccionar Plan",
+        "popular": "Más Popular",
+        "perMonth": "mes",
+        "perYear": "año",
+        "free": {
+          "name": "Gratis",
+          "desc": "Comienza gratis",
+          "feature1": "500 créditos/mes",
+          "feature2": "1 tarea concurrente",
+          "feature3": "Extraer todos los platos del menú",
+          "feature4": "Conversión de moneda en tiempo real",
+          "feature5": "Pronunciación de pedidos"
+        },
+        "traveler": {
+          "name": "Viajero",
+          "desc": "Acceso de 10 días, perfecto para viajes cortos",
+          "feature1": "5.000 créditos",
+          "feature2": "2 tareas concurrentes",
+          "feature3": "Extraer todos los platos del menú",
+          "feature4": "Imágenes HD de comida",
+          "feature5": "Conversión de moneda en tiempo real",
+          "feature6": "Pronunciación de pedidos",
+          "feature7": "Soporte prioritario"
+        },
+        "starter": {
+          "name": "Inicial",
+          "desc": "Para viajeros frecuentes y estudiantes",
+          "feature1": "11.000 créditos/mes",
+          "feature1Yearly": "11.000 créditos/mes",
+          "feature2": "2 tareas concurrentes",
+          "feature3": "Extraer todos los platos del menú",
+          "feature4": "Imágenes HD de comida",
+          "feature5": "Conversión de moneda en tiempo real",
+          "feature6": "Pronunciación de pedidos",
+          "feature7": "Soporte prioritario"
+        },
+        "pro": {
+          "name": "Pro",
+          "desc": "Para blogueros de viajes y gourmet",
+          "feature1": "25.000 créditos/mes",
+          "feature1Yearly": "25.000 créditos/mes",
+          "feature2": "4 tareas concurrentes",
+          "feature3": "Extraer todos los platos del menú",
+          "feature4": "Imágenes HD de comida",
+          "feature5": "Conversión de moneda en tiempo real",
+          "feature6": "Pronunciación de pedidos",
+          "feature7": "Soporte prioritario"
+        }
+      }
     },
     "name": {
       "desc": "IA para elegir nombres chinos adecuados para tu carrera, amigos, viajes o vida en China",

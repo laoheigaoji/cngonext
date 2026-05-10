@@ -1,6 +1,11 @@
 import GuideDetailClient from "./GuideDetailClient";
 import { getHreflangAlternates, baseUrl, getSEO, guideSEO, defaultOgImage } from "@/lib/seo-config";
 import { getArticleData } from "@/lib/server-data";
+import { LANGUAGES, GUIDE_IDS } from "@/lib/static-params";
+
+export function generateStaticParams() {
+  return LANGUAGES.flatMap(lang => GUIDE_IDS.map(id => ({ lang, id })));
+}
 
 export const revalidate = false;
 

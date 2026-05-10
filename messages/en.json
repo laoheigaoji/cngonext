@@ -288,7 +288,63 @@
           "allergens": "⚠️ Contains large amounts of chili and Sichuan peppercorn — very spicy and numbing; may contain peanuts"
         }
       },
-      "title": "Upload photos to get translations, ingredients, and prices for easy ordering"
+      "title": "Upload photos to get translations, ingredients, and prices for easy ordering",
+      "pricing": {
+        "title": "Plans & Pricing",
+        "subtitle": "Start for free. Upgrade for more credits, usage, and features.",
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "save": "Save 20%",
+        "current": "Current Plan",
+        "select": "Select Plan",
+        "popular": "Most Popular",
+        "perMonth": "month",
+        "perYear": "year",
+        "free": {
+          "name": "Free",
+          "desc": "Start for free",
+          "feature1": "500 credits/month",
+          "feature2": "1 concurrent task",
+          "feature3": "Extract all dishes from menu",
+          "feature4": "Real-time currency conversion",
+          "feature5": "Order pronunciation"
+        },
+        "traveler": {
+          "name": "Traveler",
+          "desc": "10-day access, perfect for short trips",
+          "feature1": "5,000 credits",
+          "feature2": "2 concurrent tasks",
+          "feature3": "Extract all dishes from menu",
+          "feature4": "HD food images",
+          "feature5": "Real-time currency conversion",
+          "feature6": "Order pronunciation",
+          "feature7": "Priority support"
+        },
+        "starter": {
+          "name": "Starter",
+          "desc": "For frequent travelers & students",
+          "feature1": "11,000 credits/month",
+          "feature1Yearly": "11,000 credits/month",
+          "feature2": "2 concurrent tasks",
+          "feature3": "Extract all dishes from menu",
+          "feature4": "HD food images",
+          "feature5": "Real-time currency conversion",
+          "feature6": "Order pronunciation",
+          "feature7": "Priority support"
+        },
+        "pro": {
+          "name": "Pro",
+          "desc": "For travel bloggers & foodies",
+          "feature1": "25,000 credits/month",
+          "feature1Yearly": "25,000 credits/month",
+          "feature2": "4 concurrent tasks",
+          "feature3": "Extract all dishes from menu",
+          "feature4": "HD food images",
+          "feature5": "Real-time currency conversion",
+          "feature6": "Order pronunciation",
+          "feature7": "Priority support"
+        }
+      }
     },
     "name": {
       "desc": "AI-powered Chinese name generator for career, travel, or living in China",

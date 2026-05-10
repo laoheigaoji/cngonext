@@ -635,7 +635,63 @@
           "allergens": "⚠️ 含大量辣椒和花椒，口味麻辣；可能含花生碎"
         }
       },
-      "title": "上传照片，可获得图片、翻译、食材和价格，助您轻松点餐"
+      "title": "上传照片，可获得图片、翻译、食材和价格，助您轻松点餐",
+      "pricing": {
+        "title": "计划和定价",
+        "subtitle": "立即免费开始使用。升级即可获得更多积分、使用量和功能。",
+        "monthly": "月付",
+        "yearly": "年付",
+        "save": "节省20%",
+        "current": "当前计划",
+        "select": "选择计划",
+        "popular": "最受欢迎",
+        "perMonth": "月付",
+        "perYear": "年付",
+        "free": {
+          "name": "免费",
+          "desc": "免费开始尝试",
+          "feature1": "每月500积分",
+          "feature2": "1个并发任务",
+          "feature3": "提取菜单上所有菜品",
+          "feature4": "实时货币转换",
+          "feature5": "点餐发音"
+        },
+        "traveler": {
+          "name": "旅行者",
+          "desc": "10天有效期，适合短期旅行者",
+          "feature1": "获得5000积分",
+          "feature2": "2个并发任务",
+          "feature3": "提取菜单上所有菜品",
+          "feature4": "高清食物图片展示",
+          "feature5": "实时货币转换",
+          "feature6": "点餐发音",
+          "feature7": "优先支持"
+        },
+        "starter": {
+          "name": "入门",
+          "desc": "适合频繁游客/留学生",
+          "feature1": "每月11000积分",
+          "feature1Yearly": "每月11000积分",
+          "feature2": "2个并发任务",
+          "feature3": "提取菜单上所有菜品",
+          "feature4": "高清食物图片展示",
+          "feature5": "实时货币转换",
+          "feature6": "点餐发音",
+          "feature7": "优先支持"
+        },
+        "pro": {
+          "name": "专业",
+          "desc": "旅行博主/美食爱好者",
+          "feature1": "每月25000积分",
+          "feature1Yearly": "每月25000积分",
+          "feature2": "4个并发任务",
+          "feature3": "提取菜单上所有菜品",
+          "feature4": "高清食物图片展示",
+          "feature5": "实时货币转换",
+          "feature6": "点餐发音",
+          "feature7": "优先支持"
+        }
+      }
     },
     "name": {
       "desc": "使用AI推理模型中文名，适合在中国职业发展、交友、旅游或生活",

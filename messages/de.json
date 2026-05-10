@@ -237,7 +237,63 @@
           "allergens": "⚠️ Viel Chili und Szechuan-Pfeffer — sehr scharf und betäubend; kann Erdnüsse enthalten"
         }
       },
-      "title": "Laden Sie ein Foto hoch, um Übersetzung, Zutaten und Preise zu erhalten - einfach bestellen"
+      "title": "Laden Sie ein Foto hoch, um Übersetzung, Zutaten und Preise zu erhalten - einfach bestellen",
+      "pricing": {
+        "title": "Pläne & Preise",
+        "subtitle": "Kostenlos starten. Upgraden Sie für mehr Credits, Nutzung und Funktionen.",
+        "monthly": "Monatlich",
+        "yearly": "Jährlich",
+        "save": "20% sparen",
+        "current": "Aktueller Plan",
+        "select": "Plan wählen",
+        "popular": "Am beliebtesten",
+        "perMonth": "Monat",
+        "perYear": "Jahr",
+        "free": {
+          "name": "Kostenlos",
+          "desc": "Kostenlos starten",
+          "feature1": "500 Credits/Monat",
+          "feature2": "1 gleichzeitige Aufgabe",
+          "feature3": "Alle Gerichte aus dem Menü extrahieren",
+          "feature4": "Echtzeit-Währungsumrechnung",
+          "feature5": "Bestellaussprache"
+        },
+        "traveler": {
+          "name": "Reisender",
+          "desc": "10 Tage Zugang, perfekt für Kurzreisen",
+          "feature1": "5.000 Credits",
+          "feature2": "2 gleichzeitige Aufgaben",
+          "feature3": "Alle Gerichte aus dem Menü extrahieren",
+          "feature4": "HD-Essensbilder",
+          "feature5": "Echtzeit-Währungsumrechnung",
+          "feature6": "Bestellaussprache",
+          "feature7": "Prioritäts-Support"
+        },
+        "starter": {
+          "name": "Starter",
+          "desc": "Für Vielreisende & Studenten",
+          "feature1": "11.000 Credits/Monat",
+          "feature1Yearly": "11.000 Credits/Monat",
+          "feature2": "2 gleichzeitige Aufgaben",
+          "feature3": "Alle Gerichte aus dem Menü extrahieren",
+          "feature4": "HD-Essensbilder",
+          "feature5": "Echtzeit-Währungsumrechnung",
+          "feature6": "Bestellaussprache",
+          "feature7": "Prioritäts-Support"
+        },
+        "pro": {
+          "name": "Pro",
+          "desc": "Für Reiseblogger & Feinschmecker",
+          "feature1": "25.000 Credits/Monat",
+          "feature1Yearly": "25.000 Credits/Monat",
+          "feature2": "4 gleichzeitige Aufgaben",
+          "feature3": "Alle Gerichte aus dem Menü extrahieren",
+          "feature4": "HD-Essensbilder",
+          "feature5": "Echtzeit-Währungsumrechnung",
+          "feature6": "Bestellaussprache",
+          "feature7": "Prioritäts-Support"
+        }
+      }
     },
     "name": {
       "desc": "KI zur Auswahl chinesischer Namen für Karriere, Freunde, Reisen oder Leben in China",

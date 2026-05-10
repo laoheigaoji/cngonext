@@ -1,5 +1,10 @@
 import VisaDownloads from "@/app-views/visa/VisaDownloads";
 import { getHreflangAlternates, baseUrl, getSEO, visaDownloadsSEO, defaultOgImage } from "@/lib/seo-config";
+import { LANGUAGES } from "@/lib/static-params";
+
+export function generateStaticParams() {
+  return LANGUAGES.map(lang => ({ lang }));
+}
 
 export const revalidate = false;
 

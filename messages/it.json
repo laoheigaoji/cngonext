@@ -235,7 +235,63 @@
           "allergens": "⚠️ Contiene molto peperoncino e pepe del Sichuan — molto piccante e intorpidente; può contenere arachidi"
         }
       },
-      "title": "Carica una foto per ottenere traduzione, ingredienti e prezzi - ordina facilmente"
+      "title": "Carica una foto per ottenere traduzione, ingredienti e prezzi - ordina facilmente",
+      "pricing": {
+        "title": "Piani e Prezzi",
+        "subtitle": "Inizia gratis. Aggiorna per ottenere più crediti e funzionalità.",
+        "monthly": "Mensile",
+        "yearly": "Annuale",
+        "save": "Risparmia 20%",
+        "current": "Piano Attuale",
+        "select": "Seleziona Piano",
+        "popular": "Più Popolare",
+        "perMonth": "mese",
+        "perYear": "anno",
+        "free": {
+          "name": "Gratuito",
+          "desc": "Inizia gratis",
+          "feature1": "500 crediti/mese",
+          "feature2": "1 attività contemporanea",
+          "feature3": "Estrai tutti i piatti dal menu",
+          "feature4": "Conversione valuta in tempo reale",
+          "feature5": "Pronuncia ordini"
+        },
+        "traveler": {
+          "name": "Viaggiatore",
+          "desc": "Accesso di 10 giorni, perfetto per viaggi brevi",
+          "feature1": "5.000 crediti",
+          "feature2": "2 attività contemporanee",
+          "feature3": "Estrai tutti i piatti dal menu",
+          "feature4": "Immagini HD dei piatti",
+          "feature5": "Conversione valuta in tempo reale",
+          "feature6": "Pronuncia ordini",
+          "feature7": "Supporto prioritario"
+        },
+        "starter": {
+          "name": "Starter",
+          "desc": "Per viaggiatori frequenti e studenti",
+          "feature1": "11.000 crediti/mese",
+          "feature1Yearly": "11.000 crediti/mese",
+          "feature2": "2 attività contemporanee",
+          "feature3": "Estrai tutti i piatti dal menu",
+          "feature4": "Immagini HD dei piatti",
+          "feature5": "Conversione valuta in tempo reale",
+          "feature6": "Pronuncia ordini",
+          "feature7": "Supporto prioritario"
+        },
+        "pro": {
+          "name": "Pro",
+          "desc": "Per travel blogger e buongustai",
+          "feature1": "25.000 crediti/mese",
+          "feature1Yearly": "25.000 crediti/mese",
+          "feature2": "4 attività contemporanee",
+          "feature3": "Estrai tutti i piatti dal menu",
+          "feature4": "Immagini HD dei piatti",
+          "feature5": "Conversione valuta in tempo reale",
+          "feature6": "Pronuncia ordini",
+          "feature7": "Supporto prioritario"
+        }
+      }
     },
     "name": {
       "desc": "IA per scegliere nomi cinesi adatti alla tua carriera, amici, viaggi o vita in Cina",

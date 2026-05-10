@@ -1,6 +1,11 @@
 import AppsClient from "./AppsClient";
 import { getAppsData } from "@/lib/server-data";
 import { getSEO, appsSEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
+import { LANGUAGES } from "@/lib/static-params";
+
+export function generateStaticParams() {
+  return LANGUAGES.map(lang => ({ lang }));
+}
 
 export const revalidate = false;
 
