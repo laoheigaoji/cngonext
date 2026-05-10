@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface ZodiacCalculatorProps {
@@ -52,6 +52,15 @@ const ZodiacCalculator = ({ translations }: ZodiacCalculatorProps) => {
     const [day, setDay] = useState<string>('3');
     const [result, setResult] = useState<ZodiacInfo | null>(null);
     const [showResult, setShowResult] = useState(false);
+    const [detailIndex, setDetailIndex] = useState<number | null>(null);
+    const detailRef = useRef<HTMLDivElement>(null);
+
+    // Map zodiacData animal to zodiacDetails index
+    // zodiacData order: 猴鸡狗猪鼠牛虎兔龙蛇马羊
+    // zodiacDetails order: 鼠牛虎兔龙蛇马羊猴鸡狗猪
+    const animalToDetailIndex = (animal: string): number => {
+        return zodiacDetails.findIndex(z => z.animal === animal);
+    };
 
     const calculateZodiac = () => {
         const y = parseInt(year);
@@ -69,6 +78,18 @@ const ZodiacCalculator = ({ translations }: ZodiacCalculatorProps) => {
         const diff = currentYear - baseYear;
         const cycles = Math.floor(diff / 12);
         return baseYear + (cycles + 1) * 12;
+    };
+
+    const scrollToDetail = () => {
+        if (!result) return;
+        const idx = animalToDetailIndex(result.animal);
+        if (idx >= 0) {
+            setDetailIndex(idx);
+            // Wait for state to update, then scroll
+            setTimeout(() => {
+                detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
     };
 
     return (
@@ -202,7 +223,10 @@ const ZodiacCalculator = ({ translations }: ZodiacCalculatorProps) => {
                                 </p>
                                 
                                 {/* Detail Button */}
-                                <button className="bg-green-600 text-white text-xs sm:text-sm font-medium px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-1">
+                                <button 
+                                    onClick={scrollToDetail}
+                                    className="bg-green-600 text-white text-xs sm:text-sm font-medium px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-1"
+                                >
                                     {tt('tools.zodiac.viewDetail')}
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -268,7 +292,9 @@ const ZodiacCalculator = ({ translations }: ZodiacCalculatorProps) => {
                 </div>
 
                 {/* Zodiac Detail Section */}
-                <ZodiacDetailSection tt={tt} />
+                <div ref={detailRef}>
+                    <ZodiacDetailSection tt={tt} initialIndex={detailIndex} />
+                </div>
 
                 {/* Zodiac Year Reference Table */}
                 <ZodiacYearTable tt={tt} isZh={isZh} />
@@ -319,9 +345,16 @@ const zodiacDetails: ZodiacDetail[] = [
     { animal: '猪', animalEn: 'Pig', pinyin: 'zhū', icon: '🐷', years: '1935, 1947, 1959, 1971, 1983, 1995, 2007, 2019, 2031', personality: '憨厚大方，乐观豁达', strengths: '慷慨、真诚、有福气', challenges: '轻信、过于安逸', career: '适合餐饮、酒店、艺术类工作', compatibility: '虎、兔、羊', luckyNumbers: '2, 5, 8', travelVibe: '美食之旅、温泉小镇、田园度假' },
 ];
 
-const ZodiacDetailSection = ({ tt }: { tt: (key: string) => string }) => {
-    const [selectedIndex, setSelectedIndex] = useState(7); // 默认选中马
+const ZodiacDetailSection = ({ tt, initialIndex }: { tt: (key: string) => string; initialIndex?: number | null }) => {
+    const [selectedIndex, setSelectedIndex] = useState(initialIndex ?? 7); // 默认选中马
     const selected = zodiacDetails[selectedIndex];
+
+    // Update when initialIndex changes from parent
+    React.useEffect(() => {
+        if (initialIndex !== null && initialIndex !== undefined && initialIndex >= 0) {
+            setSelectedIndex(initialIndex);
+        }
+    }, [initialIndex]);
 
     return (
         <div className="mt-10 sm:mt-12">

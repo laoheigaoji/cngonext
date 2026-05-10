@@ -28,6 +28,8 @@ export async function POST(req: NextRequest) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 60000);
 
+    const systemPrompt = getSystemPrompt(lang);
+
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -37,14 +39,11 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         model: QWEN_MODEL,
         messages: [
-          { role: 'system', content: lang === 'zh' 
-            ? '你是一位精通中国传统文化的命名大师，擅长根据五行、八字、诗词典故为人们取吉祥如意的名字。你的回复必须是纯JSON格式，不要包含任何其他文字。'
-            : 'You are a master of Chinese naming culture, skilled in creating meaningful Chinese names based on Five Elements (Wu Xing), Ba Zi, and classical poetry. You must respond ONLY with valid JSON, no other text.' 
-          },
+          { role: 'system', content: systemPrompt },
           { role: 'user', content: prompt }
         ],
         max_tokens: 4096,
-        extra_body: { enable_thinking: false },
+        enable_thinking: false,
       }),
       signal: controller.signal,
     });
@@ -70,20 +69,24 @@ export async function POST(req: NextRequest) {
   }
 }
 
-function buildPrompt(name: string, sex: string, dob: string, info: string, lang: string): string {
-  const isZh = lang === 'zh';
-  
-  const sexDesc = sex === '男' ? (isZh ? '男性' : 'male') : sex === '女' ? (isZh ? '女性' : 'female') : (isZh ? '未指定' : 'not specified');
-  const dobDesc = dob ? (isZh ? `出生日期: ${dob}` : `Date of birth: ${dob}`) : '';
-  const infoDesc = info ? (isZh ? `额外信息: ${info}` : `Additional info: ${info}`) : '';
+function getSystemPrompt(lang: string): string {
+  return `你是一位精通中国传统文化的命名大师，擅长根据五行、八字、诗词典故为人们取吉祥如意的名字。你的回复必须是纯JSON格式，不要包含任何其他文字。所有文字内容（除chinese、pinyin、wuxing.element、zodiac、zodiacEn字段外）都必须用"${lang}"语言返回。`;
+}
 
-  if (isZh) {
-    return `请为以下人生成3个优质中文名字选项，要求详细解析每个名字。
+function buildPrompt(name: string, sex: string, dob: string, info: string, lang: string): string {
+  const langName = getLangName(lang);
+  const sexDesc = sex === '男' ? '男性' : sex === '女' ? '女性' : '未指定';
+  const dobDesc = dob ? `出生日期: ${dob}` : '';
+  const infoDesc = info ? `额外信息: ${info}` : '';
+
+  return `请为以下人生成1个最优质的中文名字，要求详细解析。
 
 姓名: ${name}
 性别: ${sexDesc}
 ${dobDesc}
 ${infoDesc}
+
+注意：以下JSON中所有文字内容（除特别说明外）必须用"${langName}"语言返回。
 
 请严格按照以下JSON格式返回（不要包含任何其他文字或markdown）：
 {
@@ -94,76 +97,50 @@ ${infoDesc}
       "givenName": "名",
       "pinyin": "完整拼音（带声调，如 Zhāng Míng Yuè）",
       "wuxing": {
-        "element": "主五行（金/木/水/火/土）",
-        "explanation": "为什么这个五行适合此人"
+        "element": "主五行（金/木/水/火/土，固定用中文）",
+        "explanation": "为什么这个五行适合此人（用${langName}）"
       },
-      "zodiac": "生肖（如：龙、兔等，根据出生年份推算）",
+      "zodiac": "生肖中文名（如：龙、兔等，根据出生年份推算）",
+      "zodiacEn": "生肖英文（如：Dragon, Rabbit）",
       "luckyNumber": "幸运数字",
-      "meaning": "名字整体寓意的详细解释（50字以上）",
+      "meaning": "名字整体寓意的详细解释（100字以上，用${langName}）",
+      "cardTitle": "的中文名片（用${langName}，如英文用户返回"'s Chinese Name Card"，中文用户返回"的中式名片"，日文用户返回"の中国語名刺"等）",
+      "labels": {
+        "zodiac": "生肖标签（用${langName}，如Zodiac/生肖/干支/띠）",
+        "lucky": "幸运数字标签（用${langName}，如Lucky Number/幸运数字/ラッキーナンバー/행운의 숫자）",
+        "elements": "五行标签（用${langName}，如Five Elements/五行图/五行図/오행도）",
+        "whyFit": "为什么适合标签（用${langName}，如Why it fits you?/为什么适合你？/なぜ適していますか？/왜 적합한가요?）",
+        "nameAnalysis": "姓名解析标签（用${langName}，如Name Analysis/姓名解析/名前の分析/이름 분석）",
+        "write": "书写标签（用${langName}，如Write/书写/書く/쓰기）"
+      },
       "charAnalysis": [
         {
           "char": "名中的每个字",
           "pinyin": "该字拼音（带声调）",
-          "meaning": "该字含义",
-          "wuxing": "该字五行属性",
-          "source": "该字的出处（如出自诗经某篇、楚辞某篇等，无则填"无特定出处"）"
+          "meaning": "该字含义（用${langName}）",
+          "wuxing": "该字五行属性（金/木/水/火/土，固定用中文）",
+          "wuxingLabel": "该字五行属性的${langName}名称（如Metal/金/きん/쇠等）",
+          "source": "该字的出处（用${langName}，如出自诗经某篇等，无则填"无特定出处"）"
         }
       ],
-      "whyFit": "为什么这个名字适合此人（80字以上，结合其背景、性别、五行等综合分析）"
+      "whyFit": "为什么这个名字适合此人（150字以上，用${langName}，结合其背景、性别、五行等综合分析）"
     }
   ]
 }
 
 要求：
-1. 每个名字都要有深厚的文化底蕴，来自诗词典故或传统美德
+1. 名字要有深厚的文化底蕴，来自诗词典故或传统美德
 2. 名字要音律和谐，朗朗上口
 3. 根据出生日期推算生肖和五行，使名字与命理相合
-4. 3个名字风格要有差异（如一个古典诗意、一个大气阳刚/温婉柔美、一个简约现代）
-5. 姓氏要根据原姓名的发音或含义来匹配一个合适的中国姓氏`;
-  }
-
-  return `Generate 3 excellent Chinese name options for the following person, with detailed analysis for each name.
-
-Name: ${name}
-Gender: ${sexDesc}
-${dobDesc}
-${infoDesc}
-
-Return ONLY valid JSON in this exact format (no markdown, no other text):
-{
-  "names": [
-    {
-      "chinese": "Full Chinese name (including surname)",
-      "surname": "Surname character",
-      "givenName": "Given name characters",
-      "pinyin": "Full pinyin with tone marks (e.g., Zhāng Míng Yuè)",
-      "wuxing": {
-        "element": "Primary Wu Xing / Five Elements element (Metal/Wood/Water/Fire/Earth - use Chinese: 金/木/水/火/土)",
-        "explanation": "Why this element suits this person (in English)"
-      },
-      "zodiac": "Chinese Zodiac animal (e.g., Dragon, Rabbit - calculate from birth year)",
-      "luckyNumber": "Lucky number",
-      "meaning": "Detailed explanation of the name's overall meaning and symbolism (50+ words in English)",
-      "charAnalysis": [
-        {
-          "char": "Each character in the given name",
-          "pinyin": "Pinyin with tone marks for this character",
-          "meaning": "Meaning of this character (in English)",
-          "wuxing": "Five Elements attribute of this character (金/木/水/火/土)",
-          "source": "Classical source of this character (e.g., 'Book of Songs - Daya', 'Chu Ci - Li Sao', or 'No specific source')"
-        }
-      ],
-      "whyFit": "Why this name suits this person (80+ words, combining their background, gender, Five Elements analysis, etc. in English)"
-    }
-  ]
+4. 姓氏要根据原姓名的发音或含义来匹配一个合适的中国姓氏`;
 }
 
-Requirements:
-1. Each name should have deep cultural significance, derived from classical poetry or traditional virtues
-2. Names should be melodious and easy to pronounce
-3. Calculate the Chinese Zodiac and Five Elements from the birth date, making the name harmonize with their destiny
-4. The 3 names should have different styles (e.g., one classical poetic, one bold masculine / graceful feminine, one simple modern)
-5. Match a suitable Chinese surname based on the sound or meaning of the original name`;
+function getLangName(lang: string): string {
+  const map: Record<string, string> = {
+    zh: '中文', tw: '繁體中文', ja: '日本語', ko: '한국어',
+    fr: 'Français', es: 'Español', de: 'Deutsch', ru: 'Русский', it: 'Italiano',
+  };
+  return map[lang] || 'English';
 }
 
 function extractJSON(text: string): any {
