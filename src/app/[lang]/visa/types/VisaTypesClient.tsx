@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { X, FileText, Upload, CheckCircle, Plane, Hotel, Mail, Building2, CreditCard, Heart, User } from "lucide-react";
 
 const iconMap: Record<string, React.ReactNode> = {

@@ -112,7 +112,8 @@ export default function Navbar() {
   ];
 
   return (
-    <header 
+    <>
+      <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 flex flex-col pt-[env(safe-area-inset-top)] ${
         isScrolled ? 'bg-white/40 backdrop-blur-xl shadow-sm text-gray-800' : 'bg-transparent shadow-none text-white'
       }`}
@@ -669,8 +670,9 @@ export default function Navbar() {
           </>
         )}
       </AnimatePresence>
-    </header>
-    <EmailLoginModal isOpen={showEmailLogin} onClose={() => setShowEmailLogin(false)} />
+      </header>
+      <EmailLoginModal isOpen={showEmailLogin} onClose={() => setShowEmailLogin(false)} />
+    </>
   );
 }
 

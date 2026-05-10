@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Phone, ChevronDown, ChevronUp, FileText, Download, Camera, FileEdit, CreditCard, PenTool, ExternalLink } from 'lucide-react';
 import { Link } from '@/lib/router-compat';
 import { useVisaTranslation } from '../hooks/useVisaTranslation';
+import ChinaVisaMap from '../components/ChinaVisaMap';
 
 export default function Visa() {
   const { language, t } = useVisaTranslation();
@@ -46,35 +47,7 @@ export default function Visa() {
   return (
     <div className="w-full bg-[#f7f7f7] pb-20">
       {/* Hero Map Section */}
-      <section className="relative h-[650px] w-full bg-[#759dd1] overflow-hidden flex items-center justify-center">
-        <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/China_edcp_recolor.svg/1024px-China_edcp_recolor.svg.png" 
-          alt="Map of China" 
-          className="h-[110%] opacity-80 object-contain -translate-y-8"
-        />
-        {/* 地图叠加 */}
-        <img
-          src="https://static.tripcngo.com/ing/ditu.png"
-          alt="Map Overlay"
-          className="absolute inset-0 w-full h-full object-contain opacity-50 z-10"
-        />
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white font-bold text-3xl tracking-[0.5em] uppercase z-20">
-          China
-        </div>
-        
-        {/* Legend */}
-        <div className="absolute right-8 bottom-8 bg-white/90 backdrop-blur-sm p-4 rounded-md shadow-md text-sm text-gray-800 z-20">
-          <div className="font-bold mb-2">{t('visa.hero.legendTitle')}</div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="w-3 h-3 bg-teal-400 rounded-sm"></span>
-            <span>{t('visa.hero.legendFull')}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-3 h-3 bg-blue-300 rounded-sm"></span>
-            <span>{t('visa.hero.legendPartial')}</span>
-          </div>
-        </div>
-      </section>
+      <ChinaVisaMap t={t} />
 
       {/* Navigation Menu */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
