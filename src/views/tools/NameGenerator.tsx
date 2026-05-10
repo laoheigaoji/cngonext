@@ -283,7 +283,23 @@ function getUILabels(lang: string) {
   return UI_LABELS[lang] || fallback;
 }
 
-export default function NameGenerator({ skipHero }: { skipHero?: boolean }) {
+interface RelatedArticle {
+  id: string;
+  title: string;
+  title_en?: string;
+  title_ja?: string;
+  title_ko?: string;
+  title_tw?: string;
+  subtitle?: string;
+  subtitle_en?: string;
+  subtitle_ja?: string;
+  subtitle_ko?: string;
+  subtitle_tw?: string;
+  thumbnail?: string;
+  category?: string;
+}
+
+export default function NameGenerator({ skipHero, relatedArticles }: { skipHero?: boolean; relatedArticles?: RelatedArticle[] }) {
   const { t, language } = useLanguage();
   const labels = getUILabels(language);
   const [formData, setFormData] = useState({ name: '', sex: '男', dob: '', info: '' });
@@ -1203,24 +1219,56 @@ export default function NameGenerator({ skipHero }: { skipHero?: boolean }) {
           <section>
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-2xl font-bold text-gray-900">{t('tools.name.articleTitle')}</h2>
-              <a href="#" className="text-[#1b887a] text-sm hover:underline">{t('tools.name.articleMore')}</a>
+              <a href={`/${language === 'zh' ? 'cn' : language}/articles`} className="text-[#1b887a] text-sm hover:underline">{t('tools.name.articleMore')}</a>
             </div>
             <p className="text-gray-500 mb-8">{t('tools.name.articleDesc')}</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                { title: labels.article1Title, desc: labels.article1Desc },
-                { title: labels.article2Title, desc: labels.article2Desc },
-                { title: labels.article3Title, desc: labels.article3Desc }
-              ].map((item, i) => (
-                <div key={i} className="bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
-                  <div className="h-40 bg-gradient-to-br from-[#1b887a] to-[#2a9d8f]"></div>
-                  <div className="p-4">
-                    <h3 className="font-bold text-gray-900 text-sm mb-2 line-clamp-2">{item.title}</h3>
-                    <p className="text-xs text-gray-500 line-clamp-3 mb-3">{item.desc}</p>
-                    <a href="#" className="text-[#1b887a] text-xs hover:underline">{t('tools.name.articleMoreLink')}</a>
-                  </div>
-                </div>
-              ))}
+              {(relatedArticles && relatedArticles.length > 0 ? relatedArticles.slice(0, 3) : [
+                { id: '', title: labels.article1Title, subtitle: labels.article1Desc },
+                { id: '', title: labels.article2Title, subtitle: labels.article2Desc },
+                { id: '', title: labels.article3Title, subtitle: labels.article3Desc }
+              ]).map((item, i) => {
+                const langPrefix = language === 'zh' ? 'cn' : language;
+                // Get i18n title/subtitle
+                const displayTitle = language === 'zh' ? item.title
+                  : language === 'tw' ? (item.title_tw || item.title)
+                  : language === 'ja' ? (item.title_ja || item.title)
+                  : language === 'ko' ? (item.title_ko || item.title)
+                  : (item.title_en || item.title);
+                const displaySubtitle = language === 'zh' ? (item.subtitle || '')
+                  : language === 'tw' ? (item.subtitle_tw || item.subtitle || '')
+                  : language === 'ja' ? (item.subtitle_ja || item.subtitle || '')
+                  : language === 'ko' ? (item.subtitle_ko || item.subtitle || '')
+                  : (item.subtitle_en || item.subtitle || '');
+
+                return (
+                  <a
+                    key={i}
+                    href={item.id ? `/${langPrefix}/articles/${item.id}` : '#'}
+                    className="bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md transition-shadow block group"
+                  >
+                    <div className="h-40 overflow-hidden">
+                      {item.thumbnail ? (
+                        <img
+                          src={item.thumbnail}
+                          alt={displayTitle}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-[#1b887a] to-[#2a9d8f]"></div>
+                      )}
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-bold text-gray-900 text-sm mb-2 line-clamp-2 group-hover:text-[#1b887a] transition-colors">{displayTitle}</h3>
+                      {displaySubtitle && (
+                        <p className="text-xs text-gray-500 line-clamp-3 mb-3">{displaySubtitle}</p>
+                      )}
+                      <span className="text-[#1b887a] text-xs">{t('tools.name.articleMoreLink')}</span>
+                    </div>
+                  </a>
+                );
+              })}
             </div>
           </section>
         </div>

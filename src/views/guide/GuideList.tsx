@@ -32,8 +32,21 @@ const CATEGORIES = [
 export default function GuideList({ initialData, skipHero }: { initialData?: any[]; skipHero?: boolean }) {
   const { language, t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('All');
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(true);
+  const allArticlesRef = React.useRef<Article[]>([]);
+  const [articles, setArticles] = useState<Article[]>(() => {
+    if (initialData && initialData.length > 0) {
+      const mapped = initialData.map((docData: any) => ({
+        ...docData,
+        _id: docData.id,
+        views: docData.views || 0,
+        likes: docData.likes || 0
+      })) as Article[];
+      allArticlesRef.current = mapped;
+      return mapped;
+    }
+    return [];
+  });
+  const [loading, setLoading] = useState(!initialData || initialData.length === 0);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 6;
   const langPrefix = language === 'zh' ? 'cn' : language;
@@ -42,24 +55,29 @@ export default function GuideList({ initialData, skipHero }: { initialData?: any
   const getI18n = (item: any, baseField: string) => {
     if (!item) return '';
     
-    // 中文：直接返回 baseField（如 title, subtitle）
     if (language === 'zh') {
       return item[baseField] || item.title || item.subtitle || '';
     }
     
-    // 蛇形命名格式（如 title_ko, title_tw）和驼峰格式（如 titleKo, titleTw）
     const snakeFieldName = `${baseField}_${language}`;
     const camelFieldName = `${baseField}${language.charAt(0).toUpperCase() + language.slice(1)}`;
     
     return item[snakeFieldName] || item[camelFieldName] || item[`${baseField}En`] || item[`${baseField}_en`] || '';
   };
 
+  // 切换分类时直接从内存过滤，无需网络请求
   useEffect(() => {
-    if (initialData && activeCategory === 'All') {
-      setArticles(initialData);
-      setLoading(false);
+    const allArticles = allArticlesRef.current;
+    if (allArticles.length > 0) {
+      if (activeCategory === 'All') {
+        setArticles(allArticles);
+      } else {
+        setArticles(allArticles.filter(a => a.category === activeCategory));
+      }
+      setCurrentPage(1);
       return;
     }
+    // 只有在没有 initialData 时才走客户端请求
     const fetchArticles = async () => {
       setLoading(true);
       try {
@@ -92,13 +110,171 @@ export default function GuideList({ initialData, skipHero }: { initialData?: any
     fetchArticles();
   }, [activeCategory]);
 
+  // SSR 模式下：点击 SSR 分类按钮时同步到客户端状态
+  useEffect(() => {
+    if (!skipHero) return;
+    const handleClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('[data-category]');
+      if (target) {
+        const cat = target.getAttribute('data-category');
+        if (cat) setActiveCategory(cat);
+      }
+    };
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, [skipHero]);
+
+  // 更新 SSR 分类菜单的 active 状态
+  useEffect(() => {
+    if (!skipHero) return;
+    const buttons = document.querySelectorAll('[data-category]');
+    buttons.forEach(btn => {
+      const cat = btn.getAttribute('data-category');
+      if (cat === activeCategory) {
+        btn.classList.add('bg-[#1b887a]', 'text-white', 'shadow-md');
+        btn.classList.remove('hover:bg-gray-50', 'text-gray-700');
+        const badge = btn.querySelector('.rounded-full');
+        if (badge) {
+          badge.classList.add('bg-white/20');
+          badge.classList.remove('bg-gray-100', 'text-gray-500');
+        }
+      } else {
+        btn.classList.remove('bg-[#1b887a]', 'text-white', 'shadow-md');
+        btn.classList.add('hover:bg-gray-50', 'text-gray-700');
+        const badge = btn.querySelector('.rounded-full');
+        if (badge) {
+          badge.classList.remove('bg-white/20');
+          badge.classList.add('bg-gray-100', 'text-gray-500');
+        }
+      }
+    });
+  }, [activeCategory, skipHero]);
+
   const totalPages = Math.ceil(articles.length / articlesPerPage);
   const currentArticles = articles.slice((currentPage - 1) * articlesPerPage, currentPage * articlesPerPage);
 
-  const content = (
-    <>
-{/* Hero Header - skipped when rendered by SSR ArticlesHero component */}
-{!skipHero && (
+  // 文章列表部分（SSR 和独立页面共用）
+  const articleList = (
+    <div className="flex-1 space-y-6">
+      {loading ? (
+        <div className="space-y-6">
+          {[1,2,3].map(i => (
+            <div key={i} className="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row h-[220px] animate-pulse">
+              <div className="md:w-[340px] h-full bg-gray-200" />
+              <div className="flex-1 p-8 space-y-4">
+                <div className="h-4 bg-gray-200 rounded w-1/4" />
+                <div className="h-8 bg-gray-200 rounded w-3/4" />
+                <div className="h-4 bg-gray-200 rounded w-full" />
+                <div className="h-4 bg-gray-200 rounded w-full" />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : currentArticles.length > 0 ? (
+        currentArticles.map((article) => (
+          <Link 
+            key={article._id} 
+            to={`/${langPrefix}/articles/${article._id}`}
+            className="block group"
+          >
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-gray-100 flex flex-col md:flex-row"
+            >
+              {/* Thumbnail */}
+              <div className="md:w-[340px] h-[220px] shrink-0 relative overflow-hidden">
+                <img 
+                  src={article.thumbnail || "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&q=80&w=800"} 
+                  alt={article.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              
+              {/* Content */}
+              <div className="flex-1 p-8 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                     <span className="px-2 py-0.5 bg-[#1b887a]/10 text-[#1b887a] text-[10px] font-bold rounded uppercase tracking-wider">
+                        {CATEGORIES.find(c => c.id === article.category)?.key ? t(CATEGORIES.find(c => c.id === article.category)!.key) : article.category}
+                     </span>
+                  </div>
+                  <h2 className="text-2xl font-black text-gray-900 group-hover:text-[#1b887a] transition-colors mb-3 leading-tight">
+                    {getI18n(article, 'title') || article.title}
+                  </h2>
+                  <p className="text-gray-500 text-sm md:text-base line-clamp-3 leading-relaxed mb-6">
+                    {getI18n(article, 'subtitle') || article.subtitle}
+                  </p>
+                </div>
+                
+                <div className="flex items-center justify-between pt-4 border-t border-gray-50">
+                  <div className="flex items-center gap-6">
+                    <div className="text-gray-400 text-xs font-medium flex items-center gap-1">
+                      {article.views || 0} {t('guide.views') || 'Views'}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-gray-400 group-hover:text-red-400 transition-colors font-bold text-xs">
+                     <Heart className={`w-3.5 h-3.5 ${article.likes && article.likes > 0 ? 'fill-red-400 text-red-400' : ''}`} />
+                     <span>{article.likes || 0} {t('guide.helpful') || 'Helpful'}</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </Link>
+        ))
+      ) : (
+        <div className="bg-white p-20 rounded-2xl text-center shadow-sm">
+           <p className="text-gray-400 font-bold">{t('guide.noArticles')}</p>
+        </div>
+      )}
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="pt-10 flex justify-center gap-2">
+           {Array.from({ length: totalPages }).map((_, i) => {
+             const p = i + 1;
+             return (
+               <button 
+                key={p} 
+                onClick={() => {
+                  setCurrentPage(p);
+                  window.scrollTo({ top: 300, behavior: 'smooth' });
+                }}
+                className={`w-10 h-10 rounded-lg flex items-center justify-center font-bold text-sm transition-all ${
+                  p === currentPage ? 'bg-[#1b887a] text-white shadow-md' : 'bg-white text-gray-600 hover:bg-gray-100'
+                }`}
+               >
+                 {p}
+               </button>
+             );
+           })}
+           <button 
+            onClick={() => {
+              if (currentPage < totalPages) {
+                setCurrentPage(prev => prev + 1);
+                window.scrollTo({ top: 300, behavior: 'smooth' });
+              }
+            }}
+            disabled={currentPage === totalPages}
+            className="w-10 h-10 rounded-lg bg-white text-gray-600 flex items-center justify-center hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+              <ChevronRight className="w-4 h-4" />
+           </button>
+        </div>
+      )}
+    </div>
+  );
+
+  // SSR 模式（skipHero）：只渲染文章列表，Hero 和菜单已在 SSR 中渲染
+  if (skipHero) {
+    return articleList;
+  }
+
+  // 独立页面模式：渲染完整的 Hero + 菜单 + 列表
+  return (
+    <div className="w-full bg-[#f7f7f7]">
+      {/* Hero Header */}
       <section className="relative h-[480px] flex items-center pt-20 overflow-hidden">
         <div className="absolute inset-0">
           <img 
@@ -129,7 +305,6 @@ export default function GuideList({ initialData, skipHero }: { initialData?: any
           </motion.p>
         </div>
       </section>
-)}
 
       {/* Content Section */}
       <section className="max-w-[1400px] mx-auto px-6 py-16">
@@ -165,121 +340,9 @@ export default function GuideList({ initialData, skipHero }: { initialData?: any
              </div>
           </div>
 
-          {/* Main List */}
-          <div className="flex-1 space-y-6">
-            {loading ? (
-              <div className="space-y-6">
-                {[1,2,3].map(i => (
-                  <div key={i} className="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row h-[220px] animate-pulse">
-                    <div className="md:w-[340px] h-full bg-gray-200" />
-                    <div className="flex-1 p-8 space-y-4">
-                      <div className="h-4 bg-gray-200 rounded w-1/4" />
-                      <div className="h-8 bg-gray-200 rounded w-3/4" />
-                      <div className="h-4 bg-gray-200 rounded w-full" />
-                      <div className="h-4 bg-gray-200 rounded w-full" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : currentArticles.length > 0 ? (
-              currentArticles.map((article) => (
-                <Link 
-                  key={article._id} 
-                  to={`/${langPrefix}/articles/${article._id}`}
-                  className="block group"
-                >
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-gray-100 flex flex-col md:flex-row"
-                  >
-                    {/* Thumbnail */}
-                    <div className="md:w-[340px] h-[220px] shrink-0 relative overflow-hidden">
-                      <img 
-                        src={article.thumbnail || "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&q=80&w=800"} 
-                        alt={article.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    </div>
-                    
-                    {/* Content */}
-                    <div className="flex-1 p-8 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center gap-2 mb-2">
-                           <span className="px-2 py-0.5 bg-[#1b887a]/10 text-[#1b887a] text-[10px] font-bold rounded uppercase tracking-wider">
-                              {CATEGORIES.find(c => c.id === article.category)?.key ? t(CATEGORIES.find(c => c.id === article.category)!.key) : article.category}
-                           </span>
-                        </div>
-                        <h2 className="text-2xl font-black text-gray-900 group-hover:text-[#1b887a] transition-colors mb-3 leading-tight">
-                          {getI18n(article, 'title') || article.title}
-                        </h2>
-                        <p className="text-gray-500 text-sm md:text-base line-clamp-3 leading-relaxed mb-6">
-                          {getI18n(article, 'subtitle') || article.subtitle}
-                        </p>
-                      </div>
-                      
-                      <div className="flex items-center justify-between pt-4 border-t border-gray-50">
-                        <div className="flex items-center gap-6">
-                          <div className="text-gray-400 text-xs font-medium flex items-center gap-1">
-                            {article.views || 0} {t('guide.views') || 'Views'}
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-1.5 text-gray-400 group-hover:text-red-400 transition-colors font-bold text-xs">
-                           <Heart className={`w-3.5 h-3.5 ${article.likes && article.likes > 0 ? 'fill-red-400 text-red-400' : ''}`} />
-                           <span>{article.likes || 0} {t('guide.helpful') || 'Helpful'}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </Link>
-              ))
-            ) : (
-              <div className="bg-white p-20 rounded-2xl text-center shadow-sm">
-                 <p className="text-gray-400 font-bold">{t('guide.noArticles')}</p>
-              </div>
-            )}
-
-            {/* Pagination Placeholder */}
-            {totalPages > 1 && (
-              <div className="pt-10 flex justify-center gap-2">
-                 {Array.from({ length: totalPages }).map((_, i) => {
-                   const p = i + 1;
-                   return (
-                     <button 
-                      key={p} 
-                      onClick={() => {
-                        setCurrentPage(p);
-                        window.scrollTo({ top: 300, behavior: 'smooth' });
-                      }}
-                      className={`w-10 h-10 rounded-lg flex items-center justify-center font-bold text-sm transition-all ${
-                        p === currentPage ? 'bg-[#1b887a] text-white shadow-md' : 'bg-white text-gray-600 hover:bg-gray-100'
-                      }`}
-                     >
-                       {p}
-                     </button>
-                   );
-                 })}
-                 <button 
-                  onClick={() => {
-                    if (currentPage < totalPages) {
-                      setCurrentPage(prev => prev + 1);
-                      window.scrollTo({ top: 300, behavior: 'smooth' });
-                    }
-                  }}
-                  disabled={currentPage === totalPages}
-                  className="w-10 h-10 rounded-lg bg-white text-gray-600 flex items-center justify-center hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                    <ChevronRight className="w-4 h-4" />
-                 </button>
-              </div>
-            )}
-          </div>
+          {articleList}
         </div>
       </section>
-    </>
+    </div>
   );
-
-  if (skipHero) return content;
-  return <div className="w-full bg-[#f7f7f7]">{content}</div>;
 }

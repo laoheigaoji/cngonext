@@ -2,6 +2,7 @@ import NameGenerator from "@/app-views/tools/NameGenerator";
 import NameGenHero from "@/components/NameGenHero";
 import { getHreflangAlternates, baseUrl, getSEO, nameGeneratorSEO, defaultOgImage } from "@/lib/seo-config";
 import { getServerTranslations } from "@/lib/server-i18n";
+import { getNameRelatedArticles } from "@/lib/server-data";
 
 export const revalidate = false;
 
@@ -41,6 +42,9 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
     'tools.name.subtitle',
   ]);
 
+  // Fetch related articles from database (non-blocking)
+  const relatedArticles = await getNameRelatedArticles();
+
   return (
     <>
       {/* Hero - SSR, no JS dependency, instant */}
@@ -50,7 +54,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
       />
 
       {/* Client-side interactive tool */}
-      <NameGenerator skipHero />
+      <NameGenerator skipHero relatedArticles={relatedArticles} />
     </>
   );
 }

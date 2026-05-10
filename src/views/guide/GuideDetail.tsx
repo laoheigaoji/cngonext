@@ -34,7 +34,7 @@ interface Article {
   createdAt: string;
 }
 
-export default function GuideDetail({ initialData, ssrContentRendered }: { initialData?: any; ssrContentRendered?: boolean }) {
+export default function GuideDetail({ initialData, ssrContentRendered, ssrArticleContent }: { initialData?: any; ssrContentRendered?: boolean; ssrArticleContent?: string }) {
   const { id } = useParams();
   const { language, t } = useLanguage();
   const langField = language === 'zh' ? '' : `_${language}`;
@@ -297,149 +297,73 @@ export default function GuideDetail({ initialData, ssrContentRendered }: { initi
     generateCaptcha();
   }, [id]);
 
+  // 非阻塞加载次要数据（推荐文章、推荐城市、上下篇、浏览量递增）
+  const loadSecondaryData = async () => {
+    const results = await Promise.allSettled([
+      supabase.from('cities').select('id, name, enName, listCover, heroImage, stats').limit(5),
+      supabase.from('articles').select('*').neq('id', id).limit(10),
+      supabase.from('articles').select('id, title, titleEn, thumbnail, createdAt').order('createdAt', { ascending: false }),
+      initialData ? supabase.from('articles').update({ views: (initialData.views || 0) + 1 }).eq('id', id) : Promise.resolve({ error: null }),
+    ]);
+
+    // 推荐城市
+    const citiesResult = results[0];
+    if (citiesResult.status === 'fulfilled' && !citiesResult.value.error && citiesResult.value.data) {
+      setRecommendedCities(citiesResult.value.data);
+    }
+
+    // 推荐文章
+    const recResult = results[1];
+    if (recResult.status === 'fulfilled' && !recResult.value.error && recResult.value.data) {
+      const mapped = recResult.value.data.map((d: any) => ({
+        _id: d.id, ...d, createdAt: d.createdAt || new Date().toISOString()
+      })) as Article[];
+      setRecommendedArticles(mapped.sort(() => 0.5 - Math.random()).slice(0, 3));
+    }
+
+    // 上下篇
+    const allDocsResult = results[2];
+    if (allDocsResult.status === 'fulfilled' && !allDocsResult.value.error && allDocsResult.value.data) {
+      const currentIndex = allDocsResult.value.data.findIndex((a: any) => a.id === id);
+      if (currentIndex !== -1) {
+        const prev = allDocsResult.value.data[currentIndex - 1];
+        const next = allDocsResult.value.data[currentIndex + 1];
+        setPrevArticle(prev ? ({ _id: prev.id, ...prev } as any) : null);
+        setNextArticle(next ? ({ _id: next.id, ...next } as any) : null);
+      }
+    }
+  };
+
   useEffect(() => {
+    if (!id) return;
+
+    // 有 initialData 时：主文章已就绪，直接非阻塞加载次要数据
+    if (initialData) {
+      loadSecondaryData();
+      fetchComments();
+      return;
+    }
+
+    // 无 initialData 时：客户端加载主文章
     const fetchArticle = async () => {
       setLoading(true);
       setError(null);
       try {
-        if (!id) return;
-
-        // If we have initialData from SSR, skip the main article fetch
-        if (initialData) {
-          setLoading(false);
-          // Still fetch secondary data (recommendations, prev/next, comments)
-          Promise.all([
-            (async () => {
-              try {
-                const { data: citiesData, error: citiesError } = await supabase
-                  .from('cities')
-                  .select('id, name, enName, listCover, heroImage, stats')
-                  .limit(5);
-                if (!citiesError && citiesData) {
-                  setRecommendedCities(citiesData);
-                }
-              } catch (e) {
-                console.error('Failed to fetch cities for recommendation', e);
-              }
-            })(),
-            (async () => {
-              try {
-                const { data: recData, error: recError } = await supabase
-                  .from('articles')
-                  .select('*')
-                  .neq('id', id)
-                  .limit(10);
-                if (!recError && recData) {
-                  const mapped = recData.map(d => ({
-                    _id: d.id,
-                    ...d,
-                    createdAt: d.createdAt || new Date().toISOString()
-                  })) as Article[];
-                  setRecommendedArticles(mapped.sort(() => 0.5 - Math.random()).slice(0, 3));
-                }
-                const { data: allDocs, error: allDocsError } = await supabase
-                  .from('articles')
-                  .select('id, title, titleEn, thumbnail, createdAt')
-                  .order('createdAt', { ascending: false });
-                if (!allDocsError && allDocs) {
-                  const currentIndex = allDocs.findIndex(a => a.id === id);
-                  if (currentIndex !== -1) {
-                    const prev = allDocs[currentIndex - 1];
-                    const next = allDocs[currentIndex + 1];
-                    setPrevArticle(prev ? ({ _id: prev.id, ...prev } as any) : null);
-                    setNextArticle(next ? ({ _id: next.id, ...next } as any) : null);
-                  }
-                }
-              } catch (e) {
-                console.error('Failed to fetch other articles', e);
-              }
-            })(),
-          ]);
-          return;
-        }
-
         const { data, error } = await supabase.from('articles').select('*').eq('id', id).single();
         
         if (!error && data) {
-          const loadedArticle = {
+          setArticle({
             _id: data.id,
             ...data,
             views: (data.views || 0) + 1,
             likes: data.likes || 0,
             createdAt: data.createdAt || new Date().toISOString()
-          } as Article;
-
-          setArticle(loadedArticle);
+          } as Article);
           setLoading(false);
           if (typeof window !== 'undefined') window.scrollTo(0, 0);
 
-          // Non-blocking secondary fetches
-          Promise.all([
-            // Fetch Recommended Cities
-            (async () => {
-              try {
-                const { data: citiesData, error: citiesError } = await supabase
-                  .from('cities')
-                  .select('id, name, enName, listCover, heroImage, stats')
-                  .limit(5);
-                if (!citiesError && citiesData) {
-                  setRecommendedCities(citiesData);
-                }
-              } catch (e) {
-                console.error('Failed to fetch cities for recommendation', e);
-              }
-            })(),
-
-            // Fetch Prev/Next and Recommended Articles
-            (async () => {
-              try {
-                // Fetch recommended (excluding current)
-                const { data: recData, error: recError } = await supabase
-                  .from('articles')
-                  .select('*')
-                  .neq('id', id)
-                  .limit(10);
-                
-                if (!recError && recData) {
-                  const mapped = recData.map(d => ({
-                    _id: d.id,
-                    ...d,
-                    createdAt: d.createdAt || new Date().toISOString()
-                  })) as Article[];
-                  setRecommendedArticles(mapped.sort(() => 0.5 - Math.random()).slice(0, 3));
-                }
-
-                // Fetch all to find prev/next (this could be optimized further with indexed queries)
-                const { data: allDocs, error: allDocsError } = await supabase
-                  .from('articles')
-                  .select('id, title, titleEn, thumbnail, createdAt')
-                  .order('createdAt', { ascending: false });
-
-                if (!allDocsError && allDocs) {
-                  const currentIndex = allDocs.findIndex(a => a.id === id);
-                  if (currentIndex !== -1) {
-                    const prev = allDocs[currentIndex - 1];
-                    const next = allDocs[currentIndex + 1];
-                    setPrevArticle(prev ? ({ _id: prev.id, ...prev } as any) : null);
-                    setNextArticle(next ? ({ _id: next.id, ...next } as any) : null);
-                  }
-                }
-              } catch (e) {
-                console.error('Failed to fetch other articles', e);
-              }
-            })(),
-
-            // Increment Views
-            (async () => {
-              try {
-                await supabase.from('articles').update({
-                  views: (data.views || 0) + 1
-                }).eq('id', id);
-              } catch (e) {
-                console.error('Failed to increment views', e);
-              }
-            })()
-          ]);
+          // 非阻塞加载次要数据
+          loadSecondaryData();
         } else {
           setError(error?.message || "Article Not Found");
           setLoading(false);
@@ -450,11 +374,9 @@ export default function GuideDetail({ initialData, ssrContentRendered }: { initi
         setLoading(false);
       }
     };
-    if (id) {
-      fetchArticle();
-      fetchComments();
-    }
-  }, [id]); // 只在 id 变化时重新获取
+    fetchArticle();
+    fetchComments();
+  }, [id]);
 
   const handleLike = async () => {
     if (!article || !id) return;
@@ -506,20 +428,29 @@ export default function GuideDetail({ initialData, ssrContentRendered }: { initi
   if (ssrContentRendered && article) {
     return (
       <>
-        {/* Useful Section */}
-        <div className="mt-20 pt-12 border-t border-gray-100 flex flex-col items-center">
-           <button 
-              onClick={handleLike}
-              className="group flex flex-col items-center gap-2"
-            >
-              <div className="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-[#1b887a] group-hover:bg-[#1b887a]/5 transition-all text-gray-300 group-hover:text-[#1b887a]">
-                <ThumbsUp className={`w-6 h-6 ${article.likes && article.likes > 0 ? 'fill-[#1b887a] text-[#1b887a]' : ''}`} />
-              </div>
-              <span className="text-xs font-bold text-gray-400 group-hover:text-[#1b887a] transition-colors">
-                {article.likes || 0} {t('guide.helpful')}
-              </span>
-           </button>
-        </div>
+        {/* Left content column */}
+        <div className="flex-1 min-w-0">
+          {/* SSR Article Content */}
+          {ssrArticleContent && (
+            <article className="markdown-body prose prose-lg max-w-none">
+              <div dangerouslySetInnerHTML={{ __html: ssrArticleContent }} />
+            </article>
+          )}
+
+          {/* Useful Section */}
+          <div className="mt-20 pt-12 border-t border-gray-100 flex flex-col items-center">
+             <button 
+                onClick={handleLike}
+                className="group flex flex-col items-center gap-2"
+              >
+                <div className="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-[#1b887a] group-hover:bg-[#1b887a]/5 transition-all text-gray-300 group-hover:text-[#1b887a]">
+                  <ThumbsUp className={`w-6 h-6 ${article.likes && article.likes > 0 ? 'fill-[#1b887a] text-[#1b887a]' : ''}`} />
+                </div>
+                <span className="text-xs font-bold text-gray-400 group-hover:text-[#1b887a] transition-colors">
+                  {article.likes || 0} {t('guide.helpful')}
+                </span>
+             </button>
+          </div>
 
         {/* Comments Section */}
         <div className="mt-16 pt-12 border-t border-gray-100">
@@ -795,6 +726,8 @@ export default function GuideDetail({ initialData, ssrContentRendered }: { initi
             ) : <div />}
           </div>
         )}
+
+        </div>{/* End flex-1 left content column */}
 
         {/* Right Sidebar */}
         <div className="w-full lg:w-[320px] shrink-0 mt-12 lg:mt-0">

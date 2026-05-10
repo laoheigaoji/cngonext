@@ -2,6 +2,7 @@ import ArticleDetailClient from "./ArticleDetailClient";
 import { getHreflangAlternates, baseUrl, getSEO, articlesSEO, generateArticleJsonLd, defaultOgImage } from "@/lib/seo-config";
 import { getArticleData } from "@/lib/server-data";
 import { getServerTranslation } from "@/lib/server-i18n";
+import { marked } from "marked";
 
 export const revalidate = false;
 
@@ -175,19 +176,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
 
         {/* Main Content Area - Server Rendered article body for SEO */}
         <section className="max-w-[1240px] mx-auto px-6 py-12 flex flex-col lg:flex-row gap-16">
-          <div className="flex-1 min-w-0">
-            {/* Article Body - Server Rendered */}
-            <article className="markdown-body prose prose-lg max-w-none">
-              {displayContent ? (
-                <div dangerouslySetInnerHTML={{ __html: displayContent }} />
-              ) : (
-                <p className="text-gray-400">Loading content...</p>
-              )}
-            </article>
-
-            {/* Client-side interactive parts (likes, comments, prev/next, sidebar) */}
-            <ArticleDetailClient initialData={articleData} ssrContentRendered={true} />
-          </div>
+            <ArticleDetailClient initialData={articleData} ssrContentRendered={true} ssrArticleContent={displayContent ? marked.parse(displayContent) as string : ''} />
         </section>
       </div>
     </>

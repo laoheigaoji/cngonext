@@ -171,6 +171,17 @@ export async function getGuidePageData(language: string = 'zh') {
   return result;
 }
 
+// Related articles for name generator tool
+export async function getNameRelatedArticles() {
+  const data = await fetchFromSupabase('articles', 'select=id,title,title_en,title_ja,title_ko,title_tw,subtitle,subtitle_en,subtitle_ja,subtitle_ko,thumbnail,category&order=createdAt.desc');
+  if (!data) return [];
+  // Filter articles related to Chinese names / naming
+  const keywords = ['姓名', '姓氏', '取名', '命名', '复姓', '中文名', '名字', 'surname', 'nickname', 'Chinese name'];
+  return data.filter((a: any) =>
+    keywords.some(k => (a.title || '').includes(k) || (a.title_en || '').toLowerCase().includes(k))
+  ).slice(0, 6);
+}
+
 // Translations data
 export async function getTranslations(language: string, categories: string[]) {
   const categoryFilter = categories.map(c => `category.eq.${c}`).join(',');
