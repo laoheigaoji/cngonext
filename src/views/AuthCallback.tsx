@@ -30,10 +30,28 @@ export default function AuthCallback() {
 
   useEffect(() => {
     const handleAuth = async () => {
+      let redirected = false;
+
+      const doRedirect = (path: string) => {
+        if (redirected) return;
+        redirected = true;
+        setStatus('Login successful! Redirecting...');
+        console.log("[AuthCallback] Redirecting to:", path);
+        setTimeout(() => {
+          window.location.replace(path);
+        }, 500);
+      };
+
       try {
         const hash = window.location.hash;
         const search = window.location.search;
+        const fullUrl = window.location.href;
 
+        console.log("[AuthCallback] Full URL:", fullUrl);
+        console.log("[AuthCallback] Hash:", hash);
+        console.log("[AuthCallback] Search:", search);
+
+        // 1. Implicit flow: tokens in hash fragment
         if (hash && hash.includes("access_token=")) {
           const params = new URLSearchParams(hash.substring(1));
           const accessToken = params.get("access_token");
@@ -44,44 +62,60 @@ export default function AuthCallback() {
               refresh_token: refreshToken,
             });
           }
-        } else if (search && search.includes("code=")) {
-          await supabase.auth.exchangeCodeForSession(window.location.href);
         }
 
-        const { data: { session } } = await supabase.auth.getSession();
+        // 2. PKCE flow: code in URL search params or hash
+        const urlParams = new URLSearchParams(search);
+        const hashParams = hash ? new URLSearchParams(hash.substring(1)) : new URLSearchParams();
+        const code = urlParams.get("code") || hashParams.get("code");
+        if (code) {
+          console.log("[AuthCallback] Found PKCE code, exchanging...");
+          try {
+            await supabase.auth.exchangeCodeForSession(fullUrl);
+          } catch (e) {
+            console.error("[AuthCallback] exchangeCodeForSession error:", e);
+          }
+        }
 
-        if (session) {
-          setStatus('Login successful! Redirecting...');
-          const redirectPath = getRedirectPath();
-          setTimeout(() => {
-            window.location.replace(redirectPath);
-          }, 500);
-        } else {
-          const { data: { subscription } } = supabase.auth.onAuthStateChange(
-            (event, session) => {
-              if (event === 'SIGNED_IN' || session) {
-                setStatus('Login successful! Redirecting...');
-                const redirectPath = getRedirectPath();
-                setTimeout(() => {
-                  window.location.replace(redirectPath);
-                }, 500);
-                subscription.unsubscribe();
-              }
+        // 3. Clean up hash from URL
+        if (hash && hash.length > 1) {
+          window.history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+
+        // 4. Try to get session (SDK may have auto-detected from URL)
+        for (let i = 0; i < 10; i++) {
+          const { data: { session } } = await supabase.auth.getSession();
+          console.log(`[AuthCallback] getSession attempt ${i + 1}:`, session ? "found" : "not found");
+          if (session) {
+            doRedirect(getRedirectPath());
+            return;
+          }
+          await new Promise(r => setTimeout(r, 500));
+        }
+
+        // 5. Fallback: listen for auth state change
+        console.log("[AuthCallback] Session not found via polling, listening for onAuthStateChange...");
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(
+          (event, session) => {
+            console.log("[AuthCallback] onAuthStateChange:", event, session ? "has session" : "no session");
+            if (event === 'SIGNED_IN' || session) {
+              doRedirect(getRedirectPath());
+              subscription.unsubscribe();
             }
-          );
+          }
+        );
 
-          setTimeout(() => {
+        // 6. Timeout fallback - still redirect even without session confirmation
+        setTimeout(() => {
+          if (!redirected) {
             subscription.unsubscribe();
-            setStatus('Login timed out. Redirecting...');
-            const redirectPath = getRedirectPath();
-            setTimeout(() => window.location.replace(redirectPath), 1000);
-          }, 10000);
-        }
+            console.log("[AuthCallback] Timed out, redirecting anyway");
+            doRedirect(getRedirectPath());
+          }
+        }, 8000);
       } catch (err) {
-        console.error('Auth callback error:', err);
-        setStatus('Login failed. Redirecting...');
-        const redirectPath = getRedirectPath();
-        setTimeout(() => window.location.replace(redirectPath), 2000);
+        console.error("[AuthCallback] Error:", err);
+        doRedirect(getRedirectPath());
       }
     };
 

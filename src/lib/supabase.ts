@@ -20,7 +20,13 @@ export const supabase = new Proxy({} as ReturnType<typeof createClient>, {
       return undefined;
     }
     if (!_supabase) {
-      _supabase = createClient(supabaseUrl, supabaseKey);
+      _supabase = createClient(supabaseUrl, supabaseKey, {
+        auth: {
+          flowType: 'pkce',
+          autoRefreshToken: true,
+          detectSessionInUrl: true,
+        },
+      });
     }
     const val = (_supabase as any)[prop];
     return typeof val === 'function' ? val.bind(_supabase) : val;
