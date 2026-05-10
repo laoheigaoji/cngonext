@@ -1,4 +1,4 @@
-{
+﻿{
   "nav": {
     "home": "Accueil",
     "visa": "Visa",
@@ -204,7 +204,7 @@
     "menu": {
       "desc": "Téléchargez une photo pour obtenir traduction, ingrédients et prix - commandez facilement",
       "faq": {
-        "q1": "Comment ReadMenuAI génère-t-il les images de plats?",
+        "q1": "Comment tripcngo.com génère-t-il les images de plats?",
         "a1": "Notre système IA analyse la description textuelle du menu, la cross-reference avec une vaste base de données culinaires et utilise l\\'IA générative pour vous fournir des images de plats.",
         "q2": "Puis-je l\\'utiliser pour des menus non chinois?",
         "a2": "Actuellement, nous nous concentrons principalement sur la traduction chinois-anglais, mais notre système supporte la reconnaissance de plusieurs langues majeures.",
@@ -218,16 +218,16 @@
         "a6": "Généralement, tout le processus de scan, traduction et génération d\\'images prend seulement 10-15 secondes.",
         "q7": "Ai-je besoin d\\'une connexion internet?",
         "a7": "Oui, le traitement IA et la génération d\\'images s\\'exécutent dans le cloud, donc une connexion stable est requise.",
-        "q8": "En quoi ReadMenuAI est-il différent des traducteurs standards?",
+        "q8": "En quoi tripcngo.com est-il différent des traducteurs standards?",
         "a8": "Nous allons au-delà de la traduction textuelle en 提供ant une expérience visuelle, vous permettant de voir le plat avec les conversions de prix."
       },
       "hero": {
-        "desc": "Numérisation en un clic du menu avec précision niveau DeepSeek V4. Obtenez traduction bilingue, images de plats correspondants et conversion de devise.",
+        "desc": "Numérisation en un clic du menu avec précision niveau TripCN GO AI. Obtenez traduction bilingue, images de plats correspondants et conversion de devise.",
         "title": "Convertissez le menu chinois en image"
       },
       "label": {
         "raw": "Zone de reconnaissance originale",
-        "refined": "Résultat optimisé DeepSeek"
+        "refined": "Résultat TripCN GO AI"
       },
       "placeholder": "Veuillez d\\'abord télécharger le menu",
       "upload": {
@@ -237,7 +237,13 @@
       },
       "status": {
         "reset": "Abandonner et réessayer",
-        "analyzing": "DeepSeek effectue une analyse approfondie..."
+        "analyzing": "Analyse IA en cours",
+        "step": {
+          "upload": "Envoi",
+          "detect": "Détection",
+          "analyze": "Analyse",
+          "render": "Rendu"
+        }
       },
       "feature": {
         "1": {

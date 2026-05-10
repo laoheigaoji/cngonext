@@ -210,7 +210,9 @@ export default function Home({ initialData }: { initialData?: HomeInitialData })
   );
   const [cities, setCities] = useState<any[]>(() => initialData?.cities || []);
   const [faqs, setFaqs] = useState<HomeFAQ[]>(() => initialData?.faqs || []);
-  const [loading, setLoading] = useState(() => !initialData);
+  // Separate loading states: only data-dependent sections need loading
+  const [citiesLoading, setCitiesLoading] = useState(() => !initialData?.cities?.length);
+  const [guidesLoading, setGuidesLoading] = useState(() => !initialData?.articles?.length);
   const navigate = useNavigate();
   const langPrefix = language === 'zh' ? 'cn' : language;
 
@@ -219,13 +221,13 @@ export default function Home({ initialData }: { initialData?: HomeInitialData })
     if (initialData) return;
 
     const fetchData = async () => {
-      setLoading(true);
       // Parallelize all fetches
       try {
         await Promise.all([
           // Fetch Guides
           (async () => {
             try {
+              setGuidesLoading(true);
               const { data, error } = await supabase
                 .from('articles')
                 .select('id, thumbnail, title, title_en, title_ja, title_ko, subtitle, subtitle_en, subtitle_ja, subtitle_ko, views')
@@ -251,12 +253,15 @@ export default function Home({ initialData }: { initialData?: HomeInitialData })
               setGuides(mappedData.length > 0 ? mappedData : fallbackArticles);
             } catch (err) {
               console.error("Error fetching latest guides:", err);
+            } finally {
+              setGuidesLoading(false);
             }
           })(),
 
           // Fetch Cities
           (async () => {
             try {
+              setCitiesLoading(true);
               const { data, error } = await supabase
                 .from('cities')
                 .select('*');
@@ -265,6 +270,8 @@ export default function Home({ initialData }: { initialData?: HomeInitialData })
               setCities(data || []);
             } catch (err) {
               console.error("Error fetching cities:", err);
+            } finally {
+              setCitiesLoading(false);
             }
           })(),
 
@@ -286,8 +293,6 @@ export default function Home({ initialData }: { initialData?: HomeInitialData })
         ]);
       } catch (err) {
         console.error("Global data fetch error in Home:", err);
-      } finally {
-        setLoading(false);
       }
     };
     
@@ -500,8 +505,8 @@ export default function Home({ initialData }: { initialData?: HomeInitialData })
                {t('home.cities.more')}
             </button>
           </div>
-          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ${loading ? 'animate-pulse' : ''}`}>
-            {loading ? (
+          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ${citiesLoading ? 'animate-pulse' : ''}`}>
+            {citiesLoading ? (
               [...Array(6)].map((_, i) => (
                   <div key={i} className="bg-white rounded-xl border border-gray-100 overflow-hidden h-[300px] flex flex-col shadow-sm">
                     <div className="bg-gray-200 h-[220px] w-full" />
@@ -553,8 +558,8 @@ export default function Home({ initialData }: { initialData?: HomeInitialData })
              {t('home.guides.more')}
           </button>
         </div>
-        <div className={`grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-8 ${loading ? 'animate-pulse' : ''}`}>
-          {loading ? (
+        <div className={`grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-8 ${guidesLoading ? 'animate-pulse' : ''}`}>
+          {guidesLoading ? (
              [...Array(4)].map((_, i) => (
                <div key={i} className="flex flex-col sm:flex-row gap-5 bg-transparent">
                  <div className="w-full sm:w-[200px] h-[140px] bg-gray-200 rounded-md shadow-sm flex-shrink-0" />

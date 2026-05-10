@@ -1,4 +1,4 @@
-{
+﻿{
   "nav": {
     "home": "Home",
     "visa": "Visto",
@@ -138,7 +138,7 @@
     "menu": {
       "desc": "Carica una foto per ottenere traduzione, ingredienti e prezzi - ordina facilmente",
       "faq": {
-        "q1": "Come ReadMenuAI genera le immagini dei piatti?",
+        "q1": "Come tripcngo.com genera le immagini dei piatti?",
         "a1": "Il nostro sistema IA analizza la descrizione testuale dal menu, la confronta con un vasto database culinario e usa l\\'IA generativa per fornirti immagini di piatti corrispondenti.",
         "q2": "Posso usarlo per menu non cinesi?",
         "a2": "Attualmente ci concentriamo principalmente sulla traduzione cinese-inglese, ma il nostro sistema supporta il riconoscimento per diverse lingue principali.",
@@ -152,16 +152,16 @@
         "a6": "Generalmente, l\\'intero processo di scansione, traduzione e generazione di immagini richiede solo 10-15 secondi.",
         "q7": "Ho bisogno di una connessione internet?",
         "a7": "Sì, l\\'elaborazione IA e la generazione di immagini vengono eseguite nel cloud, quindi è necessaria una connessione stabile.",
-        "q8": "In cosa differisce ReadMenuAI dai traduttori standard?",
+        "q8": "In cosa differisce tripcngo.com dai traduttori standard?",
         "a8": "Andiamo oltre la traduzione del testo fornendo un\\'esperienza visiva, permettendoti di vedere come appare il piatto insieme alle conversioni di prezzo."
       },
       "hero": {
-        "desc": "Scansione con un clic del menu con precisione a livello DeepSeek V4. Ottieni traduzione bilingue, immagini di piatti corrispondenti e conversione valuta.",
+        "desc": "Scansione con un clic del menu con precisione TripCN GO AI. Ottieni traduzione bilingue, immagini di piatti corrispondenti e conversione valuta.",
         "title": "Converti il menu cinese in immagine"
       },
       "label": {
         "raw": "Zona di riconoscimento originale",
-        "refined": "Risultato ottimizzato DeepSeek"
+        "refined": "Risultato TripCN GO AI"
       },
       "placeholder": "Per favore carica prima il menu",
       "upload": {
@@ -171,7 +171,13 @@
       },
       "status": {
         "reset": "Abbandona e riprova",
-        "analyzing": "DeepSeek sta effettuando un\\'analisi approfondita..."
+        "analyzing": "Analisi IA in corso",
+        "step": {
+          "upload": "Carica",
+          "detect": "Rileva",
+          "analyze": "Analizza",
+          "render": "Rendering"
+        }
       },
       "feature": {
         "1": {

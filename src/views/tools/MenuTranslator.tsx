@@ -9,6 +9,7 @@ const MenuTranslator = () => {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
     const [isAnalyzing, setIsAnalyzing] = useState(false);
+    const [analysisStep, setAnalysisStep] = useState(0); // 0=idle, 1=uploading, 2=detecting, 3=analyzing, 4=rendering
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
     const [analysisResult, setAnalysisResult] = useState<any[]>([]);
     const [streamingText, setStreamingText] = useState('');
@@ -35,9 +36,11 @@ const MenuTranslator = () => {
     }, [uploadedImage]);
 
     // Crop dish region from original menu image using AI-returned bbox coordinates
+    // bbox format: [x1, y1, x2, y2] absolute pixel coordinates of dish photo area
     const cropDishFromMenu = (item: any): string | null => {
         const bbox: number[] | null = item.bbox;
         if (!menuImgRef.current || !bbox || bbox.length !== 4 || bbox.some(v => v == null || v < 0)) return null;
+        if (bbox[2] <= bbox[0] || bbox[3] <= bbox[1]) return null;
         try {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
@@ -45,15 +48,17 @@ const MenuTranslator = () => {
             const img = menuImgRef.current;
             const natW = img.naturalWidth;
             const natH = img.naturalHeight;
-            const [rx, ry, rw, rh] = bbox;
-            // Convert normalized coords to pixel coords with small padding
-            const pad = 0.01;
-            const sx = Math.max(0, (rx - pad) * natW);
-            const sy = Math.max(0, (ry - pad) * natH);
-            const sw = Math.min((rw + pad * 2) * natW, natW - sx);
-            const sh = Math.min((rh + pad * 2) * natH, natH - sy);
+            const [x1, y1, x2, y2] = bbox;
+            // Add small padding (3% of region size)
+            const padX = Math.max(2, (x2 - x1) * 0.03);
+            const padY = Math.max(2, (y2 - y1) * 0.03);
+            const sx = Math.max(0, x1 - padX);
+            const sy = Math.max(0, y1 - padY);
+            const sw = Math.min(x2 + padX - sx, natW - sx);
+            const sh = Math.min(y2 + padY - sy, natH - sy);
             if (sw < 10 || sh < 10) return null;
-            const size = 160;
+            // Output at 200px square
+            const size = 200;
             canvas.width = size;
             canvas.height = size;
             ctx.drawImage(img, sx, sy, sw, sh, 0, 0, size, size);
@@ -101,11 +106,13 @@ const MenuTranslator = () => {
         if (!file) return;
 
         setIsAnalyzing(true);
+        setAnalysisStep(1);
         setStreamingText('');
         try {
             // Compress image to reduce payload
             const base64Image = await compressImage(file);
             setUploadedImage(base64Image);
+            setAnalysisStep(2);
             
             const imageBase64 = base64Image.split(',')[1];
             
@@ -113,6 +120,7 @@ const MenuTranslator = () => {
             let lastError: any;
             for (let attempt = 0; attempt < 2; attempt++) {
                 try {
+                    setAnalysisStep(2); // Detecting photos
                     const response = await fetch('/api/menu-translate', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -127,6 +135,8 @@ const MenuTranslator = () => {
                         const errData = await response.json().catch(() => ({}));
                         throw new Error(errData.error || `API error: ${response.status}`);
                     }
+
+                    setAnalysisStep(3); // AI analyzing
 
                     // Check if response is SSE stream or regular JSON
                     const contentType = response.headers.get('content-type') || '';
@@ -152,6 +162,7 @@ const MenuTranslator = () => {
                                             accumulatedText += parsed.content;
                                             setStreamingText(accumulatedText);
                                         } else if (parsed.type === 'result') {
+                                            setAnalysisStep(4); // Rendering results
                                             setAnalysisResult(parsed.items || []);
                                             setStreamingText('');
                                         } else if (parsed.type === 'error') {
@@ -166,6 +177,7 @@ const MenuTranslator = () => {
                     } else {
                         // Regular JSON response
                         const data = await response.json();
+                        setAnalysisStep(4); // Rendering results
                         setAnalysisResult(data.items || []);
                     }
 
@@ -188,6 +200,7 @@ const MenuTranslator = () => {
             alert("识别失败，请确保图片清晰并重试。" + (error instanceof Error ? `\n${error.message}` : ''));
         } finally {
             setIsAnalyzing(false);
+            setAnalysisStep(0);
         }
     };
 
@@ -231,8 +244,8 @@ const MenuTranslator = () => {
             
             <div className="max-w-[1400px] mx-auto px-6">
                 {!uploadedImage && !isAnalyzing && (
-                    <section className="relative -mt-20 z-20 pb-8 overflow-hidden mb-6">
-                        <div className="relative z-10 max-w-xl mx-auto">
+                    <section className="pt-12 pb-8 mb-6">
+                        <div className="max-w-xl mx-auto">
                             <motion.div 
                                 initial={{ opacity: 0, y: 40 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -260,15 +273,33 @@ const MenuTranslator = () => {
                     <section className="py-12">
                         <div className="flex justify-between items-center mb-10">
                             <button 
-                                onClick={() => { setUploadedImage(null); setAnalysisResult([]); setStreamingText(''); }}
+                                onClick={() => { setUploadedImage(null); setAnalysisResult([]); setStreamingText(''); setAnalysisStep(0); }}
                                 className="flex items-center gap-2 text-gray-500 hover:text-red-500 transition-colors font-black px-6 py-3 rounded-2xl bg-white border border-gray-100 shadow-sm"
                             >
                                 <X className="w-5 h-5" /> {t('tools.menu.status.reset')}
                             </button>
                             {isAnalyzing && (
                                 <div className="flex items-center gap-3 text-purple-600 font-black bg-purple-50 px-6 py-3 rounded-2xl border border-purple-100">
-                                    <Loader2 className="w-6 h-6 animate-spin" />
-                                    <span>{t('tools.menu.status.analyzing')}</span>
+                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                    <div className="flex items-center gap-2">
+                                        {[
+                                            { step: 1, label: t('tools.menu.status.step.upload') },
+                                            { step: 2, label: t('tools.menu.status.step.detect') },
+                                            { step: 3, label: t('tools.menu.status.step.analyze') },
+                                            { step: 4, label: t('tools.menu.status.step.render') },
+                                        ].map((s, i) => (
+                                            <React.Fragment key={s.step}>
+                                                <span className={`text-xs px-2 py-0.5 rounded-full transition-all ${
+                                                    analysisStep > s.step ? 'bg-green-100 text-green-600' :
+                                                    analysisStep === s.step ? 'bg-purple-200 text-purple-700 animate-pulse' :
+                                                    'bg-gray-100 text-gray-400'
+                                                }`}>
+                                                    {analysisStep > s.step ? '✓' : s.label}
+                                                </span>
+                                                {i < 3 && <span className="text-gray-300">›</span>}
+                                            </React.Fragment>
+                                        ))}
+                                    </div>
                                 </div>
                             )}
                         </div>

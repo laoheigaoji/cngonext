@@ -108,9 +108,7 @@ export default function Navbar() {
   return (
     <header 
       className={`fixed top-0 w-full z-50 transition-all duration-300 flex flex-col pt-[env(safe-area-inset-top)] ${
-        location.pathname.includes('/tools/menu') 
-          ? 'bg-white/40 backdrop-blur-xl shadow-sm text-gray-800' 
-          : (isScrolled ? 'bg-white/40 backdrop-blur-xl shadow-sm text-gray-800' : 'bg-transparent shadow-none text-white')
+        isScrolled ? 'bg-white/40 backdrop-blur-xl shadow-sm text-gray-800' : 'bg-transparent shadow-none text-white'
       }`}
     >
       <AnimatePresence>

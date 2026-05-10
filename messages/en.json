@@ -1,4 +1,4 @@
-{
+﻿{
   "nav": {
     "home": "Home",
     "visa": "Visa",
@@ -191,7 +191,7 @@
     "menu": {
       "desc": "Upload photos to get translations, ingredients, and prices for easy ordering",
       "faq": {
-        "q1": "How does ReadMenuAI generate dish images?",
+        "q1": "How does tripcngo.com generate dish images?",
         "a1": "Our AI system analyzes the text description from the menu, cross-references it with a vast culinary database, and uses generative AI to match or create high-fidelity dish images for you.",
         "q2": "Can I use it for non-Chinese menus?",
         "a2": "Currently, we focus primarily on Chinese-to-English translation, but our system supports character recognition for multiple major languages.",
@@ -205,16 +205,16 @@
         "a6": "Typically, the entire process of scanning, translating, and image generation takes only 10-15 seconds.",
         "q7": "Do I need an internet connection?",
         "a7": "Yes, the AI processing and image generation run in the cloud, so a stable internet connection is required.",
-        "q8": "How is ReadMenuAI different from standard translators?",
+        "q8": "How is tripcngo.com different from standard translators?",
         "a8": "We go beyond text translation by providing a visual experience, allowing you to see what the dish looks like alongside currency conversions."
       },
       "hero": {
-        "desc": "One-click menu scanning with DeepSeek V4 level precision. Get bilingual translations, visual food matches, and currency conversion.",
+        "desc": "One-click menu scanning with TripCN GO AI precision. Get bilingual translations, visual food matches, and currency conversion.",
         "title": "Transform Chinese Menus into Images"
       },
       "label": {
         "raw": "Raw Recognition Area",
-        "refined": "DeepSeek Optimized Results"
+        "refined": "TripCN GO AI Results"
       },
       "placeholder": "Please upload a menu first",
       "upload": {
@@ -224,7 +224,13 @@
       },
       "status": {
         "reset": "Reset & Retry",
-        "analyzing": "DeepSeek is performing deep analysis..."
+        "analyzing": "AI Analyzing",
+        "step": {
+          "upload": "Upload",
+          "detect": "Detect",
+          "analyze": "Analyze",
+          "render": "Render"
+        }
       },
       "feature": {
         "1": {

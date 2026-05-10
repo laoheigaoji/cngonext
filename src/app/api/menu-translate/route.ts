@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const CF_ACCOUNT_ID = '0a28250e63bf217f833feabaf84a25a1';
+// Alibaba Cloud DashScope International (Singapore) endpoint
+const DASHSCOPE_BASE_URL = 'https://dashscope-intl.aliyuncs.com/compatible-mode/v1';
 
-function getApiToken(): string {
-  const codes = [99,102,117,116,95,116,109,104,110,67,118,56,87,119,77,72,80,53,74,79,75,99,111,112,120,117,49,50,98,107,54,116,85,85,113,85,113,80,70,85,80,120,117,109,79,50,101,49,100,100,50,55,49];
+function getDashScopeApiKey(): string {
+  const codes = [115,107,45,54,52,54,51,55,56,101,98,56,102,54,99,52,54,102,51,56,55,54,101,101,50,49,49,48,54,55,98,97,48,54,57];
   let result = '';
   for (let i = 0; i < codes.length; i++) {
     result += String.fromCharCode(codes[i]);
@@ -11,10 +12,46 @@ function getApiToken(): string {
   return result;
 }
 
-const VISION_MODELS = [
-  '@cf/meta/llama-4-scout-17b-16e-instruct',
-  '@cf/mistralai/mistral-small-3.1-24b-instruct',
-];
+const QWEN_MODEL = 'qwen3-vl-flash';
+
+// Step 1: Quick check if menu has dish photos
+async function checkMenuHasPhotos(image: string, mimeType: string): Promise<boolean> {
+  try {
+    const url = `${DASHSCOPE_BASE_URL}/chat/completions`;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15000);
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${getDashScopeApiKey()}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: QWEN_MODEL,
+        messages: [{
+          role: 'user',
+          content: [
+            { type: 'image_url', image_url: { url: `data:${mimeType};base64,${image}` } },
+            { type: 'text', text: 'Does this menu have dish food photos/images next to the dish names? Reply ONLY "yes" or "no".' }
+          ]
+        }],
+        max_tokens: 5,
+        extra_body: { enable_thinking: false },
+      }),
+      signal: controller.signal,
+    });
+    clearTimeout(timer);
+
+    if (!response.ok) return false;
+    const data: any = await response.json();
+    const text = (data?.choices?.[0]?.message?.content || '').toLowerCase().trim();
+    console.log(`[menu-translate] Has photos check: "${text}"`);
+    return text.includes('yes');
+  } catch {
+    return false;
+  }
+}
 
 const LANG_NAMES: Record<string, string> = {
   en: 'English', ja: 'Japanese', ko: 'Korean', ru: 'Russian',
@@ -36,68 +73,38 @@ const CURRENCY_MAP: Record<string, { code: string; symbol: string; rate: number 
 
 export async function GET() {
   try {
-    return NextResponse.json({ status: 'ok', timestamp: Date.now(), hasToken: !!getApiToken() });
+    return NextResponse.json({ status: 'ok', timestamp: Date.now(), hasToken: !!getDashScopeApiKey() });
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });
   }
 }
 
-function buildPrompt(lang: string): string {
+function buildPrompt(lang: string, hasPhotos: boolean): string {
   const targetLang = LANG_NAMES[lang] || 'English';
   const isZh = lang === 'zh';
   const isTw = lang === 'tw';
 
-  if (isZh) {
-    return `你是中国美食专家。分析这张菜单图片。
-1. 提取每道菜的中文名。
-2. 提供专业英文名(enName)。
-3. 提取价格数字，如果没有价格则设为null。
-4. 中文描述(description)和英文描述(enDescription)各一句。
-5. 中文食材(ingredients)和英文食材(enIngredients)各3-5个。
-6. 中文分类(category)和英文分类(enCategory)。
-7. 英文过敏原(allergens)，如["peanuts","shellfish","soy","gluten"]。
-8. 英文膳食标签(dietary)，如["spicy","vegetarian","vegan","halal"]。
-9. 每道菜在图片中的位置(bbox)，格式为[x,y,width,height]，所有值为0-1之间的归一化比例（x=左边缘比例,y=上边缘比例,width=区域宽度比例,height=区域高度比例）。如果无法确定位置，设为null。
+  const bboxInstruction = hasPhotos
+    ? ', bbox(absolute pixel coordinates [x1,y1,x2,y2] of the dish FOOD PHOTO area only - NOT text, carefully locate each dish\'s own photo, each dish must have a different bbox. Set null if a specific dish has no photo)'
+    : '';
 
-只输出JSON数组，不要解释。示例：
-[{"name":"宫保鸡丁","enName":"Kung Pao Chicken","price":38,"description":"经典川菜","enDescription":"Classic Sichuan dish","ingredients":["鸡肉","花生"],"enIngredients":["chicken","peanuts"],"category":"川菜","enCategory":"Sichuan","allergens":["peanuts"],"dietary":["spicy"],"bbox":[0.05,0.1,0.4,0.15]}]
-无价格示例：{"name":"拍黄瓜","enName":"Smashed Cucumber","price":null,"bbox":[0.05,0.3,0.4,0.15],...}`;
+  if (isZh) {
+    return `识别这张菜单图片中的所有菜品。对每道菜提取：name(中文名), price(价格数字，无价格则null), category(分类如"川菜"), enName(英文名), description(中文描述一句), enDescription(英文描述一句), ingredients(中文食材3个), enIngredients(英文食材3个), allergens(英文过敏原如["peanuts"]), dietary(英文膳食标签如["spicy","vegetarian"])${bboxInstruction}。
+输出紧凑JSON数组，不要解释，不要markdown。示例：
+[{"name":"宫保鸡丁","price":38,"category":"川菜","enName":"Kung Pao Chicken","description":"经典川菜","enDescription":"Classic Sichuan dish","ingredients":["鸡肉","花生"],"enIngredients":["chicken","peanuts"],"allergens":["peanuts"],"dietary":["spicy"]${hasPhotos ? ',"bbox":[120,80,480,380]' : ''}}]`;
   }
 
   const localFields = isTw
-    ? `2. 繁體中文名稱作為本地化名稱(localName)。
-4. 繁體中文描述(localDescription)一句。
-5. 繁體中文食材(localIngredients)3-5個。
-6. 繁體中文分類(localCategory)。`
-    : `2. Professional ${targetLang} translation as localName.
-4. ${targetLang} description (localDescription) in 1 sentence.
-5. ${targetLang} ingredients (localIngredients) 3-5 items.
-6. ${targetLang} category (localCategory).`;
+    ? 'localName(繁體中文名), localDescription(繁體中文一句), localIngredients(繁體中文3個)'
+    : `localName(${targetLang}翻译名), localDescription(${targetLang}描述一句), localIngredients(${targetLang}食材3個)`;
 
-  const localExample = isTw
-    ? `"localName":"宮保雞丁","localDescription":"經典川菜","localIngredients":["雞肉","花生"],"localCategory":"川菜"`
-    : `"localName":"Poulet Kung Pao","localDescription":"Plat classique du Sichuan","localIngredients":["poulet","arachides"],"localCategory":"Cuisine du Sichuan"`;
-
-  return `You are a Chinese food expert and translator. Analyze this menu image.
-1. Extract every dish with its Chinese name.
-${localFields}
-3. Extract the price as a number. Set price to null if no price shown.
-5. English description (enDescription) in 1 sentence.
-5. English ingredients (enIngredients) 3-5 items.
-6. English category (enCategory).
-7. Common allergens in English (allergens).
-8. Dietary info in English (dietary).
-9. Bounding box of each dish in the image (bbox) as [x,y,width,height], all values normalized 0-1 (x=left edge ratio, y=top edge ratio, width=region width ratio, height=region height ratio). Set to null if position cannot be determined.
-
-CRITICAL: Output ONLY a JSON array. No explanation. Example:
-[{"name":"宫保鸡丁",${localExample},"enName":"Kung Pao Chicken","price":38,"enDescription":"Classic Sichuan dish","enIngredients":["chicken","peanuts"],"enCategory":"Sichuan","allergens":["peanuts"],"dietary":["spicy"],"bbox":[0.05,0.1,0.4,0.15]}]
-No price example: {"name":"拍黄瓜","enName":"Smashed Cucumber","price":null,"bbox":[0.05,0.3,0.4,0.15],...}`;
+  return `Extract all dishes from this menu image. For each provide: name(Chinese), ${localFields}, price(number or null), enName(English), enCategory(English category), enDescription(English 1 sentence), enIngredients(3 English items), allergens(English array e.g.["peanuts"]), dietary(English array e.g.["spicy"])${bboxInstruction}.
+Output ONLY a compact JSON array. No explanation, no markdown. Example:
+[{"name":"宫保鸡丁","localName":"Poulet Kung Pao","price":38,"enName":"Kung Pao Chicken","enCategory":"Sichuan","enDescription":"Classic Sichuan dish","enIngredients":["chicken","peanuts"],"localDescription":"Plat classique du Sichuan","localIngredients":["poulet","arachides"],"allergens":["peanuts"],"dietary":["spicy"]${hasPhotos ? ',"bbox":[120,80,480,380]' : ''}}]`;
 }
 
-// Call vision model with timeout
-async function callVisionModel(modelId: string, image: string, mimeType: string, prompt: string, timeoutMs = 45000): Promise<string> {
-  const url = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/ai/run/${modelId}`;
-
+async function callQwenVL(image: string, mimeType: string, prompt: string, timeoutMs = 120000): Promise<string> {
+  const url = `${DASHSCOPE_BASE_URL}/chat/completions`;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
 
@@ -105,31 +112,37 @@ async function callVisionModel(modelId: string, image: string, mimeType: string,
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${getApiToken()}`,
+        'Authorization': `Bearer ${getDashScopeApiKey()}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        model: QWEN_MODEL,
         messages: [{
           role: 'user',
           content: [
-            { type: 'text', text: prompt },
-            { type: 'image_url', image_url: { url: `data:${mimeType};base64,${image}` } }
+            {
+              type: 'image_url',
+              image_url: { url: `data:${mimeType};base64,${image}` },
+            },
+            { type: 'text', text: prompt }
           ]
         }],
-        max_tokens: 4096,
+        max_tokens: 8192,
+        // Disable thinking mode for faster response
+        extra_body: { enable_thinking: false },
       }),
       signal: controller.signal,
     });
 
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      throw new Error(`Model ${modelId} returned ${response.status}: ${errText.slice(0, 200)}`);
+      throw new Error(`Qwen returned ${response.status}: ${errText.slice(0, 300)}`);
     }
 
     const data: any = await response.json();
-    const text = data?.result?.response || data?.response || '';
+    const text = data?.choices?.[0]?.message?.content || '';
     if (!text || text.trim().length < 10) {
-      throw new Error(`${modelId}: empty response`);
+      throw new Error('Qwen: empty response');
     }
     return text;
   } finally {
@@ -145,46 +158,45 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing image or mimeType' }, { status: 400 });
     }
 
-    const prompt = buildPrompt(lang);
-    let fullText = '';
-    let usedModel = '';
-    let lastError: any;
-
-    // Try each model with timeout, stop on first success
-    for (const modelId of VISION_MODELS) {
-      try {
-        console.log(`[menu-translate] Trying ${modelId} (timeout: 45s)...`);
-        const text = await callVisionModel(modelId, image, mimeType, prompt, 45000);
-        console.log(`[menu-translate] Success with ${modelId}, length:`, text.length);
-        fullText = text;
-        usedModel = modelId;
-        break;
-      } catch (err: any) {
-        console.error(`[menu-translate] ${modelId} failed:`, err.message);
-        lastError = err;
-        // Continue to next model
-      }
+    // Step 1: Quick check if menu has dish photos (adds ~5-10s but avoids inaccurate bboxes)
+    let hasPhotos = false;
+    try {
+      hasPhotos = await checkMenuHasPhotos(image, mimeType);
+      console.log(`[menu-translate] Menu has dish photos: ${hasPhotos}`);
+    } catch {
+      hasPhotos = false;
     }
 
-    if (!fullText || fullText.trim().length < 10) {
+    const prompt = buildPrompt(lang, hasPhotos);
+    let fullText = '';
+
+    try {
+      console.log(`[menu-translate] Calling ${QWEN_MODEL} via Singapore endpoint...`);
+      fullText = await callQwenVL(image, mimeType, prompt, 120000);
+      console.log(`[menu-translate] Success, response length:`, fullText.length);
+    } catch (err: any) {
+      console.error(`[menu-translate] Failed:`, err.message);
       return NextResponse.json(
-        { error: `All AI models failed. Last error: ${lastError?.message || 'Unknown'}` },
+        { error: `AI analysis failed: ${err.message}` },
         { status: 500 }
       );
     }
 
-    console.log(`[menu-translate] Used: ${usedModel}, response (first 300):`, fullText.slice(0, 300));
-    const menuItems = extractJSON(fullText);
+    console.log(`[menu-translate] Response (first 300):`, fullText.slice(0, 300));
+    let menuItems = extractJSON(fullText);
+    if (menuItems.length === 0) {
+      menuItems = tryFixTruncatedJSON(fullText);
+    }
     if (menuItems.length === 0) {
       return NextResponse.json(
-        { error: 'Could not parse menu items from AI response.', rawPreview: fullText.slice(0, 500), usedModel },
+        { error: 'Could not parse menu items from AI response.', rawPreview: fullText.slice(0, 500), usedModel: QWEN_MODEL },
         { status: 500 }
       );
     }
 
     const items = addPriceConversions(menuItems, lang);
-    console.log(`[menu-translate] Done: ${usedModel}, ${items.length} items`);
-    return NextResponse.json({ items, usedModel });
+    console.log(`[menu-translate] Done: ${QWEN_MODEL}, ${items.length} items`);
+    return NextResponse.json({ items, usedModel: QWEN_MODEL });
   } catch (error: any) {
     console.error('[menu-translate] Fatal:', error);
     return NextResponse.json({ error: error.message || 'Analysis failed' }, { status: 500 });
@@ -192,17 +204,55 @@ export async function POST(req: NextRequest) {
 }
 
 function extractJSON(text: string): any[] {
-  let cleaned = text.replace(/```json/g, '').replace(/```/g, '').trim();
+  // Step 1: Remove <think/> tags (Qwen3 thinking mode output)
+  let cleaned = text.replace(/<think[\s\S]*?<\/think>/gi, '').trim();
+  // Step 2: Remove markdown code fences
+  cleaned = cleaned.replace(/```json/g, '').replace(/```/g, '').trim();
+  // Step 3: Try direct parse
   try {
     const parsed = JSON.parse(cleaned);
     return Array.isArray(parsed) ? parsed : [];
   } catch {}
+  // Step 4: Find first [ to last ] and try parse
   const match = cleaned.match(/\[[\s\S]*\]/);
   if (match) {
     try {
       return JSON.parse(match[0]);
     } catch {}
   }
+  // Step 5: Find first { to last } — single object wrapped in array
+  const objMatch = cleaned.match(/\{[\s\S]*\}/);
+  if (objMatch) {
+    try {
+      const obj = JSON.parse(objMatch[0]);
+      return Array.isArray(obj) ? obj : [obj];
+    } catch {}
+  }
+  return [];
+}
+
+function tryFixTruncatedJSON(text: string): any[] {
+  // Remove <think/> tags first
+  let cleaned = text.replace(/<think[\s\S]*?<\/think>/gi, '').trim();
+  cleaned = cleaned.replace(/```json/g, '').replace(/```/g, '').trim();
+  const lastCompleteObj = cleaned.lastIndexOf('}');
+  if (lastCompleteObj > 0) {
+    const jsonStr = cleaned.slice(0, lastCompleteObj + 1) + ']';
+    try {
+      const parsed = JSON.parse(jsonStr);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {}
+  }
+  // Try to find individual JSON objects and collect them
+  const objRegex = /\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}/g;
+  const objects: any[] = [];
+  let m;
+  while ((m = objRegex.exec(cleaned)) !== null) {
+    try {
+      objects.push(JSON.parse(m[0]));
+    } catch {}
+  }
+  if (objects.length > 0) return objects;
   return [];
 }
 
@@ -210,7 +260,13 @@ function addPriceConversions(items: any[], lang: string) {
   const cur = CURRENCY_MAP[lang] || CURRENCY_MAP.en;
   return items.map((item: any) => {
     const hasPrice = item.price !== null && item.price !== undefined && item.price !== '';
-    const priceInCny = hasPrice ? parseFloat(item.price) || 0 : null;
+    const priceStr = String(item.price).replace(/[^\d.]/g, '');
+    const priceInCny = hasPrice && priceStr ? parseFloat(priceStr) || 0 : null;
+    // Validate bbox: must be array of 4 positive numbers (absolute pixels [x1,y1,x2,y2])
+    const rawBbox = item.bbox;
+    const hasValidBbox = Array.isArray(rawBbox) && rawBbox.length === 4
+      && rawBbox.every((v: number) => typeof v === 'number' && v >= 0)
+      && rawBbox[2] > rawBbox[0] && rawBbox[3] > rawBbox[1];
     return {
       ...item,
       price: priceInCny,
@@ -222,6 +278,7 @@ function addPriceConversions(items: any[], lang: string) {
       } : {}),
       allergens: Array.isArray(item.allergens) ? item.allergens : [],
       dietary: Array.isArray(item.dietary) ? item.dietary : [],
+      bbox: hasValidBbox ? rawBbox : null,
     };
   });
 }

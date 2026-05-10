@@ -1,4 +1,4 @@
-{
+﻿{
   "nav": {
     "home": "Startseite",
     "visa": "Visum",
@@ -140,7 +140,7 @@
     "menu": {
       "desc": "Laden Sie ein Foto hoch, um Übersetzung, Zutaten und Preise zu erhalten - einfach bestellen",
       "faq": {
-        "q1": "Wie generiert ReadMenuAI Gerichtbilder?",
+        "q1": "Wie generiert tripcngo.com Gerichtbilder?",
         "a1": "Unser KI-System analysiert die Textbeschreibung aus der Speisekarte, gleicht sie mit einer großen kulinarischen Datenbank ab und verwendet generative KI um Ihnen passende Gerichtbilder zu erstellen.",
         "q2": "Kann ich es für nicht-chinesische Speisekarten verwenden?",
         "a2": "Derzeit konzentrieren wir uns hauptsächlich auf Chinesisch-Englisch-Übersetzung, aber unser System unterstützt Zeichenerkennung für mehrere Hauptsprachen.",
@@ -154,16 +154,16 @@
         "a6": "Typischerweise dauert der gesamte Prozess von Scannen, Übersetzen und Bilderzeugung nur 10-15 Sekunden.",
         "q7": "Brauche ich eine Internetverbindung?",
         "a7": "Ja, die KI-Verarbeitung und Bilderzeugung laufen in der Cloud, daher wird eine stabile Verbindung benötigt.",
-        "q8": "Wie unterscheidet sich ReadMenuAI von Standard-Übersetzern?",
+        "q8": "Wie unterscheidet sich tripcngo.com von Standard-Übersetzern?",
         "a8": "Wir gehen über Textübersetzung hinaus, indem wir ein visuelles Erlebnis bieten, das Ihnen ermöglicht zu sehen wie das Gericht aussieht, zusammen mit Preisumrechnungen."
       },
       "hero": {
-        "desc": "Ein-Klick-Scan des Menüs mit DeepSeek V4-Präzision. Erhalten Sie zweisprachige Übersetzung, passende Gerichtbilder und Währungsumrechnung.",
+        "desc": "Ein-Klick-Scan des Menüs mit TripCN GO AI-Präzision. Erhalten Sie zweisprachige Übersetzung, passende Gerichtbilder und Währungsumrechnung.",
         "title": "Chinesisches Menü in Bild umwandeln"
       },
       "label": {
         "raw": "Originalerkennungsbereich",
-        "refined": "DeepSeek-optimiertes Ergebnis"
+        "refined": "TripCN GO AI-Ergebnis"
       },
       "placeholder": "Bitte laden Sie zuerst das Menü hoch",
       "upload": {
@@ -173,7 +173,13 @@
       },
       "status": {
         "reset": "Aufgeben und erneut versuchen",
-        "analyzing": "DeepSeek führt eine tiefe Analyse durch..."
+        "analyzing": "KI-Analyse läuft",
+        "step": {
+          "upload": "Hochladen",
+          "detect": "Erkennen",
+          "analyze": "Analysieren",
+          "render": "Rendern"
+        }
       },
       "feature": {
         "1": {

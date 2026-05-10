@@ -79,7 +79,7 @@ export default function Footer() {
           <div className="col-span-1">
             <h4 className="text-white font-bold mb-6 text-[15px]">{t('footer.links.partners')}</h4>
             <ul className="space-y-4">
-              {['ReadMenuAI', 'ScriptMind'].map(link => (
+              {['tripcngo.com', 'ScriptMind'].map(link => (
                 <li key={link}>
                   <a href="#" className="hover:text-white transition-colors text-[13px] text-[#e5f5ef] font-medium">{link}</a>
                 </li>
