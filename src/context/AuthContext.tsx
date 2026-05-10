@@ -133,20 +133,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const currentPath = window.location.pathname + window.location.search;
       sessionStorage.setItem('auth_redirect_path', currentPath);
 
-      // Also encode redirect path in callback URL for reliability
-      const callbackUrl = new URL(window.location.origin + '/auth/callback');
-      callbackUrl.searchParams.set('redirect', currentPath);
+      // Use a clean callback URL without extra params - Supabase will append its own params
+      const callbackUrl = window.location.origin + '/auth/callback/';
 
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           queryParams: { prompt: 'select_account' },
-          redirectTo: callbackUrl.toString(),
+          redirectTo: callbackUrl,
         },
       });
 
       if (error) throw error;
-      // Full page redirect - no popup, no close issues
     } catch (error) {
       console.error('Login error:', error);
       alert('Login failed, please try again');
