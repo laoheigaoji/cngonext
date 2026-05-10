@@ -30,7 +30,7 @@ function getEmbedUrl(url: string): string {
   return url;
 }
 
-export default function CityDetail({ initialData }: { initialData?: any }) {
+export default function CityDetail({ initialData, ssrContentRendered }: { initialData?: any; ssrContentRendered?: boolean }) {
   const { id } = useParams<{ id: string }>();
   const { language, t } = useLanguage();
   const isEn = language === 'en';
@@ -77,12 +77,12 @@ export default function CityDetail({ initialData }: { initialData?: any }) {
     fetchCity();
   }, [id]);
 
-  if (loading) return <div className="p-20 text-center flex flex-col items-center gap-4">
+  if (loading && !ssrContentRendered) return <div className="p-20 text-center flex flex-col items-center gap-4">
     <div className="w-8 h-8 border-4 border-[#1b887a] border-t-transparent rounded-full animate-spin"></div>
     <div className="text-gray-500 font-medium">Loading destination info...</div>
   </div>;
   
-  if (error && !city) return (
+  if (error && !city && !ssrContentRendered) return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-white">
       <div className="bg-red-50 p-8 rounded-2xl border border-red-100 max-w-md text-center">
         <h2 className="text-2xl font-bold text-red-600 mb-4">Connection Failed</h2>
@@ -97,7 +97,45 @@ export default function CityDetail({ initialData }: { initialData?: any }) {
     </div>
   );
 
-  if (!city) return <Navigate to="/cities" replace />;
+  if (!city && !ssrContentRendered) return <Navigate to="/cities" replace />;
+
+  // If SSR already rendered the content, only render interactive parts
+  if (ssrContentRendered && city) {
+    return (
+      <>
+        {/* Interactive vote buttons - rendered in hero area via CSS positioning */}
+        <div className="sr-only" aria-hidden="true">
+          {/* These are handled by the client-side hydration */}
+        </div>
+
+        {/* Video Modal - full screen no border */}
+        {showVideoModal && city.videoUrl && (
+          <div 
+            className="fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center" 
+            onClick={() => setShowVideoModal(false)}
+          >
+            <div className="relative w-full max-w-5xl mx-4" onClick={e => e.stopPropagation()}>
+              <button 
+                onClick={() => setShowVideoModal(false)}
+                className="absolute -top-12 right-0 text-white/70 hover:text-white transition-colors flex items-center gap-2 text-sm"
+              >
+                <span>{isEn ? 'Close' : '关闭'}</span>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+              <div className="relative w-full overflow-hidden rounded-2xl" style={{ paddingBottom: '56.25%' }}>
+                <iframe 
+                  src={getEmbedUrl(city.videoUrl)} 
+                  className="absolute inset-0 w-full h-full" 
+                  allowFullScreen 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  }
 
   // 从 translations 字段获取翻译内容
   const getTranslation = (lang: string): any => {

@@ -1,7 +1,7 @@
 "use client";
 
-import CityDetail from "@/app-views/city/CityDetail";
+import CityDetail from "@/views/city/CityDetail";
 
-export default function CityDetailClient({ initialData }: { initialData?: any }) {
-  return <CityDetail initialData={initialData} />;
+export default function CityDetailClient({ initialData, ssrContentRendered }: { initialData?: any; ssrContentRendered?: boolean }) {
+  return <CityDetail initialData={initialData} ssrContentRendered={ssrContentRendered} />;
 }

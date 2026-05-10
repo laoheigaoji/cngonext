@@ -86,8 +86,8 @@ const ZodiacCalculator = ({ translations }: ZodiacCalculatorProps) => {
             </div>
 
             {/* Calculator Widget - directly below hero */}
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 mt-10 sm:mt-12">
-                <section className="bg-white p-4 sm:p-6 md:p-8 rounded-2xl shadow-sm border border-neutral-100">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 mt-10 sm:mt-12">
+                <section className="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-neutral-100">
                     {/* Date Selectors */}
                     <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
                         <div className="flex flex-col gap-1.5 sm:gap-2">

@@ -34,7 +34,7 @@ interface Article {
   createdAt: string;
 }
 
-export default function GuideDetail({ initialData }: { initialData?: any }) {
+export default function GuideDetail({ initialData, ssrContentRendered }: { initialData?: any; ssrContentRendered?: boolean }) {
   const { id } = useParams();
   const { language, t } = useLanguage();
   const langField = language === 'zh' ? '' : `_${language}`;
@@ -474,13 +474,13 @@ export default function GuideDetail({ initialData }: { initialData?: any }) {
     }
   };
 
-  if (loading) return (
+  if (loading && !ssrContentRendered) return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#1b887a]"></div>
     </div>
   );
 
-  if (error && !article) return (
+  if (error && !article && !ssrContentRendered) return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-white">
       <div className="bg-red-50 p-8 rounded-2xl border border-red-100 max-w-md text-center">
         <h2 className="text-2xl font-bold text-red-600 mb-4">Connection Failed</h2>
@@ -495,12 +495,367 @@ export default function GuideDetail({ initialData }: { initialData?: any }) {
     </div>
   );
 
-  if (!article) return (
+  if (!article && !ssrContentRendered) return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
        <h1 className="text-2xl font-black text-gray-900 mb-4">{t('guide.articleNotFound')}</h1>
        <Link to={`/${langPrefix}/articles`} className="px-6 py-3 bg-[#1b887a] text-white rounded-lg font-bold">{t('guide.backToList')}</Link>
     </div>
   );
+
+  // If SSR already rendered the header & content, only render interactive parts
+  if (ssrContentRendered && article) {
+    return (
+      <>
+        {/* Useful Section */}
+        <div className="mt-20 pt-12 border-t border-gray-100 flex flex-col items-center">
+           <button 
+              onClick={handleLike}
+              className="group flex flex-col items-center gap-2"
+            >
+              <div className="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-[#1b887a] group-hover:bg-[#1b887a]/5 transition-all text-gray-300 group-hover:text-[#1b887a]">
+                <ThumbsUp className={`w-6 h-6 ${article.likes && article.likes > 0 ? 'fill-[#1b887a] text-[#1b887a]' : ''}`} />
+              </div>
+              <span className="text-xs font-bold text-gray-400 group-hover:text-[#1b887a] transition-colors">
+                {article.likes || 0} {t('guide.helpful')}
+              </span>
+           </button>
+        </div>
+
+        {/* Comments Section */}
+        <div className="mt-16 pt-12 border-t border-gray-100">
+          <h3 className="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-2">
+            <MessageSquare className="w-6 h-6 text-[#1b887a]" />
+            {t('comment.title')}
+            <span className="text-sm font-normal text-gray-500 ml-2">({comments.length})</span>
+          </h3>
+
+          {/* Comment Form */}
+          <form onSubmit={handleSubmitComment} className="bg-gray-50 p-6 rounded-xl mb-12">
+            <h4 className="font-bold text-gray-800 mb-4">{t('comment.leaveComment')}</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <input 
+                type="text" 
+                placeholder={t('comment.yourName')}
+                className="bg-white border border-gray-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-[#1b887a] outline-none"
+                value={commentName}
+                onChange={(e) => setCommentName(e.target.value)}
+                required
+              />
+              <div className="flex items-center gap-3 bg-white border border-gray-200 rounded-lg px-4 py-2">
+                <canvas 
+                  ref={captchaCanvasRef} 
+                  className="rounded cursor-pointer h-10" 
+                  title={t('comment.captchaRefresh') || 'Click to refresh'}
+                  onClick={generateCaptcha}
+                />
+                <input 
+                  type="text" 
+                  placeholder={t('comment.captchaPlaceholder') || 'Code'}
+                  className="w-full outline-none uppercase"
+                  value={captcha.userAns}
+                  onChange={(e) => setCaptcha(prev => ({ ...prev, userAns: e.target.value }))}
+                  required
+                  maxLength={4}
+                />
+              </div>
+            </div>
+            <textarea 
+              rows={4}
+              placeholder={t('comment.yourThoughts')}
+              className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1b887a] outline-none mb-4"
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              required
+            ></textarea>
+            <button 
+              type="submit"
+              disabled={submittingComment}
+              className="bg-[#1b887a] text-white px-8 py-3 rounded-lg font-bold hover:bg-[#156d61] transition-colors disabled:opacity-50"
+            >
+              {submittingComment 
+                ? t('comment.submitting')
+                : t('comment.submit')}
+            </button>
+          </form>
+
+          {/* Comments List - 楼层式 + 分页 */}
+          <div className="space-y-0">
+            {paginatedComments.map((comment, idx) => {
+              const replies = getReplies(comment.id);
+              const floor = floorOffset + idx + 1;
+              const isTranslated = !!translatedComments[comment.id];
+              const isTranslating = translatingIds.has(comment.id);
+              return (
+                <div key={comment.id} className="border-b border-gray-100 py-6">
+                  {/* 主评论（楼层） */}
+                  <div className="flex gap-4">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1b887a] to-[#0d6b5e] flex-shrink-0 flex items-center justify-center text-white font-bold uppercase text-sm shadow-sm">
+                      {comment.name[0]}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="font-bold text-gray-900 text-sm">{comment.name}</span>
+                        <span className="text-[11px] font-bold text-[#1b887a] bg-[#1b887a]/8 px-2 py-0.5 rounded-full">
+                          {floor}F
+                        </span>
+                        <span className="text-xs text-gray-400">
+                          {new Date(comment.createdAt).toLocaleDateString()} {new Date(comment.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </span>
+                      </div>
+                      <p className="text-gray-600 leading-relaxed text-sm md:text-base mb-1">{comment.content}</p>
+                      {/* 翻译结果 */}
+                      {isTranslated && (
+                        <div className="mt-2 pl-3 border-l-2 border-blue-300 bg-blue-50/50 rounded-r-lg py-2 pr-3">
+                          <p className="text-blue-700/80 text-sm leading-relaxed">{translatedComments[comment.id]}</p>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-4 mt-3">
+                        <button 
+                          onClick={() => handleTranslate(comment.id, comment.content)}
+                          disabled={isTranslating}
+                          className="text-xs text-gray-400 hover:text-blue-500 transition-colors flex items-center gap-1 disabled:opacity-50"
+                        >
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>
+                          {isTranslating 
+                            ? t('comment.translating')
+                            : isTranslated 
+                              ? t('comment.hideTranslation')
+                              : t('comment.translate')}
+                        </button>
+                        <button 
+                          onClick={() => setReplyTo(replyTo?.id === comment.id ? null : { id: comment.id, name: comment.name })}
+                          className="text-xs text-gray-400 hover:text-[#1b887a] transition-colors flex items-center gap-1"
+                        >
+                          <MessageSquare className="w-3 h-3" />
+                          {t('comment.reply')}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 回复列表 */}
+                  {replies.length > 0 && (
+                    <div className="ml-14 mt-3 space-y-3 pl-4 border-l-2 border-[#1b887a]/10">
+                      {replies.map(reply => {
+                        const isReplyTranslated = !!translatedComments[reply.id];
+                        const isReplyTranslating = translatingIds.has(reply.id);
+                        return (
+                          <div key={reply.id} className="flex gap-3">
+                            <div className="w-7 h-7 rounded-full bg-gray-100 flex-shrink-0 flex items-center justify-center text-gray-500 font-bold uppercase text-xs">
+                              {reply.name[0]}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="font-bold text-gray-800 text-xs">{reply.name}</span>
+                                <span className="text-[10px] text-gray-400">{new Date(reply.createdAt).toLocaleDateString()}</span>
+                              </div>
+                              <p className="text-gray-500 text-sm leading-relaxed">{reply.content}</p>
+                              {isReplyTranslated && (
+                                <div className="mt-1.5 pl-2 border-l-2 border-blue-300 bg-blue-50/50 rounded-r-lg py-1.5 pr-2">
+                                  <p className="text-blue-700/80 text-xs leading-relaxed">{translatedComments[reply.id]}</p>
+                                </div>
+                              )}
+                              <button 
+                                onClick={() => handleTranslate(reply.id, reply.content)}
+                                disabled={isReplyTranslating}
+                                className="text-[10px] text-gray-400 hover:text-blue-500 transition-colors flex items-center gap-1 mt-1.5 disabled:opacity-50"
+                              >
+                                <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>
+                                {isReplyTranslating 
+                                  ? t('comment.translating')
+                                  : isReplyTranslated 
+                                    ? t('comment.hideTranslation')
+                                    : t('comment.translate')}
+                              </button>
+                            </div>
+                          </div>
+                          );
+                      })}
+                    </div>
+                  )}
+
+                  {/* 回复输入框 */}
+                  {replyTo?.id === comment.id && (
+                    <div className="ml-14 mt-3 p-4 bg-gray-50 rounded-xl border border-gray-100">
+                      <p className="text-xs text-gray-500 mb-3">
+                        {t('comment.replyTo')} <span className="font-bold text-[#1b887a]">{replyTo.name}</span>
+                      </p>
+                      <div className="flex gap-3 mb-3">
+                        <input 
+                          type="text" 
+                          placeholder={t('comment.yourName')}
+                          className="flex-1 bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-[#1b887a] outline-none"
+                          value={replyName}
+                          onChange={(e) => setReplyName(e.target.value)}
+                        />
+                      </div>
+                      <div className="flex gap-3">
+                        <input 
+                          type="text" 
+                          placeholder={t('comment.writeReply')}
+                          className="flex-1 bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-[#1b887a] outline-none"
+                          value={replyText}
+                          onChange={(e) => setReplyText(e.target.value)}
+                          onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey && replyText.trim() && replyName.trim()) { e.preventDefault(); handleReply(comment.id); } }}
+                        />
+                        <button 
+                          onClick={() => handleReply(comment.id)}
+                          disabled={submittingReply || !replyText.trim() || !replyName.trim()}
+                          className="bg-[#1b887a] text-white px-4 py-1.5 rounded-lg text-sm font-bold hover:bg-[#156d61] transition-colors disabled:opacity-50 whitespace-nowrap"
+                        >
+                          {submittingReply ? t('comment.submitting') : t('comment.reply')}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+            {topLevelComments.length === 0 && (
+              <p className="text-center text-gray-400 py-8">
+                {t('comment.noComments')}
+              </p>
+            )}
+          </div>
+
+          {/* 分页导航 */}
+          {totalCommentPages > 1 && (
+            <div className="flex items-center justify-center gap-2 mt-8 pt-6 border-t border-gray-100">
+              <button
+                onClick={() => setCommentPage(p => Math.max(1, p - 1))}
+                disabled={commentPage === 1}
+                className="px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 hover:border-[#1b887a] hover:text-[#1b887a] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                {t('comment.prevPage')}
+              </button>
+              {Array.from({ length: totalCommentPages }, (_, i) => i + 1)
+                .filter(p => {
+                  if (p === 1 || p === totalCommentPages) return true;
+                  if (Math.abs(p - commentPage) <= 1) return true;
+                  return false;
+                })
+                .reduce<(number | string)[]>((acc, p, i, arr) => {
+                  if (i > 0 && p - (arr[i - 1] as number) > 1) acc.push('...');
+                  acc.push(p);
+                  return acc;
+                }, [])
+                .map((p, i) => 
+                  typeof p === 'string' ? (
+                    <span key={`ellipsis-${i}`} className="px-2 text-gray-400">...</span>
+                  ) : (
+                    <button
+                      key={p}
+                      onClick={() => setCommentPage(p)}
+                      className={`w-9 h-9 rounded-lg text-sm font-bold transition-all ${
+                        commentPage === p 
+                          ? 'bg-[#1b887a] text-white shadow-md' 
+                          : 'border border-gray-200 hover:border-[#1b887a] hover:text-[#1b887a]'
+                      }`}
+                    >
+                      {p}
+                    </button>
+                  )
+                )
+              }
+              <button
+                onClick={() => setCommentPage(p => Math.min(totalCommentPages, p + 1))}
+                disabled={commentPage === totalCommentPages}
+                className="px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 hover:border-[#1b887a] hover:text-[#1b887a] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                {t('comment.nextPage')}
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Prev/Next Section */}
+        {(prevArticle || nextArticle) && (
+          <div className="mt-16 pt-8 border-t border-gray-100 grid grid-cols-1 md:grid-cols-2 gap-4">
+            {prevArticle ? (
+              <Link to={`/${langPrefix}/articles/${prevArticle._id}`} className="p-4 rounded-xl border border-gray-100 hover:border-[#1b887a] hover:bg-gray-50 transition-all flex items-center gap-4 text-left">
+                {prevArticle.thumbnail && <img src={prevArticle.thumbnail} alt="" className="w-16 h-16 rounded-lg object-cover" />}
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase font-bold text-gray-400 mb-1">{t('article.prev')}</span>
+                  <h4 className="font-bold text-gray-900 line-clamp-2">
+                    {getI18n(prevArticle, 'title') || prevArticle.title || prevArticle.titleEn || ''}
+                  </h4>
+                </div>
+              </Link>
+            ) : <div />}
+            {nextArticle ? (
+              <Link to={`/${langPrefix}/articles/${nextArticle._id}`} className="p-4 rounded-xl border border-gray-100 hover:border-[#1b887a] hover:bg-gray-50 transition-all flex items-center gap-4 text-right justify-end">
+                <div className="flex flex-col text-right">
+                  <span className="text-[10px] uppercase font-bold text-gray-400 mb-1">{t('article.next')}</span>
+                  <h4 className="font-bold text-gray-900 line-clamp-2">
+                    {getI18n(nextArticle, 'title') || nextArticle.title || nextArticle.titleEn || ''}
+                  </h4>
+                </div>
+                {nextArticle.thumbnail && <img src={nextArticle.thumbnail} alt="" className="w-16 h-16 rounded-lg object-cover" />}
+              </Link>
+            ) : <div />}
+          </div>
+        )}
+
+        {/* Right Sidebar */}
+        <div className="w-full lg:w-[320px] shrink-0 mt-12 lg:mt-0">
+          <div className="sticky top-24 space-y-12">
+            {/* Recommendations Section */}
+            <section>
+              <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center justify-between">
+                {t('guide.recommend')}
+              </h3>
+              <div className="space-y-6">
+                {recommendedArticles.map((item, i) => (
+                  <Link key={item._id} to={`/${langPrefix}/articles/${item._id}`} className="block group">
+                    <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-3 bg-gray-100 shadow-sm border border-gray-100">
+                      <img 
+                        src={item.thumbnail || 'https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?auto=format&fit=crop&q=80&w=400'} 
+                        alt={item.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-5">
+                        <h4 className="text-white font-bold text-sm leading-tight text-center w-full">
+                          {getI18n(item, 'title') || item.title || item.titleEn || ''}
+                        </h4>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+                {recommendedArticles.length === 0 && (
+                  <p className="text-sm text-gray-400">{t('guide.noArticles')}</p>
+                )}
+              </div>
+            </section>
+
+            {/* City Rankings */}
+            <section>
+              <h3 className="text-lg font-bold text-gray-900 mb-6 font-sans">
+                {t('guide.recommendCity')}
+              </h3>
+              <div className="space-y-4">
+                {recommendedCities.map((city, i) => (
+                  <Link key={city.id} to={`/${langPrefix}/cities/${city.id}`} className="flex items-center justify-between group cursor-pointer p-2 hover:bg-gray-50 rounded-xl transition-all">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-lg overflow-hidden bg-gray-100 grayscale-[0.5] group-hover:grayscale-0 transition-all border border-gray-100">
+                        <img src={city.listCover || city.heroImage} alt={getI18n(city, 'name')} className="w-full h-full object-cover" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-gray-700 leading-none mb-1">{getI18n(city, 'name')}</h4>
+                        <span className="text-[10px] text-gray-400 uppercase tracking-wider">{language === 'zh' ? city.enName : city.name}</span>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold text-gray-300 bg-gray-50 px-2 py-1 rounded-full">{city.stats?.recommended || 0} {t('city.stats.recommended')}</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  // Full client-side render (fallback when SSR is not available)
 
   return (
     <div className="w-full bg-white">

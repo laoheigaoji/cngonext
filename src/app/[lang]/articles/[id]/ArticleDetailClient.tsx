@@ -1,7 +1,7 @@
 "use client";
 
-import GuideDetail from "@/app-views/guide/GuideDetail";
+import GuideDetail from "@/views/guide/GuideDetail";
 
-export default function ArticleDetailClient({ initialData }: { initialData?: any }) {
-  return <GuideDetail initialData={initialData} />;
+export default function ArticleDetailClient({ initialData, ssrContentRendered }: { initialData?: any; ssrContentRendered?: boolean }) {
+  return <GuideDetail initialData={initialData} ssrContentRendered={ssrContentRendered} />;
 }
