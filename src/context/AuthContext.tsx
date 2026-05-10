@@ -163,6 +163,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           clearInterval(popupChecker);
           // Popup closed - always refresh session (simplified flow)
           try {
+            // Small delay to ensure Supabase has processed the callback
+            await new Promise(r => setTimeout(r, 300));
             const { data: { session } } = await supabase.auth.getSession();
             if (session?.user) {
               setUser(session.user);

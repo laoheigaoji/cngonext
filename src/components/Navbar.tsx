@@ -402,7 +402,7 @@ export default function Navbar() {
                     newPath = pathParts.join('/') || '/';
                     setIsLangDropdownOpen(false);
                     setLanguage(lang.code as Language);
-                    window.location.replace(newPath + (location.search || ''));
+                    navigate(newPath + (location.search || ''), { replace: true });
                   }}
                 >
                   <div className="flex items-center gap-3">

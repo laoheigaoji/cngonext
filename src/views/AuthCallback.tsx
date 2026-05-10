@@ -33,8 +33,19 @@ export default function AuthCallback() {
         if (session) {
           setStatus('Login successful!');
           if (window.opener) {
-            window.opener.postMessage({ type: 'AUTH_SUCCESS' }, '*');
-            setTimeout(() => window.close(), 300);
+            try {
+              window.opener.postMessage({ type: 'AUTH_SUCCESS' }, '*');
+            } catch (e) {
+              console.error('postMessage failed:', e);
+            }
+            // Try multiple times to close the popup
+            setTimeout(() => window.close(), 200);
+            setTimeout(() => window.close(), 500);
+            setTimeout(() => window.close(), 1000);
+            // Final fallback: redirect to blank page
+            setTimeout(() => {
+              window.location.href = 'about:blank';
+            }, 2000);
           } else {
             setTimeout(() => window.location.replace('/'), 500);
           }
@@ -45,8 +56,15 @@ export default function AuthCallback() {
               if (event === 'SIGNED_IN' || session) {
                 setStatus('Login successful!');
                 if (window.opener) {
-                  window.opener.postMessage({ type: 'AUTH_SUCCESS' }, '*');
-                  setTimeout(() => window.close(), 300);
+                  try {
+                    window.opener.postMessage({ type: 'AUTH_SUCCESS' }, '*');
+                  } catch (e) {
+                    console.error('postMessage failed:', e);
+                  }
+                  setTimeout(() => window.close(), 200);
+                  setTimeout(() => window.close(), 500);
+                  setTimeout(() => window.close(), 1000);
+                  setTimeout(() => { window.location.href = 'about:blank'; }, 2000);
                 } else {
                   setTimeout(() => window.location.replace('/'), 500);
                 }
@@ -57,18 +75,25 @@ export default function AuthCallback() {
 
           // Timeout fallback
           setTimeout(() => {
+            subscription.unsubscribe();
             if (window.opener) {
-              window.close();
+              try {
+                window.opener.postMessage({ type: 'AUTH_SUCCESS' }, '*');
+              } catch (e) {}
+              window.location.href = 'about:blank';
             } else {
               window.location.replace('/');
             }
-          }, 5000);
+          }, 8000);
         }
       } catch (err) {
         console.error('Auth callback error:', err);
         if (window.opener) {
-          window.opener.postMessage({ type: 'AUTH_ERROR', error: String(err) }, '*');
-          setTimeout(() => window.close(), 1000);
+          try {
+            window.opener.postMessage({ type: 'AUTH_ERROR', error: String(err) }, '*');
+          } catch (e) {}
+          setTimeout(() => window.close(), 500);
+          setTimeout(() => { window.location.href = 'about:blank'; }, 1500);
         } else {
           setTimeout(() => window.location.replace('/'), 1000);
         }
@@ -92,6 +117,9 @@ export default function AuthCallback() {
           </div>
         )}
         <p className="text-gray-700 font-medium text-lg">{status}</p>
+        {status.includes('successful') && (
+          <p className="text-gray-400 text-sm mt-2">You can close this window</p>
+        )}
       </div>
     </div>
   );

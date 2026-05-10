@@ -200,12 +200,13 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
                     defaultChecked={i === 0}
                     className="sr-only"
                   />
-                  <label htmlFor={`cat-${cat.id}`} data-category={cat.id}>
+                  <label htmlFor={`cat-${cat.id}`} data-category={cat.id}
+                    className="w-full flex items-center justify-between p-4 rounded-lg transition-all cursor-pointer hover:bg-gray-50 text-gray-700">
                     <span className="flex items-center gap-3">
                       <span className="text-xl">{cat.icon}</span>
-                      <span>{catLabelMap[cat.id]}</span>
+                      <span className="font-bold text-sm">{catLabelMap[cat.id]}</span>
                     </span>
-                    <span className="cat-badge">{catCountMap[cat.id] || 0}</span>
+                    <span className="cat-badge text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">{catCountMap[cat.id] || 0}</span>
                   </label>
                 </React.Fragment>
               ))}
@@ -230,8 +231,8 @@ document.addEventListener('click', function(e) {
   var input = lbl.previousElementSibling;
   if (!input) return;
   var cat = input.id.replace('cat-', '');
-  document.querySelectorAll('.article-group').forEach(function(g) {
-    g.classList.toggle('active', g.getAttribute('data-cat') === cat);
+  document.querySelectorAll('.article-page').forEach(function(g) {
+    g.classList.toggle('hidden', g.getAttribute('data-cat') !== cat);
   });
 });
       `}} />
