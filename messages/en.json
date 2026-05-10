@@ -111,6 +111,29 @@
       "title": "List of Countries with Unilateral Visa-Free Entry",
       "tableDays": "Duration",
       "tableCountry": "Country"
+    },
+    "page": {
+      "fee": {
+        "visaType": "Visa Type",
+        "mainPurpose": "Main Purpose",
+        "costRange": "Cost Range",
+        "notes": "Notes",
+        "visaSuffix": "Visa",
+        "additionalInfo": "Additional Information",
+        "reciprocal": "Reciprocal Country Fees",
+        "reciprocalDesc": "For countries that have mutual visa exemption agreements with China, visa fees for their citizens may be charged according to the agreement. Please refer to the announcements of the Chinese embassies and consulates.",
+        "additionalFees": "Other Possible Fees",
+        "expedited": "Expedited Service Fee: Additional fee of approximately 200-500 CNY for expedited processing",
+        "mailing": "Mailing Fee: Courier fee of approximately 20-50 CNY for mailing visa materials or passport",
+        "medical": "Medical Examination Fee: Required for certain visa types (e.g., Work Visa Z, Long-term Study Visa X1), approximately 400-800 CNY",
+        "residencePermit": "Residence Permit Fees",
+        "permit1": "Residence Permit Application Fee: approximately 800 CNY/year (applicable to long-term residence visas such as Z, X1, Q1, S1)",
+        "permit2": "Residence Permit Extension Fee: approximately 800 CNY/time",
+        "permit3": "Residence Permit Change Fee: approximately 200 CNY/time (e.g., changing residence purpose, address, etc.)",
+        "note": "Note",
+        "feeNote1": "The above fees are for reference only. Actual fees may vary depending on nationality, application location, number of entries, and other factors. Please refer to the latest standards published by the Chinese embassy or consulate in your area.",
+        "feeNote2": "Visa fees are usually collected in local currency, and exchange rate fluctuations may affect the actual payment amount."
+      }
     }
   },
   "hero": {
@@ -923,6 +946,26 @@
     "hero": {
       "title": "Terms of Service",
       "subtitle": "By using our website, you agree to these terms."
+    },
+    "s1": {
+      "title": "1. Service Content",
+      "content": "This website aims to provide comprehensive services for foreign tourists planning to travel to China...|• Homepage: Showcasing destinations, rankings, visa-free search, and travel news|• Visa Policy: Detailed visa info, application guides, FAQ, and latest entry news|• Chinese Culture: Traditional and regional cultural features|• Travel Guides: AI-powered personalized itinerary generation|• Navigation: Recommended travel apps and websites"
+    },
+    "s2": {
+      "title": "2. User Conduct",
+      "content": "By using this site, you agree not to engage in illegal activities, infringe on rights, or spread harmful content. We reserve the right to terminate service for violations."
+    },
+    "s3": {
+      "title": "3. Intellectual Property",
+      "content": "All content belongs to this website unless stated otherwise. Unauthorized copying or modification is prohibited. Users grant us a global license for shared stories."
+    },
+    "s4": {
+      "title": "4. Disclaimer",
+      "content": "We strive for accuracy but do not guarantee completeness. Visa and entry guides are for reference only—please refer to official sources. AI itineraries are reference suggestions."
+    },
+    "s5": {
+      "title": "5. Contact Us",
+      "content": "If you have any questions or feedback regarding these terms, please contact us:|Email: contact@tripcngo.com"
     }
   },
   "pay": {

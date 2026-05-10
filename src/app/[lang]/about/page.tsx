@@ -1,7 +1,7 @@
 import AboutUsClient from "./AboutUsClient";
-import { getPageSections } from "@/lib/server-data";
 import { getSEO, aboutSEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
 import { LANGUAGES } from "@/lib/static-params";
+import { getServerTranslations } from "@/lib/server-i18n";
 
 export function generateStaticParams() {
   return LANGUAGES.map(lang => ({ lang }));
@@ -38,13 +38,15 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
 export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  let initialData = null;
 
-  try {
-    initialData = await getPageSections('about');
-  } catch (e) {
-    console.error('Failed to fetch about data:', e);
-  }
+  const t = getServerTranslations(lang, [
+    'about.hero.title',
+    'about.features.team.title', 'about.features.team.desc',
+    'about.features.focus.title', 'about.features.focus.desc',
+    'about.features.ai.title', 'about.features.ai.desc',
+    'about.story.title', 'about.story.p1', 'about.story.p2', 'about.story.p3', 'about.story.p4', 'about.story.p5',
+    'about.team.title', 'about.team.subtitle',
+  ]);
 
-  return <AboutUsClient initialData={initialData ?? undefined} lang={lang} />;
+  return <AboutUsClient translations={t} />;
 }

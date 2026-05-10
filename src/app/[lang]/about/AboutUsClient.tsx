@@ -2,6 +2,6 @@
 
 import AboutUs from "@/app-views/AboutUs";
 
-export default function AboutUsClient({ initialData, lang }: { initialData?: any[]; lang?: string }) {
-  return <AboutUs initialData={initialData} lang={lang} />;
+export default function AboutUsClient({ translations }: { translations?: Record<string, string> }) {
+  return <AboutUs translations={translations} />;
 }

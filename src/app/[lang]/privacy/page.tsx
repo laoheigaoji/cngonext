@@ -1,7 +1,7 @@
 import PrivacyClient from "./PrivacyClient";
-import { getPageSections } from "@/lib/server-data";
 import { getSEO, privacySEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
 import { LANGUAGES } from "@/lib/static-params";
+import { getServerTranslations } from "@/lib/server-i18n";
 
 export function generateStaticParams() {
   return LANGUAGES.map(lang => ({ lang }));
@@ -38,13 +38,17 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
 export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  let initialData = null;
 
-  try {
-    initialData = await getPageSections('privacy_policy');
-  } catch (e) {
-    console.error('Failed to fetch privacy data:', e);
-  }
+  const t = getServerTranslations(lang, [
+    'privacy.hero.title', 'privacy.hero.subtitle',
+    'privacy.lastUpdated', 'privacy.effectiveDate', 'privacy.intro',
+    'privacy.s1.title', 'privacy.s1.content',
+    'privacy.s2.title', 'privacy.s2.content',
+    'privacy.s3.title', 'privacy.s3.content',
+    'privacy.s4.title', 'privacy.s4.content',
+    'privacy.s5.title', 'privacy.s5.content',
+    'privacy.s6.title', 'privacy.s6.content',
+  ]);
 
-  return <PrivacyClient initialData={initialData ?? undefined} lang={lang} />;
+  return <PrivacyClient translations={t} />;
 }

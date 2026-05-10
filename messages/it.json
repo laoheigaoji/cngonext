@@ -119,6 +119,29 @@
       "tableDays": "Durata soggiorno",
       "tableCountry": "Paese"
     },
+    "page": {
+      "fee": {
+        "visaType": "Tipo di visto",
+        "mainPurpose": "Scopo principale",
+        "costRange": "Fascia di costo",
+        "notes": "Note",
+        "visaSuffix": "visto",
+        "additionalInfo": "Informazioni aggiuntive",
+        "reciprocal": "Tariffe reciproche",
+        "reciprocalDesc": "Per i paesi con accordi di esenzione visa reciproca con la Cina, le tariffe visa per i loro cittadini possono essere applicate secondo l'accordo. Consultare gli annunci delle ambasciate e consolati cinesi.",
+        "additionalFees": "Altre possibili spese",
+        "expedited": "Tariffa servizio urgente: circa 200-500 CNY aggiuntivi per elaborazione accelerata",
+        "mailing": "Spese di spedizione: circa 20-50 CNY per la spedizione di documenti visa o passaporto",
+        "medical": "Spese di visita medica: richieste per alcuni tipi di visto (visto di lavoro Z, visto di studio a lungo termine X1), circa 400-800 CNY",
+        "residencePermit": "Spese permesso di soggiorno",
+        "permit1": "Tariffa di richiesta permesso di soggiorno: circa 800 CNY/anno (applicabile a visti di lungo periodo Z, X1, Q1, S1)",
+        "permit2": "Tariffa di rinnovo permesso di soggiorno: circa 800 CNY/volta",
+        "permit3": "Tariffa di modifica permesso di soggiorno: circa 200 CNY/volta (cambio motivo di soggiorno, indirizzo, ecc.)",
+        "note": "Nota",
+        "feeNote1": "Le tariffe sopra indicate sono solo di riferimento. Le tariffe effettive possono variare in base alla nazionalità, al luogo di presentazione della domanda, al numero di ingressi e ad altri fattori. Fare riferimento alle ultime tariffe pubblicate dall'ambasciata o dal consolato cinese della vostra zona.",
+        "feeNote2": "Le tariffe visa sono generalmente riscosse in valuta locale e le fluttuazioni del tasso di cambio possono influire sull'importo effettivamente pagato."
+      }
+    },
     "breadcrumb": {
       "home": "Home",
       "mega": "Guida completa esenzione visto"
@@ -934,7 +957,12 @@
     "hero": {
       "title": "Termini di utilizzo",
       "subtitle": "Utilizzando il nostro sito, accetti i termini"
-    }
+    },
+    "s1": { "title": "1. Contenuto del servizio", "content": "Questo sito offre servizi completi per i turisti stranieri che pianificano un viaggio in Cina...|• Home: destinazioni popolari, classifiche delle città, ricerca senza visto, notizie di viaggio|• Politica dei visti: informazioni dettagliate, guide di richiesta, FAQ, ultime notizie di ingresso|• Cultura cinese: caratteristiche culturali tradizionali e regionali|• Guide di viaggio: itinerari personalizzati basati sull\\'IA|• Navigazione: app e siti di viaggio consigliati" },
+    "s2": { "title": "2. Condotta degli utenti", "content": "Utilizzando questo sito, accetti di non impegnarti in attività illegali, non violare i diritti di terzi e non diffondere contenuti dannosi. Ci riserviamo il diritto di interrompere il servizio in caso di violazione." },
+    "s3": { "title": "3. Proprietà intellettuale", "content": "Tutti i contenuti appartengono a questo sito salvo diversa indicazione. La copia o modifica non autorizzata è vietata. Gli utenti ci concedono una licenza globale per i contenuti condivisi." },
+    "s4": { "title": "4. Disclaimer", "content": "Ci sforziamo di essere accurati ma non garantiamo la completezza. Le guide sui visti e sull\\'ingresso sono solo di riferimento — consultare fonti ufficiali. Gli itinerari IA sono suggerimenti di riferimento." },
+    "s5": { "title": "5. Contattaci", "content": "Se hai domande o feedback su questi termini, contattaci:|Email: contact@tripcngo.com" }
   },
   "pay": {
     "success": {
@@ -952,7 +980,15 @@
       "title": "Informativa sulla privacy",
       "subtitle": "Ci impegniamo a proteggere le tue informazioni personali e la tua privacy"
     },
-    "lastUpdated": "Ultimo aggiornamento: 26 aprile 2025"
+    "lastUpdated": "Ultimo aggiornamento: 26 aprile 2025",
+    "effectiveDate": "Data di entrata in vigore: 17 maggio 2025",
+    "intro": "Benvenuto sul nostro sito. Questa informativa sulla privacy spiega come raccogliamo, utilizziamo, memorizziamo e proteggiamo le tue informazioni personali.",
+    "s1": { "title": "1. Informazioni che raccogliamo", "content": "Durante l\\'utilizzo del nostro sito, potremmo raccogliere i seguenti tipi di informazioni:|• Informazioni fornite da te: utilizzando la ricerca, inviando feedback o contattandoci, puoi fornire il tuo nome, email, paese, ecc.|• Informazioni raccolte automaticamente: indirizzo IP, tipo di browser, sistema operativo, orario di accesso, pagine visitate, ecc.|• Cookie e tecnologie simili: utilizziamo i cookie per identificarti e ricordare le tue preferenze." },
+    "s2": { "title": "2. Come utilizziamo le tue informazioni", "content": "Utilizziamo le tue informazioni per i seguenti scopi:|• Per fornire e mantenere le funzionalità e i servizi del sito.|• Per rispondere a richieste, feedback e suggerimenti.|• Per analizzare l\\'utilizzo del sito e ottimizzare i contenuti.|• Per migliorare i nostri servizi e sviluppare nuove funzionalità.|• Per statistiche e analisi dei dati.|• Per inviare notifiche e aggiornamenti pertinenti quando necessario." },
+    "s3": { "title": "3. Come proteggiamo le tue informazioni", "content": "Adottiamo misure di sicurezza ragionevoli per proteggere le tue informazioni, tra cui trasmissione e archiviazione cifrate, accesso limitato e revisioni periodiche della sicurezza. Tuttavia, nessuna trasmissione Internet è sicura al 100%." },
+    "s4": { "title": "4. Condivisione delle tue informazioni", "content": "Non vendiamo le tue informazioni personali a terze parti. Le condividiamo solo per fornire servizi necessari, conformarci alle leggi o con il tuo consenso esplicito." },
+    "s5": { "title": "5. I tuoi diritti", "content": "Puoi accedere, correggere o richiedere l\\'eliminazione delle tue informazioni personali. Contattaci tramite i dati forniti se necessario." },
+    "s6": { "title": "6. Contattaci", "content": "Se hai domande o preoccupazioni su questa informativa, contattaci:|Email: contact@tripcngo.com" }
   },
   "seo": {
     "suffix": "Viaggio in Cina - La tua guida turistica definitiva per la Cina"

@@ -131,7 +131,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           queryParams: {
             prompt: 'select_account',
           },
-          redirectTo: window.location.origin,
+          redirectTo: window.location.origin + '/auth/callback',
         },
       });
 
@@ -158,21 +158,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       // When popup redirects back to our origin after login, close it
       // and check for session
-      const popupChecker = setInterval(() => {
+      const popupChecker = setInterval(async () => {
         try {
           // Check if popup redirected back to our domain
           if (popup.location && popup.location.origin === window.location.origin) {
             popup.close();
             clearInterval(popupChecker);
-            // Session should be available now via onAuthStateChange
+            // Proactively refresh session from Supabase
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user) {
+              setUser(session.user);
+            }
           }
         } catch (e) {
           // Cross-origin error means popup is still on Google's domain - expected
         }
 
-        // Also handle popup being manually closed
+        // Also handle popup being manually closed or auto-closed by callback page
         if (popup.closed) {
           clearInterval(popupChecker);
+          // Popup closed - proactively check if session was established
+          try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user) {
+              setUser(session.user);
+            }
+          } catch (e) {
+            console.error('Session check after popup closed failed:', e);
+          }
         }
       }, 300);
 

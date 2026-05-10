@@ -121,6 +121,29 @@
       "tableDays": "Aufenthaltsdauer",
       "tableCountry": "Land"
     },
+    "page": {
+      "fee": {
+        "visaType": "Visumtyp",
+        "mainPurpose": "Hauptzweck",
+        "costRange": "Kostenbereich",
+        "notes": "Hinweise",
+        "visaSuffix": "Visum",
+        "additionalInfo": "Zusätzliche Informationen",
+        "reciprocal": "Gegenseitige Gebühren",
+        "reciprocalDesc": "Für Länder mit gegenseitigen Visumbefreiungsabkommen mit China können die Visumgebühren für deren Bürger gemäß dem Abkommen erhoben werden. Bitte beachten Sie die Ankündigungen der chinesischen Botschaften und Konsulate.",
+        "additionalFees": "Sonstige mögliche Gebühren",
+        "expedited": "Express-Servicegebühr: ca. 200-500 CNY zusätzlich für beschleunigte Bearbeitung",
+        "mailing": "Versandkosten: ca. 20-50 CNY für den Versand von Visumunterlagen oder Reisepass",
+        "medical": "Gesundheitsuntersuchungsgebühr: erforderlich für bestimmte Visumtypen (Arbeitsvisum Z, Langzeitstudienvisum X1), ca. 400-800 CNY",
+        "residencePermit": "Aufenthaltserlaubnis-Gebühren",
+        "permit1": "Antragsgebühr für Aufenthaltserlaubnis: ca. 800 CNY/Jahr (gilt für Langzeitvisum Z, X1, Q1, S1)",
+        "permit2": "Verlängerungsgebühr für Aufenthaltserlaubnis: ca. 800 CNY/Mal",
+        "permit3": "Änderungsgebühr für Aufenthaltserlaubnis: ca. 200 CNY/Mal (Änderung des Aufenthaltszwecks, der Adresse usw.)",
+        "note": "Hinweis",
+        "feeNote1": "Die oben genannten Gebühren dienen nur als Orientierung. Die tatsächlichen Gebühren können je nach Nationalität, Antragstellungsort, Anzahl der Einreisen und anderen Faktoren variieren. Bitte beachten Sie die neuesten Tarife der chinesischen Botschaft oder des Konsulats in Ihrer Region.",
+        "feeNote2": "Visumgebühren werden in der Regel in lokaler Währung erhoben, und Wechselkursschwankungen können den tatsächlich gezahlten Betrag beeinflussen."
+      }
+    },
     "breadcrumb": {
       "home": "Startseite",
       "mega": "Vollständiger Leitfaden zur Visumbefreiung"
@@ -935,7 +958,12 @@
     "hero": {
       "title": "Nutzungsbedingungen",
       "subtitle": "Mit der Nutzung unserer Website akzeptieren Sie die Bedingungen"
-    }
+    },
+    "s1": { "title": "1. Dienstleistungsinhalt", "content": "Diese Website bietet umfassende Dienstleistungen für ausländische Touristen, die eine Reise nach China planen...|• Startseite: Beliebte Reiseziele, Städterankings, visumfreie Suche, Reisnachrichten|• Visumpolitik: Detaillierte Visuminformationen, Anleitungen, FAQ, neueste Einreisnachrichten|• Chinesische Kultur: Traditionelle und regionale kulturelle Merkmale|• Reiseführer: KI-gestützte personalisierte Reiserouten|• Navigation: Empfohlene Reise-Apps und Websites" },
+    "s2": { "title": "2. Benutzerverhalten", "content": "Mit der Nutzung dieser Website stimmen Sie zu, keine illegalen Aktivitäten durchzuführen, keine Rechte Dritter zu verletzen und keinen schädlichen Inhalt zu verbreiten. Wir behalten uns das Recht vor, den Service bei Verstößen zu kündigen." },
+    "s3": { "title": "3. Geistiges Eigentum", "content": "Alle Inhalte gehören dieser Website, sofern nicht anders angegeben. Unautorisiertes Kopieren oder Ändern ist verboten. Benutzer gewähren uns eine weltweite Lizenz für geteilte Inhalte." },
+    "s4": { "title": "4. Haftungsausschluss", "content": "Wir bemühen uns um Genauigkeit, garantieren aber keine Vollständigkeit. Visa- und Einreiseführer dienen nur als Referenz — bitte beachten Sie offizielle Quellen. KI-Reiserouten sind Referenzvorschläge." },
+    "s5": { "title": "5. Kontakt", "content": "Wenn Sie Fragen oder Feedback zu diesen Bedingungen haben, kontaktieren Sie uns:|E-Mail: contact@tripcngo.com" }
   },
   "pay": {
     "success": {
@@ -953,7 +981,15 @@
       "title": "Datenschutzrichtlinie",
       "subtitle": "Wir verpflichten uns, Ihre persönlichen Daten und Privatsphäre zu schützen"
     },
-    "lastUpdated": "Letzte Aktualisierung: 26. April 2025"
+    "lastUpdated": "Letzte Aktualisierung: 26. April 2025",
+    "effectiveDate": "Inkrafttreten: 17. Mai 2025",
+    "intro": "Willkommen auf unserer Website. Diese Datenschutzrichtlinie erläutert, wie wir Ihre persönlichen Daten erfassen, verwenden, speichern und schützen.",
+    "s1": { "title": "1. Welche Informationen wir erfassen", "content": "Bei der Nutzung unserer Website können wir folgende Arten von Informationen erfassen:|• Von Ihnen bereitgestellte Informationen: Bei Nutzung der Suche, Einreichung von Feedback oder Kontaktaufnahme können Sie Ihren Namen, Ihre E-Mail, Ihr Land usw. angeben.|• Automatisch erfasste Informationen: IP-Adresse, Browsertyp, Betriebssystem, Zugriffszeit, besuchte Seiten usw.|• Cookies und ähnliche Technologien: Wir verwenden Cookies, um Sie zu identifizieren und Ihre Präferenzen zu speichern." },
+    "s2": { "title": "2. Wie wir Ihre Informationen verwenden", "content": "Wir verwenden Ihre Informationen für folgende Zwecke:|• Zur Bereitstellung und Wartung der Website-Funktionen und -Dienste.|• Zur Beantwortung Ihrer Anfragen, Feedback und Vorschläge.|• Zur Analyse der Websitenutzung und Optimierung der Inhalte.|• Zur Verbesserung unserer Dienste und Entwicklung neuer Funktionen.|• Für Datenstatistiken und Analysen.|• Zum Versand relevanter Benachrichtigungen und Updates bei Bedarf." },
+    "s3": { "title": "3. Wie wir Ihre Informationen schützen", "content": "Wir ergreifen angemessene Sicherheitsmaßnahmen zum Schutz Ihrer Informationen, einschließlich verschlüsselter Übertragung und Speicherung, eingeschränktem Zugriff und regelmäßigen Sicherheitsüberprüfungen. Jedoch ist keine Internetübertragung zu 100% sicher." },
+    "s4": { "title": "4. Weitergabe Ihrer Informationen", "content": "Wir verkaufen Ihre persönlichen Daten nicht an Dritte. Wir teilen sie nur zur Bereitstellung notwendiger Dienste, zur Einhaltung von Gesetzen oder mit Ihrer ausdrücklichen Zustimmung." },
+    "s5": { "title": "5. Ihre Rechte", "content": "Sie können auf Ihre persönlichen Daten zugreifen, diese korrigieren oder deren Löschung beantragen. Kontaktieren Sie uns über die angegebenen Kontaktdaten, falls erforderlich." },
+    "s6": { "title": "6. Kontakt", "content": "Wenn Sie Fragen oder Bedenken zu dieser Richtlinie haben, kontaktieren Sie uns:|E-Mail: contact@tripcngo.com" }
   },
   "seo": {
     "suffix": "Reise nach China - Ihr ultimativer China-Reiseführer"

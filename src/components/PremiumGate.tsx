@@ -53,9 +53,26 @@ export default function PremiumGate({ children, isZh = true }: PremiumGateProps)
     checkAuth();
 
     // 监听登录状态变化
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setIsAuthenticated(!!session);
-      if (!session) {
+      if (session?.user) {
+        // Check purchase status when user logs in
+        try {
+          const { data: purchase } = await supabase
+            .from('purchases')
+            .select('*')
+            .eq('user_id', session.user.id)
+            .eq('item_id', 'all_access')
+            .single();
+          
+          if (purchase) {
+            setIsPurchased(true);
+            localStorage.setItem('hasPurchased', 'true');
+          }
+        } catch (e) {
+          console.error('Purchase check error:', e);
+        }
+      } else {
         setIsPurchased(false);
       }
     });

@@ -6,8 +6,16 @@ import { useLanguage } from '../context/LanguageContext';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
-export default function Feedback() {
-  const { language, t } = useLanguage();
+export default function Feedback({ translations }: { translations?: Record<string, string> }) {
+  const { t } = useLanguage();
+
+  const tt = (key: string): string => {
+    if (translations && translations[key] && translations[key] !== key) {
+      return translations[key];
+    }
+    return t(key);
+  };
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -54,7 +62,7 @@ export default function Feedback() {
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-6xl font-black text-white mb-6 tracking-tight"
           >
-            {t('feedback.title')}
+            {tt('feedback.title')}
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }} 
@@ -62,7 +70,7 @@ export default function Feedback() {
             transition={{ delay: 0.1 }}
             className="text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed font-medium"
           >
-            {t('feedback.subtitle')}
+            {tt('feedback.subtitle')}
           </motion.p>
         </div>
       </section>
@@ -75,13 +83,13 @@ export default function Feedback() {
             <form onSubmit={handleSubmit} className="space-y-8">
               <div>
                 <label className="block text-gray-700 text-sm font-bold mb-3" htmlFor="name">
-                  {t('feedback.name')}：
+                  {tt('feedback.nameName')}：
                 </label>
                 <input
                   type="text"
                   id="name"
                   required
-                  placeholder={t('feedback.name.placeholder')}
+                  placeholder={tt('feedback.name.placeholder')}
                   className="w-full px-4 py-3.5 bg-white border border-gray-100 rounded-md focus:border-[#1b887a] outline-none transition-all shadow-sm"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -90,13 +98,13 @@ export default function Feedback() {
 
               <div>
                 <label className="block text-gray-700 text-sm font-bold mb-3" htmlFor="email">
-                  {t('feedback.email')}：
+                  {tt('feedback.emailName')}：
                 </label>
                 <input
                   type="email"
                   id="email"
                   required
-                  placeholder={t('feedback.email.placeholder')}
+                  placeholder={tt('feedback.email.placeholder')}
                   className="w-full px-4 py-3.5 bg-white border border-gray-100 rounded-md focus:border-[#1b887a] outline-none transition-all shadow-sm"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -105,13 +113,13 @@ export default function Feedback() {
 
               <div>
                 <label className="block text-gray-700 text-sm font-bold mb-3" htmlFor="message">
-                  {t('feedback.message')}：
+                  {tt('feedback.messageName')}：
                 </label>
                 <textarea
                   id="message"
                   required
                   rows={8}
-                  placeholder={t('feedback.message.placeholder')}
+                  placeholder={tt('feedback.message.placeholder')}
                   className="w-full px-4 py-3.5 bg-white border border-gray-100 rounded-md focus:border-[#1b887a] outline-none transition-all resize-none shadow-sm"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -124,7 +132,7 @@ export default function Feedback() {
                   disabled={status === 'loading'}
                   className={`px-10 py-3 bg-[#1b887a] text-white font-bold rounded-lg hover:bg-[#166d63] transition-all transform active:scale-95 shadow-lg ${status === 'loading' ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                  {status === 'loading' ? '...' : t('feedback.submit')}
+                  {status === 'loading' ? '...' : tt('feedback.submit')}
                 </button>
               </div>
 
@@ -134,7 +142,7 @@ export default function Feedback() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="p-4 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-100 font-medium"
                 >
-                  {t('feedback.success')}
+                  {tt('feedback.success')}
                 </motion.div>
               )}
               {status === 'error' && (
@@ -143,7 +151,7 @@ export default function Feedback() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="p-4 bg-red-50 text-red-700 rounded-lg border border-red-100 font-medium"
                 >
-                  Failed to send feedback.
+                  {tt('feedback.error')}
                 </motion.div>
               )}
             </form>

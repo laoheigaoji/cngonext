@@ -2,6 +2,6 @@
 
 import PrivacyPolicy from "@/app-views/PrivacyPolicy";
 
-export default function PrivacyClient({ initialData, lang }: { initialData?: any[]; lang?: string }) {
-  return <PrivacyPolicy initialData={initialData} lang={lang} />;
+export default function PrivacyClient({ translations }: { translations?: Record<string, string> }) {
+  return <PrivacyPolicy translations={translations} />;
 }
