@@ -16,7 +16,7 @@ async function fetchFromSupabase(table: string, query: string): Promise<any[] | 
     const res = await fetch(`${supabaseUrl}/rest/v1/${table}?${query}`, {
       headers,
       signal: controller.signal,
-      next: { revalidate: 300 },
+      next: { revalidate: false },
     });
     clearTimeout(timeout);
     if (!res.ok) return null;

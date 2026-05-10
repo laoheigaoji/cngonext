@@ -67,6 +67,7 @@ export default function LangLayoutClient({
 }: {
   children: React.ReactNode;
   htmlLang: string;
+  initialDbTranslations?: Record<string, string>;
 }) {
   const { lang } = useParams();
   const initialLang = langMap[lang as string] || 'en';

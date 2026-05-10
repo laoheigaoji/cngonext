@@ -1,6 +1,8 @@
 import VisaArrivalCard from "@/app-views/visa/VisaArrivalCard";
 import { getHreflangAlternates, baseUrl, getSEO, visaArrivalCardSEO, defaultOgImage } from "@/lib/seo-config";
 
+export const revalidate = false;
+
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const seo = getSEO(visaArrivalCardSEO, lang);

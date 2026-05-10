@@ -1,6 +1,8 @@
 import Visa from "@/app-views/Visa";
 import { getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
 
+export const revalidate = false;
+
 const visaSEO: Record<string, { title: string; description: string }> = {
   cn: { title: '中国签证指南 - tripcngo.com', description: '全面的中国签证指南：签证类型、费用、申请流程、240小时过境免签政策等详细信息。' },
   en: { title: 'China Visa Guide - tripcngo.com', description: 'Complete China visa guide: visa types, fees, application process, 240-hour transit visa exemption policy and more.' },

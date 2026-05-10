@@ -2,6 +2,6 @@
 
 import Cities from "@/app-views/Cities";
 
-export default function CitiesClient({ initialData }: { initialData?: any[] }) {
-  return <Cities initialData={initialData} />;
+export default function CitiesClient({ initialData, skipStaticSections }: { initialData?: any[]; skipStaticSections?: boolean }) {
+  return <Cities initialData={initialData} skipStaticSections={skipStaticSections} />;
 }

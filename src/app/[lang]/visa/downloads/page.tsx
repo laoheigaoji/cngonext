@@ -1,6 +1,8 @@
 import VisaDownloads from "@/app-views/visa/VisaDownloads";
 import { getHreflangAlternates, baseUrl, getSEO, visaDownloadsSEO, defaultOgImage } from "@/lib/seo-config";
 
+export const revalidate = false;
+
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const seo = getSEO(visaDownloadsSEO, lang);

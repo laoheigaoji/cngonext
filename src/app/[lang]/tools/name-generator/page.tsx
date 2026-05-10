@@ -1,5 +1,9 @@
 import NameGenerator from "@/app-views/tools/NameGenerator";
+import NameGenHero from "@/components/NameGenHero";
 import { getHreflangAlternates, baseUrl, getSEO, nameGeneratorSEO, defaultOgImage } from "@/lib/seo-config";
+import { getServerTranslations } from "@/lib/server-i18n";
+
+export const revalidate = false;
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -28,6 +32,25 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export default function Page() {
-  return <NameGenerator />;
+export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+
+  // Get translations for static SSR hero section - reads from local JSON, instant
+  const t = getServerTranslations(lang, [
+    'tools.name.title',
+    'tools.name.subtitle',
+  ]);
+
+  return (
+    <>
+      {/* Hero - SSR, no JS dependency, instant */}
+      <NameGenHero
+        title={t['tools.name.title']}
+        subtitle={t['tools.name.subtitle']}
+      />
+
+      {/* Client-side interactive tool */}
+      <NameGenerator skipHero />
+    </>
+  );
 }

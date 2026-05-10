@@ -9,7 +9,7 @@ import { fallbackCities } from '../data/fallbackData';
 
 const ITEMS_PER_PAGE = 9;
 
-export default function Cities({ initialData }: { initialData?: any[] }) {
+export default function Cities({ initialData, skipStaticSections }: { initialData?: any[]; skipStaticSections?: boolean }) {
   const { language, t } = useLanguage();
   const [currentPage, setCurrentPage] = useState(1);
   const [allCities, setAllCities] = useState<any[]>(() => initialData || []);
@@ -40,7 +40,9 @@ export default function Cities({ initialData }: { initialData?: any[] }) {
   const langPrefix = language === 'zh' ? 'cn' : language;
 
   return (
-    <div className="w-full bg-[#f9f9f9] pb-20">
+    <>
+      {/* Hero & Intro - only render if not already SSR'd */}
+      {!skipStaticSections && (<>
       <section className="relative h-[400px] flex items-center pt-16 bg-gray-900 overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://static.tripcngo.com/ing/Fbanner_bg_2.jpg')] bg-cover bg-center" />
         <div className="absolute inset-0 bg-black/40" />
@@ -67,6 +69,7 @@ export default function Cities({ initialData }: { initialData?: any[] }) {
           <p>{t('cities.intro.p6')}</p>
         </div>
       </div>
+      </>)}
 
       <div className="max-w-[1240px] mx-auto px-6">
         <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ${loading ? '' : ''}`}>
@@ -141,6 +144,6 @@ export default function Cities({ initialData }: { initialData?: any[] }) {
         </div>
         )}
       </div>
-    </div>
+    </>
   );
 }

@@ -29,7 +29,7 @@ const CATEGORIES = [
   { id: 'Food Culture', key: 'guide.cat.food', icon: '🥢', count: 7 },
 ];
 
-export default function GuideList() {
+export default function GuideList({ initialData, skipHero }: { initialData?: any[]; skipHero?: boolean }) {
   const { language, t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('All');
   const [articles, setArticles] = useState<Article[]>([]);
@@ -55,6 +55,11 @@ export default function GuideList() {
   };
 
   useEffect(() => {
+    if (initialData && activeCategory === 'All') {
+      setArticles(initialData);
+      setLoading(false);
+      return;
+    }
     const fetchArticles = async () => {
       setLoading(true);
       try {
@@ -90,9 +95,10 @@ export default function GuideList() {
   const totalPages = Math.ceil(articles.length / articlesPerPage);
   const currentArticles = articles.slice((currentPage - 1) * articlesPerPage, currentPage * articlesPerPage);
 
-  return (
-    <div className="w-full bg-[#f7f7f7]">
-{/* Hero Header */}
+  const content = (
+    <>
+{/* Hero Header - skipped when rendered by SSR ArticlesHero component */}
+{!skipHero && (
       <section className="relative h-[480px] flex items-center pt-20 overflow-hidden">
         <div className="absolute inset-0">
           <img 
@@ -123,6 +129,7 @@ export default function GuideList() {
           </motion.p>
         </div>
       </section>
+)}
 
       {/* Content Section */}
       <section className="max-w-[1400px] mx-auto px-6 py-16">
@@ -270,6 +277,9 @@ export default function GuideList() {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
+
+  if (skipHero) return content;
+  return <div className="w-full bg-[#f7f7f7]">{content}</div>;
 }

@@ -2,6 +2,8 @@ import VisaFeesClient from "./VisaFeesClient";
 import { getVisaFeesData, getTranslations } from "@/lib/server-data";
 import { getSEO, visaFeesSEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
 
+export const revalidate = false;
+
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const seo = getSEO(visaFeesSEO, lang);

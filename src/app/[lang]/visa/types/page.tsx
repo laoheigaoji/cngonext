@@ -2,6 +2,8 @@ import VisaTypesClient from "./VisaTypesClient";
 import { getVisaTypesData, getTranslations } from "@/lib/server-data";
 import { getSEO, visaTypesSEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
 
+export const revalidate = false;
+
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const seo = getSEO(visaTypesSEO, lang);

@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
 import { supabase } from '../lib/supabase';
 
 export type Language = 'zh' | 'en' | 'ja' | 'ko' | 'ru' | 'fr' | 'es' | 'de' | 'tw' | 'it';
@@ -5446,7 +5446,7 @@ const detectIPCountry = async (): Promise<string | null> => {
   return null;
 };
 
-export const LanguageProvider = ({ children, initialLang }: { children: ReactNode; initialLang?: Language }) => {
+export const LanguageProvider = ({ children, initialLang, initialDbTranslations }: { children: ReactNode; initialLang?: Language; initialDbTranslations?: Record<string, string> }) => {
   const [language, setLanguage] = useState<Language>(() => {
     // If initialLang is provided (from Next.js URL params), use it for both SSR and client
     if (initialLang) return initialLang;
@@ -5489,11 +5489,19 @@ export const LanguageProvider = ({ children, initialLang }: { children: ReactNod
   });
 
   const [ipChecked, setIpChecked] = useState(false);
-  const [dbTranslations, setDbTranslations] = useState<Record<string, string>>({});
-  const [dbTranslationsLoaded, setDbTranslationsLoaded] = useState(false);
+  const [dbTranslations, setDbTranslations] = useState<Record<string, string>>(() => initialDbTranslations || {});
+  const [dbTranslationsLoaded, setDbTranslationsLoaded] = useState(() => !!initialDbTranslations);
 
-  // 从数据库加载翻译
+  // 从数据库加载翻译（如果服务端已提供且语言匹配则跳过首次加载）
+  const hasInitialTranslations = useRef(!!initialDbTranslations && Object.keys(initialDbTranslations || {}).length > 0);
+
   useEffect(() => {
+    // Skip first load if server already provided translations for the initial language
+    if (hasInitialTranslations.current) {
+      hasInitialTranslations.current = false;
+      return;
+    }
+
     const loadDbTranslations = async () => {
       try {
         const { data, error } = await supabase

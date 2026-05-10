@@ -181,7 +181,7 @@ interface HomeInitialData {
   faqs: any[];
 }
 
-export default function Home({ initialData }: { initialData?: HomeInitialData }) {
+export default function Home({ initialData, skipStaticSections }: { initialData?: HomeInitialData; skipStaticSections?: boolean }) {
   const { t, language } = useLanguage();
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -211,8 +211,10 @@ export default function Home({ initialData }: { initialData?: HomeInitialData })
   const [cities, setCities] = useState<any[]>(() => initialData?.cities || []);
   const [faqs, setFaqs] = useState<HomeFAQ[]>(() => initialData?.faqs || []);
   // Separate loading states: only data-dependent sections need loading
+  // When initialData exists, these should be false immediately
   const [citiesLoading, setCitiesLoading] = useState(() => !initialData?.cities?.length);
   const [guidesLoading, setGuidesLoading] = useState(() => !initialData?.articles?.length);
+  const [faqsLoading, setFaqsLoading] = useState(() => !initialData?.faqs?.length);
   const navigate = useNavigate();
   const langPrefix = language === 'zh' ? 'cn' : language;
 
@@ -350,8 +352,9 @@ export default function Home({ initialData }: { initialData?: HomeInitialData })
     : [];
 
   return (
-    <div className="w-full bg-[#f7f7f7]">
-      {/* Hero Section */}
+    <>
+      {/* Hero Section - only render if not already SSR'd */}
+      {!skipStaticSections && (
       <section className="relative h-screen min-h-[700px] flex px-6 pb-20 pt-32">
         <div className="absolute inset-0 overflow-hidden">
           <video 
@@ -462,8 +465,10 @@ export default function Home({ initialData }: { initialData?: HomeInitialData })
           </motion.div>
         </div>
       </section>
+      )}
 
-      {/* 240 hours Visa Free Section */}
+      {/* 240 hours Visa Free Section - only render if not already SSR'd */}
+      {!skipStaticSections && (
       <section className="py-24 max-w-[1400px] mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="relative">
@@ -495,6 +500,7 @@ export default function Home({ initialData }: { initialData?: HomeInitialData })
           </div>
         </div>
       </section>
+      )}
 
       {/* Popular Cities */}
       <section className="py-20 bg-white">
@@ -657,6 +663,6 @@ export default function Home({ initialData }: { initialData?: HomeInitialData })
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }

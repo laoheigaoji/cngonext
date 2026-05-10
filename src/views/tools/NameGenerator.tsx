@@ -8,7 +8,7 @@ import { askDeepSeek } from '../../lib/deepseek';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
-export default function NameGenerator() {
+export default function NameGenerator({ skipHero }: { skipHero?: boolean }) {
   const { t, language } = useLanguage();
   const [formData, setFormData] = useState({ name: '', sex: '男', dob: '', info: '' });
   const [generatedName, setGeneratedName] = useState('');
@@ -34,7 +34,8 @@ export default function NameGenerator() {
     <>
 <div className="bg-[#f7f7f7] min-h-screen">
       
-      {/* Hero Section */}
+      {/* Hero Section - skipped when rendered by SSR NameGenHero component */}
+      {!skipHero && (
       <div 
         className="relative h-[300px] w-full flex items-center pt-16"
         style={{
@@ -49,6 +50,7 @@ export default function NameGenerator() {
           <p className="text-lg text-white/90">{t('tools.name.subtitle')}</p>
         </div>
       </div>
+      )}
       
       {/* Page Content */}
       <div className="max-w-4xl mx-auto py-12 px-4 space-y-12 mt-10 relative z-20">

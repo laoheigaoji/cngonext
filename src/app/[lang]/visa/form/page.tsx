@@ -1,6 +1,8 @@
 import VisaForm from "@/app-views/visa/VisaForm";
 import { getHreflangAlternates, baseUrl, getSEO, visaFormSEO, defaultOgImage } from "@/lib/seo-config";
 
+export const revalidate = false;
+
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const seo = getSEO(visaFormSEO, lang);
