@@ -6,6 +6,7 @@ import { Clock, Navigation, Map, CloudRain, Sun, Cloud, Calendar, Building2, Use
 import { useLanguage } from '../../context/LanguageContext';
 import { supabase } from '../../lib/supabase';
 import WeatherWidget from '../../components/WeatherWidget';
+import WeatherInjector from '../../components/WeatherInjector';
 import ShareButton from '../../components/ShareButton';
 import { fallbackCities } from '../../data/fallbackData';
 
@@ -103,10 +104,8 @@ export default function CityDetail({ initialData, ssrContentRendered }: { initia
   if (ssrContentRendered && city) {
     return (
       <>
-        {/* Interactive vote buttons - rendered in hero area via CSS positioning */}
-        <div className="sr-only" aria-hidden="true">
-          {/* These are handled by the client-side hydration */}
-        </div>
+        {/* Inject WeatherWidget into the SSR-rendered info card slot */}
+        <WeatherInjector cityName={city.name} enCityName={city.enName} language={language} />
 
         {/* Video Modal - full screen no border */}
         {showVideoModal && city.videoUrl && (

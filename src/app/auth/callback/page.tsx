@@ -1,37 +1,57 @@
 "use client";
 
 import { useEffect } from "react";
+import { supabase } from "../../../lib/supabase";
 
 export default function AuthCallback() {
   useEffect(() => {
-    const fullUrl = window.location.href;
-    console.log("[AuthCallback] Loaded, URL:", fullUrl);
+    const handleCallback = async () => {
+      const hash = window.location.hash;
+      console.log("[AuthCallback] Handling callback, hash:", hash ? "present" : "none");
 
-    // When redirected back from Google OAuth (direct redirect, not popup)
-    // Exchange the code for a session right here
-    const exchangeCode = async () => {
       try {
-        const { createClient } = await import('@supabase/supabase-js');
-        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.VITE_SUPABASE_URL || 'https://cxegaqhwexiidezycbyg.supabase.co';
-        const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || process.env.VITE_SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN4ZWdhcWh3ZXhpaWRlenljYnlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NDIyMjUsImV4cCI6MjA5MzUxODIyNX0.7Tp0V5WoTfWOIhbHOH-SKoTH7VRJeGDQDcQXIaJuz6g';
-        const supabase = createClient(supabaseUrl, supabaseKey);
+        if (hash && hash.includes("access_token=")) {
+          // Implicit flow: Parse the hash fragment and set session manually
+          const params = new URLSearchParams(hash.substring(1)); // remove leading #
+          const accessToken = params.get("access_token");
+          const refreshToken = params.get("refresh_token");
 
-        const { error, data } = await supabase.auth.exchangeCodeForSession(fullUrl);
-        if (error) {
-          console.error("[AuthCallback] Exchange error:", error.message);
+          if (accessToken && refreshToken) {
+            const { data, error } = await supabase.auth.setSession({
+              access_token: accessToken,
+              refresh_token: refreshToken,
+            });
+
+            if (error) {
+              console.error("[AuthCallback] setSession error:", error.message);
+            } else {
+              console.log("[AuthCallback] setSession success, user:", data.user?.email);
+            }
+          } else {
+            console.error("[AuthCallback] Missing access_token or refresh_token in hash");
+          }
         } else {
-          console.log("[AuthCallback] Exchange success, session:", !!data.session);
+          // PKCE flow: URL has ?code= parameter
+          const fullUrl = window.location.href;
+          const { error, data } = await supabase.auth.exchangeCodeForSession(fullUrl);
+          if (error) {
+            console.error("[AuthCallback] Code exchange error:", error.message);
+          } else {
+            console.log("[AuthCallback] Code exchange success, user:", data.session?.user?.email);
+          }
         }
       } catch (err) {
-        console.error("[AuthCallback] Exchange failed:", err);
+        console.error("[AuthCallback] Callback handling failed:", err);
       }
 
-      // Always redirect back to the main page after handling
-      // Use replace to not leave callback in browser history
-      window.location.replace("/");
+      // Wait for session to be persisted to localStorage before redirecting
+      // This ensures AuthContext's onAuthStateChange fires and picks up the session
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 800);
     };
 
-    exchangeCode();
+    handleCallback();
   }, []);
 
   return (

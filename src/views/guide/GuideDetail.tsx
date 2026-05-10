@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import Markdown from 'react-markdown';
 import { supabase } from '../../lib/supabase';
-import { fallbackArticles } from '../../data/fallbackData';
+import { fallbackArticles, fallbackCities } from '../../data/fallbackData';
 
 interface Article {
   _id: string;
@@ -299,38 +299,55 @@ export default function GuideDetail({ initialData, ssrContentRendered, ssrArticl
 
   // 非阻塞加载次要数据（推荐文章、推荐城市、上下篇、浏览量递增）
   const loadSecondaryData = async () => {
-    const results = await Promise.allSettled([
-      supabase.from('cities').select('id, name, enName, listCover, heroImage, stats').limit(5),
-      supabase.from('articles').select('*').neq('id', id).limit(10),
-      supabase.from('articles').select('id, title, titleEn, thumbnail, createdAt').order('createdAt', { ascending: false }),
-      initialData ? supabase.from('articles').update({ views: (initialData.views || 0) + 1 }).eq('id', id) : Promise.resolve({ error: null }),
-    ]);
+    try {
+      const results = await Promise.allSettled([
+        supabase.from('cities').select('id, name, enName, listCover, heroImage, stats').limit(5),
+        supabase.from('articles').select('*').neq('id', id).limit(10),
+        supabase.from('articles').select('id, title, titleEn, thumbnail, createdAt').order('createdAt', { ascending: false }),
+        initialData ? supabase.from('articles').update({ views: (initialData.views || 0) + 1 }).eq('id', id) : Promise.resolve({ error: null }),
+      ]);
 
-    // 推荐城市
-    const citiesResult = results[0];
-    if (citiesResult.status === 'fulfilled' && !citiesResult.value.error && citiesResult.value.data) {
-      setRecommendedCities(citiesResult.value.data);
-    }
-
-    // 推荐文章
-    const recResult = results[1];
-    if (recResult.status === 'fulfilled' && !recResult.value.error && recResult.value.data) {
-      const mapped = recResult.value.data.map((d: any) => ({
-        _id: d.id, ...d, createdAt: d.createdAt || new Date().toISOString()
-      })) as Article[];
-      setRecommendedArticles(mapped.sort(() => 0.5 - Math.random()).slice(0, 3));
-    }
-
-    // 上下篇
-    const allDocsResult = results[2];
-    if (allDocsResult.status === 'fulfilled' && !allDocsResult.value.error && allDocsResult.value.data) {
-      const currentIndex = allDocsResult.value.data.findIndex((a: any) => a.id === id);
-      if (currentIndex !== -1) {
-        const prev = allDocsResult.value.data[currentIndex - 1];
-        const next = allDocsResult.value.data[currentIndex + 1];
-        setPrevArticle(prev ? ({ _id: prev.id, ...prev } as any) : null);
-        setNextArticle(next ? ({ _id: next.id, ...next } as any) : null);
+      // 推荐城市
+      const citiesResult = results[0];
+      if (citiesResult.status === 'fulfilled' && !citiesResult.value.error && citiesResult.value.data) {
+        setRecommendedCities(citiesResult.value.data);
+      } else {
+        // Fallback to static data
+        setRecommendedCities(fallbackCities.slice(0, 5));
       }
+
+      // 推荐文章
+      const recResult = results[1];
+      if (recResult.status === 'fulfilled' && !recResult.value.error && recResult.value.data) {
+        const mapped = recResult.value.data.map((d: any) => ({
+          _id: d.id, ...d, createdAt: d.createdAt || new Date().toISOString()
+        })) as Article[];
+        setRecommendedArticles(mapped.sort(() => 0.5 - Math.random()).slice(0, 3));
+      } else {
+        // Fallback to static data
+        setRecommendedArticles(fallbackArticles.slice(0, 3).map((a: any) => ({
+          _id: a.id, ...a, createdAt: new Date().toISOString()
+        })) as Article[]);
+      }
+
+      // 上下篇
+      const allDocsResult = results[2];
+      if (allDocsResult.status === 'fulfilled' && !allDocsResult.value.error && allDocsResult.value.data) {
+        const currentIndex = allDocsResult.value.data.findIndex((a: any) => a.id === id);
+        if (currentIndex !== -1) {
+          const prev = allDocsResult.value.data[currentIndex - 1];
+          const next = allDocsResult.value.data[currentIndex + 1];
+          setPrevArticle(prev ? ({ _id: prev.id, ...prev } as any) : null);
+          setNextArticle(next ? ({ _id: next.id, ...next } as any) : null);
+        }
+      }
+    } catch (err) {
+      console.error('Failed to load secondary data:', err);
+      // Apply fallback data on any error
+      setRecommendedCities(fallbackCities.slice(0, 5));
+      setRecommendedArticles(fallbackArticles.slice(0, 3).map((a: any) => ({
+        _id: a.id, ...a, createdAt: new Date().toISOString()
+      })) as Article[]);
     }
   };
 
@@ -349,6 +366,7 @@ export default function GuideDetail({ initialData, ssrContentRendered, ssrArticl
       setLoading(true);
       setError(null);
       try {
+        // First try articles table
         const { data, error } = await supabase.from('articles').select('*').eq('id', id).single();
         
         if (!error && data) {
@@ -360,13 +378,109 @@ export default function GuideDetail({ initialData, ssrContentRendered, ssrArticl
             createdAt: data.createdAt || new Date().toISOString()
           } as Article);
           setLoading(false);
-          if (typeof window !== 'undefined') window.scrollTo(0, 0);
-
-          // 非阻塞加载次要数据
           loadSecondaryData();
         } else {
-          setError(error?.message || "Article Not Found");
-          setLoading(false);
+          // If not found in articles, try travel_guide table (for guide slugs like vpn, payment, etc.)
+          const guideSlugMap: Record<string, { subsection: string; section: string }> = {
+            vpn: { subsection: 'vpn', section: 'digital' },
+            payment: { subsection: 'payment', section: 'digital' },
+            dining: { subsection: 'dining', section: 'culture' },
+            gifts: { subsection: 'gift', section: 'culture' },
+            social: { subsection: 'social', section: 'culture' },
+          };
+
+          const guideConfig = guideSlugMap[id];
+          if (guideConfig) {
+            // Fetch from travel_guide table and build article-like object
+            const { data: guideData, error: guideError } = await supabase
+              .from('travel_guide')
+              .select('*')
+              .eq('subsection', guideConfig.subsection)
+              .order('sort_order');
+
+            if (!guideError && guideData && guideData.length > 0) {
+              // Build a synthetic article from guide data
+              const langSuffixMap: Record<string, string> = {
+                zh: '', en: '_en', ja: '_ja', ko: '_ko', ru: '_ru',
+                fr: '_fr', es: '_es', de: '_de', it: '_it', tw: '_tw',
+                cn: '',
+              };
+              const suffix = langSuffixMap[language] || '_en';
+
+              // Get values by key, preferring current language
+              const getByKey = (key: string) => {
+                const match = guideData.find(item => item.key === key && item.lang === language.replace('cn', 'zh'));
+                if (match) return match.value;
+                const matchZh = guideData.find(item => item.key === key && item.lang === 'zh');
+                if (matchZh) return matchZh.value;
+                const matchEn = guideData.find(item => item.key === key && item.lang === 'en');
+                return matchEn?.value || '';
+              };
+
+              // Build content as markdown
+              const contentParts: string[] = [];
+              
+              const importantTitle = getByKey('importantTitle');
+              const importantDesc = getByKey('importantDesc');
+              if (importantTitle) contentParts.push(`## ${importantTitle}\n\n> ${importantDesc}`);
+              
+              const whyNeedTitle = getByKey('whyNeedTitle');
+              const whyNeedDesc = getByKey('whyNeedDesc');
+              if (whyNeedTitle) contentParts.push(`## ${whyNeedTitle}\n\n${whyNeedDesc}`);
+
+              const mobileTitle = getByKey('mobileTitle');
+              if (mobileTitle) {
+                contentParts.push(`## ${mobileTitle}\n\n- **${getByKey('esim')}** (${getByKey('recommended')}): ${getByKey('esimDesc1')}, ${getByKey('esimDesc2')}, ${getByKey('esimDesc3')}\n- **${getByKey('simCard')}**: ${getByKey('simCardDesc1')}, ${getByKey('simCardDesc2')}, ${getByKey('simCardDesc3')}`);
+              }
+
+              const appsTitle = getByKey('appsTitle');
+              if (appsTitle) {
+                contentParts.push(`## ${appsTitle}\n\n- ${getByKey('appWechat')}\n- ${getByKey('appAlipay')}\n- ${getByKey('appMeituan')}\n- ${getByKey('appXiaohongshu')}`);
+              }
+
+              // Culture-specific content
+              const sectionTitle = getByKey('sectionTitle');
+              if (sectionTitle) contentParts.push(`## ${sectionTitle}`);
+
+              // Add all key-value pairs from guide data as content
+              const processedKeys = new Set(['title', 'subtitle', 'importantTitle', 'importantDesc', 'whyNeedTitle', 'whyNeedDesc', 'mobileTitle', 'esim', 'recommended', 'esimDesc1', 'esimDesc2', 'esimDesc3', 'simCard', 'simCardDesc1', 'simCardDesc2', 'simCardDesc3', 'appsTitle', 'appsMoreLink', 'appWechat', 'appAlipay', 'appMeituan', 'appXiaohongshu', 'sectionTitle', 'sectionSubtitle']);
+              guideData
+                .filter(item => item.lang === language.replace('cn', 'zh') || item.lang === 'zh')
+                .forEach(item => {
+                  if (!processedKeys.has(item.key) && item.value) {
+                    contentParts.push(`### ${item.key}\n\n${item.value}`);
+                  }
+                });
+
+              const title = getByKey('title');
+              const subtitle = getByKey('subtitle');
+
+              const syntheticArticle: Article = {
+                _id: id,
+                id: id,
+                title: title,
+                titleEn: getByKey('title') || title,
+                subtitle: subtitle,
+                subtitleEn: getByKey('subtitle') || subtitle,
+                content: contentParts.join('\n\n'),
+                contentEn: contentParts.join('\n\n'),
+                category: guideConfig.section,
+                views: 1,
+                likes: 0,
+                createdAt: new Date().toISOString(),
+              };
+
+              setArticle(syntheticArticle);
+              setLoading(false);
+              loadSecondaryData();
+            } else {
+              setError("Guide Not Found");
+              setLoading(false);
+            }
+          } else {
+            setError(error?.message || "Article Not Found");
+            setLoading(false);
+          }
         }
       } catch (error) {
         console.error("Error fetching article:", error);

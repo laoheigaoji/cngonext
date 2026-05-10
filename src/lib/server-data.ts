@@ -59,6 +59,37 @@ export async function getGuideDetailData(guideId: string, language: string = 'zh
   return data || [];
 }
 
+// Guide subsection data for /guide/[id] pages (vpn, payment, dining, gifts, social)
+export async function getGuideSubsectionData(subsection: string, language: string = 'zh') {
+  const data = await fetchFromSupabase('travel_guide', `select=*&subsection=eq.${subsection}&order=sort_order.asc`);
+  if (!data || data.length === 0) return null;
+  
+  // Get values by key, preferring current language then zh then en
+  const getByKey = (key: string) => {
+    const match = data.find((item: any) => item.key === key && item.lang === language.replace('cn', 'zh'));
+    if (match) return match.value;
+    const matchZh = data.find((item: any) => item.key === key && item.lang === 'zh');
+    if (matchZh) return matchZh.value;
+    const matchEn = data.find((item: any) => item.key === key && item.lang === 'en');
+    return matchEn?.value || '';
+  };
+
+  const title = getByKey('title') || getByKey('sectionTitle');
+  const subtitle = getByKey('subtitle') || getByKey('sectionSubtitle');
+  
+  return {
+    id: subsection,
+    title,
+    titleEn: title,
+    subtitle,
+    subtitleEn: subtitle,
+    category: subsection,
+    views: 0,
+    likes: 0,
+    createdAt: new Date().toISOString(),
+  };
+}
+
 // Article detail page data
 export async function getArticleData(id: string) {
   return fetchSingleFromSupabase('articles', `id=eq.${id}&select=*`);

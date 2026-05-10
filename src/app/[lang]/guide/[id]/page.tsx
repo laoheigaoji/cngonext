@@ -1,6 +1,6 @@
 import GuideDetailClient from "./GuideDetailClient";
 import { getHreflangAlternates, baseUrl, getSEO, guideSEO, defaultOgImage } from "@/lib/seo-config";
-import { getArticleData } from "@/lib/server-data";
+import { getArticleData, getGuideSubsectionData } from "@/lib/server-data";
 import { LANGUAGES, GUIDE_IDS } from "@/lib/static-params";
 
 export function generateStaticParams() {
@@ -78,6 +78,13 @@ export default async function Page({ params }: { params: Promise<{ lang: string;
   try {
     articleData = await getArticleData(id);
   } catch {}
+
+  // If not found in articles, try travel_guide subsection data
+  if (!articleData) {
+    try {
+      articleData = await getGuideSubsectionData(id, lang === 'cn' ? 'zh' : lang);
+    } catch {}
+  }
 
   return <GuideDetailClient initialData={articleData} />;
 }

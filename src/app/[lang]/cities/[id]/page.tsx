@@ -255,14 +255,17 @@ export default async function CityDetailPage({ params }: { params: Promise<{ lan
                 </div>
               </div>
 
-              {/* Info Card - Server Rendered */}
+              {/* Info Card - Server Rendered with placeholder for WeatherWidget */}
               <div className="col-span-1 border border-white/10 bg-slate-900/60 backdrop-blur-md rounded-2xl p-6 text-white shadow-2xl">
-                <div className="grid grid-cols-2 gap-4">
+                <div id="weather-widget-slot" />
+                <div className="grid grid-cols-2 gap-4 border-t border-white/10 pt-5">
                   <div className="text-center">
+                    <svg className="w-5 h-5 mx-auto text-white/50 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                     <div className="text-xs text-white/50">{getServerTranslation(lang, 'city.weather.area')}</div>
                     <div className="font-semibold text-lg">{cityData.translations?.[lang]?.info?.area || cityData.info?.area || '-'}</div>
                   </div>
                   <div className="text-center">
+                    <svg className="w-5 h-5 mx-auto text-white/50 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
                     <div className="text-xs text-white/50">{getServerTranslation(lang, 'city.weather.population')}</div>
                     <div className="font-semibold text-lg">{cityData.translations?.[lang]?.info?.population || cityData.info?.population || '-'}</div>
                   </div>
