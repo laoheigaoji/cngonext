@@ -127,55 +127,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signInWithGoogle = async () => {
     try {
+      // Save current path so we can return to it after login
+      const currentPath = window.location.pathname + window.location.search;
+      sessionStorage.setItem('auth_redirect_path', currentPath);
+
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          skipBrowserRedirect: true,
           queryParams: { prompt: 'select_account' },
           redirectTo: window.location.origin + '/auth/callback',
         },
       });
 
       if (error) throw error;
-      if (!data.url) throw new Error('No OAuth URL returned');
-
-      // Open popup
-      const width = 500;
-      const height = 600;
-      const left = window.screenX + (window.outerWidth - width) / 2;
-      const top = window.screenY + (window.outerHeight - height) / 2;
-
-      const popup = window.open(
-        data.url,
-        'google-oauth',
-        `width=${width},height=${height},left=${left},top=${top},scrollbars=yes`
-      );
-
-      if (!popup) {
-        // Popup blocked, fallback to full redirect
-        window.location.href = data.url;
-        return;
-      }
-
-      // Poll for popup closing, then refresh session
-      const popupChecker = setInterval(async () => {
-        if (popup.closed) {
-          clearInterval(popupChecker);
-          // Popup closed - always refresh session (simplified flow)
-          try {
-            // Small delay to ensure Supabase has processed the callback
-            await new Promise(r => setTimeout(r, 300));
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session?.user) {
-              setUser(session.user);
-              await checkPurchase(session.user.id);
-            }
-          } catch (e) {
-            console.error('Session check after popup closed failed:', e);
-          }
-        }
-      }, 500);
-
+      // Full page redirect - no popup, no close issues
     } catch (error) {
       console.error('Login error:', error);
       alert('Login failed, please try again');
