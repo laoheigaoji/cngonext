@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Upload, Camera, ImageIcon, Languages, Wallet, MessageSquare, ChevronDown, Check, Star, ScanLine, X, Loader2, Volume2, AlertTriangle, Leaf, CameraOff, Brain, Utensils } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { useAuth } from '../../context/AuthContext';
