@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabaseAdmin } from '../../lib/supabaseAdmin';
 import { Plus, Edit2, Trash2, Save, X } from 'lucide-react';
+import { triggerRevalidate } from '../../lib/revalidate';
 
 interface PageSection {
   id: string;
@@ -131,6 +132,7 @@ export default function PageSectionsManagement() {
       
       setEditingSection(null);
       fetchSections();
+      await triggerRevalidate('about');
     } catch (error) {
       console.error('Error saving section:', error);
       alert('保存失败');
@@ -168,6 +170,7 @@ export default function PageSectionsManagement() {
 
       if (error) throw error;
       fetchSections();
+      await triggerRevalidate('about');
     } catch (error) {
       console.error('Error toggling section:', error);
     }

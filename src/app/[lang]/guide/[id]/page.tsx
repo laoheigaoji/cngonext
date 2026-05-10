@@ -2,7 +2,7 @@ import GuideDetailClient from "./GuideDetailClient";
 import { getHreflangAlternates, baseUrl, getSEO, guideSEO, defaultOgImage } from "@/lib/seo-config";
 import { getArticleData } from "@/lib/server-data";
 
-export const revalidate = 300;
+export const revalidate = false;
 
 const GUIDE_SEO_OVERRIDES: Record<string, Record<string, { title: string; description: string }>> = {
   vpn: {

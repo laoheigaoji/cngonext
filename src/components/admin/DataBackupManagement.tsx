@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { supabaseAdmin } from '../../lib/supabaseAdmin';
 import { Download, Upload, AlertCircle, CheckCircle, RefreshCw } from 'lucide-react';
+import { triggerRevalidate } from '../../lib/revalidate';
 
 // 按照依赖关系排序：基础数据 -> 关联数据
 const TABLES = [
@@ -164,6 +165,7 @@ export default function DataBackupManagement() {
       }
 
       setStatus({ type: 'success', message: `一键恢复完成！已成功同步 ${processedTables} 张表的数据。` });
+      await triggerRevalidate('all');
     } catch (err: any) {
       console.error('Import failed:', err);
       setStatus({ type: 'error', message: '全量恢复失败: ' + err.message });

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Trash2, Edit2, Save, X, Globe, Image as ImageIcon } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { supabaseAdmin } from '../../lib/supabaseAdmin';
+import { triggerRevalidate } from '../../lib/revalidate';
 
 // 支持的语言配置
 const SUPPORTED_LANGUAGES = [
@@ -193,6 +194,7 @@ export default function AppsManagement() {
 
       resetForm();
       fetchApps();
+      await triggerRevalidate('apps');
       alert(editingId ? '更新成功' : '添加成功');
     } catch (error) {
       console.error('Error saving app:', error);
@@ -241,6 +243,7 @@ export default function AppsManagement() {
         .eq('id', id);
       if (error) throw error;
       fetchApps();
+      await triggerRevalidate('apps');
       alert('删除成功');
     } catch (error) {
       console.error('Error deleting app:', error);

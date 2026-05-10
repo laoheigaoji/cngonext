@@ -2,7 +2,7 @@ import ArticleDetailClient from "./ArticleDetailClient";
 import { getHreflangAlternates, baseUrl, getSEO, articlesSEO, generateArticleJsonLd, defaultOgImage } from "@/lib/seo-config";
 import { getArticleData } from "@/lib/server-data";
 
-export const revalidate = 300;
+export const revalidate = false;
 
 function getLocalizedField(obj: any, field: string, lang: string): string {
   const langSuffixMap: Record<string, string> = {

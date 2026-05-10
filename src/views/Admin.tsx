@@ -18,6 +18,7 @@ import TranslationManagement from '../components/admin/TranslationManagement';
 import AppsManagement from '../components/admin/AppsManagement';
 import PageSectionsManagement from '../components/admin/PageSectionsManagement';
 import DataBackupManagement from '../components/admin/DataBackupManagement';
+import { triggerRevalidate } from '../lib/revalidate';
 
 // 支持的语言配置
 const SUPPORTED_LANGUAGES = [
@@ -755,6 +756,7 @@ export default function Admin() {
       setEditingId(null);
       setActiveTab('zh');
       fetchArticles();
+      await triggerRevalidate('articles');
       alert('保存成功！');
     } catch (error: any) {
       console.error('Supabase Article Error:', error);
@@ -773,6 +775,7 @@ export default function Admin() {
         .eq('id', id);
       if (error) throw error;
       fetchArticles();
+      await triggerRevalidate('articles');
     } catch (error: any) {
       console.error(error);
       alert('删除失败: ' + (error.message || String(error)));
@@ -998,6 +1001,7 @@ export default function Admin() {
       
       if (error) throw error;
       await fetchCities();
+      await triggerRevalidate('cities');
       alert('删除成功');
     } catch (e: any) {
       console.error("Delete city error:", e);

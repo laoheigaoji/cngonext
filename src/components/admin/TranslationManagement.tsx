@@ -134,6 +134,7 @@ export default function TranslationManagement() {
       }
       
       await fetchTranslations();
+      await triggerRevalidate('all');
       alert('导入成功');
     } catch (e: any) {
       alert('导入失败: ' + e.message);

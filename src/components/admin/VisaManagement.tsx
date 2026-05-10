@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabaseAdmin } from '../../lib/supabaseAdmin';
 import { Plus, Edit2, Trash2, Save, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { triggerRevalidate } from '../../lib/revalidate';
 
 interface VisaType {
   id?: string;
@@ -109,6 +110,7 @@ export default function VisaManagement() {
       if (error) throw error;
       await fetchVisaTypes();
       setEditingType(null);
+      await triggerRevalidate('home');
       alert('保存成功');
     } catch (e: any) {
       alert('保存失败: ' + e.message);
@@ -124,6 +126,7 @@ export default function VisaManagement() {
       const { error } = await supabaseAdmin.from('visa_types').delete().eq('id', id);
       if (error) throw error;
       await fetchVisaTypes();
+      await triggerRevalidate('home');
       alert('删除成功');
     } catch (e: any) {
       alert('删除失败: ' + e.message);
@@ -152,6 +155,7 @@ export default function VisaManagement() {
       if (error) throw error;
       await fetchSignatures();
       setEditingSignature(null);
+      await triggerRevalidate('home');
       alert('保存成功');
     } catch (e: any) {
       alert('保存失败: ' + e.message);
@@ -167,6 +171,7 @@ export default function VisaManagement() {
       const { error } = await supabaseAdmin.from('signature_pages').delete().eq('id', id);
       if (error) throw error;
       await fetchSignatures();
+      await triggerRevalidate('home');
       alert('删除成功');
     } catch (e: any) {
       alert('删除失败: ' + e.message);
@@ -244,6 +249,7 @@ export default function VisaManagement() {
       if (error) throw error;
       await fetchVisaFees();
       setEditingFee(null);
+      await triggerRevalidate('home');
       alert('保存成功');
     } catch (e: any) {
       alert('保存失败: ' + e.message);
@@ -259,6 +265,7 @@ export default function VisaManagement() {
       const { error } = await supabaseAdmin.from('visa_fees').delete().eq('id', id);
       if (error) throw error;
       await fetchVisaFees();
+      await triggerRevalidate('home');
       alert('删除成功');
     } catch (e: any) {
       alert('删除失败: ' + e.message);

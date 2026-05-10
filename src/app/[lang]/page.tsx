@@ -2,8 +2,8 @@ import Home from "@/app-views/Home";
 import { getSEO, homeSEO, getHreflangAlternates, baseUrl, generateWebsiteJsonLd, generateOrganizationJsonLd, defaultOgImage, getOgLocale } from "@/lib/seo-config";
 import { getHomeData } from "@/lib/server-data";
 
-// ISR: revalidate every 5 minutes, serve static cache in between
-export const revalidate = 300;
+// Permanent cache - only revalidate on-demand via /api/revalidate
+export const revalidate = false;
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

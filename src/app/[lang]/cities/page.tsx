@@ -2,7 +2,7 @@ import CitiesClient from "./CitiesClient";
 import { getCitiesListData } from "@/lib/server-data";
 import { getSEO, citiesSEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
 
-export const revalidate = 300;
+export const revalidate = false;
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
