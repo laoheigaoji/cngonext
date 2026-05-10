@@ -10,6 +10,7 @@ interface AuthContextType {
   loading: boolean;
   hasPurchased: boolean;
   signInWithGoogle: () => Promise<void>;
+  signOut: () => Promise<void>;
   initiateCheckout: () => Promise<void>;
   completePayment: () => Promise<void>;
 }
@@ -147,6 +148,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const signOut = async () => {
+    try {
+      await supabase.auth.signOut();
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
+    // Immediately clear state regardless of signOut result
+    setUser(null);
+    setHasPurchased(false);
+    localStorage.removeItem('hasPurchased');
+  };
+
   const initiateCheckout = async () => {
     let localToken = localStorage.getItem('device_purchase_token');
     if (!localToken) {
@@ -211,7 +224,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, hasPurchased, signInWithGoogle, initiateCheckout, completePayment }}>
+    <AuthContext.Provider value={{ user, loading, hasPurchased, signInWithGoogle, signOut, initiateCheckout, completePayment }}>
       {children}
       <PaymentSuccessModal 
         isOpen={isSuccessModalOpen} 

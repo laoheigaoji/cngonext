@@ -9,7 +9,7 @@ import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
-  const { user, signInWithGoogle } = useAuth();
+  const { user, signInWithGoogle, signOut } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
@@ -205,7 +205,7 @@ export default function Navbar() {
                     
                     <div className="flex p-5 h-[320px]">
                       {/* Left Column: Teal Card */}
-                      <div className="w-[300px] bg-[#1b887a] rounded-lg p-6 text-white flex flex-col justify-between flex-shrink-0">
+                      <Link to={`/${langPrefix}/visa`} className="w-[300px] bg-[#1b887a] rounded-lg p-6 text-white flex flex-col justify-between flex-shrink-0 block hover:no-underline">
                         <div>
                           <h3 className="text-lg font-medium mb-3">{t('visa.mega.title')}</h3>
                           <p className="text-[13px] leading-relaxed text-teal-50/90">
@@ -213,11 +213,11 @@ export default function Navbar() {
                           </p>
                         </div>
                         <div className="text-right mt-4">
-                          <Link to={`/${langPrefix}/visa`} className="text-[13px] hover:text-white/80 transition-colors inline-flex items-center">
+                          <span className="text-[13px] hover:text-white/80 transition-colors inline-flex items-center">
                             {t('visa.mega.view')} <span className="ml-1">→</span>
-                          </Link>
+                          </span>
                         </div>
-                      </div>
+                      </Link>
                       
                       {/* Right Column: Links */}
                       <div className="flex-1 pl-10 py-2 flex flex-col justify-between">
@@ -344,8 +344,7 @@ export default function Navbar() {
                           className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors text-left"
                           onClick={async () => {
                             setShowUserMenu(false);
-                            const { supabase } = await import('../lib/supabase');
-                            await supabase.auth.signOut();
+                            await signOut();
                           }}
                         >
                           <LogOut className="w-4 h-4" />
