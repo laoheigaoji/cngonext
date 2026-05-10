@@ -1,38 +1,27 @@
 "use client";
 
-import React, { Suspense, useEffect, useRef } from "react";
+import React, { useEffect, useRef, Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLanguage, Language, LanguageProvider } from "@/context/LanguageContext";
 import { useParams } from "next/navigation";
 
 const langMap: Record<string, Language> = {
-  cn: 'zh',
-  tw: 'tw',
-  en: 'en',
-  ja: 'ja',
-  ko: 'ko',
-  ru: 'ru',
-  fr: 'fr',
-  es: 'es',
-  de: 'de',
-  it: 'it'
+  cn: 'zh', tw: 'tw', en: 'en', ja: 'ja', ko: 'ko',
+  ru: 'ru', fr: 'fr', es: 'es', de: 'de', it: 'it'
 };
 
-function LangLayoutInner({ children, htmlLang }: { children: React.ReactNode; htmlLang: string }) {
+function LayoutShell({ children, htmlLang }: { children: React.ReactNode; htmlLang: string }) {
   const { lang } = useParams();
   const { language, setLanguage } = useLanguage();
   const targetLang = langMap[lang as string] || 'en';
   const isManualSwitch = useRef(false);
 
-  // Set html lang attribute from server-provided value
   useEffect(() => {
     document.documentElement.lang = htmlLang;
   }, [htmlLang]);
 
-  // Sync language from URL param only on initial mount or actual navigation
   useEffect(() => {
-    // Skip sync if user manually switched language (URL was replaced via history.replaceState)
     if (isManualSwitch.current) {
       isManualSwitch.current = false;
       return;
@@ -40,9 +29,8 @@ function LangLayoutInner({ children, htmlLang }: { children: React.ReactNode; ht
     if (language !== targetLang) {
       setLanguage(targetLang);
     }
-  }, [targetLang]); // Only depend on targetLang (URL param), not language
+  }, [targetLang]);
 
-  // Mark manual language switches to prevent the sync effect from overriding
   useEffect(() => {
     const langFromUrl = langMap[lang as string] || 'en';
     if (language !== langFromUrl) {
@@ -67,7 +55,6 @@ export default function LangLayoutClient({
 }: {
   children: React.ReactNode;
   htmlLang: string;
-  initialDbTranslations?: Record<string, string>;
 }) {
   const { lang } = useParams();
   const initialLang = langMap[lang as string] || 'en';
@@ -79,7 +66,7 @@ export default function LangLayoutClient({
       </div>
     }>
       <LanguageProvider initialLang={initialLang}>
-        <LangLayoutInner htmlLang={htmlLang}>{children}</LangLayoutInner>
+        <LayoutShell htmlLang={htmlLang}>{children}</LayoutShell>
       </LanguageProvider>
     </Suspense>
   );

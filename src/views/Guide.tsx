@@ -53,7 +53,7 @@ const SpeakerButton = ({ text, isPlaying, onClick }: { text: string; isPlaying: 
   </button>
 );
 
-export default function Guide({ initialData, initialTranslations }: { initialData?: any; initialTranslations?: Record<string, string> }) {
+export default function Guide({ initialData, initialTranslations, skipHero }: { initialData?: any; initialTranslations?: Record<string, string>; skipHero?: boolean }) {
   const { language, t } = useLanguage();
   const { data: guideDataFromHook, loading: dataLoading } = useTravelGuide(language);
   const { user, loading: authLoading, hasPurchased, signInWithGoogle, initiateCheckout, completePayment } = useAuth();
@@ -217,42 +217,46 @@ export default function Guide({ initialData, initialTranslations }: { initialDat
   return (
     <div className="min-h-screen bg-gray-50">
       
-      {/* Hero Section */}
-      <div className="relative h-[450px] flex items-center justify-center overflow-hidden">
-        <img 
-          src="https://static.tripcngo.com/ing/jingnangbg.jpg" 
-          alt="China Travel" 
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
-        <div className="relative text-center text-white px-6 max-w-3xl pt-24">
-          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-            <Sparkles className="w-4 h-4" />
-            <span className="text-sm font-medium">{guideData?.hero?.badge || (isZh ? '旅行必备指南' : 'Essential Travel Guide')}</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{guideData?.hero?.title || (isZh ? '旅行锦囊' : 'Travel Guide')}</h1>
-          <p className="text-lg md:text-xl text-gray-200 mb-2">{guideData?.hero?.subtitle || (isZh ? '中国旅行必备生存工具' : 'China Travel Survival Kit')}</p>
-          <p className="text-gray-300 max-w-xl mx-auto">{guideData?.hero?.description || (isZh ? '从网络连接到文化礼仪，一站式解决你的中国之行' : 'From internet to etiquette, everything you need for China')}</p>
-          <div className="mt-8 flex flex-col items-center animate-bounce">
-            <svg className="w-6 h-6 text-white/70 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19V5m0 0l-4 4m4-4l4 4" />
-              <rect x="7" y="3" width="10" height="14" rx="5" strokeWidth={2} stroke="currentColor" fill="none" />
-              <line x1="12" y1="7" x2="12" y2="11" strokeLinecap="round" strokeWidth={2} />
-            </svg>
-            <span className="text-white/60 text-sm">{guideData?.hero?.scrollHint || (isZh ? '向下滚动了解更多' : 'Scroll for more')}</span>
+      {/* Hero Section - SSR renders this when skipHero */}
+      {!skipHero && (
+        <div className="relative h-[450px] flex items-center justify-center overflow-hidden">
+          <img 
+            src="https://static.tripcngo.com/ing/jingnangbg.jpg" 
+            alt="China Travel" 
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+          <div className="relative text-center text-white px-6 max-w-3xl pt-24">
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+              <Sparkles className="w-4 h-4" />
+              <span className="text-sm font-medium">{guideData?.hero?.badge || (isZh ? '旅行必备指南' : 'Essential Travel Guide')}</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">{guideData?.hero?.title || (isZh ? '旅行锦囊' : 'Travel Guide')}</h1>
+            <p className="text-lg md:text-xl text-gray-200 mb-2">{guideData?.hero?.subtitle || (isZh ? '中国旅行必备生存工具' : 'China Travel Survival Kit')}</p>
+            <p className="text-gray-300 max-w-xl mx-auto">{guideData?.hero?.description || (isZh ? '从网络连接到文化礼仪，一站式解决你的中国之行' : 'From internet to etiquette, everything you need for China')}</p>
+            <div className="mt-8 flex flex-col items-center animate-bounce">
+              <svg className="w-6 h-6 text-white/70 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19V5m0 0l-4 4m4-4l4 4" />
+                <rect x="7" y="3" width="10" height="14" rx="5" strokeWidth={2} stroke="currentColor" fill="none" />
+                <line x1="12" y1="7" x2="12" y2="11" strokeLinecap="round" strokeWidth={2} />
+              </svg>
+              <span className="text-white/60 text-sm">{guideData?.hero?.scrollHint || (isZh ? '向下滚动了解更多' : 'Scroll for more')}</span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-12 space-y-6">
         
         {/* 数字生存工具包 */}
         <div className="relative">
-          {/* 标题区域 */}
-          <div className="text-center py-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">{guideData?.digital?.sectionTitle || (isZh ? '数字生存工具包' : 'Digital Survival Kit')}</h2>
-            <p className="text-gray-500">{guideData?.digital?.sectionSubtitle || (isZh ? '网络连接与移动支付的必备指南' : 'Essential guide for internet and mobile payments')}</p>
-          </div>
+          {/* 标题区域 - SSR renders this when skipHero */}
+          {!skipHero && (
+            <div className="text-center py-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">{guideData?.digital?.sectionTitle || (isZh ? '数字生存工具包' : 'Digital Survival Kit')}</h2>
+              <p className="text-gray-500">{guideData?.digital?.sectionSubtitle || (isZh ? '网络连接与移动支付的必备指南' : 'Essential guide for internet and mobile payments')}</p>
+            </div>
+          )}
           
           <div className="grid md:grid-cols-2 gap-8 transition-all duration-700">
             {/* 左侧：互联网连接VPN */}

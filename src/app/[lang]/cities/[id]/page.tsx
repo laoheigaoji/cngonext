@@ -253,6 +253,9 @@ export default async function CityDetailPage({ params }: { params: Promise<{ lan
                     <p key={idx}>{p}</p>
                   ))}
                 </div>
+
+                {/* Action buttons slot - injected by client */}
+                <div id="city-action-buttons-slot" />
               </div>
 
               {/* Info Card - Server Rendered with placeholder for WeatherWidget */}

@@ -119,20 +119,63 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signInWithGoogle = async () => {
     try {
-      // Use direct redirect (not popup) to avoid Cloudflare Worker Error 1102
-      // The popup callback page (/auth/callback) can crash on CF Workers due to resource limits
+      // Popup mode: user stays on current page, no redirect
+      // 1. Get the OAuth URL from Supabase (skipBrowserRedirect prevents auto-redirect)
+      // 2. Open it in a popup window
+      // 3. After user authenticates, Supabase redirects popup to our origin
+      // 4. onAuthStateChange detects the new session automatically
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
+          skipBrowserRedirect: true,
           queryParams: {
             prompt: 'select_account',
           },
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: window.location.origin,
         },
       });
+
       if (error) throw error;
-      // Without skipBrowserRedirect, the browser will navigate directly to Google
-      // After OAuth, it redirects back to /auth/callback which handles the code exchange
+      if (!data.url) throw new Error('No OAuth URL returned');
+
+      // Open Google login in a popup window
+      const width = 500;
+      const height = 600;
+      const left = window.screenX + (window.outerWidth - width) / 2;
+      const top = window.screenY + (window.outerHeight - height) / 2;
+
+      const popup = window.open(
+        data.url,
+        'google-oauth',
+        `width=${width},height=${height},left=${left},top=${top},scrollbars=yes`
+      );
+
+      if (!popup) {
+        // Popup blocked by browser, fallback to full redirect
+        window.location.href = data.url;
+        return;
+      }
+
+      // When popup redirects back to our origin after login, close it
+      // and check for session
+      const popupChecker = setInterval(() => {
+        try {
+          // Check if popup redirected back to our domain
+          if (popup.location && popup.location.origin === window.location.origin) {
+            popup.close();
+            clearInterval(popupChecker);
+            // Session should be available now via onAuthStateChange
+          }
+        } catch (e) {
+          // Cross-origin error means popup is still on Google's domain - expected
+        }
+
+        // Also handle popup being manually closed
+        if (popup.closed) {
+          clearInterval(popupChecker);
+        }
+      }, 300);
+
     } catch (error) {
       console.error('Login error:', error);
       alert('登录失败，请重试');

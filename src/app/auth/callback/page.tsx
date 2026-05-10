@@ -7,12 +7,12 @@ export default function AuthCallback() {
   useEffect(() => {
     const handleCallback = async () => {
       const hash = window.location.hash;
-      console.log("[AuthCallback] Handling callback, hash:", hash ? "present" : "none");
+      const search = window.location.search;
 
       try {
         if (hash && hash.includes("access_token=")) {
-          // Implicit flow: Parse the hash fragment and set session manually
-          const params = new URLSearchParams(hash.substring(1)); // remove leading #
+          // Implicit flow: Parse hash fragment and set session
+          const params = new URLSearchParams(hash.substring(1));
           const accessToken = params.get("access_token");
           const refreshToken = params.get("refresh_token");
 
@@ -27,28 +27,40 @@ export default function AuthCallback() {
             } else {
               console.log("[AuthCallback] setSession success, user:", data.user?.email);
             }
-          } else {
-            console.error("[AuthCallback] Missing access_token or refresh_token in hash");
           }
-        } else {
-          // PKCE flow: URL has ?code= parameter
+        } else if (search && search.includes("code=")) {
+          // PKCE flow: exchange code for session
           const fullUrl = window.location.href;
-          const { error, data } = await supabase.auth.exchangeCodeForSession(fullUrl);
+          const { error } = await supabase.auth.exchangeCodeForSession(fullUrl);
           if (error) {
             console.error("[AuthCallback] Code exchange error:", error.message);
           } else {
-            console.log("[AuthCallback] Code exchange success, user:", data.session?.user?.email);
+            console.log("[AuthCallback] Code exchange success");
           }
+        }
+
+        // If this is a popup window (opened by signInWithGoogle), close it
+        // The main window's onAuthStateChange will detect the new session
+        if (window.opener) {
+          // Small delay to ensure session is persisted
+          setTimeout(() => {
+            window.close();
+          }, 300);
+        } else {
+          // Full redirect mode: redirect to home after session is set
+          setTimeout(() => {
+            window.location.replace("/");
+          }, 500);
         }
       } catch (err) {
         console.error("[AuthCallback] Callback handling failed:", err);
+        // Still try to close popup or redirect
+        if (window.opener) {
+          setTimeout(() => window.close(), 500);
+        } else {
+          setTimeout(() => window.location.replace("/"), 500);
+        }
       }
-
-      // Wait for session to be persisted to localStorage before redirecting
-      // This ensures AuthContext's onAuthStateChange fires and picks up the session
-      setTimeout(() => {
-        window.location.replace("/");
-      }, 800);
     };
 
     handleCallback();

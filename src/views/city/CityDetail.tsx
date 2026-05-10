@@ -31,6 +31,50 @@ function getEmbedUrl(url: string): string {
   return url;
 }
 
+// Inject action buttons (Want to go / Recommend / Share) into SSR-rendered slot
+function ActionButtonsInjector({ city, language, isEn, voted, handleStatsUpdate, t }: { city: any; language: string; isEn: boolean; voted: Record<string, boolean>; handleStatsUpdate: (field: string) => void; t: (key: string) => string }) {
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const slot = document.getElementById('city-action-buttons-slot');
+    if (!slot || !ref.current) return;
+    slot.innerHTML = '';
+    slot.appendChild(ref.current);
+  }, []);
+
+  return (
+    <div ref={ref} className="flex flex-wrap items-center gap-4 mt-12">
+      <button 
+        onClick={() => handleStatsUpdate('wantToVisit')}
+        disabled={voted.wantToVisit}
+        className={`px-6 py-3 rounded-2xl text-sm font-black transition-all flex items-center gap-3 shadow-lg ${
+          voted.wantToVisit 
+          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 cursor-default' 
+          : 'bg-emerald-500 text-white hover:bg-emerald-400 hover:scale-105 active:scale-95'
+        }`}
+      >
+        <Star className={`w-4 h-4 ${voted.wantToVisit ? 'fill-current' : ''}`} />
+        <span>{voted.wantToVisit ? (isEn ? 'Added to Wishlist' : '已在想去清单') : t('city.stats.wantToVisit')}</span> 
+        <span className="bg-black/20 px-2 py-0.5 rounded-lg text-xs">{city.stats?.wantToVisit || 0}</span>
+      </button>
+      <button 
+        onClick={() => handleStatsUpdate('recommended')}
+        disabled={voted.recommended}
+        className={`px-6 py-3 rounded-2xl text-sm font-black transition-all flex items-center gap-3 shadow-lg ${
+          voted.recommended 
+          ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30 cursor-default' 
+          : 'bg-blue-500 text-white hover:bg-blue-400 hover:scale-105 active:scale-95'
+        }`}
+      >
+        <Tag className={`w-4 h-4 ${voted.recommended ? 'fill-current' : ''}`} />
+        <span>{voted.recommended ? (isEn ? 'Recommended' : '已推荐给他人') : t('city.stats.recommended')}</span> 
+        <span className="bg-black/20 px-2 py-0.5 rounded-lg text-xs">{city.stats?.recommended || 0}</span>
+      </button>
+      <ShareButton title={city.name || city.enName || ''} url={typeof window !== 'undefined' ? window.location.href : ''} />
+    </div>
+  );
+}
+
 export default function CityDetail({ initialData, ssrContentRendered }: { initialData?: any; ssrContentRendered?: boolean }) {
   const { id } = useParams<{ id: string }>();
   const { language, t } = useLanguage();
@@ -100,12 +144,51 @@ export default function CityDetail({ initialData, ssrContentRendered }: { initia
 
   if (!city && !ssrContentRendered) return <Navigate to="/cities" replace />;
 
+  // Stats update handler (needed by both SSR and client branches)
+  const handleStatsUpdate = async (field: 'wantToVisit' | 'recommended') => {
+    if (!id || !city) return;
+    
+    const storageKey = field === 'wantToVisit' ? `voted_want_${id}` : `voted_rec_${id}`;
+    if (localStorage.getItem(storageKey)) return;
+
+    try {
+      // Optimistic update
+      setCity((prev: any) => ({
+        ...prev,
+        stats: {
+          ...prev.stats,
+          [field]: (prev.stats[field] || 0) + 1
+        }
+      }));
+      setVoted(prev => ({ ...prev, [field]: true }));
+      localStorage.setItem(storageKey, 'true');
+
+      const currentStats = city.stats || {};
+      const { error } = await supabase.from('cities').update({
+        stats: {
+          ...currentStats,
+          [field]: (currentStats[field] || 0) + 1
+        }
+      }).eq('id', id);
+
+      if (error) throw error;
+    } catch (err) {
+      console.error(`Error updating ${field}:`, err);
+      // Revert if failed
+      setVoted(prev => ({ ...prev, [field]: false }));
+      localStorage.removeItem(storageKey);
+    }
+  };
+
   // If SSR already rendered the content, only render interactive parts
   if (ssrContentRendered && city) {
     return (
       <>
         {/* Inject WeatherWidget into the SSR-rendered info card slot */}
         <WeatherInjector cityName={city.name} enCityName={city.enName} language={language} />
+
+        {/* Inject action buttons into the SSR-rendered hero slot */}
+        <ActionButtonsInjector city={city} language={language} isEn={isEn} voted={voted} handleStatsUpdate={handleStatsUpdate} t={t} />
 
         {/* Video Modal - full screen no border */}
         {showVideoModal && city.videoUrl && (
@@ -259,42 +342,6 @@ export default function CityDetail({ initialData, ssrContentRendered }: { initia
   
   const getCityEnName = () => city?.enName || '';
   const getCityZhName = () => city?.name || '';
-
-  const handleStatsUpdate = async (field: 'wantToVisit' | 'recommended') => {
-    if (!id || !city) return;
-    
-    const storageKey = field === 'wantToVisit' ? `voted_want_${id}` : `voted_rec_${id}`;
-    if (localStorage.getItem(storageKey)) return;
-
-    try {
-      // Optimistic update
-      setCity((prev: any) => ({
-        ...prev,
-        stats: {
-          ...prev.stats,
-          [field]: (prev.stats[field] || 0) + 1
-        }
-      }));
-      setVoted(prev => ({ ...prev, [field]: true }));
-      localStorage.setItem(storageKey, 'true');
-
-      const currentStats = city.stats || {};
-      const { error } = await supabase.from('cities').update({
-        stats: {
-          ...currentStats,
-          [field]: (currentStats[field] || 0) + 1
-        }
-      }).eq('id', id);
-
-      if (error) throw error;
-    } catch (err) {
-      console.error(`Error updating ${field}:`, err);
-      // Revert if failed
-      setVoted(prev => ({ ...prev, [field]: false }));
-      localStorage.removeItem(storageKey);
-      // We'd ideally re-fetch or revert state here
-    }
-  };
 
   return (
     <div className="bg-gray-50 min-h-screen">

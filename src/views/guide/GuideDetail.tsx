@@ -309,21 +309,23 @@ export default function GuideDetail({ initialData, ssrContentRendered, ssrArticl
 
       // 推荐城市
       const citiesResult = results[0];
-      if (citiesResult.status === 'fulfilled' && !citiesResult.value.error && citiesResult.value.data) {
+      if (citiesResult.status === 'fulfilled' && !citiesResult.value.error && citiesResult.value.data?.length > 0) {
         setRecommendedCities(citiesResult.value.data);
       } else {
+        console.warn('loadSecondaryData: cities query failed, using fallback', citiesResult);
         // Fallback to static data
         setRecommendedCities(fallbackCities.slice(0, 5));
       }
 
       // 推荐文章
       const recResult = results[1];
-      if (recResult.status === 'fulfilled' && !recResult.value.error && recResult.value.data) {
+      if (recResult.status === 'fulfilled' && !recResult.value.error && recResult.value.data?.length > 0) {
         const mapped = recResult.value.data.map((d: any) => ({
           _id: d.id, ...d, createdAt: d.createdAt || new Date().toISOString()
         })) as Article[];
         setRecommendedArticles(mapped.sort(() => 0.5 - Math.random()).slice(0, 3));
       } else {
+        console.warn('loadSecondaryData: articles query failed, using fallback', recResult);
         // Fallback to static data
         setRecommendedArticles(fallbackArticles.slice(0, 3).map((a: any) => ({
           _id: a.id, ...a, createdAt: new Date().toISOString()
@@ -332,7 +334,7 @@ export default function GuideDetail({ initialData, ssrContentRendered, ssrArticl
 
       // 上下篇
       const allDocsResult = results[2];
-      if (allDocsResult.status === 'fulfilled' && !allDocsResult.value.error && allDocsResult.value.data) {
+      if (allDocsResult.status === 'fulfilled' && !allDocsResult.value.error && allDocsResult.value.data?.length > 0) {
         const currentIndex = allDocsResult.value.data.findIndex((a: any) => a.id === id);
         if (currentIndex !== -1) {
           const prev = allDocsResult.value.data[currentIndex - 1];
@@ -340,6 +342,8 @@ export default function GuideDetail({ initialData, ssrContentRendered, ssrArticl
           setPrevArticle(prev ? ({ _id: prev.id, ...prev } as any) : null);
           setNextArticle(next ? ({ _id: next.id, ...next } as any) : null);
         }
+      } else {
+        console.warn('loadSecondaryData: allDocs query failed', allDocsResult);
       }
     } catch (err) {
       console.error('Failed to load secondary data:', err);
