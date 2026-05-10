@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
 import { supabase } from '../lib/supabase';
 
 import PaymentSuccessModal from '../components/PaymentSuccessModal';
@@ -21,6 +21,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [hasPurchased, setHasPurchased] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const userRef = useRef<any>(null);
+  userRef.current = user;
 
   useEffect(() => {
     // 优先检查本地存储的购买状态
@@ -111,21 +113,49 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       // Google login callback from popup: exchange code for session
       if (event.data?.type === 'google_login_callback' && event.data?.url) {
+        console.log('[AuthContext] Received google_login_callback:', event.data.url);
         try {
-          const { error } = await supabase.auth.exchangeCodeForSession(event.data.url);
+          const { error, data } = await supabase.auth.exchangeCodeForSession(event.data.url);
           if (error) {
-            console.error('Google login exchange error:', error.message);
+            console.error('[AuthContext] Google login exchange error:', error.message);
+          } else {
+            console.log('[AuthContext] Google login exchange success, session:', !!data.session);
           }
           // onAuthStateChange will pick up the new session automatically
         } catch (err) {
-          console.error('Google login callback error:', err);
+          console.error('[AuthContext] Google login callback error:', err);
         }
       }
     };
 
+    // Poll for session changes as a fallback (popup may close before postMessage arrives)
+    let sessionPollInterval: ReturnType<typeof setInterval> | null = null;
+    const pollSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user && !userRef.current) {
+        console.log('[AuthContext] Session detected via polling, updating user');
+        setUser(session.user);
+        // Check purchases
+        const { data: purchases } = await supabase
+          .from('purchases')
+          .select('*')
+          .eq('user_id', session.user.id)
+          .eq('item_id', 'all_access')
+          .limit(1);
+        if (purchases && purchases.length > 0) {
+          setHasPurchased(true);
+          localStorage.setItem('hasPurchased', 'true');
+        }
+      }
+    };
+    sessionPollInterval = setInterval(pollSession, 2000);
+
     window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, []); // 移除 user, hasPurchased 依赖，避免重复执行
+    return () => {
+      window.removeEventListener('message', handleMessage);
+      if (sessionPollInterval) clearInterval(sessionPollInterval);
+    };
+  }, []);
 
   const signInWithGoogle = async () => {
     try {
@@ -155,7 +185,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
         if (!authWindow) {
           alert('弹窗被拦截，请允许弹窗后重试。浏览器可能阻止了弹窗。');
-          // 可选地，直接本页访问： window.location.href = data.url;
+        } else {
+          // Watch for popup closing — when it closes, check session as fallback
+          const checkClosed = setInterval(() => {
+            if (authWindow.closed) {
+              clearInterval(checkClosed);
+              console.log('[AuthContext] Popup closed, checking session...');
+              // Small delay to allow exchangeCodeForSession to complete if postMessage worked
+              setTimeout(async () => {
+                if (!userRef.current) {
+                  const { data: { session } } = await supabase.auth.getSession();
+                  if (session?.user) {
+                    console.log('[AuthContext] Got session after popup close');
+                    setUser(session.user);
+                    const { data: purchases } = await supabase
+                      .from('purchases')
+                      .select('*')
+                      .eq('user_id', session.user.id)
+                      .eq('item_id', 'all_access')
+                      .limit(1);
+                    if (purchases && purchases.length > 0) {
+                      setHasPurchased(true);
+                      localStorage.setItem('hasPurchased', 'true');
+                    }
+                  }
+                }
+              }, 1000);
+            }
+          }, 500);
         }
       }
     } catch (error) {

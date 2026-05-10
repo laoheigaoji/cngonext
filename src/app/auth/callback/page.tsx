@@ -4,16 +4,29 @@ import { useEffect } from "react";
 
 export default function AuthCallback() {
   useEffect(() => {
-    // The popup callback page: just pass the URL back to the opener window
+    const fullUrl = window.location.href;
+    console.log("[AuthCallback] Popup loaded, URL:", fullUrl);
+    console.log("[AuthCallback] Has opener:", !!window.opener);
+
+    // The popup callback page: pass the URL back to the opener window
     // so the opener can exchange the code for a session (PKCE code_verifier
     // is stored in the opener's localStorage, not accessible from the popup)
     if (window.opener) {
-      window.opener.postMessage(
-        { type: "google_login_callback", url: window.location.href },
-        window.location.origin
-      );
+      // Try postMessage first
+      try {
+        window.opener.postMessage(
+          { type: "google_login_callback", url: fullUrl },
+          window.location.origin
+        );
+        console.log("[AuthCallback] postMessage sent successfully");
+      } catch (err) {
+        console.error("[AuthCallback] postMessage failed:", err);
+      }
       // Close the popup after a short delay
-      setTimeout(() => window.close(), 300);
+      setTimeout(() => {
+        console.log("[AuthCallback] Closing popup");
+        window.close();
+      }, 500);
     } else {
       // If opened directly (not a popup), handle locally
       window.location.href = "/";
