@@ -1,122 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import VisaLayout from '../../components/visa/VisaLayout';
 import { useLanguage } from '../../context/LanguageContext';
-import { supabase } from '../../lib/supabase';
+import { VISA_FEES } from '../../data/visa-data';
 
-interface VisaFee {
-  id: string;
-  visa_code: string;
-  purpose: string;
-  purpose_en: string;
-  fee_range: string;
-  note: string;
-  note_en: string;
-  sort_order: number;
-}
-
-export default function VisaFees({ initialData, initialTranslations }: { initialData?: any[]; initialTranslations?: Record<string, string> }) {
+export default function VisaFees() {
   const { language, t } = useLanguage();
-  const [visaFees, setVisaFees] = useState<VisaFee[]>(() => (initialData || []) as VisaFee[]);
-  const [loading, setLoading] = useState(!initialData);
-  const [dbTranslations, setDbTranslations] = useState<Record<string, string>>(() => initialTranslations || {});
+  const langKey = (language === 'zh' || language === 'cn') ? 'cn' : 'en';
 
-  // 从数据库加载签证相关翻译（包括所有类型分类）
-  useEffect(() => {
-    if (initialTranslations) return;
-    const loadTranslations = async () => {
-      try {
-        const { data } = await supabase
-          .from('translations')
-          .select('key, value')
-          .eq('lang', language)
-          .or('category.eq.visa,category.eq.visa_fee,category.eq.type,category.eq.types,category.eq.visaType');
-        
-        if (data && data.length > 0) {
-          const transMap: Record<string, string> = {};
-          data.forEach((item: { key: string; value: string }) => {
-            transMap[item.key] = item.value;
-          });
-          setDbTranslations(transMap);
-        }
-      } catch (e) {
-        console.error('Failed to load visa fee translations:', e);
-      }
-    };
-    loadTranslations();
-  }, [language, initialTranslations]);
-
-  // 签证代码到翻译键code的映射
-  const visaCodeToTranslationKey: Record<string, string> = {
-    L: 'tourism',
-    M: 'business',
-    Q1: 'familyQ1',
-    Q2: 'familyQ2',
-    Z: 'work',
-    X1: 'studyX1',
-    X2: 'studyX2',
-    G: 'transit',
-    C: 'crew',
-    D: 'permanent',
-    F: 'exchange',
-    J1: 'journalistJ1',
-    J2: 'journalistJ2',
-    R: 'talent',
-    S1: 'privateS1',
-    S2: 'privateS2',
-  };
-
-  // 多语言支持：优先使用locale翻译，其次数据库翻译，最后回退到中英文字段
-  const getLocalizedText = (zh: string, en: string | null, key?: string) => {
-    // 优先使用locale翻译（key格式: visa.type.xxx）
-    if (key) {
-      const localeKey = key.startsWith('visa.') ? key : `visa.${key}`;
-      const localeValue = t(localeKey);
-      if (localeValue && localeValue !== localeKey) {
-        return localeValue;
-      }
-    }
-    // 其次从数据库翻译
-    if (key && dbTranslations[key]) {
-      return dbTranslations[key];
-    }
-    // 回退到中英文字段
-    // 判断zh字段是否实际包含中文，如果不是中文则尝试使用en字段
-    if (language === 'zh' || language === 'tw') {
-      const hasChinese = /[\u4e00-\u9fff]/.test(zh);
-      if (hasChinese) return zh;
-      // zh字段不含中文，尝试en字段
-      if (en && /[\u4e00-\u9fff]/.test(en)) return en;
-      // 都不是中文，返回zh（原始值）
-      return zh;
-    }
-    return en || zh;
-  };
-
-  // 获取签证类型的翻译名称
-  const getVisaTypeName = (visaCode: string) => {
-    const translationKey = visaCodeToTranslationKey[visaCode];
-    return translationKey ? `type.${translationKey}` : undefined;
-  };
-
-  useEffect(() => {
-    fetchVisaFees();
-  }, [language]);
-
-  const fetchVisaFees = async () => {
-    setLoading(true);
-    const { data } = await supabase
-      .from('visa_fees')
-      .select('*')
-      .eq('is_active', true)
-      .order('sort_order');
-    
-    if (data) {
-      setVisaFees(data);
-    }
-    setLoading(false);
-  };
-
-  // 翻译键
   const tr = {
     pageTitle: t('visa.menu.fee', 'Fee Schedule'),
     visaType: t('visa.page.fee.visaType', 'Visa Type'),
@@ -140,66 +30,9 @@ export default function VisaFees({ initialData, initialTranslations }: { initial
     feeNote2: t('visa.page.fee.feeNote2', 'It is recommended to check the specific fee standards for your country on the embassy website or consult a local visa agency in advance.'),
   };
 
-  if (loading) {
-    return (
-      <VisaLayout breadcrumbTitle={tr.pageTitle}>
-        {/* 桌面端骨架屏 */}
-        <div className="hidden md:block bg-white rounded-sm border border-gray-200 overflow-hidden shadow-sm">
-          <div className="bg-[#1b887a] h-12" />
-          {[1,2,3,4,5,6,7,8].map(i => (
-            <div key={i} className={`flex items-center gap-4 px-6 py-4 border-b border-gray-100 ${i % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'}`}>
-              <div className="h-4 bg-gray-200/60 rounded w-20 animate-pulse" />
-              <div className="h-4 bg-gray-200/50 rounded w-24 animate-pulse" />
-              <div className="h-4 bg-[#1b887a]/15 rounded w-28 animate-pulse" />
-              <div className="flex-1 h-3 bg-gray-200/40 rounded w-3/4 animate-pulse" />
-            </div>
-          ))}
-        </div>
-
-        {/* 移动端骨架屏 */}
-        <div className="md:hidden space-y-3">
-          {[1,2,3,4,5,6].map(i => (
-            <div key={i} className="rounded-lg border border-gray-200 overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-[#1b887a]/5">
-                <div className="h-4 bg-gray-200/60 rounded w-16 animate-pulse" />
-                <div className="h-4 bg-[#1b887a]/15 rounded w-20 animate-pulse" />
-              </div>
-              <div className="px-4 py-3 space-y-2">
-                <div className="flex items-start gap-2">
-                  <div className="h-3 bg-gray-200/40 rounded w-12 animate-pulse" />
-                  <div className="h-4 bg-gray-200/50 rounded w-24 animate-pulse" />
-                </div>
-                <div className="flex items-start gap-2">
-                  <div className="h-3 bg-gray-200/40 rounded w-8 animate-pulse" />
-                  <div className="h-3 bg-gray-200/40 rounded w-3/4 animate-pulse" />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* 附加信息骨架屏 */}
-        <div className="mt-6 space-y-6">
-          <div className="h-6 bg-gray-200/50 rounded w-32 animate-pulse" />
-          {[1,2,3].map(i => (
-            <div key={i} className="space-y-2">
-              <div className="h-5 bg-gray-200/50 rounded w-40 animate-pulse" />
-              <div className="h-4 bg-gray-200/40 rounded w-full animate-pulse" />
-            </div>
-          ))}
-          <div className="p-4 bg-gray-50 rounded border border-gray-200 space-y-2">
-            <div className="h-4 bg-gray-200/50 rounded w-10 animate-pulse" />
-            <div className="h-3 bg-gray-200/40 rounded w-full animate-pulse" />
-            <div className="h-3 bg-gray-200/40 rounded w-4/5 animate-pulse" />
-          </div>
-        </div>
-      </VisaLayout>
-    );
-  }
-
   return (
     <VisaLayout breadcrumbTitle={tr.pageTitle}>
-      {/* 桌面端表格 */}
+      {/* Desktop table */}
       <div className="hidden md:block bg-white rounded-sm border border-gray-200 overflow-hidden shadow-sm">
         <table className="w-full text-sm">
           <thead>
@@ -211,36 +44,34 @@ export default function VisaFees({ initialData, initialTranslations }: { initial
             </tr>
           </thead>
           <tbody>
-            {visaFees.map((v, i) => (
-              <tr key={v.id} className={`border-b border-gray-100 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
-                <td className="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">{v.visa_code} {tr.visaSuffix}</td>
-                <td className="px-6 py-4 text-gray-600">{getLocalizedText(v.purpose, v.purpose_en, getVisaTypeName(v.visa_code))}</td>
-                <td className="px-6 py-4 text-[#1b887a] font-semibold whitespace-nowrap">{v.fee_range}</td>
-                <td className="px-6 py-4 text-gray-500 text-xs">{getLocalizedText(v.note, v.note_en, `visa.fee.${v.visa_code}.note`)}</td>
+            {VISA_FEES.map((v, i) => (
+              <tr key={v.visaCode} className={`border-b border-gray-100 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
+                <td className="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">{v.visaCode} {tr.visaSuffix}</td>
+                <td className="px-6 py-4 text-gray-600">{v.purpose[langKey] || v.purpose.en}</td>
+                <td className="px-6 py-4 text-[#1b887a] font-semibold whitespace-nowrap">{v.feeRange}</td>
+                <td className="px-6 py-4 text-gray-500 text-xs">{v.note[langKey] || v.note.en}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      {/* 移动端卡片列表 */}
+      {/* Mobile cards */}
       <div className="md:hidden space-y-3">
-        {visaFees.map((v, i) => (
-          <div key={v.id} className={`rounded-lg border border-gray-200 overflow-hidden ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
-            {/* 卡片头部：签证类型 + 费用 */}
+        {VISA_FEES.map((v, i) => (
+          <div key={v.visaCode} className={`rounded-lg border border-gray-200 overflow-hidden ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
             <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-[#1b887a]/5">
-              <span className="font-bold text-gray-900">{v.visa_code} {tr.visaSuffix}</span>
-              <span className="text-[#1b887a] font-bold">{v.fee_range}</span>
+              <span className="font-bold text-gray-900">{v.visaCode} {tr.visaSuffix}</span>
+              <span className="text-[#1b887a] font-bold">{v.feeRange}</span>
             </div>
-            {/* 卡片内容：用途 + 备注 */}
             <div className="px-4 py-3 space-y-1.5">
               <div className="flex items-start gap-2">
                 <span className="text-xs text-gray-400 whitespace-nowrap mt-0.5">{tr.mainPurpose}</span>
-                <span className="text-sm text-gray-700">{getLocalizedText(v.purpose, v.purpose_en, getVisaTypeName(v.visa_code))}</span>
+                <span className="text-sm text-gray-700">{v.purpose[langKey] || v.purpose.en}</span>
               </div>
               <div className="flex items-start gap-2">
                 <span className="text-xs text-gray-400 whitespace-nowrap mt-0.5">{tr.notes}</span>
-                <span className="text-xs text-gray-500">{getLocalizedText(v.note, v.note_en, `visa.fee.${v.visa_code}.note`)}</span>
+                <span className="text-xs text-gray-500">{v.note[langKey] || v.note.en}</span>
               </div>
             </div>
           </div>
@@ -249,14 +80,10 @@ export default function VisaFees({ initialData, initialTranslations }: { initial
 
       <div className="mt-6 space-y-6 text-sm text-gray-700">
         <h3 className="font-bold text-lg text-gray-900">{tr.additionalInfo}</h3>
-
         <div>
           <h4 className="font-semibold text-gray-900">{tr.reciprocal}</h4>
-          <ul className="list-disc pl-5 mt-2 space-y-1">
-            <li>{tr.reciprocalDesc}</li>
-          </ul>
+          <ul className="list-disc pl-5 mt-2 space-y-1"><li>{tr.reciprocalDesc}</li></ul>
         </div>
-
         <div>
           <h4 className="font-semibold text-gray-900">{tr.additionalFees}</h4>
           <ul className="list-disc pl-5 mt-2 space-y-1">
@@ -265,7 +92,6 @@ export default function VisaFees({ initialData, initialTranslations }: { initial
             <li>{tr.medical}</li>
           </ul>
         </div>
-
         <div>
           <h4 className="font-semibold text-gray-900">{tr.residencePermit}</h4>
           <ul className="list-disc pl-5 mt-2 space-y-1">
@@ -274,7 +100,6 @@ export default function VisaFees({ initialData, initialTranslations }: { initial
             <li>{tr.permit3}</li>
           </ul>
         </div>
-
         <div className="p-4 bg-gray-50 rounded border border-gray-200 text-xs text-gray-500">
           <p className="font-semibold text-gray-700 mb-1">{tr.note}</p>
           <p>{tr.feeNote1}</p>

@@ -112,20 +112,8 @@ export async function getAppsData() {
   return data || [];
 }
 
-// Visa types data
-export async function getVisaTypesData() {
-  const [visaTypes, documents] = await Promise.all([
-    fetchFromSupabase('visa_types', 'select=*&is_active=eq.true&order=sort_order.asc'),
-    fetchFromSupabase('visa_documents', 'select=*&order=sort_order.asc'),
-  ]);
-  return { visaTypes: visaTypes || [], documents: documents || [] };
-}
-
-// Visa fees data
-export async function getVisaFeesData() {
-  const data = await fetchFromSupabase('visa_fees', 'select=*&order=sort_order.asc');
-  return data || [];
-}
+// Visa types and fees data are now static (see src/data/visa-data.ts)
+// Removed getVisaTypesData() and getVisaFeesData() - no longer needed
 
 // Guide page data (organized travel_guide data)
 export async function getGuidePageData(language: string = 'zh') {

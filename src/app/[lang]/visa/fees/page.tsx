@@ -1,8 +1,8 @@
 import React from "react";
-import { getVisaFeesData, getTranslations } from "@/lib/server-data";
 import { getSEO, visaFeesSEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
 import { getServerTranslations } from "@/lib/server-i18n";
 import { LANGUAGES } from "@/lib/static-params";
+import { VISA_FEES } from "@/data/visa-data";
 
 export function generateStaticParams() {
   return LANGUAGES.map(lang => ({ lang }));
@@ -37,21 +37,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-const visaCodeToTranslationKey: Record<string, string> = {
-  L: 'tourism', M: 'business', Q1: 'familyQ1', Q2: 'familyQ2',
-  Z: 'work', X1: 'studyX1', X2: 'studyX2', G: 'transit',
-  C: 'crew', D: 'permanent', F: 'exchange', J1: 'journalistJ1',
-  J2: 'journalistJ2', R: 'talent', S1: 'privateS1', S2: 'privateS2',
-};
-
 export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const langPrefix = lang === 'zh' ? 'cn' : lang;
 
-  const [visaFees, dbTranslations] = await Promise.all([
-    getVisaFeesData(),
-    getTranslations(lang === 'cn' ? 'zh' : lang, ['visa', 'common', 'visa_fee', 'type', 'types', 'visaType']).catch(() => ({})),
-  ]);
+  const langKey = (lang === 'zh' || lang === 'cn') ? 'cn' : 'en';
 
   const t = getServerTranslations(lang, [
     'visa.menu.fee', 'visa.page.fee.visaType', 'visa.page.fee.mainPurpose',
@@ -74,27 +64,6 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
     { text: t['visa.menu.entryCard'], path: `/${langPrefix}/visa/arrival-card` },
     { text: t['visa.menu.download'], path: `/${langPrefix}/visa/downloads` },
   ];
-
-  const getLocalizedText = (zh: string, en: string | null, key?: string) => {
-    if (key) {
-      const localeKey = key.startsWith('visa.') ? key : `visa.${key}`;
-      const localeValue = t[localeKey];
-      if (localeValue && localeValue !== localeKey) return localeValue;
-    }
-    if (key && dbTranslations[key]) return dbTranslations[key];
-    if (lang === 'zh' || lang === 'cn' || lang === 'tw') {
-      const hasChinese = /[\u4e00-\u9fff]/.test(zh);
-      if (hasChinese) return zh;
-      if (en && /[\u4e00-\u9fff]/.test(en)) return en;
-      return zh;
-    }
-    return en || zh;
-  };
-
-  const getVisaTypeName = (visaCode: string) => {
-    const translationKey = visaCodeToTranslationKey[visaCode];
-    return translationKey ? `type.${translationKey}` : undefined;
-  };
 
   return (
     <div className="w-full flex-grow flex flex-col bg-[#fcfcfc]">
@@ -185,12 +154,12 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
                   </tr>
                 </thead>
                 <tbody>
-                  {visaFees.map((v: any, i: number) => (
-                    <tr key={v.id} className={`border-b border-gray-100 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
-                      <td className="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">{v.visa_code} {t['visa.page.fee.visaSuffix']}</td>
-                      <td className="px-6 py-4 text-gray-600">{getLocalizedText(v.purpose, v.purpose_en, getVisaTypeName(v.visa_code))}</td>
-                      <td className="px-6 py-4 text-[#1b887a] font-semibold whitespace-nowrap">{v.fee_range}</td>
-                      <td className="px-6 py-4 text-gray-500 text-xs">{getLocalizedText(v.note, v.note_en, `visa.fee.${v.visa_code}.note`)}</td>
+                  {VISA_FEES.map((v, i) => (
+                    <tr key={v.visaCode} className={`border-b border-gray-100 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
+                      <td className="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">{v.visaCode} {t['visa.page.fee.visaSuffix']}</td>
+                      <td className="px-6 py-4 text-gray-600">{v.purpose[langKey] || v.purpose.en}</td>
+                      <td className="px-6 py-4 text-[#1b887a] font-semibold whitespace-nowrap">{v.feeRange}</td>
+                      <td className="px-6 py-4 text-gray-500 text-xs">{v.note[langKey] || v.note.en}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -199,20 +168,20 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
 
             {/* Mobile cards */}
             <div className="md:hidden space-y-3">
-              {visaFees.map((v: any, i: number) => (
-                <div key={v.id} className={`rounded-lg border border-gray-200 overflow-hidden ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
+              {VISA_FEES.map((v, i) => (
+                <div key={v.visaCode} className={`rounded-lg border border-gray-200 overflow-hidden ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
                   <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-[#1b887a]/5">
-                    <span className="font-bold text-gray-900">{v.visa_code} {t['visa.page.fee.visaSuffix']}</span>
-                    <span className="text-[#1b887a] font-bold">{v.fee_range}</span>
+                    <span className="font-bold text-gray-900">{v.visaCode} {t['visa.page.fee.visaSuffix']}</span>
+                    <span className="text-[#1b887a] font-bold">{v.feeRange}</span>
                   </div>
                   <div className="px-4 py-3 space-y-1.5">
                     <div className="flex items-start gap-2">
                       <span className="text-xs text-gray-400 whitespace-nowrap mt-0.5">{t['visa.page.fee.mainPurpose']}</span>
-                      <span className="text-sm text-gray-700">{getLocalizedText(v.purpose, v.purpose_en, getVisaTypeName(v.visa_code))}</span>
+                      <span className="text-sm text-gray-700">{v.purpose[langKey] || v.purpose.en}</span>
                     </div>
                     <div className="flex items-start gap-2">
                       <span className="text-xs text-gray-400 whitespace-nowrap mt-0.5">{t['visa.page.fee.notes']}</span>
-                      <span className="text-xs text-gray-500">{getLocalizedText(v.note, v.note_en, `visa.fee.${v.visa_code}.note`)}</span>
+                      <span className="text-xs text-gray-500">{v.note[langKey] || v.note.en}</span>
                     </div>
                   </div>
                 </div>

@@ -180,12 +180,8 @@
         },
         "planName": "采访计划"
       },
-      "passport": {
-        "desc": "有效期6个月以上、有空白签证页的护照原件及复印件"
-      },
-      "previous": {
-        "desc": "曾为中国籍或更换护照者需提供原护照或旧签证复印件"
-      },
+      "passport": "护照",
+      "previous": "原中国护照或签证",
       "Q1": {
         "title": "家庭团聚/结婚签证（Q1）材料清单",
         "special": "家庭团聚/结婚签证（Q1）特殊材料"
@@ -222,9 +218,7 @@
         "familyName": "亲属关系证明（探亲）",
         "invitationName": "邀请函（如适用）"
       },
-      "residence": {
-        "desc": "非国籍国申请者需提供所在国的合法居留或签证证明"
-      },
+      "residence": "合法居留证明",
       "X1": {
         "jwForm": {
           "desc": "《外国留学人员来华签证申请表》（JW201或JW202表）"
@@ -269,10 +263,7 @@
         "invitationName": "邀请函",
         "qualificationName": "单位资质证明"
       },
-      "formAndPhoto": {
-        "desc": "完整填写的《中华人民共和国签证申请表》，1张近期白底彩色证件照（48mm×33mm）",
-        "link": "查看照片要求"
-      },
+      "formAndPhoto": "签证申请表及照片",
       "S1": {
         "residence": {
           "desc": "邀请人在中国的居留证件复印件（如居留许可、工作证等）"
@@ -286,7 +277,99 @@
       "passportName": "护照",
       "previousName": "原中国护照或签证",
       "residenceName": "合法居留证明",
-      "formAndPhotoName": "签证申请表及照片"
+      "formAndPhotoName": "签证申请表及照片",
+      "passport.desc": "有效期6个月以上、有空白签证页的护照原件及复印件。",
+      "formAndPhoto.desc": "完整填写的《中华人民共和国签证申请表》，1张近期白底彩色证件照（尺寸48mm×33mm）。",
+      "residence.desc": "非国籍国申请者需提供所在国的合法居留或签证证明。",
+      "previous.desc": "曾为中国籍或更换护照者需提供原护照或旧签证复印件。",
+      "flightItinerary": "往返机票订单",
+      "flightItinerary.desc": "往返机票订单复印件。",
+      "L.itinerary": "行程证明",
+      "L.itinerary.desc": "往返机票订单、酒店预订单",
+      "L.invitation": "邀请函（可选）",
+      "L.invitation.desc": "中国境内单位或个人出具的邀请函",
+      "M.invitation": "邀请函",
+      "M.invitation.desc": "中国境内贸易公司出具的邀请信（需公司盖章）",
+      "M.business": "商务文件",
+      "M.business.desc": "公司营业执照或介绍信",
+      "M.bank": "银行流水",
+      "M.bank.desc": "近6个月的银行流水证明",
+      "Q1.relation": "亲属关系证明",
+      "Q1.relation.desc": "结婚证、出生证等",
+      "Q1.invitation": "邀请函",
+      "Q1.invitation.desc": "由中国公民或永久居民出具",
+      "Q1.inviterId": "邀请人身份证件复印件",
+      "Q1.inviterId.desc": "邀请人身份证件复印件",
+      "Q2.relation": "亲属关系证明",
+      "Q2.relation.desc": "亲属关系证明",
+      "Q2.invitation": "邀请函及邀请人身份证件",
+      "Q2.invitation.desc": "邀请函及邀请人身份证件",
+      "Z.workPermit": "外国人工作许可通知",
+      "Z.workPermit.desc": "由中方用人单位申请获得的《外国人工作许可通知》",
+      "Z.contract": "聘用合同",
+      "Z.contract.desc": "工作合同或聘用协议",
+      "Z.noCriminal": "无犯罪记录证明",
+      "Z.noCriminal.desc": "在國（境）外无犯罪记录证明，需经中国驻外使领馆认证",
+      "Z.health": "健康证明",
+      "Z.health.desc": "经中国驻外使领馆认证的健康检查证明",
+      "Z.education": "学历及工作经历证明",
+      "Z.education.desc": "相关学历证明及工作经历证明",
+      "X1.admission": "录取通知书",
+      "X1.admission.desc": "中国境内招收单位出具的录取通知书",
+      "X1.jwForm": "JW201/JW202表",
+      "X1.jwForm.desc": "《外国留学人员来華申请表》",
+      "X1.noCriminal": "无犯罪记录证明",
+      "X1.noCriminal.desc": "在國（境）外无犯罪记录证明",
+      "X1.health": "健康证明",
+      "X1.health.desc": "经中国驻外使领馆认证的健康检查证明",
+      "X1.education": "学历证明",
+      "X1.education.desc": "最高学历证明",
+      "G.ticket": "机票订单",
+      "G.ticket.desc": "已确认的前往目的地机票",
+      "G.destVisa": "目的地国家签证",
+      "G.destVisa.desc": "目的地国家的有效签证",
+      "C.crewCert": "机组人员证件",
+      "C.crewCert.desc": "有效的机组人员证件",
+      "C.guarantee": "航空公司担保函",
+      "C.guarantee.desc": "航空公司出具的担保函",
+      "D.confirmForm": "居留确认表",
+      "D.confirmForm.desc": "公安部签发的外国人居留身份确认表",
+      "D.criminal": "无犯罪记录证明",
+      "D.criminal.desc": "境外人员无犯罪记录证明（需认证）",
+      "D.health": "健康证明",
+      "D.health.desc": "在中国认可医院进行的体检证明",
+      "F.invitation": "邀请函",
+      "F.invitation.desc": "中国境内邀请单位或个人出具的邀请函",
+      "F.plan": "学习/交流计划",
+      "F.plan.desc": "在华学习或交流计划",
+      "F.qualification": "资质证明",
+      "F.qualification.desc": "邀请方资质证明文件",
+      "J1.notification": "通知函",
+      "J1.notification.desc": "外交部新闻司签发的通知函",
+      "J1.journalistId": "记者证",
+      "J1.journalistId.desc": "境外媒体记者证",
+      "J2.plan": "采访计划",
+      "J2.plan.desc": "短期采访计划",
+      "J2.journalistId": "记者证",
+      "J2.journalistId.desc": "境外媒体记者证",
+      "R.talent": "人才认定证明",
+      "R.talent.desc": "中国政府认可的人才认定证明文件",
+      "R.contract": "聘用合同",
+      "R.contract.desc": "中国境内用人单位的聘用合同",
+      "R.qualification": "专业资质证明",
+      "R.qualification.desc": "相关领域的专业资质证书",
+      "S1.family": "家庭关系证明",
+      "S1.family.desc": "与在中国居留人员的家庭关系证明",
+      "S1.residentDocs": "居留人员证件",
+      "S1.residentDocs.desc": "在中国居留人员的护照及居留证件复印件",
+      "S1.invitation": "邀请函",
+      "S1.invitation.desc": "在中国居留人员出具的邀请函",
+      "S2.family": "家庭关系证明",
+      "S2.family.desc": "与在中国人员的家庭关系证明",
+      "S2.privateProof": "私人事务证明",
+      "S2.privateProof.desc": "相关私人事务证明材料",
+      "S2.invitation": "邀请函",
+      "S2.invitation.desc": "邀请人出具的邀请函"
     },
     "mega": {
       "desc": "无需签证，畅游中国！全面了解中国240小时过境免签政策和国家，中国单方面免签国家，中外互免签证国家，开启您的精彩中国之旅！",
@@ -316,58 +399,26 @@
       "provincesName": "24个"
     },
     "type": {
-      "work": {
-        "desc": "入境工作的外国专家；营业性演出；外国企业常驻中国代表机构的首席代表、代表；海上石油作业；志愿者、义工（超过90日）；其他取得中国政府主管部门颁发的工作许可入境工作的人员"
-      },
-      "crew": {
-        "desc": "国际列车乘务员；国际航空器机组成员；国际航行船舶的船员及船员随行家属；从事国际道路运输的汽车驾驶员"
-      },
-      "talent": {
-        "desc": "针对国家急需的外国高层次人才，提供便利化入境及居留政策。"
-      },
-      "tourism": {
-        "desc": "适用于入境旅游人员，包括团队旅游。停留时间通常为30天、60天或90天，可申请单次或多次入境。"
-      },
-      "studyX1": {
-        "desc": "长期学习（超过180日），需学校录取通知书及JW201/JW202表。"
-      },
-      "studyX2": {
-        "desc": "短期学习（不超过180日），适用于短期课程或交流项目。"
-      },
-      "transit": {
-        "desc": "经中国过境前往第三国的人员，停留时间通常不超过10天。"
-      },
-      "business": {
-        "desc": "发给入境进行商业贸易活动的人员，首次停留最长90天，可延期。"
-      },
-      "familyQ1": {
-        "desc": "因家庭团聚申请在华长期居留（超过180日）的中国公民或永久居留外国人的家庭成员。"
-      },
-      "familyQ2": {
-        "desc": "短期探亲（不超过180日），适用于亲属短期停留。"
-      },
-      "exchange": {
-        "desc": "学术交流活动；文化交流活动（如交流性演出）；宗教交流活动；非政府组织交流活动；志愿者、义工（不超过90日）；持《外国专家来华邀请函》的外国专家；地理测绘活动"
-      },
+      "work": "工作签证",
+      "crew": "机组人员签证",
+      "talent": "人才签证",
+      "tourism": "旅游签证",
+      "studyX1": "学习（长期）",
+      "studyX2": "学习（短期）",
+      "transit": "过境签证",
+      "business": "商务签证",
+      "familyQ1": "家庭团聚（长期）",
+      "familyQ2": "家庭团聚（短期）",
+      "exchange": "交流访问签证",
       "visaType": "签证类型",
-      "permanent": {
-        "desc": "需提前获得公安部审批，适用于申请在中国永久居留的人员。"
-      },
-      "privateS1": {
-        "desc": "在华居留外国人的长期探亲家属（超过180日）。"
-      },
-      "privateS2": {
-        "desc": "短期探亲（不超过180日）或因其他私人事务需停留的人员。"
-      },
+      "permanent": "永久居留签证",
+      "privateS1": "私人事务（长期）",
+      "privateS2": "私人事务（短期）",
       "documents": "材料清单",
       "mainTitle": "赴华主要目的",
       "description": "签证类型说明",
-      "journalistJ1": {
-        "desc": "常驻中国新闻机构的外国记者，需外交部新闻司签发的通知函。"
-      },
-      "journalistJ2": {
-        "desc": "短期采访记者（停留不超过180日），需官方媒体公函。"
-      },
+      "journalistJ1": "记者（长期）",
+      "journalistJ2": "记者（短期）",
       "workName": "工作",
       "crewName": "乘务/运输",
       "talentName": "高层次人才",
@@ -383,7 +434,23 @@
       "privateS1Name": "私人事务探亲",
       "privateS2Name": "私人事务探亲",
       "journalistJ1Name": "新闻记者",
-      "journalistJ2Name": "新闻记者"
+      "journalistJ2Name": "新闻记者",
+      "tourism.desc": "中国旅游签证（L签）适用于前往中国旅游的人员，需要提供往返机票和酒店预订。",
+      "business.desc": "商务签证（M签）适用于前往中国进行商业贸易活动的人员。",
+      "familyQ1.desc": "Q1签证适用于因家庭团聚申请在中国居留的人员，停留期超过180天。",
+      "familyQ2.desc": "Q2签证适用于赴中国短期探亲的人员，停留期不超过180天。",
+      "work.desc": "工作签证（Z签）适用于在中国境内工作的人员，需要提供工作许可证明。",
+      "studyX1.desc": "X1签证适用于在中国长期学习的人员，停留期超过180天。",
+      "studyX2.desc": "X2签证适用于在中国短期学习的人员，停留期不超过180天。",
+      "transit.desc": "G签证适用于经中国前往第三国的人员。",
+      "crew.desc": "C签证适用于执行乘务、航空、航运任务的国际运输工具的机组人员。",
+      "permanent.desc": "D签证适用于申请在中国永久居留的外国人员。",
+      "exchange.desc": "F签证适用于赴中国进行交流、访问、进修等非商业性活动的人员。",
+      "journalistJ1.desc": "J1签证适用于外国常驻中国新闻机构的外国记者，停留期超过180天。",
+      "journalistJ2.desc": "J2签证适用于赴中国短期采访的外国记者。",
+      "talent.desc": "R签证适用于中国需要的外国高层次人才和急需紧缺专门人才。",
+      "privateS1.desc": "S1签证适用于赴中国长期探望因工作、学习等事由在中国居留的外国人的配偶、父母等人员，停留期超过180天。",
+      "privateS2.desc": "S2签证适用于赴中国短期探亲的人员，以及其他私人事务。"
     },
     "seo": {
       "title": "签证与免签政策",
@@ -474,6 +541,19 @@
         "note": "注意",
         "feeNote1": "以上费用仅供参考，实际费用可能因国籍、申请地点、停留次数等因素有所不同，请以中国驻当地使领馆公布的最新标准为准。",
         "feeNote2": "签证费用通常以当地货币收取，汇率波动可能影响实际支付金额。"
+      },
+      "types": {
+        "title": "签证类型",
+        "visaName": "签证名称",
+        "code": "代码",
+        "description": "说明",
+        "viewDocs": "查看材料",
+        "requiredDocs": "所需材料",
+        "generalDocs": "通用材料",
+        "specialDocs": "专项材料",
+        "optional": "可选",
+        "clickToView": "点击查看",
+        "noDocs": "暂无材料信息"
       }
     },
     "breadcrumb": {

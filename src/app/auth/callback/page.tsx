@@ -6,56 +6,38 @@ import { supabase } from "../../../lib/supabase";
 export default function AuthCallback() {
   useEffect(() => {
     const handleCallback = async () => {
-      const hash = window.location.hash;
-      const search = window.location.search;
-
       try {
+        // Try to establish session from URL hash (implicit flow) or code (PKCE flow)
+        const hash = window.location.hash;
+        const search = window.location.search;
+
         if (hash && hash.includes("access_token=")) {
-          // Implicit flow: Parse hash fragment and set session
           const params = new URLSearchParams(hash.substring(1));
           const accessToken = params.get("access_token");
           const refreshToken = params.get("refresh_token");
-
           if (accessToken && refreshToken) {
-            const { data, error } = await supabase.auth.setSession({
+            await supabase.auth.setSession({
               access_token: accessToken,
               refresh_token: refreshToken,
             });
-
-            if (error) {
-              console.error("[AuthCallback] setSession error:", error.message);
-            } else {
-              console.log("[AuthCallback] setSession success, user:", data.user?.email);
-            }
           }
         } else if (search && search.includes("code=")) {
-          // PKCE flow: exchange code for session
-          const fullUrl = window.location.href;
-          const { error } = await supabase.auth.exchangeCodeForSession(fullUrl);
-          if (error) {
-            console.error("[AuthCallback] Code exchange error:", error.message);
-          } else {
-            console.log("[AuthCallback] Code exchange success");
-          }
+          await supabase.auth.exchangeCodeForSession(window.location.href);
         }
 
-        // If this is a popup window (opened by signInWithGoogle), close it
-        // The main window's onAuthStateChange will detect the new session
+        // Notify opener window that auth completed successfully
         if (window.opener) {
-          // Small delay to ensure session is persisted
-          setTimeout(() => {
-            window.close();
-          }, 300);
+          window.opener.postMessage({ type: 'AUTH_SUCCESS' }, '*');
+          // Close popup after a small delay
+          setTimeout(() => window.close(), 200);
         } else {
-          // Full redirect mode: redirect to home after session is set
-          setTimeout(() => {
-            window.location.replace("/");
-          }, 500);
+          // Full redirect mode: go to home
+          setTimeout(() => window.location.replace("/"), 300);
         }
       } catch (err) {
-        console.error("[AuthCallback] Callback handling failed:", err);
-        // Still try to close popup or redirect
+        console.error("[AuthCallback] Error:", err);
         if (window.opener) {
+          window.opener.postMessage({ type: 'AUTH_ERROR', error: String(err) }, '*');
           setTimeout(() => window.close(), 500);
         } else {
           setTimeout(() => window.location.replace("/"), 500);

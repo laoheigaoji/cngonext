@@ -4,21 +4,13 @@ import React, { useState, useEffect } from "react";
 
 interface ArticleListClientProps {
   categories: string[];
-  langPrefix: string;
-  catLabelMap: Record<string, string>;
-  noArticlesText: string;
-  viewsText: string;
-  helpfulText: string;
+  totalPagesByCat: Record<string, number>;
   children: React.ReactNode;
 }
 
 export default function ArticleListClient({
   categories,
-  langPrefix,
-  catLabelMap,
-  noArticlesText,
-  viewsText,
-  helpfulText,
+  totalPagesByCat,
   children,
 }: ArticleListClientProps) {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -40,9 +32,8 @@ export default function ArticleListClient({
     return () => document.removeEventListener("click", handleClick);
   }, []);
 
-  // Toggle visibility of pre-rendered article pages + sidebar active state
+  // Toggle visibility of pre-rendered article pages
   useEffect(() => {
-    // Show/hide article pages
     const pages = document.querySelectorAll(".article-page");
     pages.forEach((page) => {
       const pageCat = page.getAttribute("data-cat");
@@ -53,15 +44,17 @@ export default function ArticleListClient({
         page.classList.add("hidden");
       }
     });
+  }, [activeCategory, currentPage]);
 
-    // Update sidebar active state
+  // Update sidebar active state
+  useEffect(() => {
     const buttons = document.querySelectorAll("[data-category]");
     buttons.forEach((btn) => {
       const cat = btn.getAttribute("data-category");
       if (cat === activeCategory) {
         btn.classList.add("bg-[#1b887a]", "text-white", "shadow-md");
         btn.classList.remove("hover:bg-gray-50", "text-gray-700");
-        const badge = btn.querySelector(".rounded-full");
+        const badge = btn.querySelector(".cat-badge");
         if (badge) {
           badge.classList.add("bg-white/20");
           badge.classList.remove("bg-gray-100", "text-gray-500");
@@ -69,56 +62,16 @@ export default function ArticleListClient({
       } else {
         btn.classList.remove("bg-[#1b887a]", "text-white", "shadow-md");
         btn.classList.add("hover:bg-gray-50", "text-gray-700");
-        const badge = btn.querySelector(".rounded-full");
+        const badge = btn.querySelector(".cat-badge");
         if (badge) {
           badge.classList.remove("bg-white/20");
           badge.classList.add("bg-gray-100", "text-gray-500");
         }
       }
     });
-  }, [activeCategory, currentPage]);
+  }, [activeCategory]);
 
-  // Calculate total pages for active category
-  const totalPages = (() => {
-    const pages = document.querySelectorAll(
-      `.article-page[data-cat="${activeCategory}"]`
-    );
-    return pages.length || 1;
-  })();
-
-  // Initial show on mount
-  useEffect(() => {
-    const pages = document.querySelectorAll(
-      `.article-page[data-cat="All"][data-page="1"]`
-    );
-    pages.forEach((p) => p.classList.remove("hidden"));
-
-    // Set initial active sidebar state
-    const allBtn = document.querySelector('[data-category="All"]');
-    if (allBtn) {
-      allBtn.classList.add("bg-[#1b887a]", "text-white", "shadow-md");
-      allBtn.classList.remove("hover:bg-gray-50", "text-gray-700");
-      const badge = allBtn.querySelector(".rounded-full");
-      if (badge) {
-        badge.classList.add("bg-white/20");
-        badge.classList.remove("bg-gray-100", "text-gray-500");
-      }
-    }
-  }, []);
-
-  // Count pages by looking at pre-rendered divs
-  const [pageCounts, setPageCounts] = useState<Record<string, number>>({});
-  useEffect(() => {
-    const counts: Record<string, number> = {};
-    categories.forEach((cat) => {
-      counts[cat] = document.querySelectorAll(
-        `.article-page[data-cat="${cat}"]`
-      ).length;
-    });
-    setPageCounts(counts);
-  }, [categories]);
-
-  const activeTotalPages = pageCounts[activeCategory] || 1;
+  const activeTotalPages = totalPagesByCat[activeCategory] || 1;
 
   return (
     <div className="flex-1">

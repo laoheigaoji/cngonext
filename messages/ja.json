@@ -162,12 +162,8 @@
         },
         "planName": "取材計画"
       },
-      "passport": {
-        "desc": "有効期間6ヶ月以上、空白ビザページがあるパスポート原本とコピー"
-      },
-      "previous": {
-        "desc": "かつて中国籍だった、またはパスポートを更换した申請者は元パスポートまたは旧ビザコピーを提出必要"
-      },
+      "passport": "Passport",
+      "previous": "Former Chinese Passport or Visa",
       "Z": {
         "permit": {
           "desc": "《外国人就業許可証明書》または《外国専門家中国工作許可証》"
@@ -210,9 +206,7 @@
         "familyName": "家族関係証明（訪問）",
         "invitationName": "招待状（該当する場合）"
       },
-      "residence": {
-        "desc": "国籍国以外での申請者は所在国の合法滞在またはビザ証明を提出必要"
-      },
+      "residence": "Legal Residence Permit",
       "X1": {
         "jwForm": {
           "desc": "《外国留学人員中国ビザ申請表》（JW201またはJW202表）"
@@ -257,10 +251,7 @@
         "invitationName": "招待状",
         "qualificationName": "單位資格証明"
       },
-      "formAndPhoto": {
-        "desc": "完整に記入した《中華人民共和国ビザ申請フォーム》、1枚の最近白背景カラーパスポート写真（48mm×33mm）",
-        "link": "写真要件を見る"
-      },
+      "formAndPhoto": "Visa Application Form & Photo",
       "S1": {
         "residence": {
           "desc": "招待者の中国の滞在許可書類コピー（滞在許可、仕事証など）"
@@ -274,7 +265,99 @@
       "passportName": "パスポート",
       "previousName": "元の中国パスポートまたはビザ",
       "residenceName": "合法滞在許可",
-      "formAndPhotoName": "ビザ申請フォーム及び写真"
+      "formAndPhotoName": "ビザ申請フォーム及び写真",
+      "passport.desc": "Valid passport with at least 6 months validity and blank visa pages. Original and copy required.",
+      "formAndPhoto.desc": "Completed PRC Visa Application Form, one recent color photo with white background (48mm×33mm).",
+      "residence.desc": "If applying from a country other than your nationality, provide valid legal residence or visa proof for that country.",
+      "previous.desc": "If you were previously Chinese citizen or changed passports, provide former passport or old visa copies.",
+      "flightItinerary": "Round-trip Flight Itinerary",
+      "flightItinerary.desc": "Copies of round-trip flight booking.",
+      "L.itinerary": "Travel Itinerary",
+      "L.itinerary.desc": "Round-trip flight booking and hotel reservation",
+      "L.invitation": "Invitation Letter (Optional)",
+      "L.invitation.desc": "Invitation letter from a Chinese entity or individual",
+      "M.invitation": "Invitation Letter",
+      "M.invitation.desc": "Invitation letter from a trading company in China (company seal required)",
+      "M.business": "Business Documents",
+      "M.business.desc": "Company business license or introduction letter",
+      "M.bank": "Bank Statement",
+      "M.bank.desc": "Bank statement for the past 6 months",
+      "Q1.relation": "Family Relationship Proof",
+      "Q1.relation.desc": "Marriage certificate, birth certificate, etc.",
+      "Q1.invitation": "Invitation Letter",
+      "Q1.invitation.desc": "Issued by a Chinese citizen or permanent resident",
+      "Q1.inviterId": "Copy of Inviter's ID",
+      "Q1.inviterId.desc": "Copy of the inviter's identity document",
+      "Q2.relation": "Family Relationship Proof",
+      "Q2.relation.desc": "Proof of family relationship",
+      "Q2.invitation": "Invitation Letter and Inviter's ID",
+      "Q2.invitation.desc": "Invitation letter and copy of inviter's identity document",
+      "Z.workPermit": "Foreigner Work Permit Notice",
+      "Z.workPermit.desc": "Foreign Work Permit Notice obtained by Chinese employer",
+      "Z.contract": "Employment Contract",
+      "Z.contract.desc": "Employment contract or agreement",
+      "Z.noCriminal": "No Criminal Record Certificate",
+      "Z.noCriminal.desc": "No criminal record certificate certified by Chinese embassy",
+      "Z.health": "Health Certificate",
+      "Z.health.desc": "Health examination certificate certified by Chinese embassy",
+      "Z.education": "Education & Work Experience Proof",
+      "Z.education.desc": "Education and work experience certificates",
+      "X1.admission": "Admission Notice",
+      "X1.admission.desc": "Admission notice from Chinese school/institution",
+      "X1.jwForm": "JW201/JW202 Form",
+      "X1.jwForm.desc": "Application Form for Foreign Students",
+      "X1.noCriminal": "No Criminal Record Certificate",
+      "X1.noCriminal.desc": "No criminal record certificate abroad",
+      "X1.health": "Health Certificate",
+      "X1.health.desc": "Health examination certificate certified by Chinese embassy",
+      "X1.education": "Education Certificate",
+      "X1.education.desc": "Highest education certificate",
+      "G.ticket": "Flight Itinerary",
+      "G.ticket.desc": "Confirmed flight ticket to destination",
+      "G.destVisa": "Destination Country Visa",
+      "G.destVisa.desc": "Valid visa for destination country",
+      "C.crewCert": "Crew Member Certificate",
+      "C.crewCert.desc": "Valid crew member certificate",
+      "C.guarantee": "Airline Guarantee Letter",
+      "C.guarantee.desc": "Guarantee letter from airline company",
+      "D.confirmForm": "Residence Confirmation Form",
+      "D.confirmForm.desc": "Foreign Residence Identity Confirmation Form issued by Ministry of Public Security",
+      "D.criminal": "Criminal Record Certificate",
+      "D.criminal.desc": "Foreign national criminal record certificate (must be authenticated)",
+      "D.health": "Health Certificate",
+      "D.health.desc": "Health examination certificate from a recognized hospital in China",
+      "F.invitation": "Invitation Letter",
+      "F.invitation.desc": "Invitation letter from Chinese inviting organization or individual",
+      "F.plan": "Study/Exchange Plan",
+      "F.plan.desc": "Study or exchange plan in China",
+      "F.qualification": "Qualification Proof",
+      "F.qualification.desc": "Inviting party qualification documents",
+      "J1.notification": "Notice Letter",
+      "J1.notification.desc": "Notice letter from Information Department of Ministry of Foreign Affairs",
+      "J1.journalistId": "Journalist ID",
+      "J1.journalistId.desc": "Foreign media journalist ID",
+      "J2.plan": "Interview Plan",
+      "J2.plan.desc": "Short-term interview plan",
+      "J2.journalistId": "Journalist ID",
+      "J2.journalistId.desc": "Foreign media journalist ID",
+      "R.talent": "Talent Recognition Proof",
+      "R.talent.desc": "Government-recognized talent qualification documents",
+      "R.contract": "Employment Contract",
+      "R.contract.desc": "Employment contract with Chinese employer",
+      "R.qualification": "Professional Qualification",
+      "R.qualification.desc": "Professional qualifications in relevant field",
+      "S1.family": "Family Relationship Proof",
+      "S1.family.desc": "Family relationship proof with person staying in China",
+      "S1.residentDocs": "Resident Documents",
+      "S1.residentDocs.desc": "Copies of passport and residence permit of person staying in China",
+      "S1.invitation": "Invitation Letter",
+      "S1.invitation.desc": "Invitation letter from person staying in China",
+      "S2.family": "Family Relationship Proof",
+      "S2.family.desc": "Family relationship proof with person in China",
+      "S2.privateProof": "Private Affairs Proof",
+      "S2.privateProof.desc": "Relevant private affairs proof documents",
+      "S2.invitation": "Invitation Letter",
+      "S2.invitation.desc": "Invitation letter from inviter"
     },
     "mega": {
       "desc": "ビザ不要で中国旅行！中国の240時間トランジットビザ免除政策と国、一方通行ビザ免除国、相互ビザ免除協定国を詳しく解説、中国之旅を始めましょう！",
@@ -304,58 +387,26 @@
       "provincesName": "24省份"
     },
     "type": {
-      "work": {
-        "desc": "入境して働く外国人専門家；営業性公演；外国企業常駐中国代表機関の首席代表・代表；海上石油作業；ボランティア（90日超）；中国政府主管部門の工作了許可以上に入境して働く其他人員"
-      },
-      "crew": {
-        "desc": "国際列車乗務員；国際航空機乗組員；国際航行船舶の船員及び船員随行家族；国際道路交通の自動車運転手"
-      },
-      "talent": {
-        "desc": "国家が緊急に要する外国高层次人材向けで、便利です入境及び滞在政策を提供します。"
-      },
-      "tourism": {
-        "desc": "観光目的での入境に適しています。团体観光を含みます。滞在期間は通常30日、60日または90日で、-singleまたは複数回入境を申請できます。"
-      },
-      "studyX1": {
-        "desc": "長期學習（180日超）で、学校の入学許可書及びJW201/JW202表が必要です。"
-      },
-      "studyX2": {
-        "desc": "短期學習（180日以内）で、短期コースや交流プロジェクトに適しています。"
-      },
-      "transit": {
-        "desc": "中国を経由して第三国に向かう人で、滞在期間は通常10日以内です。"
-      },
-      "business": {
-        "desc": "商用・貿易活動のために入境する人に発给されます。初回滞在は最大90日で、延長可能です。"
-      },
-      "familyQ1": {
-        "desc": "家族团聚のために中国での長期滞在（180日超）を申請する中国公民または永住外国人の家族構成員。"
-      },
-      "familyQ2": {
-        "desc": "短期出張（180日以内）で、親族の短期滞在に適しています。"
-      },
-      "exchange": {
-        "desc": "学術交流活動；文化交流活動（例：交流性公演）；宗教交流活動；NGO交流活動；ボランティア（90日以内）；《外国専門家中国招待状》所持の外国専門家；地理測量活動"
-      },
+      "work": "Work Visa",
+      "crew": "Crew Visa",
+      "talent": "Talent Visa",
+      "tourism": "Tourism Visa",
+      "studyX1": "Study Visa (Long-term)",
+      "studyX2": "Study Visa (Short-term)",
+      "transit": "Transit Visa",
+      "business": "Business Visa",
+      "familyQ1": "Family Reunification (Long-term)",
+      "familyQ2": "Family Reunification (Short-term)",
+      "exchange": "Exchange/Visit Visa",
       "visaType": "ビザ種類",
-      "permanent": {
-        "desc": "事前に公安部審査の承認が必要で、中国での永住を申請する人に適用されます。"
-      },
-      "privateS1": {
-        "desc": "中国滞在外国人の長期出張家族（180日超）。"
-      },
-      "privateS2": {
-        "desc": "短期出張（180日以内）または他の私的之事で滞在が必要な人。"
-      },
+      "permanent": "Permanent Residence Visa",
+      "privateS1": "Private Affairs Visa (Long-term)",
+      "privateS2": "Private Affairs Visa (Short-term)",
       "documents": "必要書類リスト",
       "mainTitle": "中国への主な目的",
       "description": "ビザ種類の説明",
-      "journalistJ1": {
-        "desc": "中国常駐の外国報道機関记者で、外交部報道司が発给する通知状が必要です。"
-      },
-      "journalistJ2": {
-        "desc": "短期取材记者（滞在180日以内）で、公式メディア公印が必要です。"
-      },
+      "journalistJ1": "Journalist Visa (Long-term)",
+      "journalistJ2": "Journalist Visa (Short-term)",
       "workName": "仕事",
       "crewName": "乗務・輸送",
       "talentName": "高层次人材",
@@ -371,7 +422,23 @@
       "privateS1Name": "私的之事·家族訪問",
       "privateS2Name": "私的之事·家族訪問",
       "journalistJ1Name": "ジャーナリスト",
-      "journalistJ2Name": "ジャーナリスト"
+      "journalistJ2Name": "ジャーナリスト",
+      "tourism.desc": "China Tourism Visa (L Visa) is for persons traveling to China for tourism. Round-trip air tickets and hotel reservations are required.",
+      "business.desc": "Business Visa (M Visa) is for persons traveling to China for commercial and trade activities.",
+      "familyQ1.desc": "Q1 Visa is for persons who will reside in China for family reunion purposes for more than 180 days.",
+      "familyQ2.desc": "Q2 Visa is for persons who will stay in China for a short-term family visit for no more than 180 days.",
+      "work.desc": "Work Visa (Z Visa) is for persons who will work in China. A work permit is required.",
+      "studyX1.desc": "X1 Visa is for persons who will study in China for more than 180 days.",
+      "studyX2.desc": "X2 Visa is for persons who will study in China for no more than 180 days.",
+      "transit.desc": "G Visa is for persons who will transit through China to a third country.",
+      "crew.desc": "C Visa is for crew members of international transportation vehicles performing duties such as crew, aviation, or shipping.",
+      "permanent.desc": "D Visa is for foreign nationals applying for permanent residence in China.",
+      "exchange.desc": "F Visa is for persons traveling to China for exchange, visits, study tours, and other non-commercial activities.",
+      "journalistJ1.desc": "J1 Visa is for foreign journalists of foreign news organizations stationed in China for more than 180 days.",
+      "journalistJ2.desc": "J2 Visa is for foreign journalists who will cover temporary news events in China.",
+      "talent.desc": "R Visa is for foreign high-level talents and urgently needed professional talents required by China.",
+      "privateS1.desc": "S1 Visa is for spouses, parents, etc. of foreigners staying in China for work, study, etc., for more than 180 days.",
+      "privateS2.desc": "S2 Visa is for short-term family visits and other private affairs purposes."
     },
     "seo": {
       "title": "ビザとビザ免除政策",
@@ -462,6 +529,19 @@
         "note": "注意",
         "feeNote1": "上記の費用は参考値です。実際の費用は国籍、申請場所、滞在回数などにより異なる場合があります。最新の基準はお住まいの地域の中国大使館・領事館の発表をご確認ください。",
         "feeNote2": "ビザ費用は通常現地通貨で徴収され、為替変動により実際の支払額が影響を受ける場合があります。"
+      },
+      "types": {
+        "title": "Visa Types",
+        "visaName": "Visa Name",
+        "code": "Code",
+        "description": "Description",
+        "viewDocs": "View Documents",
+        "requiredDocs": "Required Documents",
+        "generalDocs": "General Documents",
+        "specialDocs": "Special Documents",
+        "optional": "Optional",
+        "clickToView": "Click to view",
+        "noDocs": "No document information available"
       }
     },
     "breadcrumb": {
