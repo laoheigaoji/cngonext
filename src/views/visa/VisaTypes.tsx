@@ -2,7 +2,7 @@ import { useState } from 'react';
 import VisaLayout from '../../components/visa/VisaLayout';
 import { X, FileText, CheckCircle, Upload, Plane, Mail, Building2, CreditCard, Heart, User } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
-import { VISA_TYPES, VISA_DOCUMENTS } from '../../data/visa-data';
+import { VISA_TYPES, VISA_DOCUMENTS, LangKey } from '../../data/visa-data';
 
 const iconMap: Record<string, React.ReactNode> = {
   FileText: <FileText className="w-4 h-4" />,
@@ -18,7 +18,7 @@ const iconMap: Record<string, React.ReactNode> = {
 
 export default function VisaTypes() {
   const { language, t } = useLanguage();
-  const langKey = (language === 'zh' || language === 'cn') ? 'cn' : 'en';
+  const langKey = (language === 'zh' ? 'cn' : language) as LangKey;
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [modalTitle, setModalTitle] = useState('');
 

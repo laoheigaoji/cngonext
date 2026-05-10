@@ -2,7 +2,7 @@ import React from "react";
 import { getSEO, visaFeesSEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
 import { getServerTranslations } from "@/lib/server-i18n";
 import { LANGUAGES } from "@/lib/static-params";
-import { VISA_FEES } from "@/data/visa-data";
+import { VISA_FEES, LangKey } from "@/data/visa-data";
 
 export function generateStaticParams() {
   return LANGUAGES.map(lang => ({ lang }));
@@ -41,7 +41,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   const { lang } = await params;
   const langPrefix = lang === 'zh' ? 'cn' : lang;
 
-  const langKey = (lang === 'zh' || lang === 'cn') ? 'cn' : 'en';
+  const langKey = (lang === 'zh' ? 'cn' : lang) as LangKey;
 
   const t = getServerTranslations(lang, [
     'visa.menu.fee', 'visa.page.fee.visaType', 'visa.page.fee.mainPurpose',

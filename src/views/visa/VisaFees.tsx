@@ -1,11 +1,11 @@
 import React from 'react';
 import VisaLayout from '../../components/visa/VisaLayout';
 import { useLanguage } from '../../context/LanguageContext';
-import { VISA_FEES } from '../../data/visa-data';
+import { VISA_FEES, LangKey } from '../../data/visa-data';
 
 export default function VisaFees() {
   const { language, t } = useLanguage();
-  const langKey = (language === 'zh' || language === 'cn') ? 'cn' : 'en';
+  const langKey = (language === 'zh' ? 'cn' : language) as LangKey;
 
   const tr = {
     pageTitle: t('visa.menu.fee', 'Fee Schedule'),

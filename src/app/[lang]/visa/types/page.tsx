@@ -2,7 +2,7 @@ import React from "react";
 import { getSEO, visaTypesSEO, getHreflangAlternates, baseUrl, defaultOgImage } from "@/lib/seo-config";
 import { getServerTranslations } from "@/lib/server-i18n";
 import { LANGUAGES } from "@/lib/static-params";
-import { VISA_TYPES, VISA_DOCUMENTS } from "@/data/visa-data";
+import { VISA_TYPES, VISA_DOCUMENTS, LangKey } from "@/data/visa-data";
 import VisaTypesClient from "./VisaTypesClient";
 
 export function generateStaticParams() {
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const langPrefix = lang === 'zh' ? 'cn' : lang;
-  const langKey = (lang === 'zh' || lang === 'cn') ? 'cn' : 'en';
+  const langKey = (lang === 'zh' ? 'cn' : lang) as LangKey;
 
   const t = getServerTranslations(lang, [
     'visa.page.types.title', 'visa.page.types.visaName', 'visa.page.types.code',

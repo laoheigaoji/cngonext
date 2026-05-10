@@ -3,79 +3,26 @@
 import React from 'react';
 import VisaLayout from '../../components/visa/VisaLayout';
 import { useLanguage } from '../../context/LanguageContext';
+import { VISA_CARD_TEXT, LangKey, MultiLang } from '../../data/visa-data';
 
 export default function VisaArrivalCard() {
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
+  const langKey = (language === 'zh' ? 'cn' : language) as LangKey;
+  const get = (ml: MultiLang) => ml[langKey] || ml.en;
 
-  const isZh = language === 'zh' || language === 'tw';
-  const getLocalizedText = (zh: string, en: string) => isZh ? zh : en;
-
-  // 翻译键
-  const tr = {
-    pageTitle: t('visa.menu.entryCard', 'Entry Card Guide'),
-    step1Title: t('visa.page.card.step1Title', 'Step 1 - Visit Website'),
-    step1Desc: t('visa.page.card.step1Desc', 'Search for "Foreigner Arrival Card" and access the website. Links vary by city; please select the corresponding link for your port of entry.'),
-    step2Title: t('visa.page.card.step2Title', 'Step 2 - Select Arrival Card'),
-    step2Desc: t('visa.page.card.step2Desc', 'Click on "Foreigner Arrival Card" or "24/240-hour visa-free transit".'),
-    step3Title: t('visa.page.card.step3Title', 'Step 3 - Select Language'),
-    step3Desc: t('visa.page.card.step3Desc', 'Select language (English, Japanese, Korean, etc.), and fill in basic information such as name, gender, nationality, and document number.'),
-    step4Title: t('visa.page.card.step4Title', 'Step 4 - Fill Information'),
-    step4Desc: t('visa.page.card.step4Desc', 'Fill in relevant information such as flight number, contact phone number, purpose of entry, and address.'),
-    step5Title: t('visa.page.card.step5Title', 'Step 5 - Submit & Save QR Code'),
-    step5Desc: t('visa.page.card.step5Desc', 'After completion, save the QR code to your phone for convenience during entry.'),
-    step6Title: t('visa.page.card.step6Title', 'Final Step - Print Arrival Card'),
-    step6Desc: t('visa.page.card.step6Desc', 'Scan the QR code at the self-service machine to print the arrival card, submit it to immigration, complete entry procedures, and you can enter after fingerprint scanning!'),
-    shanghai: t('visa.page.card.shanghai', 'Shanghai'),
-    zhejiang: t('visa.page.card.zhejiang', 'Zhejiang'),
-  };
-
-  const steps = [
-    {
-      num: 1,
-      title: tr.step1Title,
-      desc: tr.step1Desc,
-      links: [
-        { name: tr.shanghai, url: 'https://www.singlewindow.sh.cn/hj/' },
-        { name: tr.zhejiang, url: 'https://zj.singlewindow.cn/nia/' },
-      ],
-      image: 'https://static.tripcngo.com/ing/buzhou1.png'
-    },
-    {
-      num: 2,
-      title: tr.step2Title,
-      desc: tr.step2Desc,
-      image: 'https://static.tripcngo.com/ing/buzhou2.png'
-    },
-    {
-      num: 3,
-      title: tr.step3Title,
-      desc: tr.step3Desc,
-      image: 'https://static.tripcngo.com/ing/buzhou3.png'
-    },
-    {
-      num: 4,
-      title: tr.step4Title,
-      desc: tr.step4Desc,
-      image: 'https://static.tripcngo.com/ing/buzhou4.png'
-    },
-    {
-      num: 5,
-      title: tr.step5Title,
-      desc: tr.step5Desc,
-      image: 'https://static.tripcngo.com/ing/buzhou5.png'
-    },
-    {
-      num: 6,
-      title: tr.step6Title,
-      desc: tr.step6Desc,
-      image: 'https://static.tripcngo.com/ing/buzhou6.png'
-    }
-  ];
+  const tr = VISA_CARD_TEXT;
+  const steps = tr.steps.map((step, i) => ({
+    num: i + 1,
+    title: get(step.title),
+    desc: get(step.desc),
+    links: step.links?.map(l => ({ name: get(l.name), url: l.url })),
+    image: step.image,
+  }));
 
   return (
-    <VisaLayout breadcrumbTitle={tr.pageTitle}>
+    <VisaLayout breadcrumbTitle={get(tr.pageTitle)}>
         <div className="bg-white border border-gray-100 rounded-sm shadow-sm p-6">
-        <h2 className="text-2xl font-bold text-center mb-10 text-gray-900">{tr.pageTitle}</h2>
+        <h2 className="text-2xl font-bold text-center mb-10 text-gray-900">{get(tr.pageTitle)}</h2>
       <div className="space-y-12">
         {steps.map((step) => (
           <div key={step.num} className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start pb-10 border-b border-gray-100 last:border-0 last:pb-0">
