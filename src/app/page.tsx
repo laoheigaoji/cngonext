@@ -1,41 +1,49 @@
-"use client";
+import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useLanguage, LanguageProvider } from "@/context/LanguageContext";
+const langPrefixMap: Record<string, string> = {
+  zh: 'cn',
+  'zh-cn': 'cn',
+  'zh-tw': 'tw',
+  'zh-hk': 'tw',
+  tw: 'tw',
+  en: 'en',
+  ja: 'ja',
+  ko: 'ko',
+  ru: 'ru',
+  fr: 'fr',
+  es: 'es',
+  de: 'de',
+  it: 'it',
+};
 
-function RootPageInner() {
-  const router = useRouter();
-  const { language } = useLanguage();
+export default async function RootPage() {
+  const headersList = await headers();
+  const acceptLang = headersList.get("accept-language") || "";
+  
+  // Parse accept-language header to find best match
+  const browserLangs = acceptLang
+    .split(",")
+    .map((lang) => {
+      const [code, priority] = lang.trim().split(";q=");
+      return { code: code.toLowerCase().trim(), priority: priority ? parseFloat(priority) : 1 };
+    })
+    .sort((a, b) => b.priority - a.priority);
 
-  useEffect(() => {
-    const langToPrefix: Record<string, string> = {
-      zh: 'cn',
-      tw: 'tw',
-      en: 'en',
-      ja: 'ja',
-      ko: 'ko',
-      ru: 'ru',
-      fr: 'fr',
-      es: 'es',
-      de: 'de',
-      it: 'it'
-    };
-    const prefix = langToPrefix[language] || 'en';
-    router.replace(`/${prefix}`);
-  }, [language, router]);
+  let prefix = "en"; // default
+  for (const { code } of browserLangs) {
+    // Try exact match first
+    if (langPrefixMap[code]) {
+      prefix = langPrefixMap[code];
+      break;
+    }
+    // Try prefix match (e.g. "zh-cn" matches "zh")
+    const baseCode = code.split("-")[0];
+    if (langPrefixMap[baseCode]) {
+      prefix = langPrefixMap[baseCode];
+      break;
+    }
+  }
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f7f7f7]">
-      <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
-    </div>
-  );
-}
-
-export default function RootPage() {
-  return (
-    <LanguageProvider>
-      <RootPageInner />
-    </LanguageProvider>
-  );
+  redirect(`/${prefix}`);
 }

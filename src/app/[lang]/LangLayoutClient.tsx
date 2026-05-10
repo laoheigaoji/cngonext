@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, Suspense } from "react";
+import React, { useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLanguage, Language, LanguageProvider } from "@/context/LanguageContext";
@@ -60,14 +60,8 @@ export default function LangLayoutClient({
   const initialLang = langMap[lang as string] || 'en';
 
   return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-[#f7f7f7]">
-        <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    }>
-      <LanguageProvider initialLang={initialLang}>
-        <LayoutShell htmlLang={htmlLang}>{children}</LayoutShell>
-      </LanguageProvider>
-    </Suspense>
+    <LanguageProvider initialLang={initialLang}>
+      <LayoutShell htmlLang={htmlLang}>{children}</LayoutShell>
+    </LanguageProvider>
   );
 }
