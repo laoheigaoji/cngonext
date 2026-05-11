@@ -258,17 +258,20 @@ export default function Admin() {
 
     try {
       setLoading(true);
+      console.log("[Upload] Starting image upload:", file.name, file.type, file.size);
       const path = `articles/${Date.now()}-${Math.random().toString(36).substring(7)}.png`;
-      const { error } = await supabase.storage.from('images').upload(path, file);
-      if (error) throw error;
+      const result = await supabase.storage.from('images').upload(path, file);
+      console.log("[Upload] Result:", result);
+      if (result.error) throw result.error;
       const url = supabase.storage.from('images').getPublicUrl(path).data.publicUrl;
+      console.log("[Upload] Public URL:", url);
       
       const markdownImage = `\n![图片描述](${url})\n`;
       const targetField = activeTab === 'zh' ? 'content' : 'contentEn';
       setFormData(prev => ({ ...prev, [targetField]: prev[targetField as keyof typeof formData] + markdownImage }));
     } catch (err) {
-      console.error("Error uploading image:", err);
-      alert("上传图片失败");
+      console.error("[Upload] Error uploading image:", err);
+      alert(`上传图片失败: ${err instanceof Error ? err.message : JSON.stringify(err)}`);
     } finally {
       if (fileInputRef.current) fileInputRef.current.value = '';
       setLoading(false);
@@ -464,15 +467,18 @@ export default function Admin() {
 
     try {
       setLoading(true);
+      console.log("[Upload] Starting thumbnail upload:", file.name, file.type, file.size);
       const path = `thumbnails/${Date.now()}-${Math.random().toString(36).substring(7)}.png`;
-      const { error } = await supabase.storage.from('images').upload(path, file, { contentType: file.type });
-      if (error) throw error;
+      const result = await supabase.storage.from('images').upload(path, file, { contentType: file.type });
+      console.log("[Upload] Thumbnail result:", result);
+      if (result.error) throw result.error;
       const url = supabase.storage.from('images').getPublicUrl(path).data.publicUrl;
+      console.log("[Upload] Thumbnail URL:", url);
       
       setFormData(prev => ({ ...prev, thumbnail: url }));
     } catch (err) {
-      console.error("Error uploading thumbnail:", err);
-      alert("上传封面图失败");
+      console.error("[Upload] Error uploading thumbnail:", err);
+      alert(`上传封面图失败: ${err instanceof Error ? err.message : JSON.stringify(err)}`);
     } finally {
       if (thumbnailInputRef.current) thumbnailInputRef.current.value = '';
       setLoading(false);

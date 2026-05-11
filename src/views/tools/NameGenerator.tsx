@@ -512,17 +512,13 @@ export default function NameGenerator({ skipHero, relatedArticles }: { skipHero?
         {/* Hero Section */}
         {!skipHero && (
           <div
-            className="relative h-[300px] w-full flex items-center pt-16"
-            style={{
-              backgroundImage: 'url(https://images.unsplash.com/photo-1543097692-fa13c6cd8595?q=80&w=2670&auto=format&fit=crop)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
+            className="relative h-[400px] flex items-end justify-center bg-cover bg-center pb-16"
+            style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1543097692-fa13c6cd8595?q=80&w=2670&auto=format&fit=crop)' }}
           >
-            <div className="absolute inset-0 bg-black/40"></div>
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 text-white">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('tools.name.title')}</h1>
-              <p className="text-lg text-white/90">{t('tools.name.subtitle')}</p>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/40" />
+            <div className="relative text-center px-6 max-w-3xl mx-auto">
+              <h1 className="text-white text-4xl md:text-5xl font-bold mb-4">{t('tools.name.title')}</h1>
+              <p className="text-white/80 text-lg font-medium leading-relaxed">{t('tools.name.subtitle')}</p>
             </div>
           </div>
         )}
@@ -846,7 +842,7 @@ export default function NameGenerator({ skipHero, relatedArticles }: { skipHero?
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="flex items-center justify-center gap-6 py-3">
+                        <div className="grid grid-cols-2 md:flex items-center justify-center gap-4 md:gap-6 py-3">
                           <button
                             onClick={() => setLikedCards(prev => ({ ...prev, [idx]: !prev[idx] }))}
                             className="flex items-center gap-1.5 text-sm transition-colors"
@@ -884,49 +880,6 @@ export default function NameGenerator({ skipHero, relatedArticles }: { skipHero?
                               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                             </svg>
                             <span>{labels.shareX}</span>
-                          </button>
-                          <button
-                            onClick={() => {
-                              const btnId = `speak-${idx}`;
-                              setSpeakingBtn(btnId);
-                              speakText(nameResult.chinese);
-                            }}
-                            className="flex items-center gap-1.5 text-sm transition-colors relative"
-                          >
-                            <motion.div
-                              animate={speakingBtn === `speak-${idx}` ? { scale: [1, 1.2, 1] } : {}}
-                              transition={{ repeat: speakingBtn === `speak-${idx}` ? Infinity : 0, duration: 0.6 }}
-                            >
-                              <Volume2 className={`w-4 h-4 ${speakingBtn === `speak-${idx}` ? 'text-[#1b887a]' : 'text-gray-400'}`} />
-                            </motion.div>
-                            <span className={speakingBtn === `speak-${idx}` ? 'text-[#1b887a] font-medium' : 'text-gray-400'}>{speakingBtn === `speak-${idx}` ? '🔊' : ''}</span>
-                          </button>
-                          <button
-                            onClick={() => handleAnimatedCopy(nameResult.chinese, `copy-${idx}`)}
-                            className="flex items-center gap-1.5 text-sm transition-colors relative"
-                          >
-                            <motion.div
-                              animate={copiedBtn === `copy-${idx}` ? { scale: [1, 1.3, 1], rotate: [0, 10, -10, 0] } : {}}
-                              transition={{ duration: 0.4 }}
-                            >
-                              {copiedBtn === `copy-${idx}` ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4 text-gray-400" />}
-                            </motion.div>
-                            <span className={copiedBtn === `copy-${idx}` ? 'text-green-600 font-medium' : 'text-gray-400'}>
-                              {copiedBtn === `copy-${idx}` ? labels.copied : labels.copy}
-                            </span>
-                            <AnimatePresence>
-                              {copiedBtn === `copy-${idx}` && (
-                                <motion.span
-                                  initial={{ opacity: 1, y: 0 }}
-                                  animate={{ opacity: 0, y: -20 }}
-                                  exit={{ opacity: 0 }}
-                                  transition={{ duration: 1 }}
-                                  className="absolute -top-4 left-1/2 -translate-x-1/2 text-green-500 text-xs font-bold pointer-events-none"
-                                >
-                                  +1
-                                </motion.span>
-                              )}
-                            </AnimatePresence>
                           </button>
                         </div>
 

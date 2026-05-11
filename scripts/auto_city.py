@@ -7,7 +7,7 @@
   1. 自动检查 Supabase 数据库中缺少的城市
   2. 自动调用 DeepSeek 生成城市数据（中英双语）
   3. 自动翻译为 8 种语言（ja/ko/ru/fr/es/de/tw/it）
-  4. 自动调用 SiliconFlow（Flux）生图 API 生成封面图（listCover + heroImage）
+  4. 自动调用 Gemini API 生成背景图 + PIL 叠加书法字体生成封面图（listCover + heroImage）
   5. 自动上传封面图到 Supabase Storage
   6. 自动写入 Supabase 数据库
 
@@ -39,7 +39,6 @@ if sys.platform == "win32":
 
 # ============ 配置 ============
 DEEPSEEK_KEY = os.environ.get("DEEPSEEK_KEY", "sk-59621d871ea2481ebb5cef488b8137be")
-SILICONFLOW_KEY = os.environ.get("SILICONFLOW_KEY", "sk-d2b755410b11417490aa2f90ec678ce6")
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://cxegaqhwexiidezycbyg.supabase.co")
 SUPABASE_SERVICE_KEY = os.environ.get(
@@ -121,38 +120,169 @@ def clean_json(text: str) -> str:
     return text
 
 
-# ============ SiliconFlow 生图 API ============
-def generate_image_with_siliconflow(prompt: str, size: str = "1024x768") -> bytes:
+# ============ Gemini 图像生成 API + PIL 叠加文字 ============
+
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "AIzaSyB1GiAVEG7OW6G9MZX0tJHt1whBU8BkyHs")
+
+# 参考图：用北京的 listCover 作为风格参考
+REFERENCE_IMAGE_URL = "https://cxegaqhwexiidezycbyg.supabase.co/storage/v1/object/public/images/city_list_covers/1777907675210-beijing.jpg"
+
+# 字体路径（优先使用衡山毛笔行书，其次楷体，最后黑体）
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+FONT_PATHS = [
+    os.path.join(SCRIPT_DIR, "fonts", "kouzan_brush.ttf"),  # 衡山毛笔行书（需手动下载）
+    os.path.join(SCRIPT_DIR, "fonts", "maobixingshu.ttf"),   # 备用毛笔行书
+    "C:/Windows/Fonts/simkai.ttf",   # 楷体（系统自带）
+    "C:/Windows/Fonts/simhei.ttf",   # 黑体（系统自带）
+]
+
+def _get_font(size: int):
+    """获取可用的书法字体"""
+    from PIL import ImageFont
+    for path in FONT_PATHS:
+        if os.path.exists(path):
+            try:
+                font = ImageFont.truetype(path, size)
+                print(f"    使用字体: {os.path.basename(path)}")
+                return font
+            except Exception:
+                continue
+    return ImageFont.load_default()
+
+
+def fetch_image_as_base64(url: str) -> str:
+    """下载图片并转为 base64"""
+    resp = requests.get(url, timeout=60)
+    resp.raise_for_status()
+    return base64.b64encode(resp.content).decode("utf-8")
+
+
+def generate_bg_with_gemini(prompt: str, reference_image_url: str = None) -> bytes:
     """
-    调用 SiliconFlow 的 Flux 模型生成图片，返回图片二进制数据
-    SiliconFlow 兼容 OpenAI 图片生成 API 格式
+    调用 Gemini API 生成纯背景图（无文字）
+    返回图片二进制数据
     """
-    resp = requests.post(
-        "https://api.siliconflow.cn/v1/images/generations",
-        headers={
-            "Authorization": f"Bearer {SILICONFLOW_KEY}",
-            "Content-Type": "application/json",
+    parts = [{"text": prompt}]
+
+    # 如果有参考图，附加到请求中
+    if reference_image_url:
+        try:
+            ref_b64 = fetch_image_as_base64(reference_image_url)
+            parts.append({
+                "inline_data": {
+                    "mime_type": "image/jpeg",
+                    "data": ref_b64,
+                }
+            })
+            parts.append({"text": "Generate a background image in the SAME dark, moody, golden-hour photographic style as this reference, but with the landmark described above. NO TEXT, NO LETTERS, NO WORDS in the image."})
+        except Exception as e:
+            print(f"    ⚠️ 参考图下载失败，将不带参考图生成: {e}")
+
+    payload = {
+        "contents": [{"parts": parts}],
+        "generationConfig": {
+            "responseModalities": ["TEXT", "IMAGE"],
         },
-        json={
-            "model": "black-forest-labs/FLUX.1-schnell",
-            "prompt": prompt,
-            "image_size": size,
-            "num_inference_steps": 20,
-        },
-        timeout=120,
-    )
+    }
+
+    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=" + GEMINI_API_KEY
+
+    resp = requests.post(url, json=payload, timeout=180)
     resp.raise_for_status()
     data = resp.json()
 
-    # 返回格式: {"images": [{"url": "..."}]}
-    if "images" in data and len(data["images"]) > 0:
-        img_url = data["images"][0].get("url", "")
-        if img_url:
-            img_resp = requests.get(img_url, timeout=60)
-            img_resp.raise_for_status()
-            return img_resp.content
+    # 解析 Gemini 返回的图片数据
+    try:
+        candidates = data.get("candidates", [])
+        if candidates:
+            parts = candidates[0].get("content", {}).get("parts", [])
+            for part in parts:
+                if "inlineData" in part:
+                    img_b64 = part["inlineData"].get("data", "")
+                    if img_b64:
+                        return base64.b64decode(img_b64)
+                if "inline_data" in part:
+                    img_b64 = part["inline_data"].get("data", "")
+                    if img_b64:
+                        return base64.b64decode(img_b64)
+    except Exception as e:
+        print(f"    ❌ Gemini 返回解析失败: {e}")
+        print(f"    返回数据: {json.dumps(data, ensure_ascii=False)[:500]}")
 
-    raise Exception(f"SiliconFlow 生图返回异常: {json.dumps(data, ensure_ascii=False)[:200]}")
+    raise Exception(f"Gemini 生图返回异常: {json.dumps(data, ensure_ascii=False)[:500]}")
+
+
+def overlay_city_text(bg_image_bytes: bytes, city_name: str, en_name: str, is_list_cover: bool = True) -> bytes:
+    """
+    在背景图上叠加城市名（竖排书法）+ 英文名（横排大写带间距）
+    返回处理后的图片二进制数据
+    """
+    from PIL import Image, ImageDraw, ImageFont, ImageFilter
+    import io
+
+    img = Image.open(io.BytesIO(bg_image_bytes)).convert("RGBA")
+    w, h = img.size
+
+    # 创建文字图层
+    txt_layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(txt_layer)
+
+    if is_list_cover:
+        # === listCover：1:1 方形，左侧竖排城市名 + 中间英文名 ===
+
+        # 1. 竖排书法城市名（左侧）
+        cn_font_size = int(w * 0.14)  # 字体大小约为图片宽度的14%
+        cn_font = _get_font(cn_font_size)
+
+        # 竖排：从上到下逐字排列
+        chars = list(city_name)
+        char_h = cn_font_size + int(cn_font_size * 0.15)
+        total_h = len(chars) * char_h
+        start_y = (h - total_h) // 2
+        x_cn = int(w * 0.08)  # 左侧位置
+
+        for i, ch in enumerate(chars):
+            y = start_y + i * char_h
+            # 文字阴影
+            shadow_layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+            shadow_draw = ImageDraw.Draw(shadow_layer)
+            shadow_draw.text((x_cn + 2, y + 2), ch, font=cn_font, fill=(0, 0, 0, 180))
+            shadow_layer = shadow_layer.filter(ImageFilter.GaussianBlur(3))
+            txt_layer = Image.alpha_composite(txt_layer, shadow_layer)
+            draw = ImageDraw.Draw(txt_layer)
+            # 白色文字
+            draw.text((x_cn, y), ch, font=cn_font, fill=(255, 255, 255, 230))
+
+        # 2. 英文名（横排，大写带间距，中间偏下）
+        en_font_size = int(w * 0.05)
+        en_font = _get_font(en_font_size)
+
+        en_text = " ".join(en_name.upper())  # 字母间加空格
+        tw, _ = draw.textsize(en_text, font=en_font)
+        x_en = (w - tw) // 2
+        y_en = int(h * 0.72)
+
+        # 阴影
+        shadow_layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+        shadow_draw = ImageDraw.Draw(shadow_layer)
+        shadow_draw.text((x_en + 1, y_en + 1), en_text, font=en_font, fill=(0, 0, 0, 160))
+        shadow_layer = shadow_layer.filter(ImageFilter.GaussianBlur(2))
+        txt_layer = Image.alpha_composite(txt_layer, shadow_layer)
+        draw = ImageDraw.Draw(txt_layer)
+        draw.text((x_en, y_en), en_text, font=en_font, fill=(255, 255, 255, 220))
+
+    else:
+        # === heroImage：4:3 横版，不加文字 ===
+        pass
+
+    # 合成
+    result = Image.alpha_composite(img, txt_layer)
+
+    # 转为 JPEG
+    output = io.BytesIO()
+    result = result.convert("RGB")
+    result.save(output, format="JPEG", quality=92)
+    return output.getvalue()
 
 
 # ============ Supabase 操作 ============
@@ -368,50 +498,59 @@ Format: {{
 # ============ 生成封面图 ============
 def generate_city_images(city_name: str, en_name: str):
     """
-    用 SiliconFlow Flux 生图 API 生成城市封面图
+    生成城市封面图：
+    1. Gemini 生成纯背景图（地标建筑风景，无文字）
+    2. PIL 本地叠加书法字体城市名 + 英文名
     返回 (listCoverUrl, heroImageUrl)
     """
-    print(f"  🎨 生成 {city_name} 封面图...")
+    print(f"  🎨 生成 {city_name} 封面图（Gemini 背景 + PIL 文字叠加）...")
 
-    # listCover: 竖版方形城市封面（用于列表展示）
-    list_prompt = (
-        f"Breathtaking aerial view of {en_name}, China. "
-        f"Stunning cityscape with iconic landmarks and natural scenery. "
-        f"Golden hour lighting, vibrant colors, professional travel photography, "
-        f"4K quality, no text, no watermark"
+    # listCover 背景提示词（1:1 方形，无文字）
+    list_bg_prompt = (
+        f"Generate a square (1:1) travel photograph of the most iconic landmark of {city_name} ({en_name}), China. "
+        f"Style: dark, moody, atmospheric, professional travel photography with soft golden hour lighting and deep shadows. "
+        f"The landmark should dominate the frame. Leave some space on the left side for text overlay. "
+        f"IMPORTANT: NO TEXT, NO LETTERS, NO WORDS, NO WATERMARK in the image."
     )
 
-    # heroImage: 横版大图（用于城市详情页顶部）
-    hero_prompt = (
-        f"Magnificent panoramic view of {en_name}, China skyline at sunset. "
-        f"Showcasing famous landmarks, mountains or waterfront, traditional and modern architecture blend. "
-        f"Dramatic sky, cinematic composition, ultra-wide angle, "
-        f"professional travel photography, 4K quality, no text, no watermark"
+    # heroImage 背景提示词（4:3 横版，无文字）
+    hero_bg_prompt = (
+        f"Generate a wide panoramic travel photograph of {en_name}, China. "
+        f"Showcasing the city's most famous landmarks and natural scenery in a breathtaking panoramic view. "
+        f"Dramatic sunset sky, cinematic composition, ultra-wide angle, "
+        f"professional travel photography, 4K quality. "
+        f"IMPORTANT: NO TEXT, NO LETTERS, NO WORDS, NO WATERMARK in the image."
     )
 
     list_cover_url = None
     hero_image_url = None
 
-    # 生成 listCover
+    # 生成 listCover：Gemini 背景 + PIL 文字叠加
     try:
-        print(f"    🖼️  生成 listCover ({en_name})...")
-        img_bytes = generate_image_with_siliconflow(list_prompt, size="1024x1024")
+        print(f"    🖼️  生成 listCover 背景 ({city_name})...")
+        bg_bytes = generate_bg_with_gemini(list_bg_prompt, reference_image_url=REFERENCE_IMAGE_URL)
+
+        print(f"    ✏️  叠加文字：{city_name} / {en_name.upper()}...")
+        final_bytes = overlay_city_text(bg_bytes, city_name, en_name, is_list_cover=True)
+
         ts = int(time.time() * 1000)
         storage_path = f"city_list_covers/{ts}-{en_name.lower()}.jpg"
-        list_cover_url = supabase_upload_image(storage_path, img_bytes, "image/jpeg")
+        list_cover_url = supabase_upload_image(storage_path, final_bytes, "image/jpeg")
         print(f"    ✅ listCover 上传成功: {list_cover_url[:80]}...")
     except Exception as e:
         print(f"    ❌ listCover 生成失败: {e}")
 
-    time.sleep(1)  # 限流
+    time.sleep(2)  # 限流
 
-    # 生成 heroImage
+    # 生成 heroImage：纯背景，不加文字
     try:
-        print(f"    🖼️  生成 heroImage ({en_name})...")
-        img_bytes = generate_image_with_siliconflow(hero_prompt, size="1024x768")
+        print(f"    🖼️  生成 heroImage ({city_name})...")
+        bg_bytes = generate_bg_with_gemini(hero_bg_prompt, reference_image_url=None)
+
+        # heroImage 不加文字，直接上传
         ts = int(time.time() * 1000)
         storage_path = f"city_covers/{ts}-{en_name.lower()}bg.jpg"
-        hero_image_url = supabase_upload_image(storage_path, img_bytes, "image/jpeg")
+        hero_image_url = supabase_upload_image(storage_path, bg_bytes, "image/jpeg")
         print(f"    ✅ heroImage 上传成功: {hero_image_url[:80]}...")
     except Exception as e:
         print(f"    ❌ heroImage 生成失败: {e}")

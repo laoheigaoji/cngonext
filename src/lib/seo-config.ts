@@ -304,16 +304,16 @@ const nameGeneratorSEO: Record<string, PageSEO> = {
 };
 
 const menuTranslatorSEO: Record<string, PageSEO> = {
-  cn: { title: '中文菜单翻译器 - tripcngo.com', description: '用AI翻译中文餐厅菜单。上传照片或输入中文菜名，即时获取翻译和解释。' },
-  en: { title: 'Chinese Menu Translator - tripcngo.com', description: 'Translate Chinese restaurant menus with AI. Upload a photo or type Chinese dish names to get instant translations and explanations.' },
-  ja: { title: '中国語メニュー翻訳 - tripcngo.com', description: 'AIで中国語のレストランメニューを翻訳。写真をアップロードまたは中国語の料理名を入力して即座に翻訳と解説を取得。' },
-  ko: { title: '중국어 메뉴 번역기 - tripcngo.com', description: 'AI로 중국어 식당 메뉴를 번역하세요. 사진을 업로드하거나 중국어 요리명을 입력하여 즉시 번역과 설명을 받으세요.' },
-  ru: { title: 'Переводчик китайского меню - tripcngo.com', description: 'Переводите китайские ресторанные меню с помощью ИИ.' },
-  fr: { title: 'Traducteur de menu chinois - tripcngo.com', description: 'Traduisez les menus de restaurants chinois avec l\'IA.' },
-  es: { title: 'Traductor de menú chino - tripcngo.com', description: 'Traduzca menús de restaurantes chinos con IA.' },
-  de: { title: 'Chinesischer Menü-Übersetzer - tripcngo.com', description: 'Übersetzen Sie chinesische Restaurantmenüs mit KI.' },
-  tw: { title: '中文菜單翻譯器 - tripcngo.com', description: '用AI翻譯中文餐廳菜單。上傳照片或輸入中文菜名，即時獲取翻譯和解釋。' },
-  it: { title: 'Traduttore di menu cinese - tripcngo.com', description: 'Traduci i menu dei ristoranti cinesi con l\'IA.' },
+  cn: { title: '人工智能将中餐菜单变成照片神器 | tripcngo.com', description: 'AI一键扫描中文菜单，自动生成菜品高清图片。支持双语翻译、食材解析、过敏原提醒和实时汇率换算，轻松点餐。' },
+  en: { title: 'AI Turns Chinese Menus into Dish Photos | tripcngo.com', description: 'AI-powered Chinese menu scanner that turns menu text into real dish photos. Bilingual translations, ingredient analysis, allergen alerts, and currency conversion for easy ordering.' },
+  ja: { title: 'AIが中華メニューを料理写真に変換 | tripcngo.com', description: 'AIで中国語メニューをスキャンして料理写真を自動生成。バイリンガル翻訳、食材分析、アレルギー情報、リアルタイム両替で簡単注文。' },
+  ko: { title: 'AI로 중국어 메뉴를 요리 사진으로 변환 | tripcngo.com', description: 'AI로 중국어 메뉴를 스캔하여 요리 사진을 자동 생성합니다. 이중언어 번역, 식재료 분석, 알레르기 정보, 실시간 환율 변환으로 쉽게 주문하세요.' },
+  ru: { title: 'ИИ превращает китайское меню в фото блюд | tripcngo.com', description: 'ИИ-сканер китайских меню: автоматически генерирует фото блюд по тексту меню. Двуязычный перевод, анализ ингредиентов, предупреждения об аллергенах и конвертация валют.' },
+  fr: { title: 'L\'IA transforme les menus chinois en photos de plats | tripcngo.com', description: 'Scannez les menus chinois avec l\'IA pour générer automatiquement des photos de plats. Traduction bilingue, analyse des ingrédients, alertes allergènes et conversion de devises.' },
+  es: { title: 'IA convierte menús chinos en fotos de platos | tripcngo.com', description: 'Escanea menús chinos con IA y genera fotos de platos automáticamente. Traducción bilingüe, análisis de ingredientes, alertas de alérgenos y conversión de divisas.' },
+  de: { title: 'KI verwandelt chinesische Menüs in Gerichtsfotos | tripcngo.com', description: 'KI-gestützter chinesischer Menü-Scanner, der Menütext in echte Gerichtsfotos verwandelt. Zweisprachige Übersetzung, Zutatenanalyse, Allergenwarnungen und Währungsumrechnung.' },
+  tw: { title: '人工智慧將中餐菜單變成照片神器 | tripcngo.com', description: 'AI一鍵掃描中文菜單，自動生成菜品高清圖片。支持雙語翻譯、食材解析、過敏原提醒和實時匯率換算，輕鬆點餐。' },
+  it: { title: 'L\'IA trasforma i menu cinesi in foto dei piatti | tripcngo.com', description: 'Scanner IA dei menu cinesi che trasforma il testo del menu in foto reali dei piatti. Traduzione bilingue, analisi degli ingredienti, avvisi allergeni e conversione valuta.' },
 };
 
 const pinyinSEO: Record<string, PageSEO> = {

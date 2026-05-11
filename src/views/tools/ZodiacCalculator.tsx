@@ -96,7 +96,7 @@ const ZodiacCalculator = ({ translations }: ZodiacCalculatorProps) => {
         <div className="min-h-screen bg-neutral-50 text-neutral-900">
             {/* Hero Section */}
             <div
-                className="relative h-[300px] flex items-center justify-center bg-cover bg-center"
+                className="relative h-[380px] flex items-end justify-center bg-cover bg-center pb-16"
                 style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=2670&auto=format&fit=crop)' }}
             >
                 <div className="absolute inset-0 bg-black/40" />

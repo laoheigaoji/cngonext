@@ -71,7 +71,7 @@ const CharacterCounter = ({ translations }: CharacterCounterProps) => {
         <div className="min-h-screen bg-neutral-50 text-neutral-900">
             {/* Hero Section */}
             <div
-                className="relative h-[300px] flex items-center justify-center bg-cover bg-center"
+                className="relative h-[380px] flex items-end justify-center bg-cover bg-center pb-16"
                 style={{ backgroundImage: 'url(https://static.tripcngo.com/ing/banner_bg_1.jpg)' }}
             >
                 <div className="absolute inset-0 bg-black/40" />

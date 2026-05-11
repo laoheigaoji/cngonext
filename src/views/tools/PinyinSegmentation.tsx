@@ -148,8 +148,8 @@ const PinyinSegmentation = ({ skipHero, translations }: PinyinSegmentationProps)
         <div className="min-h-screen bg-neutral-50 text-neutral-900">
             {/* Hero Section - skipped when rendered by SSR PinyinHero component */}
             {!skipHero && (
-            <div 
-                className="relative h-[340px] flex items-center justify-center bg-cover bg-center"
+            <div
+                className="relative h-[400px] flex items-end justify-center bg-cover bg-center pb-16"
                 style={{ backgroundImage: 'url(https://static.tripcngo.com/ing/banner_bg_1.jpg)' }}
             >
                 <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/40" />
