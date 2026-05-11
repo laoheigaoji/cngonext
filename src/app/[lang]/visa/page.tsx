@@ -9,16 +9,16 @@ export function generateStaticParams() {
 export const revalidate = false;
 
 const visaSEO: Record<string, { title: string; description: string }> = {
-  cn: { title: '中国签证指南 - tripcngo.com', description: '全面的中国签证指南：签证类型、费用、申请流程、240小时过境免签政策等详细信息。' },
-  en: { title: 'China Visa Guide - tripcngo.com', description: 'Complete China visa guide: visa types, fees, application process, 240-hour transit visa exemption policy and more.' },
-  ja: { title: '中国ビザガイド - tripcngo.com', description: '中国ビザの完全ガイド：ビザの種類、費用、申請手続き、240時間トランジットビザ免除政策など。' },
-  ko: { title: '중국 비자 가이드 - tripcngo.com', description: '중국 비자 완전 가이드: 비자 종류, 비용, 신청 절차, 240시간 환승 비자 면제 정책 등.' },
-  ru: { title: 'Гид по визам в Китай - tripcngo.com', description: 'Полный гид по визам в Китай.' },
-  fr: { title: 'Guide des visas Chine - tripcngo.com', description: 'Guide complet des visas pour la Chine.' },
-  es: { title: 'Guía de visas China - tripcngo.com', description: 'Guía completa de visas para China.' },
-  de: { title: 'China-Visum-Leitfaden - tripcngo.com', description: 'Vollständiger China-Visum-Leitfaden.' },
-  tw: { title: '中國簽證指南 - tripcngo.com', description: '全面的中國簽證指南：簽證類型、費用、申請流程、240小時過境免簽政策等詳細信息。' },
-  it: { title: 'Guida visa Cina - tripcngo.com', description: 'Guida completa ai visa per la Cina.' },
+  cn: { title: '中国免签政策：24/72/144小时过境免签指南 | tripcngo.com', description: '全面解读中国免签政策：24小时、72小时、144小时过境免签适用城市、申请条件、停留规则。包含签证类型、费用、申请流程等实用信息。' },
+  en: { title: 'China Visa-Free Policy: 24/72/144-Hour Transit Visa Exemption Guide | tripcngo.com', description: 'Complete guide to China visa-free transit policy: 24-hour, 72-hour, and 144-hour transit visa exemption eligible cities, requirements, and stay rules. Includes visa types, fees, and application process.' },
+  ja: { title: '中国ビザ免除政策：24/72/144時間トランジットビザ免除ガイド | tripcngo.com', description: '中国のビザ免除政策を完全解説：24時間・72時間・144時間トランジットビザ免除の対象都市、申請条件、滞在ルール。ビザの種類、費用、申請手続きも網羅。' },
+  ko: { title: '중국 무비자 정책: 24/72/144시간 환승 비자 면제 가이드 | tripcngo.com', description: '중국 무비자 정책 완전 가이드: 24시간, 72시간, 144시간 환승 비자 면제 대상 도시, 신청 조건, 체류 규칙. 비자 종류, 비용, 신청 절차 포함.' },
+  ru: { title: 'Безвизовая политика Китая: Руководство по 24/72/144-часовому транзиту без визы | tripcngo.com', description: 'Полное руководство по безвизовому транзиту в Китае: 24, 72 и 144 часа — подходящие города, условия и правила пребывания.' },
+  fr: { title: 'Politique d\'exemption de visa Chine : Guide 24/72/144 heures de transit sans visa | tripcngo.com', description: 'Guide complet de la politique d\'exemption de visa de la Chine : villes éligibles, conditions et règles de séjour pour les exemptions de 24, 72 et 144 heures.' },
+  es: { title: 'Política de exención de visa de China: Guía de exención de visa de tránsito 24/72/144 horas | tripcngo.com', description: 'Guía completa de la política de exención de visa de China: ciudades elegibles, requisitos y reglas de estadía para 24, 72 y 144 horas de tránsito sin visa.' },
+  de: { title: 'Chinas Visumfrei-Politik: Leitfaden zur 24/72/144-Stunden-Transitvisumbefreiung | tripcngo.com', description: 'Vollständiger Leitfaden zu Chinas visumfreier Transitpolitik: berechtigte Städte, Voraussetzungen und Aufenthaltsregeln für 24, 72 und 144 Stunden.' },
+  tw: { title: '中國免簽政策：24/72/144小時過境免簽指南 | tripcngo.com', description: '全面解讀中國免簽政策：24小時、72小時、144小時過境免簽適用城市、申請條件、停留規則。包含簽證類型、費用、申請流程等實用信息。' },
+  it: { title: 'Politica di esenzione visa Cina: Guida all\'esenzione visa transito 24/72/144 ore | tripcngo.com', description: 'Guida completa alla politica di esenzione visa della Cina: città eleggibili, requisiti e regole di soggiorno per 24, 72 e 144 ore di transito senza visa.' },
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
