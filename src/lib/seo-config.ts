@@ -104,16 +104,16 @@ const citiesSEO: Record<string, PageSEO> = {
 };
 
 const articlesSEO: Record<string, PageSEO> = {
-  cn: { title: '旅行攻略 - tripcngo.com', description: '阅读最新的中国旅行攻略和文章，了解签证政策、文化习俗、美食推荐和实用旅行贴士。' },
-  en: { title: 'Travel Articles - tripcngo.com', description: 'Read the latest China travel articles and guides. Learn about visa policies, cultural customs, food recommendations and practical travel tips.' },
-  ja: { title: '旅行記事 - tripcngo.com', description: '最新の中国旅行記事とガイドを読む。ビザ政策、文化習慣、グルメおすすめ、実用的な旅行のヒントを学ぶ。' },
-  ko: { title: '여행 기사 - tripcngo.com', description: '최신 중국 여행 기사와 가이드를 읽어보세요. 비자 정책, 문화 관습, 음식 추천, 실용적인 여행 팁을 알아보세요.' },
-  ru: { title: 'Статьи о путешествиях - tripcngo.com', description: 'Читайте последние статьи о путешествиях в Китай.' },
-  fr: { title: 'Articles de voyage - tripcngo.com', description: 'Lisez les derniers articles de voyage en Chine.' },
-  es: { title: 'Artículos de viaje - tripcngo.com', description: 'Lee los últimos artículos de viaje a China.' },
-  de: { title: 'Reiseartikel - tripcngo.com', description: 'Lesen Sie die neuesten China-Reiseartikel.' },
-  tw: { title: '旅行攻略 - tripcngo.com', description: '閱讀最新的中國旅行攻略和文章，了解簽證政策、文化習俗、美食推薦和實用旅行貼士。' },
-  it: { title: 'Articoli di viaggio - tripcngo.com', description: 'Leggi gli ultimi articoli di viaggio in Cina.' },
+  cn: { title: '中国旅游攻略：交通、支付及实用贴士 | tripcngo.com', description: '中国旅游实用攻略：交通出行、移动支付、签证政策、文化习俗、美食推荐等一站式指南，让您的中国之旅更顺畅。' },
+  en: { title: 'China Travel Guide: Transport, Payment & Practical Tips | tripcngo.com', description: 'Your complete China travel guide: transport, mobile payment, visa policies, cultural customs, food recommendations and practical tips for a smooth trip.' },
+  ja: { title: '中国旅行ガイド：交通・決済・実用ティップス | tripcngo.com', description: '中国旅行の完全ガイド：交通、モバイル決済、ビザ政策、文化習慣、グルメおすすめなど、快適な旅のための実用情報満載。' },
+  ko: { title: '중국 여행 가이드: 교통, 결제 및 실용 팁 | tripcngo.com', description: '중국 여행 완전 가이드: 교통, 모바일 결제, 비자 정책, 문화 관습, 음식 추천 및 원활한 여행을 위한 실용 팁.' },
+  ru: { title: 'Гид по путешествиям в Китай: Транспорт, оплата и практические советы | tripcngo.com', description: 'Полный гид по путешествиям в Китай: транспорт, мобильная оплата, визовая политика, культурные обычаи и практические советы.' },
+  fr: { title: 'Guide voyage Chine : Transport, paiement et conseils pratiques | tripcngo.com', description: 'Guide complet pour voyager en Chine : transport, paiement mobile, politique de visa, coutumes culturelles et conseils pratiques.' },
+  es: { title: 'Guía de viaje a China: Transporte, pago y consejos prácticos | tripcngo.com', description: 'Guía completa para viajar a China: transporte, pago móvil, política de visas, costumbres culturales y consejos prácticos.' },
+  de: { title: 'China-Reiseführer: Transport, Zahlung & praktische Tipps | tripcngo.com', description: 'Vollständiger China-Reiseführer: Transport, mobile Zahlung, Visumpolitik, kulturelle Bräuche und praktische Tipps.' },
+  tw: { title: '中國旅遊攻略：交通、支付及實用貼士 | tripcngo.com', description: '中國旅遊實用攻略：交通出行、行動支付、簽證政策、文化習俗、美食推薦等一站式指南，讓您的中國之旅更順暢。' },
+  it: { title: 'Guida di viaggio in Cina: Trasporti, pagamenti e consigli pratici | tripcngo.com', description: 'Guida completa per viaggiare in Cina: trasporti, pagamenti mobili, politica dei visti, costumi culturali e consigli pratici.' },
 };
 
 const guideSEO: Record<string, PageSEO> = {
