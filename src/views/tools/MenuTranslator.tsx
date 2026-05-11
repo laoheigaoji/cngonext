@@ -50,10 +50,13 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
         img.src = uploadedImage;
     }, [uploadedImage]);
 
-    // Crop dish region from original menu image using AI-returned bbox coordinates
+    // Crop dish region from original menu image using AI-returned bbox + mask
     // bbox format: [x1, y1, x2, y2] absolute pixel coordinates of dish photo area
+    // mask format: [[x1,y1],[x2,y2],...] polygon vertices tracing dish contour
+    // Process: 1) clip bbox region 2) apply mask polygon to make background transparent 3) auto-trim whitespace
     const cropDishFromMenu = (item: any): string | null => {
         const bbox: number[] | null = item.bbox;
+        const mask: number[][] | null = item.mask;
         if (!menuImgRef.current || !bbox || bbox.length !== 4 || bbox.some(v => v == null || v < 0)) return null;
         if (bbox[2] <= bbox[0] || bbox[3] <= bbox[1]) return null;
         try {
@@ -64,23 +67,226 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
             const natW = img.naturalWidth;
             const natH = img.naturalHeight;
             const [x1, y1, x2, y2] = bbox;
-            // Add small padding (3% of region size)
-            const padX = Math.max(2, (x2 - x1) * 0.03);
-            const padY = Math.max(2, (y2 - y1) * 0.03);
+            // Add small padding (5% of region size) for safety margin
+            const padX = Math.max(4, (x2 - x1) * 0.05);
+            const padY = Math.max(4, (y2 - y1) * 0.05);
             const sx = Math.max(0, x1 - padX);
             const sy = Math.max(0, y1 - padY);
             const sw = Math.min(x2 + padX - sx, natW - sx);
             const sh = Math.min(y2 + padY - sy, natH - sy);
             if (sw < 10 || sh < 10) return null;
-            // Output at 200px square
+
+            // Step 1: Draw bbox region onto canvas
+            canvas.width = sw;
+            canvas.height = sh;
+            ctx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+
+            // Step 2: If mask polygon exists, use it for precise cutout (background → transparent)
+            if (mask && Array.isArray(mask) && mask.length >= 6) {
+                // Create a temporary canvas for compositing
+                const tmpCanvas = document.createElement('canvas');
+                tmpCanvas.width = sw;
+                tmpCanvas.height = sh;
+                const tmpCtx = tmpCanvas.getContext('2d');
+                if (tmpCtx) {
+                    // Draw mask polygon as clipping path on temp canvas
+                    tmpCtx.beginPath();
+                    for (let i = 0; i < mask.length; i++) {
+                        const px = mask[i][0] - sx; // Adjust to cropped coordinates
+                        const py = mask[i][1] - sy;
+                        if (i === 0) tmpCtx.moveTo(px, py);
+                        else tmpCtx.lineTo(px, py);
+                    }
+                    tmpCtx.closePath();
+                    tmpCtx.clip();
+                    // Draw the bbox-cropped image within the clip
+                    tmpCtx.drawImage(canvas, 0, 0);
+                    // Clear main canvas and draw masked result with transparency
+                    ctx.clearRect(0, 0, sw, sh);
+                    ctx.drawImage(tmpCanvas, 0, 0);
+                }
+            }
+
+            // Step 3: Auto-trim transparent/white borders to get tight crop
+            const trimResult = autoTrimCanvas(canvas, ctx, sw, sh);
+            if (!trimResult) return null;
+            const { trimmedCanvas } = trimResult;
+
+            // Step 4: Output as square with centered content (200×200)
             const size = 200;
-            canvas.width = size;
-            canvas.height = size;
-            ctx.drawImage(img, sx, sy, sw, sh, 0, 0, size, size);
-            return canvas.toDataURL('image/jpeg', 0.85);
+            const outCanvas = document.createElement('canvas');
+            outCanvas.width = size;
+            outCanvas.height = size;
+            const outCtx = outCanvas.getContext('2d')!;
+            // White background
+            outCtx.fillStyle = '#ffffff';
+            outCtx.fillRect(0, 0, size, size);
+            // Center the trimmed image maintaining aspect ratio
+            const tW = trimmedCanvas.width;
+            const tH = trimmedCanvas.height;
+            const scale = Math.min((size * 0.9) / tW, (size * 0.9) / tH);
+            const dW = tW * scale;
+            const dH = tH * scale;
+            const dx = (size - dW) / 2;
+            const dy = (size - dH) / 2;
+            outCtx.drawImage(trimmedCanvas, 0, 0, tW, tH, dx, dy, dW, dH);
+
+            return outCanvas.toDataURL('image/png', 0.9);
         } catch {
             return null;
         }
+    };
+
+    // Auto-trim transparent and near-white pixels from canvas edges
+    const autoTrimCanvas = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, w: number, h: number): { trimmedCanvas: HTMLCanvasElement } | null => {
+        const imageData = ctx.getImageData(0, 0, w, h);
+        const data = imageData.data;
+        const threshold = 240; // Near-white threshold
+
+        let top = 0, bottom = h - 1, left = 0, right = w - 1;
+
+        // Find top boundary
+        outer_top: for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+                const idx = (y * w + x) * 4;
+                const a = data[idx + 3]; // alpha
+                const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+                // Not transparent AND not near-white
+                if (a > 30 && (r < threshold || g < threshold || b < threshold)) {
+                    top = y;
+                    break outer_top;
+                }
+            }
+        }
+
+        // Find bottom boundary
+        outer_bottom: for (let y = h - 1; y >= 0; y--) {
+            for (let x = 0; x < w; x++) {
+                const idx = (y * w + x) * 4;
+                const a = data[idx + 3];
+                const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+                if (a > 30 && (r < threshold || g < threshold || b < threshold)) {
+                    bottom = y;
+                    break outer_bottom;
+                }
+            }
+        }
+
+        // Find left boundary
+        outer_left: for (let x = 0; x < w; x++) {
+            for (let y = top; y <= bottom; y++) {
+                const idx = (y * w + x) * 4;
+                const a = data[idx + 3];
+                const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+                if (a > 30 && (r < threshold || g < threshold || b < threshold)) {
+                    left = x;
+                    break outer_left;
+                }
+            }
+        }
+
+        // Find right boundary
+        outer_right: for (let x = w - 1; x >= 0; x--) {
+            for (let y = top; y <= bottom; y++) {
+                const idx = (y * w + x) * 4;
+                const a = data[idx + 3];
+                const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+                if (a > 30 && (r < threshold || g < threshold || b < threshold)) {
+                    right = x;
+                    break outer_right;
+                }
+            }
+        }
+
+        const trimW = right - left + 1;
+        const trimH = bottom - top + 1;
+        if (trimW < 5 || trimH < 5) return null;
+
+        // Create trimmed canvas
+        const trimmedCanvas = document.createElement('canvas');
+        trimmedCanvas.width = trimW;
+        trimmedCanvas.height = trimH;
+        const trimmedCtx = trimmedCanvas.getContext('2d')!;
+        trimmedCtx.drawImage(canvas, left, top, trimW, trimH, 0, 0, trimW, trimH);
+
+        return { trimmedCanvas };
+    };
+
+    // XiaChuFang dish image cache: dishName -> imageUrl
+    const dishImageCache = React.useRef<Record<string, string | null>>({});
+    const [dishImageUrls, setDishImageUrls] = React.useState<Record<string, string | null>>({});
+    const [dishImageLoading, setDishImageLoading] = React.useState<Record<string, boolean>>({});
+
+    // Fetch dish images from XiaChuFang API (batch mode) - only for items without bbox
+    const fetchDishImages = React.useCallback(async (items: any[]) => {
+        // Only fetch for items that have no valid bbox (need XiaChuFang fallback)
+        const needFetch = items.filter(item => !item.bbox);
+        const dishNames = needFetch.map(item => item.name).filter(Boolean);
+        const uncached = dishNames.filter(name => !(name in dishImageCache.current));
+        
+        if (uncached.length === 0) {
+            // All cached, just update state
+            const urls: Record<string, string | null> = {};
+            dishNames.forEach(name => { urls[name] = dishImageCache.current[name]; });
+            setDishImageUrls(urls);
+            return;
+        }
+
+        // Mark as loading
+        const loadingMap: Record<string, boolean> = {};
+        uncached.forEach(name => { loadingMap[name] = true; });
+        setDishImageLoading(prev => ({ ...prev, ...loadingMap }));
+
+        try {
+            const response = await fetch(`/api/menu-translate?dishes=${encodeURIComponent(uncached.join(','))}`);
+            if (response.ok) {
+                const data = await response.json();
+                const images = data.images || {};
+                // Update cache
+                Object.entries(images).forEach(([name, url]) => {
+                    dishImageCache.current[name] = url as string | null;
+                });
+                // Mark uncached names that weren't returned as null
+                uncached.forEach(name => {
+                    if (!(name in dishImageCache.current)) {
+                        dishImageCache.current[name] = null;
+                    }
+                });
+                // Update state
+                const urls: Record<string, string | null> = {};
+                dishNames.forEach(name => { urls[name] = dishImageCache.current[name]; });
+                setDishImageUrls(urls);
+            }
+        } catch (err) {
+            console.error('[MenuTranslator] XiaChuFang fetch error:', err);
+        } finally {
+            const doneMap: Record<string, boolean> = {};
+            uncached.forEach(name => { doneMap[name] = false; });
+            setDishImageLoading(prev => ({ ...prev, ...doneMap }));
+        }
+    }, []);
+
+    // Auto-fetch dish images when analysis results come in
+    React.useEffect(() => {
+        if (analysisResult.length > 0) {
+            fetchDishImages(analysisResult);
+        }
+    }, [analysisResult, fetchDishImages]);
+
+    // Get dish image: Priority 1. bbox crop from menu → 2. XiaChuFang search → 3. fallback icon
+    const getDishImage = (item: any): { src: string | null; loading: boolean; source: 'bbox' | 'xiachufang' | 'fallback' } => {
+        // Priority 1: If item has a valid bbox, crop from original menu image
+        const cropped = cropDishFromMenu(item);
+        if (cropped) return { src: cropped, loading: false, source: 'bbox' };
+        
+        // Priority 2: XiaChuFang search result
+        const name = item.name;
+        if (!name) return { src: null, loading: false, source: 'fallback' };
+        if (dishImageUrls[name]) return { src: dishImageUrls[name]!, loading: false, source: 'xiachufang' };
+        if (dishImageLoading[name]) return { src: null, loading: true, source: 'xiachufang' };
+        
+        // Priority 3: Fallback icon
+        return { src: null, loading: false, source: 'fallback' };
     };
 
     const faqs = [
@@ -395,9 +601,14 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                                             >
                                                 <div className="w-40 h-40 flex-shrink-0 bg-gray-100 rounded-[2rem] overflow-hidden group-hover:scale-105 transition-transform duration-500 border border-gray-50 relative">
                                                     {(() => {
-                                                        const cropped = cropDishFromMenu(item);
-                                                        return cropped ? (
-                                                            <img src={cropped} alt={item.name} className="w-full h-full object-cover" />
+                                                        const { src, loading: imgLoading, source } = getDishImage(item);
+                                                        return src ? (
+                                                            <img src={src} alt={item.name} className="w-full h-full object-cover" {...(source === 'xiachufang' ? { crossOrigin: 'anonymous' as const } : {})} />
+                                                        ) : imgLoading ? (
+                                                            <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-purple-400">
+                                                                <Loader2 className="w-8 h-8 animate-spin" />
+                                                                <span className="text-xs font-bold">搜图中</span>
+                                                            </div>
                                                         ) : (
                                                             <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-gray-400">
                                                                 <Utensils className="w-8 h-8" />

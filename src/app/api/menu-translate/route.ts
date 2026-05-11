@@ -71,8 +71,76 @@ const CURRENCY_MAP: Record<string, { code: string; symbol: string; rate: number 
   zh: { code: 'CNY', symbol: '¥', rate: 1 },
 };
 
-export async function GET() {
+// XiaChuFang dish image search - free, no key required
+async function searchDishImage(dishName: string): Promise<string | null> {
   try {
+    const url = `https://m.xiachufang.com/search/?keyword=${encodeURIComponent(dishName)}`;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 10000);
+
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'zh-CN,zh;q=0.9',
+      },
+      signal: controller.signal,
+    });
+    clearTimeout(timer);
+
+    if (!response.ok) return null;
+    const html = await response.text();
+    // Extract the first high-res cover image URL
+    const reg = /https:\/\/s[12]\.cdn\.xiachufang\.com\/[^\s"'<>]+?_1536w_2048h\.jpg/;
+    const match = html.match(reg);
+    if (match) return match[0];
+    // Fallback: any xiachufang CDN image
+    const fallbackReg = /https:\/\/s[12]\.cdn\.xiachufang\.com\/[^\s"'<>]+?\.jpg/;
+    const fallbackMatch = html.match(fallbackReg);
+    return fallbackMatch ? fallbackMatch[0] : null;
+  } catch {
+    return null;
+  }
+}
+
+// Batch search dish images for all menu items
+async function searchDishImages(dishNames: string[]): Promise<Record<string, string | null>> {
+  const results: Record<string, string | null> = {};
+  // Search in parallel with concurrency limit of 5
+  const chunks: string[][] = [];
+  for (let i = 0; i < dishNames.length; i += 5) {
+    chunks.push(dishNames.slice(i, i + 5));
+  }
+  for (const chunk of chunks) {
+    const promises = chunk.map(async (name) => {
+      const url = await searchDishImage(name);
+      results[name] = url;
+      console.log(`[menu-translate] XiaChuFang image for "${name}": ${url || 'not found'}`);
+    });
+    await Promise.all(promises);
+  }
+  return results;
+}
+
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const dish = searchParams.get('dish');
+    const dishes = searchParams.get('dishes');
+
+    if (dishes) {
+      // Batch mode: search multiple dishes
+      const dishNames = dishes.split(',').filter(Boolean);
+      const images = await searchDishImages(dishNames);
+      return NextResponse.json({ images });
+    }
+
+    if (dish) {
+      // Single dish search
+      const imageUrl = await searchDishImage(dish);
+      return NextResponse.json({ dish, imageUrl });
+    }
+
     return NextResponse.json({ status: 'ok', timestamp: Date.now(), hasToken: !!getDashScopeApiKey() });
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });
@@ -85,13 +153,13 @@ function buildPrompt(lang: string, hasPhotos: boolean): string {
   const isTw = lang === 'tw';
 
   const bboxInstruction = hasPhotos
-    ? ', bbox(absolute pixel coordinates [x1,y1,x2,y2] of the dish FOOD PHOTO area only - NOT text, carefully locate each dish\'s own photo, each dish must have a different bbox. Set null if a specific dish has no photo)'
+    ? `, bbox(absolute pixel coordinates [x1,y1,x2,y2] of the dish FOOD PHOTO area only - NOT text, carefully locate each dish's own photo, each dish must have a different bbox. Set null if a specific dish has no photo), mask(array of [x,y] polygon vertices tightly tracing the dish's FOOD contour/outline within the bbox - at least 6 points, must be ordered clockwise or counter-clockwise to form a closed polygon, use absolute pixel coordinates, set null if no photo)`
     : '';
 
   if (isZh) {
     return `识别这张菜单图片中的所有菜品。对每道菜提取：name(中文名), price(价格数字，无价格则null), category(分类如"川菜"), enName(英文名), description(中文描述一句), enDescription(英文描述一句), ingredients(中文食材3个), enIngredients(英文食材3个), allergens(英文过敏原如["peanuts"]), dietary(英文膳食标签如["spicy","vegetarian"])${bboxInstruction}。
 输出紧凑JSON数组，不要解释，不要markdown。示例：
-[{"name":"宫保鸡丁","price":38,"category":"川菜","enName":"Kung Pao Chicken","description":"经典川菜","enDescription":"Classic Sichuan dish","ingredients":["鸡肉","花生"],"enIngredients":["chicken","peanuts"],"allergens":["peanuts"],"dietary":["spicy"]${hasPhotos ? ',"bbox":[120,80,480,380]' : ''}}]`;
+[{"name":"宫保鸡丁","price":38,"category":"川菜","enName":"Kung Pao Chicken","description":"经典川菜","enDescription":"Classic Sichuan dish","ingredients":["鸡肉","花生"],"enIngredients":["chicken","peanuts"],"allergens":["peanuts"],"dietary":["spicy"]${hasPhotos ? ',"bbox":[120,80,480,380],"mask":[[120,80],[300,80],[480,80],[480,200],[480,380],[300,380],[120,380],[120,200]]' : ''}}]`;
   }
 
   const localFields = isTw
@@ -100,7 +168,7 @@ function buildPrompt(lang: string, hasPhotos: boolean): string {
 
   return `Extract all dishes from this menu image. For each provide: name(Chinese), ${localFields}, price(number or null), enName(English), enCategory(English category), enDescription(English 1 sentence), enIngredients(3 English items), allergens(English array e.g.["peanuts"]), dietary(English array e.g.["spicy"])${bboxInstruction}.
 Output ONLY a compact JSON array. No explanation, no markdown. Example:
-[{"name":"宫保鸡丁","localName":"Poulet Kung Pao","price":38,"enName":"Kung Pao Chicken","enCategory":"Sichuan","enDescription":"Classic Sichuan dish","enIngredients":["chicken","peanuts"],"localDescription":"Plat classique du Sichuan","localIngredients":["poulet","arachides"],"allergens":["peanuts"],"dietary":["spicy"]${hasPhotos ? ',"bbox":[120,80,480,380]' : ''}}]`;
+[{"name":"宫保鸡丁","localName":"Poulet Kung Pao","price":38,"enName":"Kung Pao Chicken","enCategory":"Sichuan","enDescription":"Classic Sichuan dish","enIngredients":["chicken","peanuts"],"localDescription":"Plat classique du Sichuan","localIngredients":["poulet","arachides"],"allergens":["peanuts"],"dietary":["spicy"]${hasPhotos ? ',"bbox":[120,80,480,380],"mask":[[120,80],[300,80],[480,80],[480,200],[480,380],[300,380],[120,380],[120,200]]' : ''}}]`;
 }
 
 async function callQwenVL(image: string, mimeType: string, prompt: string, timeoutMs = 120000): Promise<string> {
@@ -267,6 +335,10 @@ function addPriceConversions(items: any[], lang: string) {
     const hasValidBbox = Array.isArray(rawBbox) && rawBbox.length === 4
       && rawBbox.every((v: number) => typeof v === 'number' && v >= 0)
       && rawBbox[2] > rawBbox[0] && rawBbox[3] > rawBbox[1];
+    // Validate mask: must be array of [x,y] pairs with at least 6 points
+    const rawMask = item.mask;
+    const hasValidMask = Array.isArray(rawMask) && rawMask.length >= 6
+      && rawMask.every((p: any) => Array.isArray(p) && p.length === 2 && typeof p[0] === 'number' && typeof p[1] === 'number');
     return {
       ...item,
       price: priceInCny,
@@ -279,6 +351,7 @@ function addPriceConversions(items: any[], lang: string) {
       allergens: Array.isArray(item.allergens) ? item.allergens : [],
       dietary: Array.isArray(item.dietary) ? item.dietary : [],
       bbox: hasValidBbox ? rawBbox : null,
+      mask: hasValidMask ? rawMask : null,
     };
   });
 }
