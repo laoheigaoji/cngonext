@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import Script from "next/script";
 import "../index.css";
 import { AuthProvider } from "@/context/AuthContext";
 
@@ -9,6 +10,9 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
     apple: '/logo.png',
+  },
+  other: {
+    'google-adsense-account': 'ca-pub-8643427369112788',
   },
 };
 
@@ -24,10 +28,14 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="google-adsense-account" content="ca-pub-8643427369112788" />
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8643427369112788" crossOrigin="anonymous"></script>
       </head>
       <body className="antialiased" suppressHydrationWarning>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8643427369112788"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <AuthProvider>
           {children}
         </AuthProvider>
