@@ -130,16 +130,16 @@ const guideSEO: Record<string, PageSEO> = {
 };
 
 const appsSEO: Record<string, PageSEO> = {
-  cn: { title: '中国旅行必备App - tripcngo.com', description: '中国旅行必备应用程序推荐：支付、导航、社交、翻译等App下载和使用指南。' },
-  en: { title: 'Essential China Travel Apps - tripcngo.com', description: 'Essential apps for China travel: payment, navigation, social media, translation apps download and usage guides.' },
-  ja: { title: '中国旅行必須アプリ - tripcngo.com', description: '中国旅行に必須のアプリ：決済、ナビ、SNS、翻訳アプリのダウンロードと使い方ガイド。' },
-  ko: { title: '중국 여행 필수 앱 - tripcngo.com', description: '중국 여행 필수 앱 추천: 결제, 내비게이션, 소셜미디어, 번역 앱 다운로드 및 사용 가이드.' },
-  ru: { title: 'Необходимые приложения для Китая - tripcngo.com', description: 'Необходимые приложения для путешествий в Китай.' },
-  fr: { title: 'Applications essentielles Chine - tripcngo.com', description: 'Applications essentielles pour voyager en Chine.' },
-  es: { title: 'Apps esenciales para China - tripcngo.com', description: 'Aplicaciones esenciales para viajar a China.' },
-  de: { title: 'Wichtige China-Apps - tripcngo.com', description: 'Wichtige Apps für China-Reisen.' },
-  tw: { title: '中國旅行必備App - tripcngo.com', description: '中國旅行必備應用程式推薦：支付、導航、社交、翻譯等App下載和使用指南。' },
-  it: { title: 'App essenziali per la Cina - tripcngo.com', description: 'App essenziali per viaggiare in Cina.' },
+  cn: { title: '中国之旅必备应用（最新版） | tripcngo.com', description: '中国旅行必备应用程序推荐：支付、导航、社交、翻译等App下载和使用指南。' },
+  en: { title: 'Essential Apps for China Travel (Latest) | tripcngo.com', description: 'Essential apps for China travel: payment, navigation, social media, translation apps download and usage guides.' },
+  ja: { title: '中国旅行必須アプリ（最新版） | tripcngo.com', description: '中国旅行に必須のアプリ：決済、ナビ、SNS、翻訳アプリのダウンロードと使い方ガイド。' },
+  ko: { title: '중국 여행 필수 앱 (최신) | tripcngo.com', description: '중국 여행 필수 앱 추천: 결제, 내비게이션, 소셜미디어, 번역 앱 다운로드 및 사용 가이드.' },
+  ru: { title: 'Необходимые приложения для поездки в Китай (последняя версия) | tripcngo.com', description: 'Необходимые приложения для путешествий в Китай.' },
+  fr: { title: 'Applications essentielles pour voyager en Chine (dernière version) | tripcngo.com', description: 'Applications essentielles pour voyager en Chine.' },
+  es: { title: 'Apps esenciales para viajar a China (última versión) | tripcngo.com', description: 'Aplicaciones esenciales para viajar a China.' },
+  de: { title: 'Wichtige Apps für China-Reisen (aktuellste Version) | tripcngo.com', description: 'Wichtige Apps für China-Reisen.' },
+  tw: { title: '中國之旅必備應用（最新版） | tripcngo.com', description: '中國旅行必備應用程式推薦：支付、導航、社交、翻譯等App下載和使用指南。' },
+  it: { title: 'App essenziali per viaggiare in Cina (ultima versione) | tripcngo.com', description: 'App essenziali per viaggiare in Cina.' },
 };
 
 const aboutSEO: Record<string, PageSEO> = {
