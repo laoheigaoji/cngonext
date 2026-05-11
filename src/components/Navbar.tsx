@@ -399,6 +399,8 @@ export default function Navbar() {
                     }
                     newPath = pathParts.join('/') || '/';
                     setIsLangDropdownOpen(false);
+                    setIsMobileMenuOpen(false);
+                    setMobileExpandedMenu(null);
                     setLanguage(lang.code as Language);
                     navigate(newPath + (location.search || ''), { replace: true });
                   }}
@@ -475,6 +477,8 @@ export default function Navbar() {
                     }
                     newPath = pathParts.join('/') || '/';
                     setIsLangDropdownOpen(false);
+                    setIsMobileMenuOpen(false);
+                    setMobileExpandedMenu(null);
                     setLanguage(lang.code as Language);
                     window.location.replace(newPath + (location.search || ''));
                   }}
@@ -523,7 +527,7 @@ export default function Navbar() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: '100%' }}
               transition={{ type: 'tween', duration: 0.3 }}
-              className="fixed top-0 bottom-0 right-0 w-[60%] bg-white z-50 p-5 flex flex-col text-gray-900 h-screen overflow-y-auto shadow-2xl"
+              className="fixed top-0 bottom-0 right-0 w-[70%] bg-white z-50 p-5 flex flex-col text-gray-900 h-screen overflow-y-auto shadow-2xl"
             >
             <div className="flex justify-between items-center mb-8">
               <div className="flex flex-col">

@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Wifi, CreditCard, Globe, Compass, BookOpen, MessageCircle, Sparkles, ArrowRight, AlertTriangle, CheckCircle2, XCircle, Clock, Gift, Users, ThumbsUp, Volume2, Lock, LogIn, Shield, CreditCard as CardIcon } from 'lucide-react';
+import { Wifi, CreditCard, Globe, Compass, BookOpen, MessageCircle, Sparkles, ArrowRight, AlertTriangle, CheckCircle2, XCircle, Clock, Gift, Users, ThumbsUp, Volume2 } from 'lucide-react';
 import { Link } from '@/lib/router-compat';
 import { useLanguage } from '../context/LanguageContext';
-import { useAuth } from '../context/AuthContext';
-import { useTravelGuide } from '../hooks/useTravelGuide';
 import { motion, AnimatePresence } from 'motion/react';
+import { useTravelGuide } from '../hooks/useTravelGuide';
 
 // 备用翻译映射 - 当数据库无数据时使用
 const fallbackTranslations: Record<string, Record<string, string>> = {
@@ -56,15 +55,12 @@ const SpeakerButton = ({ text, isPlaying, onClick }: { text: string; isPlaying: 
 export default function Guide({ initialData, initialTranslations, skipHero }: { initialData?: any; initialTranslations?: Record<string, string>; skipHero?: boolean }) {
   const { language, t } = useLanguage();
   const { data: guideDataFromHook, loading: dataLoading } = useTravelGuide(language);
-  const { user, loading: authLoading, hasPurchased, signInWithGoogle, initiateCheckout, completePayment } = useAuth();
   const isZh = language === 'zh';
   const [playingId, setPlayingId] = useState<string | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [pendingUnlock, setPendingUnlock] = useState(false);
 
   // Use initialData from SSR if available, otherwise use hook data
   const guideData = initialData || guideDataFromHook;
-  const loading = initialData ? (authLoading && !user) : (dataLoading || (authLoading && !user));
+  const loading = dataLoading;
 
   // 从数据库获取翻译文本的辅助函数
   const getText = (section: string, key: string, fallback: string = ''): string => {
@@ -123,96 +119,6 @@ export default function Guide({ initialData, initialTranslations, skipHero }: { 
       window.speechSynthesis.getVoices();
     };
   }, []);
-
-  // 自动处理登录后的解锁
-  useEffect(() => {
-    if (user && pendingUnlock && !hasPurchased) {
-      handlePayment();
-      setPendingUnlock(false);
-    }
-  }, [user, pendingUnlock, hasPurchased]);
-
-  // 处理从登录页返回时自动解锁
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('unlock') === 'true' && user && !hasPurchased) {
-      // Handle the return from Creem payment
-      const verifyPayment = async () => {
-        setIsProcessing(true);
-        await completePayment();
-        setIsProcessing(false);
-      };
-      verifyPayment();
-      // 清除 URL 参数
-      window.history.replaceState({}, '', window.location.pathname);
-    }
-  }, [user, hasPurchased]);
-
-  const handlePayment = async () => {
-    setIsProcessing(true);
-    try {
-      await initiateCheckout();
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-
-  const handleUnlockAction = async () => {
-    handlePayment();
-  };
-
-  const PaywallOverlay = () => {
-    // 从数据库获取翻译，或使用 fallback
-    const paywallTitle = guideData?.paywall?.title || (isZh ? '支付 $1，解锁完整内容' : 'Pay $1, unlock full content');
-    const paywallButton = guideData?.paywall?.buttonText || (isZh ? '支付 $1 解锁全部' : 'Pay $1 Unlock All');
-    const paywallLoading = guideData?.paywall?.loadingText || (isZh ? '正在解锁...' : 'Unlocking...');
-    
-    return (
-      <div className="absolute inset-0 z-20 flex items-center justify-center p-6 bg-slate-900/10 backdrop-blur-md rounded-2xl overflow-hidden">
-        {/* Decorative Background Elements */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-[#1b887a]/10 rounded-full blur-[100px]" />
-          <div className="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] bg-[#1b887a]/5 rounded-full blur-[100px]" />
-        </div>
-
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className="max-w-md w-full bg-white/95 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] border border-white/50 p-10 text-center relative z-30"
-        >
-          {/* Lock Icon with Glow */}
-          <div className="relative w-24 h-24 mx-auto mb-8">
-            <div className="absolute inset-0 bg-[#1b887a]/20 rounded-full blur-2xl animate-pulse" />
-            <div className="relative w-full h-full bg-gradient-to-br from-[#1b887a] to-[#25ad9b] rounded-full flex items-center justify-center shadow-lg shadow-[#1b887a]/30">
-              <Lock className="w-10 h-10 text-white" />
-            </div>
-          </div>
-          
-          <p className="text-slate-600 mb-10 leading-relaxed font-medium">
-            {paywallTitle}
-          </p>
-
-          <div className="space-y-6">
-            <motion.button
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleUnlockAction}
-              disabled={isProcessing}
-              className="w-full flex items-center justify-center gap-3 bg-slate-900 hover:bg-slate-800 text-white font-bold py-5 px-6 rounded-2xl transition-all shadow-xl shadow-slate-200 disabled:opacity-50 relative overflow-hidden group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-              {!user && <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 flex-shrink-0" />}
-              {user && <CardIcon className="w-5 h-5 text-[#25ad9b]" />}
-              <span>
-                {isProcessing ? paywallLoading : paywallButton}
-              </span>
-            </motion.button>
-          </div>
-        </motion.div>
-      </div>
-    );
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -393,7 +299,7 @@ export default function Guide({ initialData, initialTranslations, skipHero }: { 
             <p className="text-gray-500">{guideData?.language?.vocabulary?.sectionSubtitle || (isZh ? '高频词汇与实用短语' : 'High-frequency vocabulary and common phrases')}</p>
           </div>
           
-          <div className={`space-y-12 transition-all duration-700 ${!hasPurchased ? 'blur-md select-none pointer-events-none opacity-50' : ''}`}>
+          <div className="space-y-12">
             {/* 高频核心词汇 */}
             <div>
               <h3 className="font-bold text-gray-800 mb-4 text-lg">{guideData?.language?.vocabulary?.vocabularyTitle || (isZh ? '高频核心词汇' : 'High-Frequency Core Vocabulary')}</h3>
@@ -509,12 +415,11 @@ export default function Guide({ initialData, initialTranslations, skipHero }: { 
               </div>
             </div>
           </div>
-          {!hasPurchased && <PaywallOverlay />}
         </div>
 
         {/* 核心汉字快速识别 */}
         <div className="relative pt-12 border-t border-gray-200">
-          <div className={`transition-all duration-700 ${!hasPurchased ? 'blur-md select-none pointer-events-none opacity-50' : ''}`}>
+          <div className="transition-all duration-700">
             <h2 className="font-bold text-gray-800 mb-6 text-xl text-center">{guideData?.character?.sectionTitle || (isZh ? '核心汉字快速识别' : 'Essential Chinese Characters')}</h2>
             
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -555,7 +460,7 @@ export default function Guide({ initialData, initialTranslations, skipHero }: { 
             <p className="text-gray-500">{guideData?.culture?.dining?.sectionSubtitle || (isZh ? '了解中国礼仪文化，让旅行更顺畅' : 'Understanding Chinese etiquette makes travel smoother')}</p>
           </div>
           
-          <div className={`space-y-12 transition-all duration-700 ${!hasPurchased ? 'blur-md select-none pointer-events-none opacity-50' : ''}`}>
+          <div className="space-y-12">
             {/* 餐饮礼仪 */}
             <div>
               <h3 className="font-bold text-gray-800 mb-4 text-lg">{isZh ? '餐饮礼仪' : 'Dining Etiquette'}</h3>
@@ -683,7 +588,7 @@ export default function Guide({ initialData, initialTranslations, skipHero }: { 
 
         {/* 通用社交意识 */}
         <div className="relative pt-12 border-t border-gray-200">
-          <div className={`transition-all duration-700 ${!hasPurchased ? 'blur-md select-none pointer-events-none opacity-50' : ''}`}>
+          <div className="transition-all duration-700">
             <h2 className="font-bold text-gray-800 mb-8 text-xl text-center">{guideData?.culture?.social?.title || (isZh ? '通用社交意识' : 'General Social Awareness')}</h2>
             
             <div className="grid md:grid-cols-2 gap-6">

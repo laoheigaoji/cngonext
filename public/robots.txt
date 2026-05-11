@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /migration
+Disallow: /video/
+Disallow: /assets/
 
 Sitemap: https://tripcngo.com/sitemap.xml
