@@ -20,7 +20,7 @@ function getS3Client() {
 }
 
 function getDishKey(dishName: string): string {
-  return `dish_images/${encodeURIComponent(dishName)}.jpg`;
+  return `dish_images/${dishName}.jpg`;
 }
 
 // 1. 检查 R2 缓存
@@ -31,9 +31,10 @@ async function checkR2Cache(dishName: string): Promise<string | null> {
   try {
     const s3 = getS3Client();
     await s3.send(new HeadObjectCommand({ Bucket: R2_BUCKET!, Key: key }));
-    console.log(`[menu-translate] R2缓存命中: ${dishName}`);
+    logDebug(`R2缓存命中: ${dishName} -> ${publicUrl}`);
     return publicUrl;
-  } catch {
+  } catch (e: any) {
+    logDebug(`R2缓存未命中: ${dishName} (${e.name || e.message})`);
     return null;
   }
 }
@@ -59,7 +60,7 @@ async function callTencentSearch(query: string): Promise<any[]> {
   const ACTION = 'SearchByText';
   const REGION = 'ap-guangzhou';
   const timestamp = Math.floor(Date.now() / 1000);
-  const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  const date = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
 
   const httpRequestMethod = 'POST';
   const canonicalUri = '/';
@@ -97,13 +98,23 @@ async function callTencentSearch(query: string): Promise<any[]> {
     body: payload,
   });
 
+  logDebug(`腾讯API响应状态: ${response.status}`);
+  let responseText = await response.text().catch(() => '');
+  logDebug(`腾讯API响应体(前500): ${responseText.slice(0, 500)}`);
   if (!response.ok) {
-    throw new Error(`Tencent API error ${response.status}: ${await response.text().catch(() => '')}`);
+    throw new Error(`Tencent API error ${response.status}: ${responseText.slice(0, 500)}`);
   }
 
-  const data: any = await response.json();
+  const data: any = JSON.parse(responseText);
+  const errorInfo = data.Response?.Error;
+  if (errorInfo) {
+    throw new Error(`Tencent Error: ${errorInfo.Code} - ${errorInfo.Message}`);
+  }
   const images = data.Response?.Images;
-  if (!images || !Array.isArray(images)) throw new Error('No images found');
+  if (!images || !Array.isArray(images)) {
+    console.error(`[menu-translate] Tencent response (no images):`, JSON.stringify(data).slice(0, 1000));
+    throw new Error('No images found');
+  }
 
   return images.map((imgStr: string) => {
     try { return JSON.parse(imgStr); } catch { return null; }
@@ -111,13 +122,23 @@ async function callTencentSearch(query: string): Promise<any[]> {
 }
 
 // 3. 搜图 + 下载 + 上传 R2
+// debug log
+function logDebug(msg: string) {
+  console.log(`[menu-translate] ${msg}`);
+  try {
+    const fs = require('fs');
+    fs.appendFileSync('c:\\迅雷下载\\2222\\menu_debug.log', `${new Date().toISOString()} ${msg}\n`);
+  } catch {}
+}
+
 async function searchAndUploadDishImage(dishName: string): Promise<string | null> {
-  console.log(`[menu-translate] 腾讯文搜图: "${dishName}"`);
+  logDebug(`腾讯文搜图: "${dishName}"`);
   let images: any[];
   try {
     images = await callTencentSearch(dishName);
+    logDebug(`腾讯搜图成功: "${dishName}", ${images.length}张图片`);
   } catch (e: any) {
-    console.error(`[menu-translate] 腾讯搜图失败: "${dishName}": ${e.message}`);
+    logDebug(`腾讯搜图失败: "${dishName}": ${e.message}`);
     return null;
   }
   if (!images.length) {
@@ -126,23 +147,44 @@ async function searchAndUploadDishImage(dishName: string): Promise<string | null
   }
 
   const firstImage = images[0];
-  const imageUrl = firstImage.origPicUrl || firstImage.thumbnailUrl;
-  if (!imageUrl) return null;
-
-  // 下载图片
-  let imgResp: Response;
-  try {
-    imgResp = await fetch(imageUrl, { signal: AbortSignal.timeout(15000) });
-    if (!imgResp.ok) return null;
-  } catch {
+  // 优先用 sogoucdn 的缩略图（更稳定），其次用原图
+  const imageUrl = firstImage.thumbnailUrl || firstImage.origPicUrl;
+  logDebug(`首图URL: ${(imageUrl||'null').slice(0,100)}`);
+  if (!imageUrl) {
+    logDebug('无图片URL');
     return null;
   }
 
-  const buffer = await imgResp.arrayBuffer();
+  // 下载图片，失败则尝试后续图片
+  let buffer: ArrayBuffer | null = null;
+  for (let attempt = 0; attempt < Math.min(images.length, 3); attempt++) {
+    const img = images[attempt];
+    const url = img.thumbnailUrl || img.origPicUrl;
+    if (!url) continue;
+    logDebug(`尝试下载第${attempt+1}张图: ${url.slice(0,80)}`);
+    try {
+      const resp = await fetch(url, { signal: AbortSignal.timeout(10000) });
+      if (resp.ok) {
+        buffer = await resp.arrayBuffer();
+        logDebug(`下载成功: ${buffer.byteLength} bytes`);
+        break;
+      }
+      logDebug(`下载状态: ${resp.status}`);
+    } catch (e: any) {
+      logDebug(`下载异常: ${e.message.slice(0,100)}`);
+    }
+  }
+
+  if (!buffer) {
+    logDebug('所有图片下载失败');
+    return null;
+  }
+
   const key = getDishKey(dishName);
 
   // 上传到 R2
   try {
+    logDebug('开始上传R2...');
     const s3 = getS3Client();
     await s3.send(new PutObjectCommand({
       Bucket: R2_BUCKET!,
@@ -150,9 +192,9 @@ async function searchAndUploadDishImage(dishName: string): Promise<string | null
       Body: new Uint8Array(buffer),
       ContentType: 'image/jpeg',
     }));
-    console.log(`[menu-translate] R2上传成功: ${key}`);
+    logDebug('R2上传成功');
   } catch (e: any) {
-    console.error(`[menu-translate] R2上传失败: ${e.message}`);
+    logDebug(`R2上传失败: ${e.message}`);
     return null;
   }
 
@@ -162,6 +204,7 @@ async function searchAndUploadDishImage(dishName: string): Promise<string | null
 // 4. 批量获取菜品图片（先用R2缓存，没有再调腾讯搜图）
 async function getDishImages(dishNames: string[]): Promise<Record<string, string | null>> {
   const results: Record<string, string | null> = {};
+  logDebug(`getDishImages开始, ${dishNames.length}个菜品: ${dishNames.join(',')}`);
   // 并发5个
   const chunks: string[][] = [];
   for (let i = 0; i < dishNames.length; i += 5) {
@@ -170,19 +213,23 @@ async function getDishImages(dishNames: string[]): Promise<Record<string, string
   for (const chunk of chunks) {
     const promises = chunk.map(async (name) => {
       // 先查R2缓存
+      logDebug(`检查R2缓存: "${name}"`);
       const cached = await checkR2Cache(name);
       if (cached) {
+        logDebug(`R2缓存命中: "${name}" -> ${cached}`);
         results[name] = cached;
         return;
       }
+      logDebug(`R2缓存未命中: "${name}"`);
       // 缓存未命中，调腾讯搜图
       const url = await searchAndUploadDishImage(name);
       results[name] = url || null;
-      if (url) console.log(`[menu-translate] 已缓存到R2: "${name}" -> ${url}`);
-      else console.log(`[menu-translate] 搜图失败: "${name}"`);
+      if (url) logDebug(`最终结果: "${name}" -> ${url}`);
+      else logDebug(`最终结果: "${name}" -> null`);
     });
     await Promise.all(promises);
   }
+  logDebug(`getDishImages完成, 结果: ${JSON.stringify(results)}`);
   return results;
 }
 
