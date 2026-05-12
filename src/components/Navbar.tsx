@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from '@/lib/router-compat';
+import { Link, useLocation } from '@/lib/router-compat';
 import { Globe, ChevronDown, Menu, X, CheckSquare, Compass, PlayCircle, BookOpen, Shield, ScanLine, Type, Calculator, Languages, Check, LogOut, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage, Language } from '../context/LanguageContext';
@@ -19,7 +19,6 @@ export default function Navbar() {
   const [showLangBanner, setShowLangBanner] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
   const isMenuTranslatorPage = /\/tools\/menu-translator/.test(location.pathname || '');
   const langToPrefix: Record<string, string> = {
     zh: 'cn',
@@ -102,8 +101,8 @@ export default function Navbar() {
     }
     newPath = pathParts.join('/') || '/';
     
-    // Use Next.js router.replace to trigger proper navigation and metadata update
-    navigate(newPath + (location.search || ''), { replace: true });
+    // Use full page reload to ensure SSR translations update
+    window.location.replace(newPath + (location.search || ''));
   };
 
   const handleDismissBanner = () => {
@@ -402,7 +401,7 @@ export default function Navbar() {
                     setIsMobileMenuOpen(false);
                     setMobileExpandedMenu(null);
                     setLanguage(lang.code as Language);
-                    navigate(newPath + (location.search || ''), { replace: true });
+                    window.location.replace(newPath + (location.search || ''));
                   }}
                 >
                   <div className="flex items-center gap-3">
