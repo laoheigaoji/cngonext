@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Heart, ThumbsUp } from 'lucide-react';
 import { Link } from '@/lib/router-compat';
 import { useLanguage } from '../context/LanguageContext';
 import { supabase } from '../lib/supabase';
 import { fallbackCities } from '../data/fallbackData';
+import { getRandomHeroBg } from '../lib/hero-backgrounds';
 
 const ITEMS_PER_PAGE = 9;
 
@@ -44,7 +45,7 @@ export default function Cities({ initialData, skipStaticSections }: { initialDat
       {/* Hero & Intro - only render if not already SSR'd */}
       {!skipStaticSections && (<>
       <section className="relative h-[400px] flex items-center pt-16 bg-gray-900 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://static.tripcngo.com/ing/Fbanner_bg_2.jpg')] bg-cover bg-center" />
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${getRandomHeroBg()})` }} />
         <div className="absolute inset-0 bg-black/40" />
         <div className="max-w-[1240px] w-full mx-auto px-6 relative z-10 text-left">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-md">

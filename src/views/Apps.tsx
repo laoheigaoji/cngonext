@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Plane, Bed, TrainFront, Globe, Youtube, Phone, Music, Shield, Play, PhoneCall } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { supabase } from '../lib/supabase';
 import { LucideIcon } from 'lucide-react';
+import { getRandomHeroBg } from '../lib/hero-backgrounds';
 
 // 从数据库获取的数据类型
 interface AppItem {
@@ -195,7 +196,7 @@ export default function Apps({ initialData }: { initialData?: any[] }) {
     <div className="w-full bg-[#f9f9f9] pb-20">
       {/* Header Banner */}
       <section className="relative h-[480px] flex items-center pt-16 bg-gray-900 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://static.tripcngo.com/ing/mulubg.jpg')] bg-cover bg-center" />
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${getRandomHeroBg()})` }} />
         <div className="absolute inset-0 bg-black/40 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
         
         <div className="max-w-[1240px] w-full mx-auto px-6 relative z-10 text-left">

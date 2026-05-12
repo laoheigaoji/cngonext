@@ -1,17 +1,65 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 const ITEMS_PER_PAGE = 9;
 
-export default function CitiesClient({ cities, lang, t }: { cities: any[]; lang: string; t: Record<string, string> }) {
+export default function CitiesClient({ cities, lang, t, initialQuery }: { cities: any[]; lang: string; t: Record<string, string>; initialQuery?: string }) {
+  const [searchQuery, setSearchQuery] = useState(initialQuery || '');
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(cities.length / ITEMS_PER_PAGE);
-  const currentCities = cities.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
   const langPrefix = lang === 'zh' ? 'cn' : lang;
+
+  // Filter cities by search query
+  const filteredCities = useMemo(() => {
+    if (!searchQuery.trim()) return cities;
+    const q = searchQuery.trim().toLowerCase();
+    return cities.filter(city =>
+      (city.name && city.name.toLowerCase().includes(q)) ||
+      (city.enName && city.enName.toLowerCase().includes(q)) ||
+      (city.id && city.id.toLowerCase().includes(q))
+    );
+  }, [cities, searchQuery]);
+
+  const totalPages = Math.ceil(filteredCities.length / ITEMS_PER_PAGE);
+  const currentCities = filteredCities.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+  // Reset page when search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery]);
 
   return (
     <div className="max-w-[1240px] mx-auto px-6">
+      {/* Search bar */}
+      <div className="mb-8">
+        <div className="relative max-w-md mx-auto">
+          <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={t['hero.searchPlaceholder'] || '搜索目的地...'}
+            className="w-full pl-12 pr-4 py-3 rounded-full border border-gray-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#1b887a]/30 focus:border-[#1b887a] text-[15px] transition-all"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+          )}
+        </div>
+        {searchQuery && (
+          <p className="text-center text-sm text-gray-500 mt-3">
+            {filteredCities.length > 0
+              ? `${t['cities.searchResult'] || '找到'} ${filteredCities.length} ${t['cities.searchUnit'] || '个城市'}`
+              : (t['cities.noResult'] || '未找到匹配的城市')
+            }
+          </p>
+        )}
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentCities.map((city) => (
           <a
@@ -47,6 +95,14 @@ export default function CitiesClient({ cities, lang, t }: { cities: any[]; lang:
         ))}
       </div>
 
+      {/* Empty state */}
+      {filteredCities.length === 0 && searchQuery && (
+        <div className="text-center py-20 text-gray-400">
+          <svg className="w-16 h-16 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+          <p className="text-lg">{t['cities.noResult'] || '未找到匹配的城市'}</p>
+        </div>
+      )}
+
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-center mt-12 gap-2">
@@ -58,19 +114,31 @@ export default function CitiesClient({ cities, lang, t }: { cities: any[]; lang:
             ‹
           </button>
 
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-            <button
-              key={page}
-              onClick={() => setCurrentPage(page)}
-              className={`w-9 h-9 rounded text-sm flex items-center justify-center font-medium transition-colors ${
-                currentPage === page
-                  ? 'bg-[#f5fff9] text-green-500 border border-green-500'
-                  : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
-              }`}
-            >
-              {page}
-            </button>
-          ))}
+          {Array.from({ length: Math.min(totalPages, 10) }, (_, i) => {
+            let page;
+            if (totalPages <= 10) {
+              page = i + 1;
+            } else if (currentPage <= 5) {
+              page = i + 1;
+            } else if (currentPage >= totalPages - 4) {
+              page = totalPages - 9 + i;
+            } else {
+              page = currentPage - 5 + i + 1;
+            }
+            return (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={`w-9 h-9 rounded text-sm flex items-center justify-center font-medium transition-colors ${
+                  currentPage === page
+                    ? 'bg-[#f5fff9] text-green-500 border border-green-500'
+                    : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                }`}
+              >
+                {page}
+              </button>
+            );
+          })}
 
           <button
             onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}

@@ -141,23 +141,40 @@ export default function Admin() {
     return jsonString;
   };
 
+  // ====== R2 上传工具（替代 Supabase Storage） ======
+  const uploadToR2 = async (file: File, key?: string): Promise<string | null> => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      if (key) formData.append('key', key);
+      formData.append('folder', key ? key.split('/')[0] : 'articles');
+      const res = await fetch('/api/upload-r2', { method: 'POST', body: formData });
+      if (!res.ok) throw new Error(`Upload failed: ${res.status}`);
+      const data = await res.json();
+      return data.url || null;
+    } catch (err) {
+      console.error('[Upload] R2 upload error:', err);
+      return null;
+    }
+  };
+
   const proxyImageToStorage = async (url: string, path: string) => {
     if (!url || !url.startsWith('http')) return url;
     try {
       const response = await fetch(url);
       const blob = await response.blob();
-      const { error } = await supabase.storage.from('images').upload(path, blob, { upsert: true });
-      if (error) throw error;
-      return supabase.storage.from('images').getPublicUrl(path).data.publicUrl;
+      const file = new File([blob], path.split('/').pop() || 'image.jpg', { type: blob.type });
+      const result = await uploadToR2(file, path);
+      return result || url;
     } catch (e) {
       console.warn("Failed to proxy image via direct fetch:", url, e);
       try {
         const proxyUrl = `https://wsrv.nl/?url=${encodeURIComponent(url)}`;
         const res = await fetch(proxyUrl);
         const blob = await res.blob();
-        const { error } = await supabase.storage.from('images').upload(path, blob, { upsert: true });
-        if (error) throw error;
-        return supabase.storage.from('images').getPublicUrl(path).data.publicUrl;
+        const file = new File([blob], path.split('/').pop() || 'image.jpg', { type: blob.type });
+        const result = await uploadToR2(file, path);
+        return result || url;
       } catch (e2) {
         return url; 
       }
@@ -259,12 +276,9 @@ export default function Admin() {
     try {
       setLoading(true);
       console.log("[Upload] Starting image upload:", file.name, file.type, file.size);
-      const path = `articles/${Date.now()}-${Math.random().toString(36).substring(7)}.png`;
-      const result = await supabase.storage.from('images').upload(path, file);
-      console.log("[Upload] Result:", result);
-      if (result.error) throw result.error;
-      const url = supabase.storage.from('images').getPublicUrl(path).data.publicUrl;
-      console.log("[Upload] Public URL:", url);
+      const url = await uploadToR2(file);
+      console.log("[Upload] R2 URL:", url);
+      if (!url) throw new Error('上传失败');
       
       const markdownImage = `\n![图片描述](${url})\n`;
       const targetField = activeTab === 'zh' ? 'content' : 'contentEn';
@@ -334,10 +348,8 @@ export default function Admin() {
         setUploadingImages(prev => prev + 1);
         for (const task of tasks) {
           try {
-            const path = `articles/${Date.now()}-${task.file.name || 'image.png'}`;
-            const { error } = await supabase.storage.from('images').upload(path, task.file);
-            if (error) throw error;
-            const url = supabase.storage.from('images').getPublicUrl(path).data.publicUrl;
+            const url = await uploadToR2(task.file);
+            if (!url) throw new Error('上传失败');
             setFormData(prev => ({
                ...prev,
                [field]: ((prev[field] as string) || '').split(task.id).join(`![图片](${url})\n`)
@@ -426,16 +438,8 @@ export default function Admin() {
                 }
               }
 
-              const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.png`;
-              const path = `articles/${fileName}`;
-              
-              const { error } = await supabase.storage.from('images').upload(path, blob, { 
-                contentType: blob.type || 'image/png',
-                upsert: true 
-              });
-              if (error) throw error;
-              
-              const url = supabase.storage.from('images').getPublicUrl(path).data.publicUrl;
+              const file = new File([blob], `${Date.now()}-${Math.random().toString(36).substring(7)}.png`, { type: blob.type });
+              const url = await uploadToR2(file);
               
               setFormData(prev => {
                 const currentText = prev[field] as string;
@@ -468,13 +472,9 @@ export default function Admin() {
     try {
       setLoading(true);
       console.log("[Upload] Starting thumbnail upload:", file.name, file.type, file.size);
-      const path = `thumbnails/${Date.now()}-${Math.random().toString(36).substring(7)}.png`;
-      const result = await supabase.storage.from('images').upload(path, file, { contentType: file.type });
-      console.log("[Upload] Thumbnail result:", result);
-      if (result.error) throw result.error;
-      const url = supabase.storage.from('images').getPublicUrl(path).data.publicUrl;
+      const url = await uploadToR2(file, `thumbnails/${Date.now()}-${Math.random().toString(36).substring(7)}.png`);
       console.log("[Upload] Thumbnail URL:", url);
-      
+      if (!url) throw new Error('上传失败');
       setFormData(prev => ({ ...prev, thumbnail: url }));
     } catch (err) {
       console.error("[Upload] Error uploading thumbnail:", err);
@@ -496,13 +496,10 @@ export default function Admin() {
         if (!file) continue;
 
         setLoading(true);
-        const path = `thumbnails/${Date.now()}-${Math.random().toString(36).substring(7)}.png`;
         
         try {
-          const { error } = await supabase.storage.from('images').upload(path, file);
-          if (error) throw error;
-          const url = supabase.storage.from('images').getPublicUrl(path).data.publicUrl;
-          setFormData(prev => ({ ...prev, thumbnail: url }));
+          const url = await uploadToR2(file, `thumbnails/${Date.now()}-${Math.random().toString(36).substring(7)}.png`);
+          if (url) setFormData(prev => ({ ...prev, thumbnail: url }));
         } catch (err) {
           console.error("Error uploading pasted image:", err);
           alert("上传粘贴图片失败");

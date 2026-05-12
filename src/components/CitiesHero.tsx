@@ -1,4 +1,5 @@
 import React from 'react';
+import { getRandomHeroBg } from '@/lib/hero-backgrounds';
 
 interface CitiesHeroProps {
   title: string;
@@ -13,10 +14,11 @@ interface CitiesHeroProps {
 }
 
 export default function CitiesHero({ title, desc, introTitle, introP1, introP2, introP3, introP4, introP5, introP6 }: CitiesHeroProps) {
+  const heroBg = getRandomHeroBg();
   return (
     <>
       <section className="relative h-[400px] flex items-center pt-16 bg-gray-900 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://static.tripcngo.com/ing/Fbanner_bg_2.jpg')] bg-cover bg-center" />
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroBg})` }} />
         <div className="absolute inset-0 bg-black/40" />
         <div className="max-w-[1240px] w-full mx-auto px-6 relative z-10 text-left">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-md">

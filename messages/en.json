@@ -289,7 +289,8 @@
     "aiName": "AI Name Master",
     "subtitle": "One-stop service from visa guides to travel tips for your China trip",
     "ultimate": "Your Ultimate Guide for Traveling to China",
-    "searchPlaceholder": "Enter city you want to visit"
+    "searchPlaceholder": "Enter city you want to visit",
+    "notFound": "This city is not yet covered"
   },
   "city": {
     "xian": "Xi\\'an",
@@ -1085,7 +1086,10 @@
     "hero": {
       "desc": "Explore the most popular cities in China. Discover what\\'s fun in Beijing, Shanghai, Guangzhou, and find top food and shopping recommendations.",
       "title": "Popular Chinese Cities"
-    }
+    },
+    "searchResult": "Found",
+    "searchUnit": "cities",
+    "noResult": "No matching cities found"
   },
   "terms": {
     "hero": {
@@ -1132,5 +1136,20 @@
   },
   "seo": {
     "suffix": "Travel China Go - Your Ultimate China Travel Guide"
+  },
+  "login": {
+    "title": "Sign in",
+    "desc": "Enter your email address and we will send you a login link. Click it to sign in instantly.",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "you@example.com",
+    "sendLink": "Send login link",
+    "sending": "Sending...",
+    "or": "or",
+    "googleLogin": "Sign in with Google",
+    "sentTitle": "Email sent!",
+    "sentDesc": "We have sent a login link to {email}. Check your inbox (and spam folder), click the link to sign in.",
+    "gotIt": "Got it",
+    "sendFailed": "Failed to send, please retry",
+    "loginRequired": "Please sign in first"
   }
 }

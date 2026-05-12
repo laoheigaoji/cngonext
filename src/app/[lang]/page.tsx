@@ -86,17 +86,18 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
     'home.faq.subtitle',
     'city.stats.wantToVisit',
     'city.stats.recommended',
+    'hero.notFound',
   ]);
 
   // Fetch all data at build time
-  let homeData: { articles: any[]; cities: any[]; faqs: any[] } = { articles: [], cities: [], faqs: [] };
+  let homeData: { articles: any[]; cities: any[]; allCityNames: any[]; faqs: any[] } = { articles: [], cities: [], allCityNames: [], faqs: [] };
   try {
     homeData = await getHomeData();
   } catch (e) {
     console.error('Failed to fetch home data:', e);
   }
 
-  const { articles, cities, faqs } = homeData;
+  const { articles, cities, allCityNames, faqs } = homeData;
 
   // FAQ localization helper
   const getFaqContent = (faq: any) => {
@@ -132,6 +133,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           searchPlaceholder={t['hero.searchPlaceholder']}
           start={t['hero.start']}
           langPrefix={langPrefix}
+          notFound={t['hero.notFound']}
+          cities={allCityNames.map((c: any) => ({ id: c.id, name: c.name, enName: c.enName }))}
         />
 
         {/* Visa Section - SSR */}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>封面加字效果预览</title>
+<style>
+body { background: #1a1a2e; color: #fff; font-family: sans-serif; padding: 20px; }
+h1 { text-align: center; }
+.desc { text-align: center; color: #aaa; font-size: 14px; }
+.grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+.card { background: #222; border-radius: 12px; padding: 12px; text-align: center; }
+.card img { width: 500px; border-radius: 8px; }
+.card p { margin-top: 8px; color: #aaa; }
+.badge { display: inline-block; background: #3b82f6; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+<h1>封面加字效果预览（第4版）</h1>
+<p class="desc">统一三行布局 · 3字城市上大下小</p>
+<div class="grid">
+  <div class="card">
+    <img src="test_interleaved_北京.jpg?t=6" />
+    <p><span class="badge">2字</span> 上"北" → BEIJING → 下"京" — 220px</p>
+  </div>
+  <div class="card">
+    <img src="test_interleaved_杭州.jpg?t=5" />
+    <p><span class="badge">2字</span> 上"杭" → HANGZHOU → 下"州" — 220px</p>
+  </div>
+  <div class="card">
+    <img src="test_interleaved_厦门.jpg?t=5" />
+    <p><span class="badge">2字</span> 上"厦" → XIAMEN → 下"门" — 220px</p>
+  </div>
+  <div class="card">
+    <img src="test_interleaved_张家界.jpg?t=5" />
+    <p><span class="badge">3字</span> 上"张"(220px) → ZHANGJIAJIE → 下"家 界"(160px) — 190px</p>
+  </div>
+  <div class="card">
+    <img src="test_interleaved_呼和浩特.jpg?t=5" />
+    <p><span class="badge">4字</span> 上"呼 和" → HOHHOT → 下"浩 特" — 170px</p>
+  </div>
+  <div class="card">
+    <img src="test_interleaved_呼伦贝尔.jpg?t=5" />
+    <p><span class="badge">4字</span> 上"呼 伦" → HULUNBUIR → 下"贝 尔" — 170px</p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "completed": [
+    "常州",
+    "南通"
+  ],
+  "failed": [
+    {
+      "name": "伊春",
+      "error": "process failed"
+    }
+  ],
+  "lastCity": "南通"
+}

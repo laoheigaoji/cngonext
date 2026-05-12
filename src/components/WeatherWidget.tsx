@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Cloud, CloudRain, Sun, CloudFog, Zap, Snowflake } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { zhCN, enUS, ja, ko, ru, de, fr, es, it, uk, pl, pt, nl, sv, vi, id, th, ms } from 'date-fns/locale';
+import WeatherAnimation from './WeatherAnimation';
 
 interface WeatherWidgetProps {
   cityName: string;
@@ -171,42 +172,53 @@ export default function WeatherWidget({ cityName, enCityName, language = 'zh' }:
 
   return (
     <>
-      <div className="flex justify-between items-start mb-6">
-        <div>
-          <h3 className="text-white/70 font-medium mb-1">{timeLabelMap[language] || '北京时间'}</h3>
-          <div className="text-4xl font-bold font-mono tracking-tight">{timeStr || '00:00:00'}</div>
-        </div>
-        <div className="text-right">
-          <div className="text-white/60 text-sm mt-1">{dateStr}</div>
-        </div>
-      </div>
-
-      <div className="border-t border-white/10 pt-5 mb-6">
-        <div className="flex justify-between items-center mb-4">
-          <div>
-            <div className="text-white/70 text-sm mb-1">{todayLabelMap[language] || '今日'} • {format(parseISO(weather.daily.time[0]), 'M/d')}</div>
-            <div className="text-3xl font-bold">{todayTempMin}~{todayTempMax}°</div>
-            <div className="text-white/60 text-xs mt-1">{getWeatherDesc(todayCode, language)}</div>
+      <div className="relative rounded-2xl overflow-hidden">
+        {/* Weather Animation Background */}
+        <WeatherAnimation weatherCode={todayCode} />
+        
+        <div className="relative z-10">
+          <div className="flex justify-between items-start mb-6">
+            <div>
+              <h3 className="text-white/70 font-medium mb-1">{timeLabelMap[language] || '北京时间'}</h3>
+              <div className="text-4xl font-bold font-mono tracking-tight">{timeStr || '00:00:00'}</div>
+            </div>
+            <div className="text-right">
+              <div className="text-white/60 text-sm mt-1">{dateStr}</div>
+            </div>
           </div>
-          {getWeatherIcon(todayCode, { className: "w-12 h-12" })}
-        </div>
 
-        <div className="flex justify-between items-center mt-6 pt-4 border-t border-white/5 opacity-80 text-center">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i}>
-              <div className="text-xs text-white/50 mb-1">{format(parseISO(weather.daily.time[i]), 'M/d')}</div>
-              <div className="text-xs mb-2">
-                  {(() => {
-                      const dayLocale = localeMap[language];
-                      return format(parseISO(weather.daily.time[i]), 'EEE', dayLocale ? { locale: dayLocale } : undefined);
-                  })()}
+          <div className="border-t border-white/10 pt-5 mb-6">
+            <div className="flex justify-between items-center mb-4">
+              <div>
+                <div className="text-white/70 text-sm mb-1">{todayLabelMap[language] || '今日'} • {format(parseISO(weather.daily.time[0]), 'M/d')}</div>
+                <div className="text-3xl font-bold">{todayTempMin}~{todayTempMax}°</div>
+                <div className="text-white/60 text-xs mt-1">{getWeatherDesc(todayCode, language)}</div>
               </div>
-              {getWeatherIcon(weather.daily.weather_code[i], { className: "w-5 h-5 mx-auto mb-1" })}
-              <div className="text-[10px]">
-                  {Math.round(weather.daily.temperature_2m_min[i])}~{Math.round(weather.daily.temperature_2m_max[i])}°
+              <div style={{ textShadow: '0 0 8px currentColor' }}>
+                {getWeatherIcon(todayCode, { className: "w-14 h-14" })}
               </div>
             </div>
-          ))}
+
+            <div className="flex justify-between items-center mt-6 pt-4 border-t border-white/5 opacity-80 text-center">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="transition-transform duration-200 hover:scale-110">
+                  <div className="text-xs text-white/50 mb-1">{format(parseISO(weather.daily.time[i]), 'M/d')}</div>
+                  <div className="text-xs mb-2">
+                      {(() => {
+                          const dayLocale = localeMap[language];
+                          return format(parseISO(weather.daily.time[i]), 'EEE', dayLocale ? { locale: dayLocale } : undefined);
+                      })()}
+                  </div>
+                  <div style={{ textShadow: '0 0 4px currentColor' }}>
+                    {getWeatherIcon(weather.daily.weather_code[i], { className: "w-5 h-5 mx-auto mb-1" })}
+                  </div>
+                  <div className="text-[10px]">
+                      {Math.round(weather.daily.temperature_2m_min[i])}~{Math.round(weather.daily.temperature_2m_max[i])}°
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>

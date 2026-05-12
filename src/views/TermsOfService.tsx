@@ -1,7 +1,8 @@
 "use client";
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { getRandomHeroBg } from '@/lib/hero-backgrounds';
 
 // 渲染内容（支持列表）
 const renderContent = (content: string) => {
@@ -23,6 +24,7 @@ const renderContent = (content: string) => {
 
 const TermsOfService = ({ translations }: { translations?: Record<string, string>; initialData?: any[]; lang?: string }) => {
   const { t } = useLanguage();
+  const heroBg = useMemo(() => getRandomHeroBg(), []);
 
   const tt = (key: string): string => {
     if (translations && translations[key] && translations[key] !== key) {
@@ -38,7 +40,7 @@ const TermsOfService = ({ translations }: { translations?: Record<string, string
       {/* Hero Section */}
       <div 
         className="relative h-[400px] flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: `url(https://static.tripcngo.com/ing/banner_bg_1.jpg)` }}
+        style={{ backgroundImage: `url(${heroBg})` }}
       >
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative text-center">

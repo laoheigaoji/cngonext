@@ -1,4 +1,5 @@
 import React from 'react';
+import { getRandomHeroBg } from '@/lib/hero-backgrounds';
 
 interface GuideHeroProps {
   badge: string;
@@ -11,12 +12,13 @@ interface GuideHeroProps {
 }
 
 export default function GuideHero({ badge, title, subtitle, description, scrollHint, digitalTitle, digitalSubtitle }: GuideHeroProps) {
+  const heroBg = getRandomHeroBg();
   return (
     <>
       {/* Hero Section */}
       <div className="relative h-[450px] flex items-center justify-center overflow-hidden">
         <img
-          src="https://static.tripcngo.com/ing/jingnangbg.jpg"
+          src={heroBg}
           alt="China Travel"
           className="absolute inset-0 w-full h-full object-cover"
         />

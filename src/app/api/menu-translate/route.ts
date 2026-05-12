@@ -1,4 +1,190 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { S3Client, HeadObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
+
+// ===== Tencent 文搜图 + R2 缓存（替代下厨房） =====
+const TENCENT_SECRET_ID = process.env.TENCENT_SECRET_ID || '';
+const TENCENT_SECRET_KEY = process.env.TENCENT_SECRET_KEY || '';
+const R2_ENDPOINT = process.env.R2_ENDPOINT || '';
+const R2_BUCKET = process.env.R2_BUCKET || '';
+const R2_PUBLIC_URL = process.env.R2_PUBLIC_URL || '';
+
+function getS3Client() {
+  return new S3Client({
+    region: 'auto',
+    endpoint: R2_ENDPOINT,
+    credentials: {
+      accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
+      secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '',
+    },
+  });
+}
+
+function getDishKey(dishName: string): string {
+  return `dish_images/${encodeURIComponent(dishName)}.jpg`;
+}
+
+// 1. 检查 R2 缓存
+async function checkR2Cache(dishName: string): Promise<string | null> {
+  const key = getDishKey(dishName);
+  const publicUrl = `${R2_PUBLIC_URL}/${key}`;
+  // 用 S3 headObject 直接查 R2（绕过 CDN 缓存）
+  try {
+    const s3 = getS3Client();
+    await s3.send(new HeadObjectCommand({ Bucket: R2_BUCKET!, Key: key }));
+    console.log(`[menu-translate] R2缓存命中: ${dishName}`);
+    return publicUrl;
+  } catch {
+    return null;
+  }
+}
+
+// 2. 腾讯文搜图（HMAC 签名 - 用 Web Crypto API，兼容 Edge Runtime）
+async function sha256(message: string): Promise<string> {
+  const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(message));
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function hmacSha256(key: string | ArrayBuffer, message: string): Promise<ArrayBuffer> {
+  const keyBytes = typeof key === 'string' ? new TextEncoder().encode(key) : key;
+  const cryptoKey = await crypto.subtle.importKey(
+    'raw', keyBytes, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+  );
+  return crypto.subtle.sign('HMAC', cryptoKey, new TextEncoder().encode(message));
+}
+
+async function callTencentSearch(query: string): Promise<any[]> {
+  const SERVICE = 'wimgs';
+  const HOST = 'wimgs.tencentcloudapi.com';
+  const VERSION = '2025-11-06';
+  const ACTION = 'SearchByText';
+  const REGION = 'ap-guangzhou';
+  const timestamp = Math.floor(Date.now() / 1000);
+  const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+
+  const httpRequestMethod = 'POST';
+  const canonicalUri = '/';
+  const canonicalQueryString = '';
+  const canonicalHeaders = `content-type:application/json\nhost:${HOST}\nx-tc-action:${ACTION.toLowerCase()}\n`;
+  const signedHeaders = 'content-type;host;x-tc-action';
+  const payload = JSON.stringify({ Query: query });
+  const hashedRequestPayload = await sha256(payload);
+  const canonicalRequest = `${httpRequestMethod}\n${canonicalUri}\n${canonicalQueryString}\n${canonicalHeaders}\n${signedHeaders}\n${hashedRequestPayload}`;
+
+  const algorithm = 'TC3-HMAC-SHA256';
+  const credentialScope = `${date}/${SERVICE}/tc3_request`;
+  const hashedCanonicalRequest = await sha256(canonicalRequest);
+  const stringToSign = `${algorithm}\n${timestamp}\n${credentialScope}\n${hashedCanonicalRequest}`;
+
+  const secretDate = await hmacSha256(`TC3${TENCENT_SECRET_KEY}`, date);
+  const secretService = await hmacSha256(secretDate, SERVICE);
+  const secretSigning = await hmacSha256(secretService, 'tc3_request');
+  const signatureBuf = await hmacSha256(secretSigning, stringToSign);
+  const signature = Array.from(new Uint8Array(signatureBuf)).map(b => b.toString(16).padStart(2, '0')).join('');
+
+  const authorization = `${algorithm} Credential=${TENCENT_SECRET_ID}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}`;
+
+  const response = await fetch(`https://${HOST}`, {
+    method: 'POST',
+    headers: {
+      Authorization: authorization,
+      'Content-Type': 'application/json',
+      Host: HOST,
+      'X-TC-Action': ACTION,
+      'X-TC-Timestamp': String(timestamp),
+      'X-TC-Version': VERSION,
+      'X-TC-Region': REGION,
+    },
+    body: payload,
+  });
+
+  if (!response.ok) {
+    throw new Error(`Tencent API error ${response.status}: ${await response.text().catch(() => '')}`);
+  }
+
+  const data: any = await response.json();
+  const images = data.Response?.Images;
+  if (!images || !Array.isArray(images)) throw new Error('No images found');
+
+  return images.map((imgStr: string) => {
+    try { return JSON.parse(imgStr); } catch { return null; }
+  }).filter(Boolean);
+}
+
+// 3. 搜图 + 下载 + 上传 R2
+async function searchAndUploadDishImage(dishName: string): Promise<string | null> {
+  console.log(`[menu-translate] 腾讯文搜图: "${dishName}"`);
+  let images: any[];
+  try {
+    images = await callTencentSearch(dishName);
+  } catch (e: any) {
+    console.error(`[menu-translate] 腾讯搜图失败: "${dishName}": ${e.message}`);
+    return null;
+  }
+  if (!images.length) {
+    console.log(`[menu-translate] 未搜到: "${dishName}"`);
+    return null;
+  }
+
+  const firstImage = images[0];
+  const imageUrl = firstImage.origPicUrl || firstImage.thumbnailUrl;
+  if (!imageUrl) return null;
+
+  // 下载图片
+  let imgResp: Response;
+  try {
+    imgResp = await fetch(imageUrl, { signal: AbortSignal.timeout(15000) });
+    if (!imgResp.ok) return null;
+  } catch {
+    return null;
+  }
+
+  const buffer = await imgResp.arrayBuffer();
+  const key = getDishKey(dishName);
+
+  // 上传到 R2
+  try {
+    const s3 = getS3Client();
+    await s3.send(new PutObjectCommand({
+      Bucket: R2_BUCKET!,
+      Key: key,
+      Body: new Uint8Array(buffer),
+      ContentType: 'image/jpeg',
+    }));
+    console.log(`[menu-translate] R2上传成功: ${key}`);
+  } catch (e: any) {
+    console.error(`[menu-translate] R2上传失败: ${e.message}`);
+    return null;
+  }
+
+  return `${R2_PUBLIC_URL}/${key}`;
+}
+
+// 4. 批量获取菜品图片（先用R2缓存，没有再调腾讯搜图）
+async function getDishImages(dishNames: string[]): Promise<Record<string, string | null>> {
+  const results: Record<string, string | null> = {};
+  // 并发5个
+  const chunks: string[][] = [];
+  for (let i = 0; i < dishNames.length; i += 5) {
+    chunks.push(dishNames.slice(i, i + 5));
+  }
+  for (const chunk of chunks) {
+    const promises = chunk.map(async (name) => {
+      // 先查R2缓存
+      const cached = await checkR2Cache(name);
+      if (cached) {
+        results[name] = cached;
+        return;
+      }
+      // 缓存未命中，调腾讯搜图
+      const url = await searchAndUploadDishImage(name);
+      results[name] = url || null;
+      if (url) console.log(`[menu-translate] 已缓存到R2: "${name}" -> ${url}`);
+      else console.log(`[menu-translate] 搜图失败: "${name}"`);
+    });
+    await Promise.all(promises);
+  }
+  return results;
+}
 
 // Alibaba Cloud DashScope International (Singapore) endpoint
 const DASHSCOPE_BASE_URL = 'https://dashscope-intl.aliyuncs.com/compatible-mode/v1';
@@ -71,57 +257,6 @@ const CURRENCY_MAP: Record<string, { code: string; symbol: string; rate: number 
   zh: { code: 'CNY', symbol: '¥', rate: 1 },
 };
 
-// XiaChuFang dish image search - free, no key required
-async function searchDishImage(dishName: string): Promise<string | null> {
-  try {
-    const url = `https://m.xiachufang.com/search/?keyword=${encodeURIComponent(dishName)}`;
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 10000);
-
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'zh-CN,zh;q=0.9',
-      },
-      signal: controller.signal,
-    });
-    clearTimeout(timer);
-
-    if (!response.ok) return null;
-    const html = await response.text();
-    // Extract the first high-res cover image URL
-    const reg = /https:\/\/s[12]\.cdn\.xiachufang\.com\/[^\s"'<>]+?_1536w_2048h\.jpg/;
-    const match = html.match(reg);
-    if (match) return match[0];
-    // Fallback: any xiachufang CDN image
-    const fallbackReg = /https:\/\/s[12]\.cdn\.xiachufang\.com\/[^\s"'<>]+?\.jpg/;
-    const fallbackMatch = html.match(fallbackReg);
-    return fallbackMatch ? fallbackMatch[0] : null;
-  } catch {
-    return null;
-  }
-}
-
-// Batch search dish images for all menu items
-async function searchDishImages(dishNames: string[]): Promise<Record<string, string | null>> {
-  const results: Record<string, string | null> = {};
-  // Search in parallel with concurrency limit of 5
-  const chunks: string[][] = [];
-  for (let i = 0; i < dishNames.length; i += 5) {
-    chunks.push(dishNames.slice(i, i + 5));
-  }
-  for (const chunk of chunks) {
-    const promises = chunk.map(async (name) => {
-      const url = await searchDishImage(name);
-      results[name] = url;
-      console.log(`[menu-translate] XiaChuFang image for "${name}": ${url || 'not found'}`);
-    });
-    await Promise.all(promises);
-  }
-  return results;
-}
-
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -129,15 +264,17 @@ export async function GET(req: NextRequest) {
     const dishes = searchParams.get('dishes');
 
     if (dishes) {
-      // Batch mode: search multiple dishes
+      // Batch mode: use Tencent search + R2 cache
       const dishNames = dishes.split(',').filter(Boolean);
-      const images = await searchDishImages(dishNames);
+      const images = await getDishImages(dishNames);
       return NextResponse.json({ images });
     }
 
     if (dish) {
-      // Single dish search
-      const imageUrl = await searchDishImage(dish);
+      // Single dish
+      const cached = await checkR2Cache(dish);
+      if (cached) return NextResponse.json({ dish, imageUrl: cached });
+      const imageUrl = await searchAndUploadDishImage(dish);
       return NextResponse.json({ dish, imageUrl });
     }
 

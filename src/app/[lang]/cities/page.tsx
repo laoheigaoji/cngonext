@@ -9,7 +9,7 @@ export function generateStaticParams() {
   return LANGUAGES.map(lang => ({ lang }));
 }
 
-export const revalidate = false;
+export const revalidate = 3600;
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -38,8 +38,9 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   };
 }
 
-export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
+export default async function Page({ params, searchParams }: { params: Promise<{ lang: string }>; searchParams: Promise<{ q?: string }> }) {
   const { lang } = await params;
+  const { q } = await searchParams;
   const langPrefix = lang === 'zh' ? 'cn' : lang;
 
   const t = getServerTranslations(lang, [
@@ -77,7 +78,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
         introP6={t['cities.intro.p6']}
       />
 
-      <CitiesClient cities={cities} lang={lang} t={t} />
+      <CitiesClient cities={cities} lang={lang} t={t} initialQuery={q || ''} />
     </div>
   );
 }

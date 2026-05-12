@@ -1,4 +1,5 @@
 import React from 'react';
+import CitySearchBox from './CitySearchBox';
 
 interface HomeHeroProps {
   title: string;
@@ -8,9 +9,11 @@ interface HomeHeroProps {
   searchPlaceholder: string;
   start: string;
   langPrefix: string;
+  notFound: string;
+  cities: { id: string; name: string; enName?: string }[];
 }
 
-export default function HomeHero({ title, desc, dest, aiName, searchPlaceholder, start, langPrefix }: HomeHeroProps) {
+export default function HomeHero({ title, desc, dest, aiName, searchPlaceholder, start, langPrefix, notFound, cities }: HomeHeroProps) {
   return (
     <section className="relative h-screen min-h-[700px] flex px-6 pb-20 pt-32">
       <div className="absolute inset-0 overflow-hidden">
@@ -55,24 +58,13 @@ export default function HomeHero({ title, desc, dest, aiName, searchPlaceholder,
             </a>
           </div>
           
-          <form action={`/${langPrefix}/cities`} className="bg-white rounded-[1.5rem] p-1.5 flex items-center relative group">
-            <div className="flex-1 flex items-center px-4">
-              <svg className="w-5 h-5 text-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-              <input 
-                type="text" 
-                name="q"
-                placeholder={searchPlaceholder} 
-                className="w-full py-3.5 outline-none text-gray-800 text-[16px]"
-              />
-            </div>
-            <button 
-              type="submit"
-              className="bg-[#1b887a] hover:bg-[#008055] text-white px-8 py-3.5 rounded-[1.2rem] font-bold transition-all flex items-center gap-2 active:scale-95 shadow-md flex-shrink-0"
-            >
-              {start}
-              <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            </button>
-          </form>
+          <CitySearchBox
+            cities={cities}
+            searchPlaceholder={searchPlaceholder}
+            start={start}
+            langPrefix={langPrefix}
+            notFound={notFound}
+          />
         </div>
       </div>
     </section>

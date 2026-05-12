@@ -1,0 +1,122 @@
+{
+  "completed": [
+    "荆州",
+    "黄冈",
+    "咸宁",
+    "随州",
+    "恩施",
+    "株洲",
+    "湘潭",
+    "衡阳",
+    "邵阳",
+    "岳阳",
+    "常德",
+    "益阳",
+    "郴州",
+    "永州",
+    "怀化",
+    "娄底",
+    "湘西",
+    "韶关",
+    "珠海",
+    "汕头",
+    "佛山",
+    "江门",
+    "湛江",
+    "茂名",
+    "肇庆",
+    "惠州",
+    "梅州",
+    "汕尾",
+    "河源",
+    "阳江",
+    "清远",
+    "东莞",
+    "中山",
+    "潮州",
+    "揭阳",
+    "云浮",
+    "南宁",
+    "柳州",
+    "梧州",
+    "北海",
+    "防城港",
+    "钦州",
+    "贵港",
+    "百色",
+    "贺州",
+    "河池",
+    "来宾",
+    "崇左",
+    "三沙",
+    "儋州",
+    "自贡",
+    "攀枝花",
+    "泸州",
+    "德阳",
+    "绵阳",
+    "广元",
+    "遂宁",
+    "内江",
+    "乐山",
+    "南充",
+    "眉山",
+    "宜宾",
+    "广安"
+  ],
+  "failed": [
+    {
+      "name": "玉林",
+      "error": "process failed"
+    },
+    {
+      "name": "达州",
+      "error": "process failed"
+    },
+    {
+      "name": "雅安",
+      "error": "process failed"
+    },
+    {
+      "name": "巴中",
+      "error": "process failed"
+    },
+    {
+      "name": "资阳",
+      "error": "process failed"
+    },
+    {
+      "name": "阿坝",
+      "error": "process failed"
+    },
+    {
+      "name": "甘孜",
+      "error": "process failed"
+    },
+    {
+      "name": "凉山",
+      "error": "process failed"
+    },
+    {
+      "name": "贵阳",
+      "error": "process failed"
+    },
+    {
+      "name": "六盘水",
+      "error": "process failed"
+    },
+    {
+      "name": "遵义",
+      "error": "process failed"
+    },
+    {
+      "name": "安顺",
+      "error": "process failed"
+    },
+    {
+      "name": "毕节",
+      "error": "process failed"
+    }
+  ],
+  "lastCity": "毕节"
+}

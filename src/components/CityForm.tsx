@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { CityData } from '../types/city';
-import { X, Loader2, Sparkles, Save, ChevronDown, ChevronUp, Image as ImageIcon, Languages } from 'lucide-react';
+import { X, Loader2, Sparkles, Save, ChevronDown, ChevronUp, Image as ImageIcon, Languages, Search } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { generateCityData, askDeepSeek } from '../lib/deepseek';
 
@@ -70,14 +70,49 @@ export default function CityForm({ city, onClose, onSave }: CityFormProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const listCoverInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
+  const [searchingImage, setSearchingImage] = useState<{ type: string; idx: number } | null>(null);
 
-  const handleFileUpload = async (file: File, folder: string) => {
+  const handleSearchImage = async (query: string, type: 'attractions' | 'food', idx: number) => {
+    if (!query) return;
+    setSearchingImage({ type, idx });
+    try {
+      const nameForSearch = formData.name ? `${formData.name} ${query}` : query;
+      const res = await fetch('/api/search-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: nameForSearch, folder: type }),
+      });
+      const data = await res.json();
+      if (data.success && data.imageUrl) {
+        if (type === 'attractions') {
+          const newAttractions = [...formData.attractions];
+          (newAttractions[idx] as any).imageUrl = data.imageUrl;
+          updateFormData('attractions', newAttractions);
+        } else {
+          const newFood = [...formData.food];
+          (newFood[idx] as any).imageUrl = data.imageUrl;
+          updateFormData('food', newFood);
+        }
+      } else {
+        alert('未找到相关图片: ' + (data.error || ''));
+      }
+    } catch (e: any) {
+      alert('搜索图片失败: ' + e.message);
+    } finally {
+      setSearchingImage(null);
+    }
+  };
+
+  const uploadToR2 = async (file: File, folder: string): Promise<string | null> => {
     setUploading(true);
     try {
-      const path = `${folder}/${Date.now()}-${file.name}`;
-      const { error } = await supabase.storage.from('images').upload(path, file);
-      if (error) throw error;
-      return supabase.storage.from('images').getPublicUrl(path).data.publicUrl;
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('folder', folder);
+      const res = await fetch('/api/upload-r2', { method: 'POST', body: formData });
+      if (!res.ok) throw new Error(`Upload failed: ${res.status}`);
+      const data = await res.json();
+      return data.url || null;
     } catch (err) {
       console.error(err);
       alert('上传失败');
@@ -90,14 +125,14 @@ export default function CityForm({ city, onClose, onSave }: CityFormProps) {
   const handleHeroImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const url = await handleFileUpload(file, 'city_covers');
+    const url = await uploadToR2(file, 'city_covers');
     if (url) updateFormData('heroImage', url);
   };
 
   const handleListCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const url = await handleFileUpload(file, 'city_list_covers');
+    const url = await uploadToR2(file, 'city_list_covers');
     if (url) updateFormData('listCover', url);
   };
 
@@ -106,18 +141,32 @@ export default function CityForm({ city, onClose, onSave }: CityFormProps) {
     try {
       const response = await fetch(url);
       const blob = await response.blob();
-      const { error } = await supabase.storage.from('images').upload(path, blob, { upsert: true });
-      if (error) throw error;
-      return supabase.storage.from('images').getPublicUrl(path).data.publicUrl;
+      const file = new File([blob], path.split('/').pop() || 'image.jpg', { type: blob.type });
+      const folder = path.split('/')[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('folder', folder);
+      if (path) formData.append('key', path);
+      const res = await fetch('/api/upload-r2', { method: 'POST', body: formData });
+      if (!res.ok) throw new Error('Upload failed');
+      const data = await res.json();
+      return data.url;
     } catch (e) {
       console.warn("Failed to proxy image via direct fetch:", url, e);
       try {
         const proxyUrl = `https://wsrv.nl/?url=${encodeURIComponent(url)}`;
         const res = await fetch(proxyUrl);
         const blob = await res.blob();
-        const { error } = await supabase.storage.from('images').upload(path, blob, { upsert: true });
-        if (error) throw error;
-        return supabase.storage.from('images').getPublicUrl(path).data.publicUrl;
+        const file = new File([blob], path.split('/').pop() || 'image.jpg', { type: blob.type });
+        const folder = path.split('/')[0];
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('folder', folder);
+        if (path) formData.append('key', path);
+        const resp = await fetch('/api/upload-r2', { method: 'POST', body: formData });
+        if (!resp.ok) throw new Error('Upload failed');
+        const data = await resp.json();
+        return data.url;
       } catch (e2) {
         return url; 
       }
@@ -821,6 +870,17 @@ export default function CityForm({ city, onClose, onSave }: CityFormProps) {
                        <label htmlFor={`attr-img-${idx}`} className="p-2 border rounded bg-gray-100 cursor-pointer">
                          {uploading ? <Loader2 className="animate-spin" /> : <ImageIcon />}
                        </label>
+                       <button
+                         type="button"
+                         onClick={() => handleSearchImage(attr.name || attr.enName || '', 'attractions', idx)}
+                         disabled={searchingImage?.type === 'attractions' && searchingImage?.idx === idx}
+                         className="p-2 border rounded bg-blue-50 hover:bg-blue-100 text-blue-600 disabled:opacity-50"
+                         title="自动搜索图片"
+                       >
+                         {searchingImage?.type === 'attractions' && searchingImage?.idx === idx
+                           ? <Loader2 className="w-4 h-4 animate-spin" />
+                           : <Search className="w-4 h-4" />}
+                       </button>
                    </div>
                 </div>
                );
@@ -942,6 +1002,17 @@ export default function CityForm({ city, onClose, onSave }: CityFormProps) {
                       <label htmlFor={`food-img-${idx}`} className="p-2 border rounded bg-gray-100 cursor-pointer">
                         {uploading ? <Loader2 className="animate-spin" /> : <ImageIcon />}
                       </label>
+                      <button
+                        type="button"
+                        onClick={() => handleSearchImage(f.name || '', 'food', idx)}
+                        disabled={searchingImage?.type === 'food' && searchingImage?.idx === idx}
+                        className="p-2 border rounded bg-blue-50 hover:bg-blue-100 text-blue-600 disabled:opacity-50"
+                        title="自动搜索图片"
+                      >
+                        {searchingImage?.type === 'food' && searchingImage?.idx === idx
+                          ? <Loader2 className="w-4 h-4 animate-spin" />
+                          : <Search className="w-4 h-4" />}
+                      </button>
                     </div>
                  </div>
                 );

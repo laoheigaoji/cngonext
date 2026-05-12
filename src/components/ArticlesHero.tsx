@@ -1,4 +1,5 @@
 import React from 'react';
+import { getRandomHeroBg } from '@/lib/hero-backgrounds';
 
 interface ArticlesHeroProps {
   title: string;
@@ -6,11 +7,12 @@ interface ArticlesHeroProps {
 }
 
 export default function ArticlesHero({ title, desc }: ArticlesHeroProps) {
+  const heroBg = getRandomHeroBg();
   return (
     <section className="relative h-[480px] flex items-center pt-20 overflow-hidden">
       <div className="absolute inset-0">
         <img 
-          src="https://static.tripcngo.com/ing/banner_bg_1.jpg" 
+          src={heroBg}
           alt="Background" 
           className="w-full h-full object-cover"
         />

@@ -1,10 +1,12 @@
 "use client";
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { getRandomHeroBg } from '@/lib/hero-backgrounds';
 
 const AboutUs = ({ translations }: { translations?: Record<string, string>; initialData?: any[]; lang?: string }) => {
   const { language, t } = useLanguage();
+  const heroBg = useMemo(() => getRandomHeroBg(), []);
   const currentLang = language as string;
 
   const tt = (key: string): string => {
@@ -35,7 +37,7 @@ const AboutUs = ({ translations }: { translations?: Record<string, string>; init
       {/* Hero Section */}
       <div 
         className="relative h-[400px] flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: `url(https://static.tripcngo.com/ing/banner_bg_1.jpg)` }}
+        style={{ backgroundImage: `url(${heroBg})` }}
       >
         <div className="absolute inset-0 bg-black/40" />
         <h1 className="relative text-white text-5xl font-bold">{tt('about.hero.title')}</h1>

@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { getRandomHeroBg } from '@/lib/hero-backgrounds';
 
 export default function Feedback({ translations }: { translations?: Record<string, string> }) {
   const { t } = useLanguage();
+  const heroBg = useMemo(() => getRandomHeroBg(), []);
 
   const tt = (key: string): string => {
     if (translations && translations[key] && translations[key] !== key) {
@@ -49,7 +51,7 @@ export default function Feedback({ translations }: { translations?: Record<strin
         <section className="relative h-[480px] flex items-center pt-20 overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src="https://static.tripcngo.com/ing/banner_bg_1.jpg" 
+            src={heroBg} 
             alt="Background" 
             className="w-full h-full object-cover"
           />

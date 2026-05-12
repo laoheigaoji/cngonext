@@ -302,7 +302,8 @@
     "aiName": "KI-gestützter sino-englischer Namensgenerator",
     "subtitle": "Von Visumleitfäden bis Reise-Tipps bieten wir einen vollständigen Service für Ihren Aufenthalt in China",
     "ultimate": "Ihr ultimativer Leitfaden für China-Reisen",
-    "searchPlaceholder": "Geben Sie die Stadt ein, die Sie besuchen möchten"
+    "searchPlaceholder": "Geben Sie die Stadt ein, die Sie besuchen möchten",
+    "notFound": "Diese Stadt ist noch nicht erfasst"
   },
   "tools": {
     "menu": {
@@ -1171,5 +1172,20 @@
   },
   "seo": {
     "suffix": "Reise nach China - Ihr ultimativer China-Reiseführer"
+  },
+  "login": {
+    "title": "Anmelden",
+    "desc": "Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Anmeldelink. Klicken Sie darauf, um sich anzumelden.",
+    "emailLabel": "E-Mail-Adresse",
+    "emailPlaceholder": "sie@beispiel.com",
+    "sendLink": "Anmeldelink senden",
+    "sending": "Wird gesendet...",
+    "or": "oder",
+    "googleLogin": "Mit Google anmelden",
+    "sentTitle": "E-Mail gesendet!",
+    "sentDesc": "Wir haben einen Anmeldelink an {email} gesendet. Prüfen Sie Ihren Posteingang (und Spam-Ordner).",
+    "gotIt": "Verstanden",
+    "sendFailed": "Senden fehlgeschlagen, bitte erneut versuchen",
+    "loginRequired": "Bitte melden Sie sich zuerst an"
   }
 }

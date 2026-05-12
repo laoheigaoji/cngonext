@@ -12,14 +12,12 @@ interface EmailLoginModalProps {
 }
 
 export default function EmailLoginModal({ isOpen, onClose }: EmailLoginModalProps) {
-  const { language } = useLanguage();
+  const { t } = useLanguage();
   const { signInWithEmail, signInWithGoogle } = useAuth();
   const [email, setEmail] = useState('');
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
-
-  const isZh = language === 'zh' || language === 'cn';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +32,7 @@ export default function EmailLoginModal({ isOpen, onClose }: EmailLoginModalProp
     if (result.success) {
       setSent(true);
     } else {
-      setError(result.error || (isZh ? '发送失败，请重试' : 'Failed to send, please retry'));
+      setError(result.error || t('login.sendFailed'));
     }
   };
 
@@ -82,13 +80,11 @@ export default function EmailLoginModal({ isOpen, onClose }: EmailLoginModalProp
                     <Mail className="w-5 h-5" />
                   </div>
                   <h2 className="text-xl font-bold">
-                    {isZh ? '登录' : 'Sign in'}
+                    {t('login.title')}
                   </h2>
                 </div>
                 <p className="text-teal-100 text-sm leading-relaxed">
-                  {isZh
-                    ? '输入您的邮箱地址，我们将发送一个登录链接到您的邮箱，点击即可登录。'
-                    : 'Enter your email address and we\'ll send you a login link. Click it to sign in instantly.'}
+                  {t('login.desc')}
                 </p>
               </div>
 
@@ -98,13 +94,13 @@ export default function EmailLoginModal({ isOpen, onClose }: EmailLoginModalProp
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                        {isZh ? '邮箱地址' : 'Email address'}
+                        {t('login.emailLabel')}
                       </label>
                       <input
                         type="email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
-                        placeholder={isZh ? '请输入邮箱地址' : 'you@example.com'}
+                        placeholder={t('login.emailPlaceholder')}
                         required
                         autoFocus
                         className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1b887a]/20 focus:border-[#1b887a] outline-none transition-all text-gray-800 placeholder:text-gray-400"
@@ -125,11 +121,11 @@ export default function EmailLoginModal({ isOpen, onClose }: EmailLoginModalProp
                       {sending ? (
                         <>
                           <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white" />
-                          {isZh ? '发送中...' : 'Sending...'}
+                          {t('login.sending')}
                         </>
                       ) : (
                         <>
-                          {isZh ? '发送登录链接' : 'Send login link'}
+                          {t('login.sendLink')}
                           <ArrowRight className="w-4 h-4" />
                         </>
                       )}
@@ -142,7 +138,7 @@ export default function EmailLoginModal({ isOpen, onClose }: EmailLoginModalProp
                       </div>
                       <div className="relative flex justify-center text-sm">
                         <span className="px-3 bg-white text-gray-400">
-                          {isZh ? '或' : 'or'}
+                          {t('login.or')}
                         </span>
                       </div>
                     </div>
@@ -159,7 +155,7 @@ export default function EmailLoginModal({ isOpen, onClose }: EmailLoginModalProp
                         <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                       </svg>
-                      {isZh ? '使用 Google 登录' : 'Sign in with Google'}
+                      {t('login.googleLogin')}
                     </button>
                   </form>
                 ) : (
@@ -168,18 +164,16 @@ export default function EmailLoginModal({ isOpen, onClose }: EmailLoginModalProp
                       <CheckCircle className="w-8 h-8 text-green-500" />
                     </div>
                     <h3 className="text-lg font-bold text-gray-800 mb-2">
-                      {isZh ? '邮件已发送！' : 'Email sent!'}
+                      {t('login.sentTitle')}
                     </h3>
                     <p className="text-gray-500 text-sm leading-relaxed">
-                      {isZh
-                        ? `我们已将登录链接发送到 ${email}，请查看您的收件箱（包括垃圾邮件文件夹），点击链接即可登录。`
-                        : `We've sent a login link to ${email}. Check your inbox (and spam folder), click the link to sign in.`}
+                      {t('login.sentDesc').replace('{email}', email)}
                     </p>
                     <button
                       onClick={handleClose}
                       className="mt-6 px-6 py-2.5 bg-gray-100 text-gray-600 rounded-xl font-medium hover:bg-gray-200 transition-colors"
                     >
-                      {isZh ? '我知道了' : 'Got it'}
+                      {t('login.gotIt')}
                     </button>
                   </div>
                 )}

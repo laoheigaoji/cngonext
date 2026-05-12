@@ -569,7 +569,8 @@
     "aiName": "AI中英文取名大师",
     "subtitle": "从签证指南到旅行锦囊，我们为您提供一站式入华服务",
     "ultimate": "您中国旅行的终极指南",
-    "searchPlaceholder": "请输入您想去的城市"
+    "searchPlaceholder": "请输入您想去的城市",
+    "notFound": "该城市暂未收录"
   },
   "city": {
     "xian": "西安",
@@ -1367,7 +1368,10 @@
     "hero": {
       "desc": "探索中国最受欢迎的城市。了解北京、上海、广州有什么好玩的，发现顶级餐饮和购物推荐，甚至一些趣味知识，轻松规划您的行程。",
       "title": "中国热门城市"
-    }
+    },
+    "searchResult": "找到",
+    "searchUnit": "个城市",
+    "noResult": "未找到匹配的城市"
   },
   "terms": {
     "hero": {
@@ -1441,5 +1445,20 @@
   },
   "seo": {
     "suffix": "旅行中国出发 - 您的终极中国旅游指南"
+  },
+  "login": {
+    "title": "登录",
+    "desc": "输入您的邮箱地址，我们将发送一个登录链接到您的邮箱，点击即可登录。",
+    "emailLabel": "邮箱地址",
+    "emailPlaceholder": "请输入邮箱地址",
+    "sendLink": "发送登录链接",
+    "sending": "发送中...",
+    "or": "或",
+    "googleLogin": "使用 Google 登录",
+    "sentTitle": "邮件已发送！",
+    "sentDesc": "我们已将登录链接发送到 {email}，请查看您的收件箱（包括垃圾邮件文件夹），点击链接即可登录。",
+    "gotIt": "我知道了",
+    "sendFailed": "发送失败，请重试",
+    "loginRequired": "请先登录"
   }
 }

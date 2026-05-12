@@ -302,7 +302,8 @@
     "aiName": "Generador de nombres sino-ingleses por IA",
     "subtitle": "Desde guías de visa hasta consejos de viaje, ofrecemos un servicio completo para tu estadía en China",
     "ultimate": "Tu guía definitiva para viajar a China",
-    "searchPlaceholder": "Ingresa la ciudad que deseas visitar"
+    "searchPlaceholder": "Ingresa la ciudad que deseas visitar",
+    "notFound": "Esta ciudad aún no está cubierta"
   },
   "tools": {
     "menu": {
@@ -1171,5 +1172,20 @@
   },
   "seo": {
     "suffix": "Viaja a China - Tu guía definitiva de viaje a China"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "desc": "Ingrese su correo electrónico y le enviaremos un enlace de inicio de sesión. Haga clic para ingresar.",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "usted@ejemplo.com",
+    "sendLink": "Enviar enlace",
+    "sending": "Enviando...",
+    "or": "o",
+    "googleLogin": "Iniciar sesión con Google",
+    "sentTitle": "¡Correo enviado!",
+    "sentDesc": "Hemos enviado un enlace de inicio de sesión a {email}. Revise su bandeja de entrada (y carpeta de spam).",
+    "gotIt": "Entendido",
+    "sendFailed": "Error al enviar, intente de nuevo",
+    "loginRequired": "Inicie sesión primero"
   }
 }

@@ -1,0 +1,2420 @@
+{
+  "id": "yulin",
+  "name": "玉林",
+  "enName": "Yulin",
+  "img": null,
+  "listCover": null,
+  "heroImage": null,
+  "tags": [
+    {
+      "text": "南方药都",
+      "color": "#4CAF50",
+      "enText": "Southern Medicine Capital",
+      "textEn": "Southern Medicine Capital",
+      "textDe": "Medizinhauptstadt des Südens",
+      "textEs": "Capital de la Medicina del Sur",
+      "textFr": "Capitale pharmaceutique du Sud",
+      "textIt": "Capitale della Medicina del Sud",
+      "textJa": "南方の薬都",
+      "textKo": "남방 약도",
+      "textRu": "Южная аптека",
+      "textTw": "南方藥都"
+    },
+    {
+      "text": "中国动力之都",
+      "color": "#2196F3",
+      "enText": "China's Power Capital",
+      "textEn": "China's Power Capital",
+      "textDe": "Motorhauptstadt Chinas",
+      "textEs": "Capital de la Energía de China",
+      "textFr": "Capitale chinoise de la puissance",
+      "textIt": "Capitale dell'Energia della Cina",
+      "textJa": "中国動力の都",
+      "textKo": "중국 동력의 수도",
+      "textRu": "Китайская столица энергетики",
+      "textTw": "中國動力之都"
+    },
+    {
+      "text": "玉林狗肉节",
+      "color": "#FF5722",
+      "enText": "Yulin Dog Meat Festival",
+      "textEn": "Yulin Dog Meat Festival",
+      "textDe": "Yuliner Hundefleischfest",
+      "textEs": "Festival del Perro de Yulin",
+      "textFr": "Festival de la viande de chien de Yulin",
+      "textIt": "Festival della Carne di Cane di Yulin",
+      "textJa": "玉林犬肉祭り",
+      "textKo": "위린 개고기 축제",
+      "textRu": "Фестиваль собачьего мяса в Юйлине",
+      "textTw": "玉林狗肉節"
+    },
+    {
+      "text": "岭南古州",
+      "color": "#9C27B0",
+      "enText": "Ancient Prefecture of Lingnan",
+      "textEn": "Ancient Prefecture of Lingnan",
+      "textDe": "Alte Präfektur Lingnan",
+      "textEs": "Antigua Prefectura de Lingnan",
+      "textFr": "Ancienne préfecture du Lingnan",
+      "textIt": "Antica Prefettura di Lingnan",
+      "textJa": "嶺南の古州",
+      "textKo": "링난의 고주",
+      "textRu": "Древний город Линнань",
+      "textTw": "嶺南古州"
+    }
+  ],
+  "paragraphs": [
+    "玉林市位于广西东南部，地处北回归线以南，属亚热带季风气候，气候温暖湿润，雨量充沛，年均气温约22℃。地势北高南低，以丘陵台地为主，是广西重要的农业产区。",
+    "玉林古称郁林，历史悠久，自秦朝起便纳入中原王朝版图。唐代设郁林州，明清时期成为岭南重镇。近代以来，玉林在商贸、手工业方面发展迅速，享有“岭南古州”美誉。",
+    "玉林文化多元，以客家文化、岭南文化交融为特色。玉林话属粤语勾漏片。著名民俗有“玉林狗肉节”（荔枝狗肉节），虽具争议但体现地方饮食传统。美食以玉林牛巴、博白空心菜、陆川猪脚等为代表，风味独特。",
+    "现代玉林是广西重要的工业城市，以玉柴集团为核心的机械制造业闻名全国，被誉为“中国动力之都”。同时发展中医药产业，建设“南方药都”。交通方面，玉林福绵机场已通航，高铁也在建设中，城市发展势头强劲。"
+  ],
+  "enParagraphs": [
+    "Yulin is located in southeastern Guangxi, south of the Tropic of Cancer, with a subtropical monsoon climate. It is warm and humid with abundant rainfall, average annual temperature around 22°C. The terrain is higher in the north and lower in the south, dominated by hills and terraces, making it an important agricultural area in Guangxi.",
+    "Yulin, known as Yulin in ancient times, has a long history. It has been part of Chinese territory since the Qin Dynasty. Yulin Prefecture was established in the Tang Dynasty, and it became a key town in Lingnan during the Ming and Qing dynasties. In modern times, Yulin has developed rapidly in trade and handicrafts, earning the reputation of 'Ancient Prefecture of Lingnan'.",
+    "Yulin's culture is diverse, blending Hakka and Lingnan cultures. The Yulin dialect belongs to the Goulou subgroup of Cantonese. Notable folk customs include the 'Yulin Dog Meat Festival' (Lychee Dog Meat Festival), which is controversial but reflects local dietary traditions. Famous foods include Yulin Niuba, Bobai Water Spinach, and Luchuan Pig Trotters, known for their unique flavors.",
+    "Modern Yulin is an important industrial city in Guangxi, renowned nationwide for its machinery manufacturing centered on Yuchai Group, earning the title 'Capital of China's Power'. It also develops the traditional Chinese medicine industry, building the 'Southern Medicine Capital'. In terms of transportation, Yulin Fumian Airport is operational, and the high-speed rail is under construction, driving strong urban development."
+  ],
+  "stats": {
+    "recommended": 99999,
+    "wantToVisit": 99999
+  },
+  "attractions": [
+    {
+      "name": "云天文化城",
+      "enName": "Yuntian Cultural City",
+      "desc": "又称云天宫，是一座巨型仿古建筑群，融合中国古代建筑艺术与雕塑，内有巨型木雕、铜雕等，气势恢宏。",
+      "enDesc": "Also known as Yuntian Palace, it is a massive antique-style architectural complex blending ancient Chinese architecture and sculpture, featuring giant wood carvings and bronze sculptures, with grand momentum.",
+      "time": "08:30-17:30",
+      "enTime": "08:30-17:30",
+      "price": "120元",
+      "enPrice": "120 RMB",
+      "season": "全年",
+      "enSeason": "All year",
+      "level": "4A",
+      "imageUrl": null,
+      "nameDe": "Yuntian-Kulturstadt",
+      "nameEn": "Yuntian Cultural City",
+      "nameEs": "Ciudad Cultural de Yuntian",
+      "nameFr": "Cité culturelle de Yuntian",
+      "nameIt": "Città Culturale di Yuntian",
+      "nameJa": "雲天文化城",
+      "nameKo": "윈톈 문화성",
+      "nameRu": "Культурный город Юньтянь",
+      "nameTw": "雲天文化城",
+      "descDe": "Auch Yuntian-Palast genannt, eine riesige, im antiken Stil erbaute Gebäudegruppe, die chinesische Baukunst und Bildhauerei vereint. Sie beherbergt massive Holz- und Bronzeskulpturen und ist von beeindruckender Größe.",
+      "descEn": "Also known as Yuntian Palace, it is a massive antique-style architectural complex blending ancient Chinese architecture and sculpture, featuring giant wood carvings and bronze sculptures, with grand momentum.",
+      "descEs": "También conocida como Palacio Yuntian, es un enorme complejo de arquitectura antigua que fusiona arte arquitectónico chino antiguo y esculturas, con tallas gigantes de madera y bronce, de gran majestuosidad.",
+      "descFr": "Aussi appelée Palais Yuntian, c'est un immense complexe architectural de style antique, mêlant l'architecture traditionnelle chinoise et la sculpture. On y trouve de gigantesques sculptures sur bois et sur bronze, d'une envergure impressionnante.",
+      "descIt": "Conosciuta anche come Palazzo Yuntian, è un'enorme architettura in stile antico che combina l'arte architettonica cinese antica con la scultura, con enormi sculture in legno e bronzo, di grande imponenza.",
+      "descJa": "雲天宮とも呼ばれ、巨大な仿古建築群で、中国古代建築芸術と彫刻を融合。内部には巨大な木彫や銅像などがあり、壮大な雰囲気。",
+      "descKo": "윈톈궁이라고도 불리며 거대한 모조 고건축군으로 중국 고대 건축 예술과 조각이 융합되어 있으며 거대한 목조, 동조 등이 있어 웅장합니다.",
+      "descRu": "Также известен как Дворец Юньтянь — огромный комплекс зданий в древнекитайском стиле, сочетающий архитектуру и скульптуру, с гигантскими деревянными и бронзовыми скульптурами, впечатляющий размахом.",
+      "descTw": "又稱雲天宮，是一座巨型仿古建築群，融合中國古代建築藝術與雕塑，內有巨型木雕、銅雕等，氣勢恢宏。",
+      "timeDe": "08:30-17:30",
+      "timeEn": "08:30-17:30",
+      "timeEs": "08:30-17:30",
+      "timeFr": "08:30-17:30",
+      "timeIt": "08:30-17:30",
+      "timeJa": "08:30-17:30",
+      "timeKo": "08:30-17:30",
+      "timeRu": "08:30-17:30",
+      "timeTw": "08:30-17:30",
+      "priceDe": "120 Yuan",
+      "priceEn": "120 RMB",
+      "priceEs": "120 yuanes",
+      "priceFr": "120 yuans",
+      "priceIt": "120 yuan",
+      "priceJa": "120元",
+      "priceKo": "120위안",
+      "priceRu": "120 юаней",
+      "priceTw": "120元",
+      "seasonDe": "Ganzjährig",
+      "seasonEn": "All year",
+      "seasonEs": "Todo el año",
+      "seasonFr": "Toute l'année",
+      "seasonIt": "Tutto l'anno",
+      "seasonJa": "年間",
+      "seasonKo": "연중",
+      "seasonRu": "круглый год",
+      "seasonTw": "全年"
+    },
+    {
+      "name": "玉林市博物馆",
+      "enName": "Yulin Museum",
+      "desc": "展示玉林历史文化的综合性博物馆，馆藏丰富，包括出土文物、民俗展品等，了解玉林的好去处。",
+      "enDesc": "A comprehensive museum showcasing Yulin's history and culture, with rich collections including archaeological artifacts and folk exhibits, a great place to learn about Yulin.",
+      "time": "09:00-17:00（周一闭馆）",
+      "enTime": "09:00-17:00 (Closed on Mondays)",
+      "price": "免费",
+      "enPrice": "Free",
+      "season": "全年",
+      "enSeason": "All year",
+      "level": "3A",
+      "imageUrl": null,
+      "nameDe": "Yuliner Museum",
+      "nameEn": "Yulin Museum",
+      "nameEs": "Museo de Yulin",
+      "nameFr": "Musée de Yulin",
+      "nameIt": "Museo di Yulin",
+      "nameJa": "玉林市博物館",
+      "nameKo": "위린시 박물관",
+      "nameRu": "Музей Юйлиня",
+      "nameTw": "玉林市博物館",
+      "descDe": "Ein umfassendes Museum zur Geschichte und Kultur Yulins mit reichen Sammlungen, darunter archäologische Funde und Volkskundeexponate. Ein guter Ort, um Yulin kennenzulernen.",
+      "descEn": "A comprehensive museum showcasing Yulin's history and culture, with rich collections including archaeological artifacts and folk exhibits, a great place to learn about Yulin.",
+      "descEs": "Museo integral que muestra la historia y cultura de Yulin, con ricas colecciones que incluyen artefactos desenterrados y exhibiciones folclóricas, un buen lugar para conocer Yulin.",
+      "descFr": "Musée complet présentant l'histoire et la culture de Yulin, avec une riche collection d'objets archéologiques et d'expositions folkloriques. Un bon endroit pour découvrir Yulin.",
+      "descIt": "Museo completo che mostra la storia e la cultura di Yulin, con ricche collezioni tra cui reperti archeologici e oggetti folcloristici, un buon posto per conoscere Yulin.",
+      "descJa": "玉林の歴史文化を展示する総合博物館。出土文物や民俗展示品などが豊富で、玉林を知るのに最適。",
+      "descKo": "위린의 역사 문화를 전시하는 종합 박물관으로 출토 유물, 민속 전시품 등 소장품이 풍부하여 위린을 이해하기 좋은 곳입니다.",
+      "descRu": "Комплексный музей, посвящённый истории и культуре Юйлиня, с богатой коллекцией археологических находок и этнографических экспонатов — отличное место для знакомства с городом.",
+      "descTw": "展示玉林歷史文化的綜合性博物館，館藏豐富，包括出土文物、民俗展品等，了解玉林的好去處。",
+      "timeDe": "09:00-17:00 (montags geschlossen)",
+      "timeEn": "09:00-17:00 (Closed on Mondays)",
+      "timeEs": "09:00-17:00 (cerrado los lunes)",
+      "timeFr": "09:00-17:00 (fermé le lundi)",
+      "timeIt": "09:00-17:00 (chiuso il lunedì)",
+      "timeJa": "09:00-17:00（月曜休館）",
+      "timeKo": "09:00-17:00 (월요일 휴관)",
+      "timeRu": "09:00-17:00 (закрыт по понедельникам)",
+      "timeTw": "09:00-17:00（週一閉館）",
+      "priceDe": "Kostenlos",
+      "priceEn": "Free",
+      "priceEs": "Gratis",
+      "priceFr": "Gratuit",
+      "priceIt": "Gratuito",
+      "priceJa": "無料",
+      "priceKo": "무료",
+      "priceRu": "бесплатно",
+      "priceTw": "免費",
+      "seasonDe": "Ganzjährig",
+      "seasonEn": "All year",
+      "seasonEs": "Todo el año",
+      "seasonFr": "Toute l'année",
+      "seasonIt": "Tutto l'anno",
+      "seasonJa": "年間",
+      "seasonKo": "연중",
+      "seasonRu": "круглый год",
+      "seasonTw": "全年"
+    },
+    {
+      "name": "水月岩",
+      "enName": "Shuiyue Rock",
+      "desc": "典型的喀斯特地貌景区，以奇峰、溶洞、碧水为特色，洞内钟乳石千姿百态，有“岭南第一岩”之称。",
+      "enDesc": "A typical karst landscape featuring unique peaks, caves, and clear waters. Stalactites inside the cave are in various shapes, known as 'the first rock in Lingnan'.",
+      "time": "08:00-17:00",
+      "enTime": "08:00-17:00",
+      "price": "60元",
+      "enPrice": "60 RMB",
+      "season": "全年",
+      "enSeason": "All year",
+      "level": "4A",
+      "imageUrl": null,
+      "nameDe": "Wasser-Mond-Felsen",
+      "nameEn": "Shuiyue Rock",
+      "nameEs": "Roca Shuiyue",
+      "nameFr": "Rocher Shuiyue",
+      "nameIt": "Roccia Shuiyue",
+      "nameJa": "水月岩",
+      "nameKo": "수웨옌",
+      "nameRu": "Грот Шуйюэ",
+      "nameTw": "水月岩",
+      "descDe": "Typische Karstlandschaft mit bizarren Gipfeln, Höhlen und klarem Wasser. Die Tropfsteinhöhlen sind vielfältig und werden als „Erster Felsen Lingnans“ bezeichnet.",
+      "descEn": "A typical karst landscape featuring unique peaks, caves, and clear waters. Stalactites inside the cave are in various shapes, known as 'the first rock in Lingnan'.",
+      "descEs": "Área típica de paisaje kárstico, caracterizada por picos extraños, cuevas y aguas cristalinas. Las estalactitas en las cuevas tienen formas diversas, conocido como la 'Primera Roca de Lingnan'.",
+      "descFr": "Site karstique typique, caractérisé par des pics étranges, des grottes et des eaux claires. Les stalactites dans les grottes sont de formes variées, surnommé 'Premier rocher du Lingnan'.",
+      "descIt": "Tipica area carsica caratterizzata da picchi spettacolari, grotte e acque limpide. Le stalattiti all'interno delle grotte sono di varie forme, conosciuta come la 'Prima Roccia del Lingnan'.",
+      "descJa": "典型的なカルスト地形の景勝地。奇峰、鍾乳洞、碧水が特徴で、洞内の鍾乳石は千姿万態。「嶺南第一岩」と称される。",
+      "descKo": "전형적인 카르스트 지형 경관으로 기이한 봉우리, 석회암 동굴, 맑은 물이 특징이며 동굴 안의 종유석이 천태만상으로 '링난 제일의 바위'라 불립니다.",
+      "descRu": "Типичный карстовый ландшафт с причудливыми пиками, пещерами и бирюзовой водой; сталактиты в пещерах разнообразны, известен как «первая скала Линнань».",
+      "descTw": "典型的喀斯特地貌景區，以奇峰、溶洞、碧水為特色，洞內鐘乳石千姿百態，有「嶺南第一岩」之稱。",
+      "timeDe": "08:00-17:00",
+      "timeEn": "08:00-17:00",
+      "timeEs": "08:00-17:00",
+      "timeFr": "08:00-17:00",
+      "timeIt": "08:00-17:00",
+      "timeJa": "08:00-17:00",
+      "timeKo": "08:00-17:00",
+      "timeRu": "08:00-17:00",
+      "timeTw": "08:00-17:00",
+      "priceDe": "60 Yuan",
+      "priceEn": "60 RMB",
+      "priceEs": "60 yuanes",
+      "priceFr": "60 yuans",
+      "priceIt": "60 yuan",
+      "priceJa": "60元",
+      "priceKo": "60위안",
+      "priceRu": "60 юаней",
+      "priceTw": "60元",
+      "seasonDe": "Ganzjährig",
+      "seasonEn": "All year",
+      "seasonEs": "Todo el año",
+      "seasonFr": "Toute l'année",
+      "seasonIt": "Tutto l'anno",
+      "seasonJa": "年間",
+      "seasonKo": "연중",
+      "seasonRu": "круглый год",
+      "seasonTw": "全年"
+    },
+    {
+      "name": "佛子山旅游度假区",
+      "enName": "Fozishan Tourist Resort",
+      "desc": "集山水风光、宗教文化、休闲度假于一体的景区，主峰佛子山海拔较高，可俯瞰玉林城区。",
+      "enDesc": "A scenic area integrating mountain and water scenery, religious culture, and leisure. The main peak Fozishan is high, offering a panoramic view of Yulin city.",
+      "time": "08:00-18:00",
+      "enTime": "08:00-18:00",
+      "price": "30元",
+      "enPrice": "30 RMB",
+      "season": "春秋最佳",
+      "enSeason": "Best in spring and autumn",
+      "level": "3A",
+      "imageUrl": null,
+      "nameDe": "Fozishan-Touristenresort",
+      "nameEn": "Fozishan Tourist Resort",
+      "nameEs": "Área Turística del Monte Fozishan",
+      "nameFr": "Zone touristique du mont Fozi",
+      "nameIt": "Area Turistica del Monte Fozi",
+      "nameJa": "仏子山旅遊度假区",
+      "nameKo": "포쯔산 관광 휴양지",
+      "nameRu": "Туристическая зона Фоцзышань",
+      "nameTw": "佛子山旅遊度假區",
+      "descDe": "Ein Gebiet, das Berglandschaft, religiöse Kultur und Erholung vereint. Der Hauptgipfel Fozishan ist relativ hoch und bietet einen Panoramablick auf Yulin.",
+      "descEn": "A scenic area integrating mountain and water scenery, religious culture, and leisure. The main peak Fozishan is high, offering a panoramic view of Yulin city.",
+      "descEs": "Área que integra paisajes de montaña y agua, cultura religiosa y ocio. El pico principal, Monte Fozishan, tiene una altitud considerable y ofrece vistas panorámicas de la ciudad de Yulin.",
+      "descFr": "Site intégrant paysages de montagnes et d'eau, culture religieuse et loisirs. Le pic principal, le mont Fozi, est assez élevé et offre une vue panoramique sur la ville de Yulin.",
+      "descIt": "Area che combina paesaggi montani e fluviali, cultura religiosa e svago. La vetta principale, il Monte Fozi, è relativamente alta e offre una vista panoramica sulla città di Yulin.",
+      "descJa": "山水景観、宗教文化、レジャーを一体化した景区。主峰の仏子山は標高が高く、玉林市街を一望できる。",
+      "descKo": "산수 경관, 종교 문화, 휴양이 어우러진 관광지로 주봉인 포쯔산은 해발이 높아 위린 시내를 조망할 수 있습니다.",
+      "descRu": "Курортная зона, объединяющая горные пейзажи, религиозную культуру и отдых; главная вершина Фоцзышань высока, с неё открывается панорама Юйлиня.",
+      "descTw": "集山水風光、宗教文化、休閒度假於一體的景區，主峰佛子山海拔較高，可俯瞰玉林城區。",
+      "timeDe": "08:00-18:00",
+      "timeEn": "08:00-18:00",
+      "timeEs": "08:00-18:00",
+      "timeFr": "08:00-18:00",
+      "timeIt": "08:00-18:00",
+      "timeJa": "08:00-18:00",
+      "timeKo": "08:00-18:00",
+      "timeRu": "08:00-18:00",
+      "timeTw": "08:00-18:00",
+      "priceDe": "30 Yuan",
+      "priceEn": "30 RMB",
+      "priceEs": "30 yuanes",
+      "priceFr": "30 yuans",
+      "priceIt": "30 yuan",
+      "priceJa": "30元",
+      "priceKo": "30위안",
+      "priceRu": "30 юаней",
+      "priceTw": "30元",
+      "seasonDe": "Am besten im Frühling und Herbst",
+      "seasonEn": "Best in spring and autumn",
+      "seasonEs": "Mejor en primavera y otoño",
+      "seasonFr": "Printemps et automne",
+      "seasonIt": "Migliore in primavera e autunno",
+      "seasonJa": "春秋最適",
+      "seasonKo": "봄가을 최적",
+      "seasonRu": "лучше всего весной и осенью",
+      "seasonTw": "春秋最佳"
+    },
+    {
+      "name": "鹿峰山风景区",
+      "enName": "Lufengshan Scenic Area",
+      "desc": "以喀斯特地貌、原始森林和溶洞为主，有“龙泉洞”等景点，是探险和徒步的好去处。",
+      "enDesc": "Mainly featuring karst landforms, primeval forests, and caves, with attractions like 'Longquan Cave', a good place for exploration and hiking.",
+      "time": "08:30-17:00",
+      "enTime": "08:30-17:00",
+      "price": "50元",
+      "enPrice": "50 RMB",
+      "season": "全年",
+      "enSeason": "All year",
+      "level": "4A",
+      "imageUrl": null,
+      "nameDe": "Lufengshan-Landschaftsgebiet",
+      "nameEn": "Lufengshan Scenic Area",
+      "nameEs": "Área Escénica del Monte Lufeng",
+      "nameFr": "Zone pittoresque du mont Lufeng",
+      "nameIt": "Area Scenica del Monte Lufeng",
+      "nameJa": "鹿峰山風景区",
+      "nameKo": "루펑산 풍경구",
+      "nameRu": "Живописный район Лудэншань",
+      "nameTw": "鹿峰山風景區",
+      "descDe": "Geprägt von Karstlandschaft, Urwald und Höhlen. Zu den Sehenswürdigkeiten gehört die „Drachenquellhöhle“. Ein guter Ort für Abenteuer und Wanderungen.",
+      "descEn": "Mainly featuring karst landforms, primeval forests, and caves, with attractions like 'Longquan Cave', a good place for exploration and hiking.",
+      "descEs": "Principalmente paisaje kárstico, bosque virgen y cuevas, con atracciones como la 'Cueva del Dragón de la Fuente', ideal para exploración y senderismo.",
+      "descFr": "Principalement composée de relief karstique, de forêts primaires et de grottes, avec des sites comme la grotte Longquan. Idéal pour l'exploration et la randonnée.",
+      "descIt": "Principalmente paesaggio carsico, foresta primordiale e grotte, con attrazioni come la 'Grotta della Sorgente del Drago', ideale per l'esplorazione e il trekking.",
+      "descJa": "カルスト地形、原生林、鍾乳洞が主体で、「龍泉洞」などの景勝がある。探検やハイキングに最適。",
+      "descKo": "카르스트 지형, 원시림, 석회암 동굴이 주를 이루며 '룽취안 동굴' 등의 명소가 있어 탐험과 트레킹에 좋습니다.",
+      "descRu": "Карстовый ландшафт, первобытный лес и пещеры, включая «Пещеру драконьего источника» — отличное место для приключений и пеших прогулок.",
+      "descTw": "以喀斯特地貌、原始森林和溶洞為主，有「龍泉洞」等景點，是探險和徒步的好去處。",
+      "timeDe": "08:30-17:00",
+      "timeEn": "08:30-17:00",
+      "timeEs": "08:30-17:00",
+      "timeFr": "08:30-17:00",
+      "timeIt": "08:30-17:00",
+      "timeJa": "08:30-17:00",
+      "timeKo": "08:30-17:00",
+      "timeRu": "08:30-17:00",
+      "timeTw": "08:30-17:00",
+      "priceDe": "50 Yuan",
+      "priceEn": "50 RMB",
+      "priceEs": "50 yuanes",
+      "priceFr": "50 yuans",
+      "priceIt": "50 yuan",
+      "priceJa": "50元",
+      "priceKo": "50위안",
+      "priceRu": "50 юаней",
+      "priceTw": "50元",
+      "seasonDe": "Ganzjährig",
+      "seasonEn": "All year",
+      "seasonEs": "Todo el año",
+      "seasonFr": "Toute l'année",
+      "seasonIt": "Tutto l'anno",
+      "seasonJa": "年間",
+      "seasonKo": "연중",
+      "seasonRu": "круглый год",
+      "seasonTw": "全年"
+    },
+    {
+      "name": "大容山国家森林公园",
+      "enName": "Darongshan National Forest Park",
+      "desc": "桂东南第一高峰，森林茂密，有高山草甸、瀑布、溪流等景观，被誉为“南方北欧”。",
+      "enDesc": "The highest peak in southeastern Guangxi, with dense forests, alpine meadows, waterfalls, and streams, known as 'Southern Nordic'.",
+      "time": "08:00-17:00",
+      "enTime": "08:00-17:00",
+      "price": "60元",
+      "enPrice": "60 RMB",
+      "season": "夏秋最佳",
+      "enSeason": "Best in summer and autumn",
+      "level": "4A",
+      "imageUrl": null,
+      "nameDe": "Darongshan-Nationalpark",
+      "nameEn": "Darongshan National Forest Park",
+      "nameEs": "Parque Forestal Nacional del Monte Darong",
+      "nameFr": "Parc forestier national de Darongshan",
+      "nameIt": "Parco Forestale Nazionale del Monte Darong",
+      "nameJa": "大容山国家森林公園",
+      "nameKo": "다룽산 국립삼림공원",
+      "nameRu": "Национальный лесной парк Дажуншань",
+      "nameTw": "大容山國家森林公園",
+      "descDe": "Der höchste Gipfel im Südosten Guangxis mit dichten Wäldern, alpinen Wiesen, Wasserfällen und Bächen. Wird als „Nordeuropa des Südens“ bezeichnet.",
+      "descEn": "The highest peak in southeastern Guangxi, with dense forests, alpine meadows, waterfalls, and streams, known as 'Southern Nordic'.",
+      "descEs": "El pico más alto del sureste de Guangxi, con bosques densos, praderas alpinas, cascadas y arroyos, conocido como el 'Norte de Europa del Sur'.",
+      "descFr": "Le plus haut sommet du sud-est du Guangxi, avec des forêts denses, des prairies alpines, des cascades et des ruisseaux. Surnommé 'la Scandinavie du Sud'.",
+      "descIt": "La vetta più alta del Guangxi sud-orientale, con fitte foreste, prati alpini, cascate e ruscelli, soprannominato 'la Scandinavia del Sud'.",
+      "descJa": "桂東南の最高峰で、森林が茂り、高山草原、滝、渓流などの景観がある。「南方の北欧」と称される。",
+      "descKo": "광시 동남부 최고봉으로 숲이 울창하고 고산 초원, 폭포, 계류 등 경관이 있어 '남방의 북유럽'이라 불립니다.",
+      "descRu": "Самая высокая вершина юго-восточного Гуанси, густые леса, горные луга, водопады, ручьи — прозван «южной Скандинавией».",
+      "descTw": "桂東南第一高峰，森林茂密，有高山草甸、瀑布、溪流等景觀，被譽為「南方北歐」。",
+      "timeDe": "08:00-17:00",
+      "timeEn": "08:00-17:00",
+      "timeEs": "08:00-17:00",
+      "timeFr": "08:00-17:00",
+      "timeIt": "08:00-17:00",
+      "timeJa": "08:00-17:00",
+      "timeKo": "08:00-17:00",
+      "timeRu": "08:00-17:00",
+      "timeTw": "08:00-17:00",
+      "priceDe": "60 Yuan",
+      "priceEn": "60 RMB",
+      "priceEs": "60 yuanes",
+      "priceFr": "60 yuans",
+      "priceIt": "60 yuan",
+      "priceJa": "60元",
+      "priceKo": "60위안",
+      "priceRu": "60 юаней",
+      "priceTw": "60元",
+      "seasonDe": "Am besten im Sommer und Herbst",
+      "seasonEn": "Best in summer and autumn",
+      "seasonEs": "Mejor en verano y otoño",
+      "seasonFr": "Été et automne",
+      "seasonIt": "Migliore in estate e autunno",
+      "seasonJa": "夏秋最適",
+      "seasonKo": "여름가을 최적",
+      "seasonRu": "лучше всего летом и осенью",
+      "seasonTw": "夏秋最佳"
+    }
+  ],
+  "history": [
+    {
+      "year": "公元前214年",
+      "title": "秦朝设立桂林郡",
+      "desc": "秦始皇统一岭南后，玉林地区属桂林郡，标志着中原政权对玉林管辖的开始。",
+      "enYear": "公元前214年",
+      "enTitle": "Establishment of Guilin Commandery in Qin Dynasty",
+      "enDesc": "After Qin Shi Huang unified Lingnan, the Yulin area became part of Guilin Commandery, marking the beginning of central rule over Yulin.",
+      "yearDe": "214 v. Chr.",
+      "yearEn": "公元前214年",
+      "yearEs": "214 a.C.",
+      "yearFr": "214 av. J.-C.",
+      "yearIt": "214 a.C.",
+      "yearJa": "紀元前214年",
+      "yearKo": "기원전 214년",
+      "yearRu": "214 г. до н. э.",
+      "yearTw": "公元前214年",
+      "titleDe": "Einrichtung der Präfektur Guilin in der Qin-Dynastie",
+      "titleEn": "Establishment of Guilin Commandery in Qin Dynasty",
+      "titleEs": "Establecimiento de la Comandancia de Guilin por la dinastía Qin",
+      "titleFr": "Création de la commanderie de Guilin sous la dynastie Qin",
+      "titleIt": "Istituzione della Comanderia di Guilin da parte della dinastia Qin",
+      "titleJa": "秦朝による桂林郡設置",
+      "titleKo": "진나라 계림군 설치",
+      "titleRu": "Династия Цинь основала округ Гуйлинь",
+      "titleTw": "秦朝設立桂林郡",
+      "descDe": "Nach der Vereinigung Lingnans durch Qin Shihuang gehörte die Region Yulin zur Präfektur Guilin, was den Beginn der Verwaltung durch das zentrale chinesische Reich markierte.",
+      "descEn": "After Qin Shi Huang unified Lingnan, the Yulin area became part of Guilin Commandery, marking the beginning of central rule over Yulin.",
+      "descEs": "Después de la unificación de Lingnan por Qin Shihuang, el área de Yulin perteneció a la Comandancia de Guilin, marcando el inicio del control del gobierno central sobre Yulin.",
+      "descFr": "Après l'unification du Lingnan par Qin Shi Huang, la région de Yulin fut rattachée à la commanderie de Guilin, marquant le début de l'administration chinoise sur Yulin.",
+      "descIt": "Dopo che Qin Shi Huang unificò il Lingnan, l'area di Yulin appartenne alla Comanderia di Guilin, segnando l'inizio del dominio dell'impero cinese su Yulin.",
+      "descJa": "秦の始皇帝が嶺南を統一後、玉林地域は桂林郡に属し、中原政権による玉林統治の始まり。",
+      "descKo": "진시황이 링난을 통일한 후 위린 지역은 계림군에 속하게 되어 중원 정권의 위린 관할 시작을 알렸습니다.",
+      "descRu": "После объединения Линнаня Цинь Шихуаном территория Юйлиня вошла в состав округа Гуйлинь, что положило начало управлению из центра.",
+      "descTw": "秦始皇統一嶺南後，玉林地區屬桂林郡，標誌著中原政權對玉林管轄的開始。"
+    },
+    {
+      "year": "公元666年",
+      "title": "唐代设郁林州",
+      "desc": "唐高宗时期设置郁林州，玉林成为州治所在地，行政地位提升。",
+      "enYear": "公元666年",
+      "enTitle": "Establishment of Yulin Prefecture in Tang Dynasty",
+      "enDesc": "During the reign of Emperor Gaozong of Tang, Yulin Prefecture was established, and Yulin became its seat, elevating its administrative status.",
+      "yearDe": "666 n. Chr.",
+      "yearEn": "公元666年",
+      "yearEs": "666 d.C.",
+      "yearFr": "666",
+      "yearIt": "666 d.C.",
+      "yearJa": "666年",
+      "yearKo": "666년",
+      "yearRu": "666 г.",
+      "yearTw": "公元666年",
+      "titleDe": "Einrichtung der Präfektur Yulin in der Tang-Dynastie",
+      "titleEn": "Establishment of Yulin Prefecture in Tang Dynasty",
+      "titleEs": "Establecimiento de la Prefectura de Yulin en la dinastía Tang",
+      "titleFr": "Création de la préfecture de Yulin sous la dynastie Tang",
+      "titleIt": "Istituzione della Prefettura di Yulin nella dinastia Tang",
+      "titleJa": "唐代に鬱林州設置",
+      "titleKo": "당나라 위린주 설치",
+      "titleRu": "При династии Тан основана область Юйлинь",
+      "titleTw": "唐代設鬱林州",
+      "descDe": "Während der Herrschaft von Kaiser Gaozong der Tang-Dynastie wurde die Präfektur Yulin eingerichtet, und Yulin wurde zum Verwaltungssitz, was seinen administrativen Status erhöhte.",
+      "descEn": "During the reign of Emperor Gaozong of Tang, Yulin Prefecture was established, and Yulin became its seat, elevating its administrative status.",
+      "descEs": "Durante el reinado del emperador Gaozong de Tang, se estableció la Prefectura de Yulin, y Yulin se convirtió en la sede de la prefectura, elevando su estatus administrativo.",
+      "descFr": "Sous l'empereur Gaozong des Tang, la préfecture de Yulin fut établie, et Yulin devint le siège de la préfecture, élevant son statut administratif.",
+      "descIt": "Sotto l'imperatore Gaozong dei Tang fu istituita la Prefettura di Yulin, e Yulin divenne la sede della prefettura, elevando il suo status amministrativo.",
+      "descJa": "唐高宗の時代に鬱林州が設置され、玉林が州治所在地となり、行政的地位が向上。",
+      "descKo": "당 고종 시기에 위린주가 설치되어 위린이 주의 소재지가 되면서 행정적 지위가 상승했습니다.",
+      "descRu": "При императоре Гаоцзуне создана область Юйлинь, Юйлинь стал административным центром, повысив свой статус.",
+      "descTw": "唐高宗時期設置鬱林州，玉林成為州治所在地，行政地位提升。"
+    },
+    {
+      "year": "1997年",
+      "title": "玉林撤地设市",
+      "desc": "1997年4月，玉林地区撤销，设立地级玉林市，开启现代化城市发展新阶段。",
+      "enYear": "1997年",
+      "enTitle": "Yulin Upgraded to Prefecture-level City",
+      "enDesc": "In April 1997, Yulin Prefecture was abolished and Yulin was established as a prefecture-level city, ushering in a new phase of modern urban development.",
+      "yearDe": "1997",
+      "yearEn": "1997年",
+      "yearEs": "1997",
+      "yearFr": "1997",
+      "yearIt": "1997",
+      "yearJa": "1997年",
+      "yearKo": "1997년",
+      "yearRu": "1997 г.",
+      "yearTw": "1997年",
+      "titleDe": "Umwandlung Yulins in eine bezirksfreie Stadt",
+      "titleEn": "Yulin Upgraded to Prefecture-level City",
+      "titleEs": "Yulin se convierte en ciudad a nivel de prefectura",
+      "titleFr": "Yulin devient une ville-préfecture",
+      "titleIt": "Yulin diventa città a livello di prefettura",
+      "titleJa": "玉林の地区から地級市へ",
+      "titleKo": "위린 지구 철폐 및 시 승격",
+      "titleRu": "Преобразование Юйлиня в город окружного значения",
+      "titleTw": "玉林撤地設市",
+      "descDe": "Im April 1997 wurde die Region Yulin aufgelöst und die bezirksfreie Stadt Yulin gegründet, was eine neue Phase der modernen Stadtentwicklung einleitete.",
+      "descEn": "In April 1997, Yulin Prefecture was abolished and Yulin was established as a prefecture-level city, ushering in a new phase of modern urban development.",
+      "descEs": "En abril de 1997, la región de Yulin fue disuelta y se estableció la ciudad-prefectura de Yulin, iniciando una nueva etapa de desarrollo urbano moderno.",
+      "descFr": "En avril 1997, la région de Yulin fut dissoute et la ville-préfecture de Yulin fut créée, ouvrant une nouvelle phase de développement urbain moderne.",
+      "descIt": "Nell'aprile 1997, la regione di Yulin fu abolita e fu istituita la città di Yulin a livello di prefettura, inaugurando una nuova fase di sviluppo urbano moderno.",
+      "descJa": "1997年4月、玉林地区が廃止され、地級市の玉林市が設立され、近代的な都市発展の新段階へ。",
+      "descKo": "1997년 4월, 위린 지구가 철폐되고 지급시인 위린시가 설치되어 현대적 도시 발전의 새로운 단계를 열었습니다.",
+      "descRu": "В апреле 1997 года округ Юйлинь был упразднён, основан городской округ Юйлинь, начался этап современного городского развития.",
+      "descTw": "1997年4月，玉林地區撤銷，設立地級玉林市，開啟現代化城市發展新階段。"
+    }
+  ],
+  "food": [
+    {
+      "name": "玉林牛巴",
+      "enName": "Yulin Beef Jerky",
+      "desc": "玉林传统名小吃，以牛肉腌制后烘烤而成，色泽油亮，肉质干香有嚼劲，甜咸适中。",
+      "enDesc": "Traditional Yulin snack made by marinating beef and then baking it. It has a glossy color, dry and chewy texture, with a balanced sweet and salty flavor.",
+      "price": "50-80元/斤",
+      "pinyin": "Yùlín Niúbā",
+      "ingredients": "牛肉、糖、盐、香料",
+      "enIngredients": "Beef, sugar, salt, spices",
+      "imageUrl": null,
+      "nameDe": "Yuliner Rinderstreifen",
+      "nameEn": "Yulin Beef Jerky",
+      "nameEs": "Carne de res seca de Yulin",
+      "nameFr": "Bœuf séché de Yulin",
+      "nameIt": "Manzo Essiccato di Yulin",
+      "nameJa": "玉林牛バー",
+      "nameKo": "위린 누우바",
+      "nameRu": "Юйлиньская говядина-бао",
+      "nameTw": "玉林牛巴",
+      "descDe": "Ein traditioneller Snack aus Yulin. Rindfleisch wird mariniert und geröstet, ergibt eine ölig glänzende, trockene und zähe Textur mit süß-salzigem Geschmack.",
+      "descEn": "Traditional Yulin snack made by marinating beef and then baking it. It has a glossy color, dry and chewy texture, with a balanced sweet and salty flavor.",
+      "descEs": "Plato tradicional de Yulin, elaborado con carne de res marinada y luego horneada, de color brillante, textura seca y masticable, sabor agridulce equilibrado.",
+      "descFr": "En-cas traditionnel de Yulin, préparé en faisant mariner du bœuf puis en le faisant griller. Il est brillant, sec et moelleux, avec un goût sucré-salé équilibré.",
+      "descIt": "Famoso spuntino tradizionale di Yulin, a base di manzo marinato e poi arrostito, di colore lucido, carne secca e gommosa, con un sapore dolce-salato equilibrato.",
+      "descJa": "玉林伝統の軽食。牛肉を漬け込んで焼き上げたもので、色艶よく、肉は乾いて歯ごたえがあり、甘辛い味。",
+      "descKo": "위린 전통 명소시로 쇠고기를 양념해 구운 것으로 윤기가 흐르고 육질이 건조하며 쫄깃하고 달콤짭짤합니다.",
+      "descRu": "Традиционная закуска Юйлиня: говядина маринуется и запекается, получается маслянистой, сухой, жевательной, с приятным сладко-солёным вкусом.",
+      "descTw": "玉林傳統名小吃，以牛肉醃製後烘烤而成，色澤油亮，肉質乾香有嚼勁，甜鹹適中。"
+    },
+    {
+      "name": "博白空心菜",
+      "enName": "Bobai Water Spinach",
+      "desc": "博白县特产，茎中空，口感脆嫩，可清炒或蒜蓉，是玉林人餐桌上的常见蔬菜。",
+      "enDesc": "A specialty of Bobai County, with hollow stems, crisp and tender texture. It can be stir-fried plain or with garlic, a common vegetable on Yulin tables.",
+      "price": "5-10元/斤",
+      "pinyin": "Bóbái Kōngxīncài",
+      "ingredients": "空心菜、蒜、油",
+      "enIngredients": "Water spinach, garlic, oil",
+      "imageUrl": null,
+      "nameDe": "Bobaler Wasserspinat",
+      "nameEn": "Bobai Water Spinach",
+      "nameEs": "Espinaca de agua de Bobai",
+      "nameFr": "Liseron d'eau de Bobai",
+      "nameIt": "Spinaci d'Acqua di Bobai",
+      "nameJa": "博白空心菜",
+      "nameKo": "보바이 공심채",
+      "nameRu": "Болайский водяной шпинат",
+      "nameTw": "博白空心菜",
+      "descDe": "Spezialität aus Bobai. Die Stängel sind hohl, die Blätter knackig und zart. Sie werden meist gebraten oder mit Knoblauch zubereitet und sind ein häufiges Gemüse auf dem Yuliner Tisch.",
+      "descEn": "A specialty of Bobai County, with hollow stems, crisp and tender texture. It can be stir-fried plain or with garlic, a common vegetable on Yulin tables.",
+      "descEs": "Producto típico del condado de Bobai, tallo hueco, textura crujiente y tierna, se puede saltear o con ajo, verdura común en la mesa de Yulin.",
+      "descFr": "Spécialité du comté de Bobai, tige creuse, texture croquante et tendre. Peut être sauté à l'ail ou en version simple, légume courant sur la table des habitants de Yulin.",
+      "descIt": "Specialità della contea di Bobai, gambi cavi, croccanti e teneri, possono essere saltati in padella o con aglio, sono una verdura comune sulla tavola di Yulin.",
+      "descJa": "博白県の特産。茎が中空で、食感はシャキシャキ。炒め物やニンニク和えに。玉林の食卓でよく見かける野菜。",
+      "descKo": "보바이현 특산물로 줄기가 비어 있고 식감이 아삭하며 볶음이나 마늘볶음으로 먹으며 위린 사람들의 식탁에 자주 오릅니다.",
+      "descRu": "Специалитет уезда Болай: стебли полые, хрустящие и нежные, готовятся на пару или с чесноком — частое блюдо на столе жителей Юйлиня.",
+      "descTw": "博白縣特產，莖中空，口感脆嫩，可清炒或蒜蓉，是玉林人餐桌上的常見蔬菜。"
+    },
+    {
+      "name": "陆川猪脚",
+      "enName": "Luchuan Pig Trotters",
+      "desc": "陆川县特色菜，猪脚经卤制或红烧，皮软肉烂，胶原蛋白丰富，味道浓郁。",
+      "enDesc": "A specialty of Luchuan County, pig trotters are braised or red-cooked until the skin is soft and meat tender, rich in collagen, with a strong flavor.",
+      "price": "40-60元/份",
+      "pinyin": "Lùchuān Zhūjiǎo",
+      "ingredients": "猪脚、酱油、糖、八角",
+      "enIngredients": "Pig trotters, soy sauce, sugar, star anise",
+      "imageUrl": null,
+      "nameDe": "Luchuaner Schweinefüße",
+      "nameEn": "Luchuan Pig Trotters",
+      "nameEs": "Codillo de cerdo de Luchuan",
+      "nameFr": "Pied de porc de Luchuan",
+      "nameIt": "Zampone di Luchuan",
+      "nameJa": "陸川豚足",
+      "nameKo": "루촨 돼지족",
+      "nameRu": "Лучуаньские свиные ножки",
+      "nameTw": "陸川豬腳",
+      "descDe": "Spezialität aus Luchuan. Die Schweinefüße werden geschmort oder gebraten, die Haut ist weich, das Fleisch zart, reich an Kollagen und von kräftigem Geschmack.",
+      "descEn": "A specialty of Luchuan County, pig trotters are braised or red-cooked until the skin is soft and meat tender, rich in collagen, with a strong flavor.",
+      "descEs": "Plato característico del condado de Luchuan, codillo de cerdo estofado o asado, piel suave y carne tierna, rico en colágeno, sabor intenso.",
+      "descFr": "Plat typique du comté de Luchuan, le pied de porc est braisé ou cuit à la sauce soja, la peau est tendre et la viande fondante, riche en collagène, saveur prononcée.",
+      "descIt": "Piatto tipico della contea di Luchuan, lo zampone viene brasato o stufato, con pelle morbida e carne tenera, ricco di collagene, dal sapore intenso.",
+      "descJa": "陸川県の名物料理。豚足を煮込みまたは紅焼きに。皮は柔らかく、肉はとろける。コラーゲン豊富で濃厚な味わい。",
+      "descKo": "루촨현 특색 요리로 돼지족을 조리거나 붉은색으로 조려 껍질은 부드럽고 고기는 연하며 콜라겐이 풍부하고 맛이 진합니다.",
+      "descRu": "Фирменное блюдо уезда Лучуань: свиные ножки тушатся в соевом соусе или готовятся по-красному, кожа мягкая, мясо нежное, богато коллагеном, насыщенный вкус.",
+      "descTw": "陸川縣特色菜，豬腳經滷製或紅燒，皮軟肉爛，膠原蛋白豐富，味道濃郁。"
+    },
+    {
+      "name": "玉林牛腩粉",
+      "enName": "Yulin Beef Brisket Rice Noodles",
+      "desc": "玉林经典早餐，牛腩炖至软烂，汤底浓郁，搭配细滑的米粉，撒上葱花和花生。",
+      "enDesc": "A classic Yulin breakfast, beef brisket stewed until tender, rich broth, served with smooth rice noodles, topped with scallions and peanuts.",
+      "price": "10-15元/碗",
+      "pinyin": "Yùlín Niúnǎn Fěn",
+      "ingredients": "牛腩、米粉、香料、葱花",
+      "enIngredients": "Beef brisket, rice noodles, spices, scallions",
+      "imageUrl": null,
+      "nameDe": "Yuliner Rindfleischnudelsuppe",
+      "nameEn": "Yulin Beef Brisket Rice Noodles",
+      "nameEs": "Sopa de fideos con carne de res de Yulin",
+      "nameFr": "Nouilles de riz au plat de côtes de bœuf de Yulin",
+      "nameIt": "Spaghetti di Riso con Petto di Manzo di Yulin",
+      "nameJa": "玉林牛腩粉",
+      "nameKo": "위린 소힘줄 쌀국수",
+      "nameRu": "Юйлиньский суп с говяжьей грудинкой и рисовой лапшой",
+      "nameTw": "玉林牛腩粉",
+      "descDe": "Ein klassisches Frühstück in Yulin. Das Rindfleisch wird weich gekocht, die Brühe ist reichhaltig, serviert mit feinen Reisnudeln, bestreut mit Frühlingszwiebeln und Erdnüssen.",
+      "descEn": "A classic Yulin breakfast, beef brisket stewed until tender, rich broth, served with smooth rice noodles, topped with scallions and peanuts.",
+      "descEs": "Desayuno clásico de Yulin, carne de res estofada hasta quedar tierna, caldo rico, acompañado de fideos finos y suaves, espolvoreado con cebolla verde y maní.",
+      "descFr": "Petit-déjeuner classique de Yulin, les côtes de bœuf sont mijotées jusqu'à ce qu'elles soient tendres, le bouillon est riche, accompagné de nouilles de riz fines, garni d'oignons verts et de cacahuètes.",
+      "descIt": "Colazione classica di Yulin, petto di manzo stufato fino a diventare tenero, brodo ricco, servito con spaghetti di riso fini, guarnito con cipollotti e arachidi.",
+      "descJa": "玉林の定番朝食。牛スジ肉を柔らかく煮込み、スープは濃厚。細い米粉麺に、ネギとピーナッツをのせる。",
+      "descKo": "위린의 대표적인 아침 식사로 소힘줄을 푹 삶아 육수가 진하고 부드러운 쌀국수에 파와 땅콩을 뿌립니다.",
+      "descRu": "Классический завтрак в Юйлине: говяжья грудинка тушится до мягкости, бульон насыщенный, подаётся с тонкой рисовой лапшой, посыпается зелёным луком и арахисом.",
+      "descTw": "玉林經典早餐，牛腩燉至軟爛，湯底濃郁，搭配細滑的米粉，撒上蔥花和花生。"
+    },
+    {
+      "name": "玉林荔枝狗肉",
+      "enName": "Yulin Lychee Dog Meat",
+      "desc": "玉林狗肉节特色菜，狗肉与荔枝同煮，狗肉温补，荔枝清甜，风味独特，但颇具争议。",
+      "enDesc": "A specialty of Yulin Dog Meat Festival, dog meat cooked with lychees. Dog meat is warming and nourishing, lychees are sweet, creating a unique flavor, though controversial.",
+      "price": "80-150元/份",
+      "pinyin": "Yùlín Lìzhī Gǒuròu",
+      "ingredients": "狗肉、荔枝、姜、酒",
+      "enIngredients": "Dog meat, lychee, ginger, wine",
+      "imageUrl": null,
+      "nameDe": "Yuliner Litschihundefleisch",
+      "nameEn": "Yulin Lychee Dog Meat",
+      "nameEs": "Perro con lichi de Yulin",
+      "nameFr": "Viande de chien au litchi de Yulin",
+      "nameIt": "Carne di Cane con Litchi di Yulin",
+      "nameJa": "玉林荔枝犬肉",
+      "nameKo": "위린 여지 개고기",
+      "nameRu": "Юйлиньское собачье мясо с личи",
+      "nameTw": "玉林荔枝狗肉",
+      "descDe": "Spezialität des Yuliner Hundefleischfests. Hundefleisch wird mit Litschis gekocht. Das Hundefleisch wärmt, die Litschis sind süß und erfrischend. Der Geschmack ist einzigartig, aber umstritten.",
+      "descEn": "A specialty of Yulin Dog Meat Festival, dog meat cooked with lychees. Dog meat is warming and nourishing, lychees are sweet, creating a unique flavor, though controversial.",
+      "descEs": "Plato especial del Festival del Perro de Yulin, perro cocido con lichi, el perro es tonificante y el lichi dulce, sabor único pero controvertido.",
+      "descFr": "Plat spécial du Festival de la viande de chien de Yulin, la viande de chien est cuite avec des litchis. La viande de chien est réchauffante, le litchi est doux, la saveur est unique mais controversée.",
+      "descIt": "Piatto speciale del Festival della Carne di Cane di Yulin, carne di cane cotta con litchi, la carne di cane è riscaldante, il litchi è dolce e rinfrescante, sapore unico ma controverso.",
+      "descJa": "玉林犬肉祭りの名物料理。犬肉とライチを一緒に煮込む。犬肉は体を温め、ライチは甘く清涼感があり、風味は独特だが議論を呼ぶ。",
+      "descKo": "위린 개고기 축제 특색 요리로 개고기와 여지를 함께 끓인 것으로 개고기는 따뜻하고 여지는 달콤하며 독특한 풍미를 지니지만 논란이 있습니다.",
+      "descRu": "Фирменное блюдо Фестиваля собачьего мяса: собачье мясо варится с личи, согревающее, личи сладкие — вкус уникальный, но блюдо спорное.",
+      "descTw": "玉林狗肉節特色菜，狗肉與荔枝同煮，狗肉溫補，荔枝清甜，風味獨特，但頗具爭議。"
+    },
+    {
+      "name": "容县沙田柚",
+      "enName": "Rongxian Shatian Pomelo",
+      "desc": "容县特产，果大皮薄，果肉清甜多汁，有“天然罐头”之称，是国家地理标志产品。",
+      "enDesc": "A specialty of Rong County, with large fruit and thin skin, the flesh is sweet and juicy, known as 'natural canned fruit', a national geographical indication product.",
+      "price": "10-20元/个",
+      "pinyin": "Róngxiàn Shātián Yòu",
+      "ingredients": "柚子",
+      "enIngredients": "Pomelo",
+      "imageUrl": null,
+      "nameDe": "Rongxianer Shantian-Pampelmuse",
+      "nameEn": "Rongxian Shatian Pomelo",
+      "nameEs": "Pomelo Shatian de Rongxian",
+      "nameFr": "Pomelo de Rongxian",
+      "nameIt": "Pompelmo di Shatian di Rongxian",
+      "nameJa": "容県沙田柚",
+      "nameKo": "룽현 사탕유자",
+      "nameRu": "Жунсяньский помело Шатянь",
+      "nameTw": "容縣沙田柚",
+      "descDe": "Spezialität aus Rongxian. Die Früchte sind groß, die Schale dünn, das Fruchtfleisch süß und saftig. Sie wird als „natürliche Konserve“ bezeichnet und ist ein Produkt mit geografischer Herkunftsangabe.",
+      "descEn": "A specialty of Rong County, with large fruit and thin skin, the flesh is sweet and juicy, known as 'natural canned fruit', a national geographical indication product.",
+      "descEs": "Producto típico del condado de Rongxian, fruta grande con cáscara fina, pulpa dulce y jugosa, conocido como 'lata natural', producto con indicación geográfica nacional.",
+      "descFr": "Spécialité du comté de Rongxian, fruit gros à peau fine, chair sucrée et juteuse, surnommé 'conserve naturelle', produit bénéficiant d'une indication géographique nationale.",
+      "descIt": "Specialità della contea di Rongxian, frutto grande con buccia sottile, polpa dolce e succosa, conosciuto come 'lattina naturale', prodotto con indicazione geografica nazionale.",
+      "descJa": "容県の特産。果実は大きく皮が薄く、果肉は甘くてジューシー。「天然の缶詰」と呼ばれ、国家地理標識産品。",
+      "descKo": "룽현 특산물로 과일이 크고 껍질이 얇으며 과육이 달고 즙이 많아 '천연 통조림'이라 불리며 국가 지리적 표시 제품입니다.",
+      "descRu": "Специалитет уезда Жун: крупные плоды с тонкой кожурой, сочная сладкая мякоть, прозван «натуральными консервами», продукт с географическим указанием.",
+      "descTw": "容縣特產，果大皮薄，果肉清甜多汁，有「天然罐頭」之稱，是國家地理標誌產品。"
+    }
+  ],
+  "worldHeritage": [],
+  "intangibleHeritage": [
+    {
+      "name": "玉林山歌",
+      "enName": "Yulin Folk Songs",
+      "year": "2010",
+      "enYear": "2010",
+      "desc": "广西壮族自治区非物质文化遗产，以玉林方言演唱，曲调悠扬，内容多反映劳动生活与爱情。",
+      "enDesc": "Intangible cultural heritage of Guangxi Zhuang Autonomous Region, sung in Yulin dialect, with melodious tunes, often reflecting labor and love.",
+      "imageUrl": null,
+      "nameDe": "Yuliner Volkslieder",
+      "nameEn": "Yulin Folk Songs",
+      "nameEs": "Canciones populares de montaña de Yulin",
+      "nameFr": "Chansons folkloriques de Yulin",
+      "nameIt": "Canti Popolari di Yulin",
+      "nameJa": "玉林山歌",
+      "nameKo": "위린 산가",
+      "nameRu": "Народные песни Юйлиня",
+      "nameTw": "玉林山歌",
+      "descDe": "Immaterielles Kulturerbe des Autonomen Gebiets Guangxi. Gesungen im Yuliner Dialekt, mit melodischen Klängen, die oft das Arbeitsleben und die Liebe thematisieren.",
+      "descEn": "Intangible cultural heritage of Guangxi Zhuang Autonomous Region, sung in Yulin dialect, with melodious tunes, often reflecting labor and love.",
+      "descEs": "Patrimonio cultural inmaterial de la Región Autónoma Zhuang de Guangxi, cantadas en el dialecto de Yulin, melodías melodiosas, el contenido refleja la vida laboral y el amor.",
+      "descFr": "Patrimoine culturel immatériel de la région autonome du Guangxi. Chantées dans le dialecte de Yulin, les mélodies sont mélodieuses et les paroles reflètent souvent la vie et l'amour.",
+      "descIt": "Patrimonio culturale immateriale della Regione Autonoma del Guangxi Zhuang, cantati nel dialetto di Yulin, con melodie melodiose, i cui contenuti riflettono principalmente la vita lavorativa e l'amore.",
+      "descJa": "広西壮族自治区の無形文化遺産。玉林方言で歌われ、旋律は優美で、労働生活や愛情を反映した内容。",
+      "descKo": "광시 좡족 자치구 무형문화유산으로 위린 방언으로 노래하며 가락이 부드럽고 내용은 주로 노동 생활과 사랑을 반영합니다.",
+      "descRu": "Нематериальное культурное наследие Гуанси-Чжуанского автономного района; исполняются на местном диалекте, мелодии протяжные, содержание отражает труд и любовь.",
+      "descTw": "廣西壯族自治區非物質文化遺產，以玉林方言演唱，曲調悠揚，內容多反映勞動生活與愛情。"
+    },
+    {
+      "name": "博白桂南采茶戏",
+      "enName": "Bobai Guinan Tea-Picking Opera",
+      "year": "2006",
+      "enYear": "2006",
+      "desc": "国家级非物质文化遗产，融合采茶歌舞与戏曲，表演形式活泼，富有乡土气息。",
+      "enDesc": "National intangible cultural heritage, combining tea-picking songs and dances with opera, lively performance with local flavor.",
+      "imageUrl": null,
+      "nameDe": "Bobai-Guinan-Teeerntetheater",
+      "nameEn": "Bobai Guinan Tea-Picking Opera",
+      "nameEs": "Ópera de recogida de té de Guinan de Bobai",
+      "nameFr": "Opéra de cueillette de thé de Bobai (Guinan)",
+      "nameIt": "Opera di Raccolta del Tè di Guinan di Bobai",
+      "nameJa": "博白桂南採茶戯",
+      "nameKo": "보바이 구이난 차 따기 노래극",
+      "nameRu": "Болайская чайная опера Гуйнань",
+      "nameTw": "博白桂南採茶戲",
+      "descDe": "Nationales immaterielles Kulturerbe. Es vereint Teeerntegesang und -tanz mit Opern und ist lebhaft und voller ländlichem Charme.",
+      "descEn": "National intangible cultural heritage, combining tea-picking songs and dances with opera, lively performance with local flavor.",
+      "descEs": "Patrimonio cultural inmaterial nacional, fusiona danzas y cantos de recogida de té con ópera, actuación animada y llena de sabor local.",
+      "descFr": "Patrimoine culturel immatériel national. Mêlant chants et danses de cueillette de thé et opéra, la performance est vivante et empreinte de saveur locale.",
+      "descIt": "Patrimonio culturale immateriale nazionale, combina canti e danze della raccolta del tè con l'opera, forma vivace e ricca di sapore locale.",
+      "descJa": "国家級無形文化遺産。採茶歌舞と戯曲を融合。演技は生き生きとしており、田園の雰囲気に富む。",
+      "descKo": "국가급 무형문화유산으로 차 따기 노래와 춤, 희곡이 융합된 형태로 생동감 있고 향토적입니다.",
+      "descRu": "Нематериальное культурное наследие государственного уровня; сочетает песни и танцы сбора чая с оперой, живое исполнение, проникнуто местным колоритом.",
+      "descTw": "國家級非物質文化遺產，融合採茶歌舞與戲曲，表演形式活潑，富有鄉土氣息。"
+    }
+  ],
+  "transportation": [
+    {
+      "iconName": "Plane",
+      "title": "玉林福绵机场",
+      "enTitle": "Yulin Fumian Airport",
+      "desc": "位于福绵区，已开通至北京、上海、广州、深圳等主要城市的航线。",
+      "enDesc": "Located in Fumian District, with flights to major cities like Beijing, Shanghai, Guangzhou, Shenzhen.",
+      "price": "视航线而定",
+      "enPrice": "Varies by route",
+      "titleDe": "Flughafen Yulin-Fumian",
+      "titleEn": "Yulin Fumian Airport",
+      "titleEs": "Aeropuerto de Yulin Fumian",
+      "titleFr": "Aéroport de Yulin Fumian",
+      "titleIt": "Aeroporto di Yulin Fumian",
+      "titleJa": "玉林福綿空港",
+      "titleKo": "위린 푸몐 공항",
+      "titleRu": "Аэропорт Юйлинь-Фумянь",
+      "titleTw": "玉林福綿機場",
+      "descDe": "Im Stadtbezirk Fumian gelegen, bietet Flüge zu großen Städten wie Peking, Shanghai, Guangzhou und Shenzhen.",
+      "descEn": "Located in Fumian District, with flights to major cities like Beijing, Shanghai, Guangzhou, Shenzhen.",
+      "descEs": "Ubicado en el distrito de Fumian, tiene rutas a las principales ciudades como Beijing, Shanghai, Guangzhou y Shenzhen.",
+      "descFr": "Situé dans le district de Fumian, il dessert les principales villes comme Pékin, Shanghai, Guangzhou et Shenzhen.",
+      "descIt": "Situato nel distretto di Fumian, ha rotte verso le principali città come Pechino, Shanghai, Guangzhou, Shenzhen.",
+      "descJa": "福綿区に位置し、北京、上海、広州、深圳などの主要都市への路線が就航。",
+      "descKo": "푸몐구에 위치하며 베이징, 상하이, 광저우, 선전 등 주요 도시로의 노선이 개설되어 있습니다.",
+      "descRu": "Расположен в районе Фумянь, открыты рейсы в Пекин, Шанхай, Гуанчжоу, Шэньчжэнь и другие крупные города.",
+      "descTw": "位於福綿區，已開通至北京、上海、廣州、深圳等主要城市的航線。",
+      "priceDe": "Je nach Route",
+      "priceEn": "Varies by route",
+      "priceEs": "Según la ruta",
+      "priceFr": "Variable selon la ligne",
+      "priceIt": "A seconda della rotta",
+      "priceJa": "路線による",
+      "priceKo": "노선에 따라 다름",
+      "priceRu": "зависит от маршрута",
+      "priceTw": "視航線而定"
+    },
+    {
+      "iconName": "Train",
+      "title": "玉林站/玉林北站",
+      "enTitle": "Yulin Railway Station / Yulin North Railway Station",
+      "desc": "玉林站为普速站，玉林北站为高铁站（建设中）。目前普速列车可通达南宁、广州等地。",
+      "enDesc": "Yulin Station is for conventional trains, Yulin North Station for high-speed rail (under construction). Currently, conventional trains connect to Nanning, Guangzhou, etc.",
+      "price": "视车次而定",
+      "enPrice": "Varies by train",
+      "titleDe": "Bahnhof Yulin / Nordbahnhof Yulin",
+      "titleEn": "Yulin Railway Station / Yulin North Railway Station",
+      "titleEs": "Estación de Yulin / Estación de Yulin Norte",
+      "titleFr": "Gare de Yulin / Gare de Yulin Nord",
+      "titleIt": "Stazione di Yulin / Stazione Nord di Yulin",
+      "titleJa": "玉林駅／玉林北駅",
+      "titleKo": "위린역 / 위린 북역",
+      "titleRu": "Вокзалы Юйлинь и Юйлиньбэй",
+      "titleTw": "玉林站/玉林北站",
+      "descDe": "Der Bahnhof Yulin ist ein konventioneller Bahnhof, der Nordbahnhof (Hochgeschwindigkeitsbahnhof) ist im Bau. Derzeit verkehren konventionelle Züge nach Nanning, Guangzhou und anderen Orten.",
+      "descEn": "Yulin Station is for conventional trains, Yulin North Station for high-speed rail (under construction). Currently, conventional trains connect to Nanning, Guangzhou, etc.",
+      "descEs": "La estación de Yulin es para trenes convencionales, y la estación de Yulin Norte es para trenes de alta velocidad (en construcción). Actualmente, los trenes convencionales pueden llegar a Nanning, Guangzhou, etc.",
+      "descFr": "La gare de Yulin est une gare conventionnelle, la gare de Yulin Nord est une gare à grande vitesse (en construction). Actuellement, les trains conventionnels relient Nanning, Guangzhou, etc.",
+      "descIt": "La stazione di Yulin è una stazione per treni normali, la stazione Nord di Yulin è per treni ad alta velocità (in costruzione). Attualmente i treni normali possono raggiungere Nanning, Guangzhou, ecc.",
+      "descJa": "玉林駅は在来線、玉林北駅は高速鉄道駅（建設中）。現在、在来線で南寧、広州などへアクセス可能。",
+      "descKo": "위린역은 일반 열차역이고 위린 북역은 고속철도역(건설 중)입니다. 현재 일반 열차로 난닝, 광저우 등에 갈 수 있습니다.",
+      "descRu": "Юйлинь — станция обычных поездов, Юйлиньбэй — станция высокоскоростных (строится). Сейчас обычные поезда ходят до Наньнина, Гуанчжоу и др.",
+      "descTw": "玉林站為普速站，玉林北站為高鐵站（建設中）。目前普速列車可通達南寧、廣州等地。",
+      "priceDe": "Je nach Zugverbindung",
+      "priceEn": "Varies by train",
+      "priceEs": "Según el tren",
+      "priceFr": "Variable selon le train",
+      "priceIt": "A seconda del treno",
+      "priceJa": "列車による",
+      "priceKo": "차종에 따라 다름",
+      "priceRu": "зависит от поезда",
+      "priceTw": "視車次而定"
+    },
+    {
+      "iconName": "Bus",
+      "title": "玉林汽车总站",
+      "enTitle": "Yulin Bus Terminal",
+      "desc": "位于市中心，有发往广西区内各县市及周边省份的长途班车，市内公交覆盖主要区域。",
+      "enDesc": "Located in city center, with long-distance buses to cities in Guangxi and neighboring provinces. City buses cover main areas.",
+      "price": "视线路而定",
+      "enPrice": "Varies by route",
+      "titleDe": "Zentraler Busbahnhof Yulin",
+      "titleEn": "Yulin Bus Terminal",
+      "titleEs": "Terminal de Autobuses de Yulin",
+      "titleFr": "Gare routière principale de Yulin",
+      "titleIt": "Autostazione Centrale di Yulin",
+      "titleJa": "玉林汽車総駅",
+      "titleKo": "위린 버스 터미널",
+      "titleRu": "Автовокзал Юйлиня",
+      "titleTw": "玉林汽車總站",
+      "descDe": "Im Stadtzentrum gelegen, bietet Fernbusse zu Kreisen und Städten innerhalb Guangxis sowie zu benachbarten Provinzen. Stadtbusse decken die wichtigsten Gebiete ab.",
+      "descEn": "Located in city center, with long-distance buses to cities in Guangxi and neighboring provinces. City buses cover main areas.",
+      "descEs": "Ubicada en el centro de la ciudad, tiene autobuses de larga distancia a los condados y ciudades de Guangxi y provincias vecinas. Los autobuses urbanos cubren las principales áreas.",
+      "descFr": "Située au centre-ville, elle propose des lignes longue distance vers d'autres villes du Guangxi et des provinces voisines. Les bus urbains couvrent les principales zones.",
+      "descIt": "Situata nel centro città, offre autobus a lunga percorrenza per tutte le contee e città del Guangxi e province vicine, gli autobus urbani coprono le principali aree.",
+      "descJa": "市中心部に位置し、広西区内の各県市や周辺省への長距離バスを運行。市内バスは主要エリアをカバー。",
+      "descKo": "시내 중심에 위치하며 광시 내 각 현과 시, 및 주변 성으로 가는 장거리 버스가 있으며 시내 버스는 주요 지역을 운행합니다.",
+      "descRu": "Находится в центре города, есть рейсы в уезды Гуанси и соседние провинции; городские автобусы охватывают основные районы.",
+      "descTw": "位於市中心，有發往廣西區內各縣市及周邊省份的長途班車，市內公交覆蓋主要區域。",
+      "priceDe": "Je nach Linie",
+      "priceEn": "Varies by route",
+      "priceEs": "Según la ruta",
+      "priceFr": "Variable selon la ligne",
+      "priceIt": "A seconda della linea",
+      "priceJa": "路線による",
+      "priceKo": "노선에 따라 다름",
+      "priceRu": "зависит от маршрута",
+      "priceTw": "視線路而定"
+    }
+  ],
+  "bestTravelTime": {
+    "strongText": "春秋两季（3-5月、9-11月）",
+    "enStrongText": "Spring and Autumn (March-May, September-November)",
+    "paragraphs": [
+      "春季（3-5月）气温适宜，百花盛开，是游览玉林公园和郊野的好时节。",
+      "秋季（9-11月）天高气爽，降水较少，适合户外活动和品尝秋季美食。",
+      "夏季炎热多雨，冬季温和少雨，但夏季可体验狗肉节等特色活动，冬季则适合泡温泉。"
+    ],
+    "enParagraphs": [
+      "Spring (March to May) has pleasant temperatures and blooming flowers, ideal for visiting parks and countryside in Yulin.",
+      "Autumn (September to November) is clear and dry, suitable for outdoor activities and enjoying autumn delicacies.",
+      "Summer is hot and rainy, while winter is mild and dry. In summer, you can experience special events like the Dog Meat Festival; in winter, hot springs are a good choice."
+    ],
+    "strongTextDe": "Frühling und Herbst (März-Mai, September-November)",
+    "strongTextEn": "Spring and Autumn (March-May, September-November)",
+    "strongTextEs": "Primavera y Otoño (marzo-mayo, septiembre-noviembre)",
+    "strongTextFr": "Printemps et automne (mars-mai, septembre-novembre)",
+    "strongTextIt": "Primavera e autunno (marzo-maggio, settembre-novembre)",
+    "strongTextJa": "春秋（3月～5月、9月～11月）",
+    "strongTextKo": "봄과 가을 (3-5월, 9-11월)",
+    "strongTextRu": "Весна и осень (март-май, сентябрь-ноябрь)",
+    "strongTextTw": "春秋兩季（3-5月、9-11月）",
+    "paragraphsDe": [
+      "Der Frühling (März bis Mai) ist angenehm warm, überall blühen Blumen, ideal für Besuche in Parks und auf dem Land.",
+      "Der Herbst (September bis November) ist klar und trocken, geeignet für Outdoor-Aktivitäten und zum Genießen herbstlicher Köstlichkeiten.",
+      "Der Sommer ist heiß und regnerisch, der Winter mild und trocken. Im Sommer kann man besondere Veranstaltungen wie das Hundefleischfest erleben, im Winter bieten sich heiße Quellen an."
+    ],
+    "paragraphsEn": [
+      "Spring (March to May) has pleasant temperatures and blooming flowers, ideal for visiting parks and countryside in Yulin.",
+      "Autumn (September to November) is clear and dry, suitable for outdoor activities and enjoying autumn delicacies.",
+      "Summer is hot and rainy, while winter is mild and dry. In summer, you can experience special events like the Dog Meat Festival; in winter, hot springs are a good choice."
+    ],
+    "paragraphsEs": [
+      "La primavera (marzo a mayo) tiene temperaturas agradables y flores en plena floración, ideal para visitar parques y áreas rurales de Yulin.",
+      "El otoño (septiembre a noviembre) es claro y seco, adecuado para actividades al aire libre y disfrutar de delicias otoñales.",
+      "El verano es caluroso y lluvioso, mientras que el invierno es templado y seco. En verano se pueden experimentar eventos especiales como el Festival del Perro; en invierno, los baños termales son una buena opción."
+    ],
+    "paragraphsFr": [
+      "Le printemps (mars à mai) offre des températures agréables et des fleurs épanouies, idéal pour visiter les parcs et la campagne de Yulin.",
+      "L'automne (septembre à novembre) est clair et sec, propice aux activités de plein air et à la dégustation des mets automnaux.",
+      "L'été est chaud et pluvieux, tandis que l'hiver est doux et sec. En été, on peut participer à des événements spéciaux comme le Festival de la viande de chien ; en hiver, les sources chaudes sont une bonne option."
+    ],
+    "paragraphsIt": [
+      "In primavera (marzo-maggio) le temperature sono piacevoli, i fiori sbocciano, è il periodo ideale per visitare i parchi e la campagna di Yulin.",
+      "In autunno (settembre-novembre) il cielo è sereno e le piogge scarse, adatto per attività all'aperto e per gustare le prelibatezze autunnali.",
+      "L'estate è calda e piovosa, l'inverno mite e secco. In estate si può partecipare a eventi speciali come il Festival della Carne di Cane; in inverno sono consigliate le terme."
+    ],
+    "paragraphsJa": [
+      "春（3月～5月）は気温が快適で花が咲き乱れ、公園や郊外を訪れるのに最適。",
+      "秋（9月～11月）は晴天が続き、雨が少なく、アウトドア活動や秋の味覚を楽しむのに適している。",
+      "夏は暑くて雨が多いが、犬肉祭りなどのイベントを体験できる。冬は温暖で雨が少なく、温泉に最適。"
+    ],
+    "paragraphsKo": [
+      "봄(3-5월)은 기온이 쾌적하고 꽃이 만발하여 위린의 공원과 교외를 방문하기 좋은 시기입니다.",
+      "가을(9-11월)은 하늘이 높고 쾌청하며 강수량이 적어 야외 활동과 가을 별미를 즐기기에 적합합니다.",
+      "여름은 덥고 비가 많으며 겨울은 온화하고 건조하지만 여름에는 개고기 축제 등 특별한 활동을 체험할 수 있고 겨울에는 온천을 즐기기에 좋습니다."
+    ],
+    "paragraphsRu": [
+      "Весной (март-май) комфортная температура, цветут цветы — хорошее время для посещения парков и загородных мест.",
+      "Осенью (сентябрь-ноябрь) ясная и сухая погода, подходит для активного отдыха и дегустации осенних блюд.",
+      "Летом жарко и дождливо, зимой мягко и сухо, но летом можно посетить Фестиваль собачьего мяса, а зимой — горячие источники."
+    ],
+    "paragraphsTw": [
+      "春季（3-5月）氣溫適宜，百花盛開，是遊覽玉林公園和郊野的好時節。",
+      "秋季（9-11月）天高氣爽，降水較少，適合戶外活動和品嚐秋季美食。",
+      "夏季炎熱多雨，冬季溫和少雨，但夏季可體驗狗肉節等特色活動，冬季則適合泡溫泉。"
+    ]
+  },
+  "info": {
+    "area": "12,838平方公里",
+    "areaDe": "12.838 km²",
+    "areaEn": "12,838 square kilometers",
+    "areaEs": "12,838 km²",
+    "areaFr": "12 838 km²",
+    "areaIt": "12.838 km²",
+    "areaJa": "12,838平方キロメートル",
+    "areaKo": "12,838km²",
+    "areaRu": "12 838 км²",
+    "areaTw": "12,838平方公里",
+    "population": "约740万人",
+    "populationDe": "ca. 7,4 Millionen",
+    "populationEn": "Approximately 7.4 million",
+    "populationEs": "Aproximadamente 7.4 millones de habitantes",
+    "populationFr": "Environ 7,4 millions d'habitants",
+    "populationIt": "Circa 7,4 milioni",
+    "populationJa": "約740万人",
+    "populationKo": "약 740만 명",
+    "populationRu": "около 7,4 млн человек",
+    "populationTw": "約740萬人"
+  },
+  "translations": {
+    "en": {
+      "enName": "Yulin",
+      "tags": [
+        {
+          "text": "Southern Medicine Capital",
+          "color": "#4CAF50"
+        },
+        {
+          "text": "China's Power Capital",
+          "color": "#2196F3"
+        },
+        {
+          "text": "Yulin Dog Meat Festival",
+          "color": "#FF5722"
+        },
+        {
+          "text": "Ancient Prefecture of Lingnan",
+          "color": "#9C27B0"
+        }
+      ],
+      "paragraphs": [
+        "Yulin is located in the southeast of Guangxi, south of the Tropic of Cancer, with a subtropical monsoon climate. It is warm and humid with abundant rainfall, and an average annual temperature of about 22°C. The terrain slopes from north to south, mainly consisting of hills and platforms, making it an important agricultural region in Guangxi.",
+        "Yulin, known as Yulin in ancient times, has a long history. It has been part of the Central Plains dynasties since the Qin Dynasty. During the Tang Dynasty, Yulin Prefecture was established, and it became a major town in Lingnan during the Ming and Qing Dynasties. In modern times, Yulin has developed rapidly in commerce and handicrafts, earning the reputation of \"Ancient Prefecture of Lingnan.\"",
+        "Yulin has a diverse culture, characterized by the fusion of Hakka and Lingnan cultures. The Yulin dialect belongs to the Goulou branch of Cantonese. Famous folk customs include the \"Yulin Dog Meat Festival\" (Lychee Dog Meat Festival), which, though controversial, reflects local dietary traditions. Representative delicacies include Yulin beef jerky, Bobai water spinach, and Luchuan pig trotters, with unique flavors.",
+        "Modern Yulin is an important industrial city in Guangxi, known nationwide for its machinery manufacturing industry centered on Yuchai Group, and is hailed as \"China's Power Capital.\" It is also developing the traditional Chinese medicine industry to build the \"Southern Medicine Capital.\" In terms of transportation, Yulin Fumian Airport is operational, and high-speed rail is under construction, indicating strong urban development momentum."
+      ],
+      "attractions": [
+        {
+          "name": "Yuntian Culture City",
+          "desc": "Also known as Yuntian Palace, it is a giant antique architectural complex integrating ancient Chinese architecture and sculptures, featuring huge wood and bronze carvings, magnificent in scale.",
+          "time": "08:30-17:30",
+          "price": "120 yuan",
+          "season": "All year"
+        },
+        {
+          "name": "Yulin Museum",
+          "desc": "A comprehensive museum showcasing Yulin's history and culture, with rich collections including unearthed artifacts and folk exhibits, a great place to learn about Yulin.",
+          "time": "09:00-17:00 (closed on Mondays)",
+          "price": "Free",
+          "season": "All year"
+        },
+        {
+          "name": "Shuiyue Rock",
+          "desc": "A typical karst landscape area featuring strange peaks, caves, and clear water. The stalactites inside the cave are diverse, known as the \"Best Rock in Lingnan.\"",
+          "time": "08:00-17:00",
+          "price": "60 yuan",
+          "season": "All year"
+        },
+        {
+          "name": "Fozishan Tourism Resort",
+          "desc": "A scenic area integrating mountain and water scenery, religious culture, and leisure vacation. The main peak, Fozishan, is relatively high, offering a panoramic view of Yulin city.",
+          "time": "08:00-18:00",
+          "price": "30 yuan",
+          "season": "Best in spring and autumn"
+        },
+        {
+          "name": "Lufengshan Scenic Area",
+          "desc": "Mainly featuring karst landforms, primitive forests, and caves, with attractions like \"Longquan Cave.\" It is a good place for exploration and hiking.",
+          "time": "08:30-17:00",
+          "price": "50 yuan",
+          "season": "All year"
+        },
+        {
+          "name": "Darongshan National Forest Park",
+          "desc": "The highest peak in southeastern Guangxi, with dense forests, alpine meadows, waterfalls, and streams, known as \"Southern Northern Europe.\"",
+          "time": "08:00-17:00",
+          "price": "60 yuan",
+          "season": "Best in summer and autumn"
+        }
+      ],
+      "food": [
+        {
+          "name": "Yulin Beef Jerky",
+          "desc": "A traditional Yulin snack made from marinated and baked beef. It has a glossy color, dry and chewy texture, and a balanced sweet and salty taste.",
+          "price": "50-80 yuan/jin"
+        },
+        {
+          "name": "Bobai Water Spinach",
+          "desc": "A specialty of Bobai County, with hollow stems and a crisp texture. It can be stir-fried plain or with garlic, a common vegetable on Yulin dining tables.",
+          "price": "5-10 yuan/jin"
+        },
+        {
+          "name": "Luchuan Pig Trotter",
+          "desc": "A specialty dish of Luchuan County. The pig trotters are braised or stewed until tender, rich in collagen and flavor.",
+          "price": "40-60 yuan/portion"
+        },
+        {
+          "name": "Yulin Beef Brisket Rice Noodles",
+          "desc": "A classic Yulin breakfast. The beef brisket is stewed until soft, with a rich broth, served with smooth rice noodles, topped with chopped green onions and peanuts.",
+          "price": "10-15 yuan/bowl"
+        },
+        {
+          "name": "Yulin Lychee Dog Meat",
+          "desc": "A specialty dish of the Yulin Dog Meat Festival, where dog meat is cooked with lychees. The dog meat is warming, and the lychees are sweet, creating a unique flavor, though controversial.",
+          "price": "80-150 yuan/portion"
+        },
+        {
+          "name": "Rong County Shatian Pomelo",
+          "desc": "A specialty of Rong County, with large fruit and thin skin. The flesh is sweet and juicy, known as a \"natural can.\" It is a national geographical indication product.",
+          "price": "10-20 yuan/piece"
+        }
+      ],
+      "history": [
+        {
+          "year": "214 BC",
+          "title": "Establishment of Guilin Commandery in Qin Dynasty",
+          "desc": "After Qin Shi Huang unified Lingnan, the Yulin area belonged to Guilin Commandery, marking the beginning of Central Plains rule over Yulin."
+        },
+        {
+          "year": "666 AD",
+          "title": "Establishment of Yulin Prefecture in Tang Dynasty",
+          "desc": "During the reign of Emperor Gaozong of Tang, Yulin Prefecture was established, and Yulin became the seat of the prefecture, elevating its administrative status."
+        },
+        {
+          "year": "1997",
+          "title": "Yulin Upgraded to Prefecture-level City",
+          "desc": "In April 1997, Yulin Prefecture was abolished, and the prefecture-level city of Yulin was established, ushering in a new stage of modern urban development."
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "Spring and Autumn (March-May, September-November)",
+        "paragraphs": [
+          "Spring (March to May) has pleasant temperatures and blooming flowers, ideal for visiting parks and countryside in Yulin.",
+          "Autumn (September to November) is clear and dry, suitable for outdoor activities and enjoying autumn delicacies.",
+          "Summer is hot and rainy, while winter is mild and dry. In summer, you can experience special events like the Dog Meat Festival; in winter, hot springs are a good choice."
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "Yulin Folk Songs",
+          "desc": "An intangible cultural heritage of Guangxi Zhuang Autonomous Region, sung in Yulin dialect with melodious tunes, mostly reflecting labor and love."
+        },
+        {
+          "name": "Bobai Guinan Tea-Picking Opera",
+          "desc": "A national intangible cultural heritage, integrating tea-picking songs and dances with opera, lively and full of local flavor."
+        }
+      ],
+      "transportation": [
+        {
+          "title": "Yulin Fumian Airport",
+          "desc": "Located in Fumian District, with flights to major cities such as Beijing, Shanghai, Guangzhou, and Shenzhen.",
+          "price": "Varies by route"
+        },
+        {
+          "title": "Yulin Station / Yulin North Station",
+          "desc": "Yulin Station is a conventional railway station, while Yulin North Station is a high-speed rail station (under construction). Currently, conventional trains can reach Nanning, Guangzhou, etc.",
+          "price": "Varies by train"
+        },
+        {
+          "title": "Yulin Bus Terminal",
+          "desc": "Located in the city center, with long-distance buses to counties and cities within Guangxi and neighboring provinces. City buses cover major areas.",
+          "price": "Varies by route"
+        }
+      ],
+      "info": {
+        "area": "12,838 square kilometers",
+        "population": "Approximately 7.4 million"
+      }
+    },
+    "de": {
+      "enName": "Yulin",
+      "tags": [
+        {
+          "text": "Medizinhauptstadt des Südens",
+          "color": "#4CAF50"
+        },
+        {
+          "text": "Motorhauptstadt Chinas",
+          "color": "#2196F3"
+        },
+        {
+          "text": "Yuliner Hundefleischfest",
+          "color": "#FF5722"
+        },
+        {
+          "text": "Alte Präfektur Lingnan",
+          "color": "#9C27B0"
+        }
+      ],
+      "paragraphs": [
+        "Yulin liegt im Südosten Guangxis, südlich des Wendekreises des Krebses, und hat ein subtropisches Monsunklima mit warmen, feuchten Wintern und reichlichen Niederschlägen. Die Jahresdurchschnittstemperatur beträgt etwa 22 °C. Das Gelände fällt von Norden nach Süden ab, besteht hauptsächlich aus Hügeln und Hochebenen und ist ein wichtiges landwirtschaftliches Anbaugebiet Guangxis.",
+        "Yulin, früher Yulin genannt, blickt auf eine lange Geschichte zurück. Seit der Qin-Dynastie gehört es zum chinesischen Hoheitsgebiet. In der Tang-Dynastie wurde die Präfektur Yulin eingerichtet, und in der Ming- und Qing-Dynastie entwickelte es sich zu einer wichtigen Stadt in Lingnan. In der Neuzeit erlebte Yulin eine rasche Entwicklung in Handel und Handwerk und genießt den Ruf einer „alten Präfektur Lingnan“.",
+        "Die Kultur Yulins ist vielfältig, geprägt von der Hakka-Kultur und der Lingnan-Kultur. Der Yuliner Dialekt gehört zum Gou Lou-Zweig des Kantonesischen. Zu den bekannten Bräuchen gehört das „Yuliner Hundefleischfest“ (Litschihundefleischfest), das zwar umstritten ist, aber die lokale Esskultur widerspiegelt. Zu den Spezialitäten gehören Yuliner Rinderstreifen, Bobaler Wasserspinat und Luchuaner Schweinefüße, die einen einzigartigen Geschmack haben.",
+        "Das moderne Yulin ist eine wichtige Industriestadt in Guangxi, bekannt für den Maschinenbau rund um die Yuchai Group, die als „Motorhauptstadt Chinas“ bezeichnet wird. Gleichzeitig wird die chinesische Kräutermedizinindustrie ausgebaut und die „Medizinhauptstadt des Südens“ geschaffen. Im Verkehrswesen ist der Flughafen Yulin-Fumian bereits in Betrieb, und eine Hochgeschwindigkeitsbahnstrecke ist im Bau. Die Stadt entwickelt sich dynamisch."
+      ],
+      "attractions": [
+        {
+          "name": "Yuntian-Kulturstadt",
+          "desc": "Auch Yuntian-Palast genannt, eine riesige, im antiken Stil erbaute Gebäudegruppe, die chinesische Baukunst und Bildhauerei vereint. Sie beherbergt massive Holz- und Bronzeskulpturen und ist von beeindruckender Größe.",
+          "time": "08:30-17:30",
+          "price": "120 Yuan",
+          "season": "Ganzjährig"
+        },
+        {
+          "name": "Yuliner Museum",
+          "desc": "Ein umfassendes Museum zur Geschichte und Kultur Yulins mit reichen Sammlungen, darunter archäologische Funde und Volkskundeexponate. Ein guter Ort, um Yulin kennenzulernen.",
+          "time": "09:00-17:00 (montags geschlossen)",
+          "price": "Kostenlos",
+          "season": "Ganzjährig"
+        },
+        {
+          "name": "Wasser-Mond-Felsen",
+          "desc": "Typische Karstlandschaft mit bizarren Gipfeln, Höhlen und klarem Wasser. Die Tropfsteinhöhlen sind vielfältig und werden als „Erster Felsen Lingnans“ bezeichnet.",
+          "time": "08:00-17:00",
+          "price": "60 Yuan",
+          "season": "Ganzjährig"
+        },
+        {
+          "name": "Fozishan-Touristenresort",
+          "desc": "Ein Gebiet, das Berglandschaft, religiöse Kultur und Erholung vereint. Der Hauptgipfel Fozishan ist relativ hoch und bietet einen Panoramablick auf Yulin.",
+          "time": "08:00-18:00",
+          "price": "30 Yuan",
+          "season": "Am besten im Frühling und Herbst"
+        },
+        {
+          "name": "Lufengshan-Landschaftsgebiet",
+          "desc": "Geprägt von Karstlandschaft, Urwald und Höhlen. Zu den Sehenswürdigkeiten gehört die „Drachenquellhöhle“. Ein guter Ort für Abenteuer und Wanderungen.",
+          "time": "08:30-17:00",
+          "price": "50 Yuan",
+          "season": "Ganzjährig"
+        },
+        {
+          "name": "Darongshan-Nationalpark",
+          "desc": "Der höchste Gipfel im Südosten Guangxis mit dichten Wäldern, alpinen Wiesen, Wasserfällen und Bächen. Wird als „Nordeuropa des Südens“ bezeichnet.",
+          "time": "08:00-17:00",
+          "price": "60 Yuan",
+          "season": "Am besten im Sommer und Herbst"
+        }
+      ],
+      "food": [
+        {
+          "name": "Yuliner Rinderstreifen",
+          "desc": "Ein traditioneller Snack aus Yulin. Rindfleisch wird mariniert und geröstet, ergibt eine ölig glänzende, trockene und zähe Textur mit süß-salzigem Geschmack.",
+          "price": "50-80 Yuan/Jin"
+        },
+        {
+          "name": "Bobaler Wasserspinat",
+          "desc": "Spezialität aus Bobai. Die Stängel sind hohl, die Blätter knackig und zart. Sie werden meist gebraten oder mit Knoblauch zubereitet und sind ein häufiges Gemüse auf dem Yuliner Tisch.",
+          "price": "5-10 Yuan/Jin"
+        },
+        {
+          "name": "Luchuaner Schweinefüße",
+          "desc": "Spezialität aus Luchuan. Die Schweinefüße werden geschmort oder gebraten, die Haut ist weich, das Fleisch zart, reich an Kollagen und von kräftigem Geschmack.",
+          "price": "40-60 Yuan/Portion"
+        },
+        {
+          "name": "Yuliner Rindfleischnudelsuppe",
+          "desc": "Ein klassisches Frühstück in Yulin. Das Rindfleisch wird weich gekocht, die Brühe ist reichhaltig, serviert mit feinen Reisnudeln, bestreut mit Frühlingszwiebeln und Erdnüssen.",
+          "price": "10-15 Yuan/Schale"
+        },
+        {
+          "name": "Yuliner Litschihundefleisch",
+          "desc": "Spezialität des Yuliner Hundefleischfests. Hundefleisch wird mit Litschis gekocht. Das Hundefleisch wärmt, die Litschis sind süß und erfrischend. Der Geschmack ist einzigartig, aber umstritten.",
+          "price": "80-150 Yuan/Portion"
+        },
+        {
+          "name": "Rongxianer Shantian-Pampelmuse",
+          "desc": "Spezialität aus Rongxian. Die Früchte sind groß, die Schale dünn, das Fruchtfleisch süß und saftig. Sie wird als „natürliche Konserve“ bezeichnet und ist ein Produkt mit geografischer Herkunftsangabe.",
+          "price": "10-20 Yuan/Stück"
+        }
+      ],
+      "history": [
+        {
+          "year": "214 v. Chr.",
+          "title": "Einrichtung der Präfektur Guilin in der Qin-Dynastie",
+          "desc": "Nach der Vereinigung Lingnans durch Qin Shihuang gehörte die Region Yulin zur Präfektur Guilin, was den Beginn der Verwaltung durch das zentrale chinesische Reich markierte."
+        },
+        {
+          "year": "666 n. Chr.",
+          "title": "Einrichtung der Präfektur Yulin in der Tang-Dynastie",
+          "desc": "Während der Herrschaft von Kaiser Gaozong der Tang-Dynastie wurde die Präfektur Yulin eingerichtet, und Yulin wurde zum Verwaltungssitz, was seinen administrativen Status erhöhte."
+        },
+        {
+          "year": "1997",
+          "title": "Umwandlung Yulins in eine bezirksfreie Stadt",
+          "desc": "Im April 1997 wurde die Region Yulin aufgelöst und die bezirksfreie Stadt Yulin gegründet, was eine neue Phase der modernen Stadtentwicklung einleitete."
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "Frühling und Herbst (März-Mai, September-November)",
+        "paragraphs": [
+          "Der Frühling (März bis Mai) ist angenehm warm, überall blühen Blumen, ideal für Besuche in Parks und auf dem Land.",
+          "Der Herbst (September bis November) ist klar und trocken, geeignet für Outdoor-Aktivitäten und zum Genießen herbstlicher Köstlichkeiten.",
+          "Der Sommer ist heiß und regnerisch, der Winter mild und trocken. Im Sommer kann man besondere Veranstaltungen wie das Hundefleischfest erleben, im Winter bieten sich heiße Quellen an."
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "Yuliner Volkslieder",
+          "desc": "Immaterielles Kulturerbe des Autonomen Gebiets Guangxi. Gesungen im Yuliner Dialekt, mit melodischen Klängen, die oft das Arbeitsleben und die Liebe thematisieren."
+        },
+        {
+          "name": "Bobai-Guinan-Teeerntetheater",
+          "desc": "Nationales immaterielles Kulturerbe. Es vereint Teeerntegesang und -tanz mit Opern und ist lebhaft und voller ländlichem Charme."
+        }
+      ],
+      "transportation": [
+        {
+          "title": "Flughafen Yulin-Fumian",
+          "desc": "Im Stadtbezirk Fumian gelegen, bietet Flüge zu großen Städten wie Peking, Shanghai, Guangzhou und Shenzhen.",
+          "price": "Je nach Route"
+        },
+        {
+          "title": "Bahnhof Yulin / Nordbahnhof Yulin",
+          "desc": "Der Bahnhof Yulin ist ein konventioneller Bahnhof, der Nordbahnhof (Hochgeschwindigkeitsbahnhof) ist im Bau. Derzeit verkehren konventionelle Züge nach Nanning, Guangzhou und anderen Orten.",
+          "price": "Je nach Zugverbindung"
+        },
+        {
+          "title": "Zentraler Busbahnhof Yulin",
+          "desc": "Im Stadtzentrum gelegen, bietet Fernbusse zu Kreisen und Städten innerhalb Guangxis sowie zu benachbarten Provinzen. Stadtbusse decken die wichtigsten Gebiete ab.",
+          "price": "Je nach Linie"
+        }
+      ],
+      "info": {
+        "area": "12.838 km²",
+        "population": "ca. 7,4 Millionen"
+      }
+    },
+    "es": {
+      "enName": "Yulin",
+      "tags": [
+        {
+          "text": "Capital de la Medicina del Sur",
+          "color": "#4CAF50"
+        },
+        {
+          "text": "Capital de la Energía de China",
+          "color": "#2196F3"
+        },
+        {
+          "text": "Festival del Perro de Yulin",
+          "color": "#FF5722"
+        },
+        {
+          "text": "Antigua Prefectura de Lingnan",
+          "color": "#9C27B0"
+        }
+      ],
+      "paragraphs": [
+        "Yulin está situada en el sureste de Guangxi, al sur del Trópico de Cáncer, con un clima subtropical monzónico, cálido y húmedo, con abundantes lluvias y una temperatura media anual de unos 22 °C. El terreno es más alto en el norte y más bajo en el sur, dominado por colinas y mesetas, siendo una importante región agrícola de Guangxi.",
+        "Yulin, antiguamente conocida como Yulin, tiene una larga historia. Desde la dinastía Qin, fue incorporada al territorio de la China central. En la dinastía Tang se estableció la prefectura de Yulin, y durante las dinastías Ming y Qing se convirtió en un importante centro de Lingnan. En tiempos modernos, Yulin se ha desarrollado rápidamente en comercio y artesanía, ganándose el título de 'Antigua Prefectura de Lingnan'.",
+        "La cultura de Yulin es diversa, con una mezcla de las culturas hakka y lingnan. El dialecto de Yulin pertenece a la rama Goulou del cantonés. Una costumbre famosa es el 'Festival del Perro de Yulin' (Festival del Perro con Lichi), aunque controvertido, refleja la tradición culinaria local. La gastronomía incluye la carne de res seca de Yulin, la espinaca de agua de Bobai, el codillo de cerdo de Luchuan, con sabores únicos.",
+        "La Yulin moderna es una importante ciudad industrial de Guangxi, famosa por su industria mecánica centrada en el Grupo Yuchai, conocida como la 'Capital de la Energía de China'. También desarrolla la industria de la medicina tradicional china, construyendo la 'Capital de la Medicina del Sur'. En cuanto al transporte, el aeropuerto de Yulin Fumian ya está en funcionamiento y el tren de alta velocidad está en construcción, mostrando un fuerte impulso de desarrollo urbano."
+      ],
+      "attractions": [
+        {
+          "name": "Ciudad Cultural de Yuntian",
+          "desc": "También conocida como Palacio Yuntian, es un enorme complejo de arquitectura antigua que fusiona arte arquitectónico chino antiguo y esculturas, con tallas gigantes de madera y bronce, de gran majestuosidad.",
+          "time": "08:30-17:30",
+          "price": "120 yuanes",
+          "season": "Todo el año"
+        },
+        {
+          "name": "Museo de Yulin",
+          "desc": "Museo integral que muestra la historia y cultura de Yulin, con ricas colecciones que incluyen artefactos desenterrados y exhibiciones folclóricas, un buen lugar para conocer Yulin.",
+          "time": "09:00-17:00 (cerrado los lunes)",
+          "price": "Gratis",
+          "season": "Todo el año"
+        },
+        {
+          "name": "Roca Shuiyue",
+          "desc": "Área típica de paisaje kárstico, caracterizada por picos extraños, cuevas y aguas cristalinas. Las estalactitas en las cuevas tienen formas diversas, conocido como la 'Primera Roca de Lingnan'.",
+          "time": "08:00-17:00",
+          "price": "60 yuanes",
+          "season": "Todo el año"
+        },
+        {
+          "name": "Área Turística del Monte Fozishan",
+          "desc": "Área que integra paisajes de montaña y agua, cultura religiosa y ocio. El pico principal, Monte Fozishan, tiene una altitud considerable y ofrece vistas panorámicas de la ciudad de Yulin.",
+          "time": "08:00-18:00",
+          "price": "30 yuanes",
+          "season": "Mejor en primavera y otoño"
+        },
+        {
+          "name": "Área Escénica del Monte Lufeng",
+          "desc": "Principalmente paisaje kárstico, bosque virgen y cuevas, con atracciones como la 'Cueva del Dragón de la Fuente', ideal para exploración y senderismo.",
+          "time": "08:30-17:00",
+          "price": "50 yuanes",
+          "season": "Todo el año"
+        },
+        {
+          "name": "Parque Forestal Nacional del Monte Darong",
+          "desc": "El pico más alto del sureste de Guangxi, con bosques densos, praderas alpinas, cascadas y arroyos, conocido como el 'Norte de Europa del Sur'.",
+          "time": "08:00-17:00",
+          "price": "60 yuanes",
+          "season": "Mejor en verano y otoño"
+        }
+      ],
+      "food": [
+        {
+          "name": "Carne de res seca de Yulin",
+          "desc": "Plato tradicional de Yulin, elaborado con carne de res marinada y luego horneada, de color brillante, textura seca y masticable, sabor agridulce equilibrado.",
+          "price": "50-80 yuanes/jin"
+        },
+        {
+          "name": "Espinaca de agua de Bobai",
+          "desc": "Producto típico del condado de Bobai, tallo hueco, textura crujiente y tierna, se puede saltear o con ajo, verdura común en la mesa de Yulin.",
+          "price": "5-10 yuanes/jin"
+        },
+        {
+          "name": "Codillo de cerdo de Luchuan",
+          "desc": "Plato característico del condado de Luchuan, codillo de cerdo estofado o asado, piel suave y carne tierna, rico en colágeno, sabor intenso.",
+          "price": "40-60 yuanes/porción"
+        },
+        {
+          "name": "Sopa de fideos con carne de res de Yulin",
+          "desc": "Desayuno clásico de Yulin, carne de res estofada hasta quedar tierna, caldo rico, acompañado de fideos finos y suaves, espolvoreado con cebolla verde y maní.",
+          "price": "10-15 yuanes/tazón"
+        },
+        {
+          "name": "Perro con lichi de Yulin",
+          "desc": "Plato especial del Festival del Perro de Yulin, perro cocido con lichi, el perro es tonificante y el lichi dulce, sabor único pero controvertido.",
+          "price": "80-150 yuanes/porción"
+        },
+        {
+          "name": "Pomelo Shatian de Rongxian",
+          "desc": "Producto típico del condado de Rongxian, fruta grande con cáscara fina, pulpa dulce y jugosa, conocido como 'lata natural', producto con indicación geográfica nacional.",
+          "price": "10-20 yuanes/unidad"
+        }
+      ],
+      "history": [
+        {
+          "year": "214 a.C.",
+          "title": "Establecimiento de la Comandancia de Guilin por la dinastía Qin",
+          "desc": "Después de la unificación de Lingnan por Qin Shihuang, el área de Yulin perteneció a la Comandancia de Guilin, marcando el inicio del control del gobierno central sobre Yulin."
+        },
+        {
+          "year": "666 d.C.",
+          "title": "Establecimiento de la Prefectura de Yulin en la dinastía Tang",
+          "desc": "Durante el reinado del emperador Gaozong de Tang, se estableció la Prefectura de Yulin, y Yulin se convirtió en la sede de la prefectura, elevando su estatus administrativo."
+        },
+        {
+          "year": "1997",
+          "title": "Yulin se convierte en ciudad a nivel de prefectura",
+          "desc": "En abril de 1997, la región de Yulin fue disuelta y se estableció la ciudad-prefectura de Yulin, iniciando una nueva etapa de desarrollo urbano moderno."
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "Primavera y Otoño (marzo-mayo, septiembre-noviembre)",
+        "paragraphs": [
+          "La primavera (marzo a mayo) tiene temperaturas agradables y flores en plena floración, ideal para visitar parques y áreas rurales de Yulin.",
+          "El otoño (septiembre a noviembre) es claro y seco, adecuado para actividades al aire libre y disfrutar de delicias otoñales.",
+          "El verano es caluroso y lluvioso, mientras que el invierno es templado y seco. En verano se pueden experimentar eventos especiales como el Festival del Perro; en invierno, los baños termales son una buena opción."
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "Canciones populares de montaña de Yulin",
+          "desc": "Patrimonio cultural inmaterial de la Región Autónoma Zhuang de Guangxi, cantadas en el dialecto de Yulin, melodías melodiosas, el contenido refleja la vida laboral y el amor."
+        },
+        {
+          "name": "Ópera de recogida de té de Guinan de Bobai",
+          "desc": "Patrimonio cultural inmaterial nacional, fusiona danzas y cantos de recogida de té con ópera, actuación animada y llena de sabor local."
+        }
+      ],
+      "transportation": [
+        {
+          "title": "Aeropuerto de Yulin Fumian",
+          "desc": "Ubicado en el distrito de Fumian, tiene rutas a las principales ciudades como Beijing, Shanghai, Guangzhou y Shenzhen.",
+          "price": "Según la ruta"
+        },
+        {
+          "title": "Estación de Yulin / Estación de Yulin Norte",
+          "desc": "La estación de Yulin es para trenes convencionales, y la estación de Yulin Norte es para trenes de alta velocidad (en construcción). Actualmente, los trenes convencionales pueden llegar a Nanning, Guangzhou, etc.",
+          "price": "Según el tren"
+        },
+        {
+          "title": "Terminal de Autobuses de Yulin",
+          "desc": "Ubicada en el centro de la ciudad, tiene autobuses de larga distancia a los condados y ciudades de Guangxi y provincias vecinas. Los autobuses urbanos cubren las principales áreas.",
+          "price": "Según la ruta"
+        }
+      ],
+      "info": {
+        "area": "12,838 km²",
+        "population": "Aproximadamente 7.4 millones de habitantes"
+      }
+    },
+    "fr": {
+      "enName": "Yulin",
+      "tags": [
+        {
+          "text": "Capitale pharmaceutique du Sud",
+          "color": "#4CAF50"
+        },
+        {
+          "text": "Capitale chinoise de la puissance",
+          "color": "#2196F3"
+        },
+        {
+          "text": "Festival de la viande de chien de Yulin",
+          "color": "#FF5722"
+        },
+        {
+          "text": "Ancienne préfecture du Lingnan",
+          "color": "#9C27B0"
+        }
+      ],
+      "paragraphs": [
+        "Yulin est située au sud-est du Guangxi, au sud du tropique du Cancer. Elle bénéficie d'un climat subtropical de mousson, chaud et humide, avec des précipitations abondantes et une température moyenne annuelle d'environ 22 °C. Le relief est plus élevé au nord qu'au sud, dominé par des collines et des plateaux, ce qui en fait une importante région agricole du Guangxi.",
+        "Yulin, anciennement appelée Yulin, a une longue histoire. Dès la dynastie Qin, elle fut intégrée au territoire impérial chinois. Sous la dynastie Tang, la préfecture de Yulin fut créée, et elle devint une ville importante du Lingnan sous les dynasties Ming et Qing. À l'époque moderne, Yulin a connu un développement rapide dans le commerce et l'artisanat, et est réputée comme l'« ancienne préfecture du Lingnan ».",
+        "La culture de Yulin est多元, caractérisée par le mélange des cultures hakka et lingnan. Le dialecte de Yulin appartient au groupe Goulou du cantonais. Une coutume célèbre est le « Festival de la viande de chien de Yulin » (festival de la viande de chien au litchi), bien que controversé, il reflète les traditions alimentaires locales. Les spécialités culinaires incluent le bœuf séché de Yulin, le liseron d'eau de Bobai, le pied de porc de Luchuan, etc., aux saveurs uniques.",
+        "Aujourd'hui, Yulin est une importante ville industrielle du Guangxi. L'industrie mécanique, dominée par le groupe Yuchai, est célèbre dans tout le pays, ce qui a valu à Yulin le surnom de « Capitale chinoise de la puissance ». Parallèlement, elle développe l'industrie de la médecine traditionnelle chinoise et construit la « Capitale pharmaceutique du Sud ». En termes de transport, l'aéroport de Yulin Fumian est en service, et la ligne à grande vitesse est en construction, la ville connaît une dynamique de développement soutenue."
+      ],
+      "attractions": [
+        {
+          "name": "Cité culturelle de Yuntian",
+          "desc": "Aussi appelée Palais Yuntian, c'est un immense complexe architectural de style antique, mêlant l'architecture traditionnelle chinoise et la sculpture. On y trouve de gigantesques sculptures sur bois et sur bronze, d'une envergure impressionnante.",
+          "time": "08:30-17:30",
+          "price": "120 yuans",
+          "season": "Toute l'année"
+        },
+        {
+          "name": "Musée de Yulin",
+          "desc": "Musée complet présentant l'histoire et la culture de Yulin, avec une riche collection d'objets archéologiques et d'expositions folkloriques. Un bon endroit pour découvrir Yulin.",
+          "time": "09:00-17:00 (fermé le lundi)",
+          "price": "Gratuit",
+          "season": "Toute l'année"
+        },
+        {
+          "name": "Rocher Shuiyue",
+          "desc": "Site karstique typique, caractérisé par des pics étranges, des grottes et des eaux claires. Les stalactites dans les grottes sont de formes variées, surnommé 'Premier rocher du Lingnan'.",
+          "time": "08:00-17:00",
+          "price": "60 yuans",
+          "season": "Toute l'année"
+        },
+        {
+          "name": "Zone touristique du mont Fozi",
+          "desc": "Site intégrant paysages de montagnes et d'eau, culture religieuse et loisirs. Le pic principal, le mont Fozi, est assez élevé et offre une vue panoramique sur la ville de Yulin.",
+          "time": "08:00-18:00",
+          "price": "30 yuans",
+          "season": "Printemps et automne"
+        },
+        {
+          "name": "Zone pittoresque du mont Lufeng",
+          "desc": "Principalement composée de relief karstique, de forêts primaires et de grottes, avec des sites comme la grotte Longquan. Idéal pour l'exploration et la randonnée.",
+          "time": "08:30-17:00",
+          "price": "50 yuans",
+          "season": "Toute l'année"
+        },
+        {
+          "name": "Parc forestier national de Darongshan",
+          "desc": "Le plus haut sommet du sud-est du Guangxi, avec des forêts denses, des prairies alpines, des cascades et des ruisseaux. Surnommé 'la Scandinavie du Sud'.",
+          "time": "08:00-17:00",
+          "price": "60 yuans",
+          "season": "Été et automne"
+        }
+      ],
+      "food": [
+        {
+          "name": "Bœuf séché de Yulin",
+          "desc": "En-cas traditionnel de Yulin, préparé en faisant mariner du bœuf puis en le faisant griller. Il est brillant, sec et moelleux, avec un goût sucré-salé équilibré.",
+          "price": "50-80 yuans/jin"
+        },
+        {
+          "name": "Liseron d'eau de Bobai",
+          "desc": "Spécialité du comté de Bobai, tige creuse, texture croquante et tendre. Peut être sauté à l'ail ou en version simple, légume courant sur la table des habitants de Yulin.",
+          "price": "5-10 yuans/jin"
+        },
+        {
+          "name": "Pied de porc de Luchuan",
+          "desc": "Plat typique du comté de Luchuan, le pied de porc est braisé ou cuit à la sauce soja, la peau est tendre et la viande fondante, riche en collagène, saveur prononcée.",
+          "price": "40-60 yuans/portion"
+        },
+        {
+          "name": "Nouilles de riz au plat de côtes de bœuf de Yulin",
+          "desc": "Petit-déjeuner classique de Yulin, les côtes de bœuf sont mijotées jusqu'à ce qu'elles soient tendres, le bouillon est riche, accompagné de nouilles de riz fines, garni d'oignons verts et de cacahuètes.",
+          "price": "10-15 yuans/bol"
+        },
+        {
+          "name": "Viande de chien au litchi de Yulin",
+          "desc": "Plat spécial du Festival de la viande de chien de Yulin, la viande de chien est cuite avec des litchis. La viande de chien est réchauffante, le litchi est doux, la saveur est unique mais controversée.",
+          "price": "80-150 yuans/portion"
+        },
+        {
+          "name": "Pomelo de Rongxian",
+          "desc": "Spécialité du comté de Rongxian, fruit gros à peau fine, chair sucrée et juteuse, surnommé 'conserve naturelle', produit bénéficiant d'une indication géographique nationale.",
+          "price": "10-20 yuans/pièce"
+        }
+      ],
+      "history": [
+        {
+          "year": "214 av. J.-C.",
+          "title": "Création de la commanderie de Guilin sous la dynastie Qin",
+          "desc": "Après l'unification du Lingnan par Qin Shi Huang, la région de Yulin fut rattachée à la commanderie de Guilin, marquant le début de l'administration chinoise sur Yulin."
+        },
+        {
+          "year": "666",
+          "title": "Création de la préfecture de Yulin sous la dynastie Tang",
+          "desc": "Sous l'empereur Gaozong des Tang, la préfecture de Yulin fut établie, et Yulin devint le siège de la préfecture, élevant son statut administratif."
+        },
+        {
+          "year": "1997",
+          "title": "Yulin devient une ville-préfecture",
+          "desc": "En avril 1997, la région de Yulin fut dissoute et la ville-préfecture de Yulin fut créée, ouvrant une nouvelle phase de développement urbain moderne."
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "Printemps et automne (mars-mai, septembre-novembre)",
+        "paragraphs": [
+          "Le printemps (mars à mai) offre des températures agréables et des fleurs épanouies, idéal pour visiter les parcs et la campagne de Yulin.",
+          "L'automne (septembre à novembre) est clair et sec, propice aux activités de plein air et à la dégustation des mets automnaux.",
+          "L'été est chaud et pluvieux, tandis que l'hiver est doux et sec. En été, on peut participer à des événements spéciaux comme le Festival de la viande de chien ; en hiver, les sources chaudes sont une bonne option."
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "Chansons folkloriques de Yulin",
+          "desc": "Patrimoine culturel immatériel de la région autonome du Guangxi. Chantées dans le dialecte de Yulin, les mélodies sont mélodieuses et les paroles reflètent souvent la vie et l'amour."
+        },
+        {
+          "name": "Opéra de cueillette de thé de Bobai (Guinan)",
+          "desc": "Patrimoine culturel immatériel national. Mêlant chants et danses de cueillette de thé et opéra, la performance est vivante et empreinte de saveur locale."
+        }
+      ],
+      "transportation": [
+        {
+          "title": "Aéroport de Yulin Fumian",
+          "desc": "Situé dans le district de Fumian, il dessert les principales villes comme Pékin, Shanghai, Guangzhou et Shenzhen.",
+          "price": "Variable selon la ligne"
+        },
+        {
+          "title": "Gare de Yulin / Gare de Yulin Nord",
+          "desc": "La gare de Yulin est une gare conventionnelle, la gare de Yulin Nord est une gare à grande vitesse (en construction). Actuellement, les trains conventionnels relient Nanning, Guangzhou, etc.",
+          "price": "Variable selon le train"
+        },
+        {
+          "title": "Gare routière principale de Yulin",
+          "desc": "Située au centre-ville, elle propose des lignes longue distance vers d'autres villes du Guangxi et des provinces voisines. Les bus urbains couvrent les principales zones.",
+          "price": "Variable selon la ligne"
+        }
+      ],
+      "info": {
+        "area": "12 838 km²",
+        "population": "Environ 7,4 millions d'habitants"
+      }
+    },
+    "it": {
+      "enName": "Yulin",
+      "tags": [
+        {
+          "text": "Capitale della Medicina del Sud",
+          "color": "#4CAF50"
+        },
+        {
+          "text": "Capitale dell'Energia della Cina",
+          "color": "#2196F3"
+        },
+        {
+          "text": "Festival della Carne di Cane di Yulin",
+          "color": "#FF5722"
+        },
+        {
+          "text": "Antica Prefettura di Lingnan",
+          "color": "#9C27B0"
+        }
+      ],
+      "paragraphs": [
+        "Yulin si trova nel sud-est del Guangxi, a sud del Tropico del Cancro, con clima subtropicale monsonico, caldo e umido, con abbondanti piogge e una temperatura media annua di circa 22°C. Il terreno è più alto a nord e più basso a sud, prevalentemente collinare e terrazzato, ed è un'importante area agricola del Guangxi.",
+        "Yulin, anticamente chiamata Yulin, ha una lunga storia. Fin dalla dinastia Qin fu incorporata nell'impero cinese. Durante la dinastia Tang fu istituita la prefettura di Yulin, e nelle dinastie Ming e Qing divenne una città importante del Lingnan. In epoca moderna, Yulin si è sviluppata rapidamente nel commercio e nell'artigianato, guadagnandosi la reputazione di 'Antica Prefettura di Lingnan'.",
+        "La cultura di Yulin è multiculturale, caratterizzata dalla fusione della cultura Hakka e di quella Lingnan. Il dialetto di Yulin appartiene al ramo Goulou del cantonese. Tra le usanze popolari famose c'è il 'Festival della Carne di Cane di Yulin' (Festival della Carne di Cane con Litchi), sebbene controverso, riflette la tradizione culinaria locale. I piatti tipici includono il manzo essiccato di Yulin, gli spinaci d'acqua di Bobai, lo zampone di Luchuan, con sapori unici.",
+        "La Yulin moderna è un'importante città industriale del Guangxi, famosa in tutta la Cina per l'industria meccanica incentrata sul Gruppo Yuchai, ed è conosciuta come la 'Capitale dell'Energia della Cina'. Allo stesso tempo, sviluppa l'industria della medicina tradizionale cinese, costruendo la 'Capitale della Medicina del Sud'. Per quanto riguarda i trasporti, l'aeroporto di Yulin Fumian è già operativo e la ferrovia ad alta velocità è in costruzione, la città ha un forte slancio di sviluppo."
+      ],
+      "attractions": [
+        {
+          "name": "Città Culturale di Yuntian",
+          "desc": "Conosciuta anche come Palazzo Yuntian, è un'enorme architettura in stile antico che combina l'arte architettonica cinese antica con la scultura, con enormi sculture in legno e bronzo, di grande imponenza.",
+          "time": "08:30-17:30",
+          "price": "120 yuan",
+          "season": "Tutto l'anno"
+        },
+        {
+          "name": "Museo di Yulin",
+          "desc": "Museo completo che mostra la storia e la cultura di Yulin, con ricche collezioni tra cui reperti archeologici e oggetti folcloristici, un buon posto per conoscere Yulin.",
+          "time": "09:00-17:00 (chiuso il lunedì)",
+          "price": "Gratuito",
+          "season": "Tutto l'anno"
+        },
+        {
+          "name": "Roccia Shuiyue",
+          "desc": "Tipica area carsica caratterizzata da picchi spettacolari, grotte e acque limpide. Le stalattiti all'interno delle grotte sono di varie forme, conosciuta come la 'Prima Roccia del Lingnan'.",
+          "time": "08:00-17:00",
+          "price": "60 yuan",
+          "season": "Tutto l'anno"
+        },
+        {
+          "name": "Area Turistica del Monte Fozi",
+          "desc": "Area che combina paesaggi montani e fluviali, cultura religiosa e svago. La vetta principale, il Monte Fozi, è relativamente alta e offre una vista panoramica sulla città di Yulin.",
+          "time": "08:00-18:00",
+          "price": "30 yuan",
+          "season": "Migliore in primavera e autunno"
+        },
+        {
+          "name": "Area Scenica del Monte Lufeng",
+          "desc": "Principalmente paesaggio carsico, foresta primordiale e grotte, con attrazioni come la 'Grotta della Sorgente del Drago', ideale per l'esplorazione e il trekking.",
+          "time": "08:30-17:00",
+          "price": "50 yuan",
+          "season": "Tutto l'anno"
+        },
+        {
+          "name": "Parco Forestale Nazionale del Monte Darong",
+          "desc": "La vetta più alta del Guangxi sud-orientale, con fitte foreste, prati alpini, cascate e ruscelli, soprannominato 'la Scandinavia del Sud'.",
+          "time": "08:00-17:00",
+          "price": "60 yuan",
+          "season": "Migliore in estate e autunno"
+        }
+      ],
+      "food": [
+        {
+          "name": "Manzo Essiccato di Yulin",
+          "desc": "Famoso spuntino tradizionale di Yulin, a base di manzo marinato e poi arrostito, di colore lucido, carne secca e gommosa, con un sapore dolce-salato equilibrato.",
+          "price": "50-80 yuan/jin"
+        },
+        {
+          "name": "Spinaci d'Acqua di Bobai",
+          "desc": "Specialità della contea di Bobai, gambi cavi, croccanti e teneri, possono essere saltati in padella o con aglio, sono una verdura comune sulla tavola di Yulin.",
+          "price": "5-10 yuan/jin"
+        },
+        {
+          "name": "Zampone di Luchuan",
+          "desc": "Piatto tipico della contea di Luchuan, lo zampone viene brasato o stufato, con pelle morbida e carne tenera, ricco di collagene, dal sapore intenso.",
+          "price": "40-60 yuan/porzione"
+        },
+        {
+          "name": "Spaghetti di Riso con Petto di Manzo di Yulin",
+          "desc": "Colazione classica di Yulin, petto di manzo stufato fino a diventare tenero, brodo ricco, servito con spaghetti di riso fini, guarnito con cipollotti e arachidi.",
+          "price": "10-15 yuan/ciotola"
+        },
+        {
+          "name": "Carne di Cane con Litchi di Yulin",
+          "desc": "Piatto speciale del Festival della Carne di Cane di Yulin, carne di cane cotta con litchi, la carne di cane è riscaldante, il litchi è dolce e rinfrescante, sapore unico ma controverso.",
+          "price": "80-150 yuan/porzione"
+        },
+        {
+          "name": "Pompelmo di Shatian di Rongxian",
+          "desc": "Specialità della contea di Rongxian, frutto grande con buccia sottile, polpa dolce e succosa, conosciuto come 'lattina naturale', prodotto con indicazione geografica nazionale.",
+          "price": "10-20 yuan/pezzo"
+        }
+      ],
+      "history": [
+        {
+          "year": "214 a.C.",
+          "title": "Istituzione della Comanderia di Guilin da parte della dinastia Qin",
+          "desc": "Dopo che Qin Shi Huang unificò il Lingnan, l'area di Yulin appartenne alla Comanderia di Guilin, segnando l'inizio del dominio dell'impero cinese su Yulin."
+        },
+        {
+          "year": "666 d.C.",
+          "title": "Istituzione della Prefettura di Yulin nella dinastia Tang",
+          "desc": "Sotto l'imperatore Gaozong dei Tang fu istituita la Prefettura di Yulin, e Yulin divenne la sede della prefettura, elevando il suo status amministrativo."
+        },
+        {
+          "year": "1997",
+          "title": "Yulin diventa città a livello di prefettura",
+          "desc": "Nell'aprile 1997, la regione di Yulin fu abolita e fu istituita la città di Yulin a livello di prefettura, inaugurando una nuova fase di sviluppo urbano moderno."
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "Primavera e autunno (marzo-maggio, settembre-novembre)",
+        "paragraphs": [
+          "In primavera (marzo-maggio) le temperature sono piacevoli, i fiori sbocciano, è il periodo ideale per visitare i parchi e la campagna di Yulin.",
+          "In autunno (settembre-novembre) il cielo è sereno e le piogge scarse, adatto per attività all'aperto e per gustare le prelibatezze autunnali.",
+          "L'estate è calda e piovosa, l'inverno mite e secco. In estate si può partecipare a eventi speciali come il Festival della Carne di Cane; in inverno sono consigliate le terme."
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "Canti Popolari di Yulin",
+          "desc": "Patrimonio culturale immateriale della Regione Autonoma del Guangxi Zhuang, cantati nel dialetto di Yulin, con melodie melodiose, i cui contenuti riflettono principalmente la vita lavorativa e l'amore."
+        },
+        {
+          "name": "Opera di Raccolta del Tè di Guinan di Bobai",
+          "desc": "Patrimonio culturale immateriale nazionale, combina canti e danze della raccolta del tè con l'opera, forma vivace e ricca di sapore locale."
+        }
+      ],
+      "transportation": [
+        {
+          "title": "Aeroporto di Yulin Fumian",
+          "desc": "Situato nel distretto di Fumian, ha rotte verso le principali città come Pechino, Shanghai, Guangzhou, Shenzhen.",
+          "price": "A seconda della rotta"
+        },
+        {
+          "title": "Stazione di Yulin / Stazione Nord di Yulin",
+          "desc": "La stazione di Yulin è una stazione per treni normali, la stazione Nord di Yulin è per treni ad alta velocità (in costruzione). Attualmente i treni normali possono raggiungere Nanning, Guangzhou, ecc.",
+          "price": "A seconda del treno"
+        },
+        {
+          "title": "Autostazione Centrale di Yulin",
+          "desc": "Situata nel centro città, offre autobus a lunga percorrenza per tutte le contee e città del Guangxi e province vicine, gli autobus urbani coprono le principali aree.",
+          "price": "A seconda della linea"
+        }
+      ],
+      "info": {
+        "area": "12.838 km²",
+        "population": "Circa 7,4 milioni"
+      }
+    },
+    "ja": {
+      "enName": "玉林",
+      "tags": [
+        {
+          "text": "南方の薬都",
+          "color": "#4CAF50"
+        },
+        {
+          "text": "中国動力の都",
+          "color": "#2196F3"
+        },
+        {
+          "text": "玉林犬肉祭り",
+          "color": "#FF5722"
+        },
+        {
+          "text": "嶺南の古州",
+          "color": "#9C27B0"
+        }
+      ],
+      "paragraphs": [
+        "玉林市は広西東南部に位置し、北回帰線以南にあり、亜熱帯モンスーン気候に属します。温暖湿潤で雨量が多く、年間平均気温は約22℃です。地形は北高南低で、丘陵や台地が主であり、広西の重要な農業産地です。",
+        "玉林は古くは鬱林と呼ばれ、歴史が長く、秦の時代から中原王朝の版図に組み込まれました。唐代に鬱林州が設置され、明・清時代には嶺南の要衝となりました。近代以降、商業や手工業が急速に発展し、「嶺南の古州」として知られています。",
+        "玉林の文化は多様で、客家文化と嶺南文化が融合しているのが特徴です。玉林語は粤語の勾漏片に属します。有名な風習として「玉林犬肉祭り（荔枝犬肉祭り）」があり、議論を呼ぶものの、地方の食文化を反映しています。美食では玉林牛バー、博白空心菜、陸川豚足などが代表で、独特の風味があります。",
+        "現代の玉林は広西の重要な工業都市であり、玉柴グループを中心とした機械製造業が全国的に有名で、「中国動力の都」と称されています。同時に漢方薬産業も発展し、「南方の薬都」を建設しています。交通面では玉林福綿空港が就航し、高速鉄道も建設中で、都市の発展は力強いです。"
+      ],
+      "attractions": [
+        {
+          "name": "雲天文化城",
+          "desc": "雲天宮とも呼ばれ、巨大な仿古建築群で、中国古代建築芸術と彫刻を融合。内部には巨大な木彫や銅像などがあり、壮大な雰囲気。",
+          "time": "08:30-17:30",
+          "price": "120元",
+          "season": "年間"
+        },
+        {
+          "name": "玉林市博物館",
+          "desc": "玉林の歴史文化を展示する総合博物館。出土文物や民俗展示品などが豊富で、玉林を知るのに最適。",
+          "time": "09:00-17:00（月曜休館）",
+          "price": "無料",
+          "season": "年間"
+        },
+        {
+          "name": "水月岩",
+          "desc": "典型的なカルスト地形の景勝地。奇峰、鍾乳洞、碧水が特徴で、洞内の鍾乳石は千姿万態。「嶺南第一岩」と称される。",
+          "time": "08:00-17:00",
+          "price": "60元",
+          "season": "年間"
+        },
+        {
+          "name": "仏子山旅遊度假区",
+          "desc": "山水景観、宗教文化、レジャーを一体化した景区。主峰の仏子山は標高が高く、玉林市街を一望できる。",
+          "time": "08:00-18:00",
+          "price": "30元",
+          "season": "春秋最適"
+        },
+        {
+          "name": "鹿峰山風景区",
+          "desc": "カルスト地形、原生林、鍾乳洞が主体で、「龍泉洞」などの景勝がある。探検やハイキングに最適。",
+          "time": "08:30-17:00",
+          "price": "50元",
+          "season": "年間"
+        },
+        {
+          "name": "大容山国家森林公園",
+          "desc": "桂東南の最高峰で、森林が茂り、高山草原、滝、渓流などの景観がある。「南方の北欧」と称される。",
+          "time": "08:00-17:00",
+          "price": "60元",
+          "season": "夏秋最適"
+        }
+      ],
+      "food": [
+        {
+          "name": "玉林牛バー",
+          "desc": "玉林伝統の軽食。牛肉を漬け込んで焼き上げたもので、色艶よく、肉は乾いて歯ごたえがあり、甘辛い味。",
+          "price": "50-80元/斤"
+        },
+        {
+          "name": "博白空心菜",
+          "desc": "博白県の特産。茎が中空で、食感はシャキシャキ。炒め物やニンニク和えに。玉林の食卓でよく見かける野菜。",
+          "price": "5-10元/斤"
+        },
+        {
+          "name": "陸川豚足",
+          "desc": "陸川県の名物料理。豚足を煮込みまたは紅焼きに。皮は柔らかく、肉はとろける。コラーゲン豊富で濃厚な味わい。",
+          "price": "40-60元/皿"
+        },
+        {
+          "name": "玉林牛腩粉",
+          "desc": "玉林の定番朝食。牛スジ肉を柔らかく煮込み、スープは濃厚。細い米粉麺に、ネギとピーナッツをのせる。",
+          "price": "10-15元/碗"
+        },
+        {
+          "name": "玉林荔枝犬肉",
+          "desc": "玉林犬肉祭りの名物料理。犬肉とライチを一緒に煮込む。犬肉は体を温め、ライチは甘く清涼感があり、風味は独特だが議論を呼ぶ。",
+          "price": "80-150元/皿"
+        },
+        {
+          "name": "容県沙田柚",
+          "desc": "容県の特産。果実は大きく皮が薄く、果肉は甘くてジューシー。「天然の缶詰」と呼ばれ、国家地理標識産品。",
+          "price": "10-20元/個"
+        }
+      ],
+      "history": [
+        {
+          "year": "紀元前214年",
+          "title": "秦朝による桂林郡設置",
+          "desc": "秦の始皇帝が嶺南を統一後、玉林地域は桂林郡に属し、中原政権による玉林統治の始まり。"
+        },
+        {
+          "year": "666年",
+          "title": "唐代に鬱林州設置",
+          "desc": "唐高宗の時代に鬱林州が設置され、玉林が州治所在地となり、行政的地位が向上。"
+        },
+        {
+          "year": "1997年",
+          "title": "玉林の地区から地級市へ",
+          "desc": "1997年4月、玉林地区が廃止され、地級市の玉林市が設立され、近代的な都市発展の新段階へ。"
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "春秋（3月～5月、9月～11月）",
+        "paragraphs": [
+          "春（3月～5月）は気温が快適で花が咲き乱れ、公園や郊外を訪れるのに最適。",
+          "秋（9月～11月）は晴天が続き、雨が少なく、アウトドア活動や秋の味覚を楽しむのに適している。",
+          "夏は暑くて雨が多いが、犬肉祭りなどのイベントを体験できる。冬は温暖で雨が少なく、温泉に最適。"
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "玉林山歌",
+          "desc": "広西壮族自治区の無形文化遺産。玉林方言で歌われ、旋律は優美で、労働生活や愛情を反映した内容。"
+        },
+        {
+          "name": "博白桂南採茶戯",
+          "desc": "国家級無形文化遺産。採茶歌舞と戯曲を融合。演技は生き生きとしており、田園の雰囲気に富む。"
+        }
+      ],
+      "transportation": [
+        {
+          "title": "玉林福綿空港",
+          "desc": "福綿区に位置し、北京、上海、広州、深圳などの主要都市への路線が就航。",
+          "price": "路線による"
+        },
+        {
+          "title": "玉林駅／玉林北駅",
+          "desc": "玉林駅は在来線、玉林北駅は高速鉄道駅（建設中）。現在、在来線で南寧、広州などへアクセス可能。",
+          "price": "列車による"
+        },
+        {
+          "title": "玉林汽車総駅",
+          "desc": "市中心部に位置し、広西区内の各県市や周辺省への長距離バスを運行。市内バスは主要エリアをカバー。",
+          "price": "路線による"
+        }
+      ],
+      "info": {
+        "area": "12,838平方キロメートル",
+        "population": "約740万人"
+      }
+    },
+    "ko": {
+      "enName": "위린",
+      "tags": [
+        {
+          "text": "남방 약도",
+          "color": "#4CAF50"
+        },
+        {
+          "text": "중국 동력의 수도",
+          "color": "#2196F3"
+        },
+        {
+          "text": "위린 개고기 축제",
+          "color": "#FF5722"
+        },
+        {
+          "text": "링난의 고주",
+          "color": "#9C27B0"
+        }
+      ],
+      "paragraphs": [
+        "위린시는 광시 동남부에 위치하며 북회귀선 이남에 있어 아열대 몬순 기후로 기후가 온난하고 습하며 강수량이 풍부하고 연평균 기온이 약 22°C입니다. 지세는 북쪽이 높고 남쪽이 낮으며 구릉과 대지가 주를 이루어 광시의 중요한 농업 생산지입니다.",
+        "위린은 고대에 위린이라 불리며 역사가 오래되었고 진나라 때부터 중원 왕조의 판도에 편입되었습니다. 당나라 때 위린주가 설치되었고 명청 시기에는 링난의 요충지가 되었습니다. 근대 이후 위린은 상업과 수공업에서 빠르게 발전하여 '링난의 고주'라는 명성을 얻었습니다.",
+        "위린의 문화는 다양하며 하카 문화와 링난 문화의 융합이 특징입니다. 위린 방언은 광둥어 구러우 편에 속합니다. 유명한 민속으로 '위린 개고기 축제'(여지 개고기 축제)가 있으며 논란이 있지만 지역의 음식 전통을 보여줍니다. 음식으로는 위린 누우바, 보바이 공심채, 루촨 돼지족 등이 대표적이며 독특한 풍미를 자랑합니다.",
+        "현대 위린은 광시의 중요한 공업 도시로 위차이 그룹을 중심으로 한 기계 제조업이 전국적으로 유명하여 '중국 동력의 수도'로 불립니다. 또한 한약 산업을 발전시켜 '남방 약도'를 건설하고 있습니다. 교통면에서는 위린 푸몐 공항이 개항했으며 고속철도도 건설 중으로 도시 발전이 활발합니다."
+      ],
+      "attractions": [
+        {
+          "name": "윈톈 문화성",
+          "desc": "윈톈궁이라고도 불리며 거대한 모조 고건축군으로 중국 고대 건축 예술과 조각이 융합되어 있으며 거대한 목조, 동조 등이 있어 웅장합니다.",
+          "time": "08:30-17:30",
+          "price": "120위안",
+          "season": "연중"
+        },
+        {
+          "name": "위린시 박물관",
+          "desc": "위린의 역사 문화를 전시하는 종합 박물관으로 출토 유물, 민속 전시품 등 소장품이 풍부하여 위린을 이해하기 좋은 곳입니다.",
+          "time": "09:00-17:00 (월요일 휴관)",
+          "price": "무료",
+          "season": "연중"
+        },
+        {
+          "name": "수웨옌",
+          "desc": "전형적인 카르스트 지형 경관으로 기이한 봉우리, 석회암 동굴, 맑은 물이 특징이며 동굴 안의 종유석이 천태만상으로 '링난 제일의 바위'라 불립니다.",
+          "time": "08:00-17:00",
+          "price": "60위안",
+          "season": "연중"
+        },
+        {
+          "name": "포쯔산 관광 휴양지",
+          "desc": "산수 경관, 종교 문화, 휴양이 어우러진 관광지로 주봉인 포쯔산은 해발이 높아 위린 시내를 조망할 수 있습니다.",
+          "time": "08:00-18:00",
+          "price": "30위안",
+          "season": "봄가을 최적"
+        },
+        {
+          "name": "루펑산 풍경구",
+          "desc": "카르스트 지형, 원시림, 석회암 동굴이 주를 이루며 '룽취안 동굴' 등의 명소가 있어 탐험과 트레킹에 좋습니다.",
+          "time": "08:30-17:00",
+          "price": "50위안",
+          "season": "연중"
+        },
+        {
+          "name": "다룽산 국립삼림공원",
+          "desc": "광시 동남부 최고봉으로 숲이 울창하고 고산 초원, 폭포, 계류 등 경관이 있어 '남방의 북유럽'이라 불립니다.",
+          "time": "08:00-17:00",
+          "price": "60위안",
+          "season": "여름가을 최적"
+        }
+      ],
+      "food": [
+        {
+          "name": "위린 누우바",
+          "desc": "위린 전통 명소시로 쇠고기를 양념해 구운 것으로 윤기가 흐르고 육질이 건조하며 쫄깃하고 달콤짭짤합니다.",
+          "price": "50-80위안/근"
+        },
+        {
+          "name": "보바이 공심채",
+          "desc": "보바이현 특산물로 줄기가 비어 있고 식감이 아삭하며 볶음이나 마늘볶음으로 먹으며 위린 사람들의 식탁에 자주 오릅니다.",
+          "price": "5-10위안/근"
+        },
+        {
+          "name": "루촨 돼지족",
+          "desc": "루촨현 특색 요리로 돼지족을 조리거나 붉은색으로 조려 껍질은 부드럽고 고기는 연하며 콜라겐이 풍부하고 맛이 진합니다.",
+          "price": "40-60위안/접시"
+        },
+        {
+          "name": "위린 소힘줄 쌀국수",
+          "desc": "위린의 대표적인 아침 식사로 소힘줄을 푹 삶아 육수가 진하고 부드러운 쌀국수에 파와 땅콩을 뿌립니다.",
+          "price": "10-15위안/그릇"
+        },
+        {
+          "name": "위린 여지 개고기",
+          "desc": "위린 개고기 축제 특색 요리로 개고기와 여지를 함께 끓인 것으로 개고기는 따뜻하고 여지는 달콤하며 독특한 풍미를 지니지만 논란이 있습니다.",
+          "price": "80-150위안/접시"
+        },
+        {
+          "name": "룽현 사탕유자",
+          "desc": "룽현 특산물로 과일이 크고 껍질이 얇으며 과육이 달고 즙이 많아 '천연 통조림'이라 불리며 국가 지리적 표시 제품입니다.",
+          "price": "10-20위안/개"
+        }
+      ],
+      "history": [
+        {
+          "year": "기원전 214년",
+          "title": "진나라 계림군 설치",
+          "desc": "진시황이 링난을 통일한 후 위린 지역은 계림군에 속하게 되어 중원 정권의 위린 관할 시작을 알렸습니다."
+        },
+        {
+          "year": "666년",
+          "title": "당나라 위린주 설치",
+          "desc": "당 고종 시기에 위린주가 설치되어 위린이 주의 소재지가 되면서 행정적 지위가 상승했습니다."
+        },
+        {
+          "year": "1997년",
+          "title": "위린 지구 철폐 및 시 승격",
+          "desc": "1997년 4월, 위린 지구가 철폐되고 지급시인 위린시가 설치되어 현대적 도시 발전의 새로운 단계를 열었습니다."
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "봄과 가을 (3-5월, 9-11월)",
+        "paragraphs": [
+          "봄(3-5월)은 기온이 쾌적하고 꽃이 만발하여 위린의 공원과 교외를 방문하기 좋은 시기입니다.",
+          "가을(9-11월)은 하늘이 높고 쾌청하며 강수량이 적어 야외 활동과 가을 별미를 즐기기에 적합합니다.",
+          "여름은 덥고 비가 많으며 겨울은 온화하고 건조하지만 여름에는 개고기 축제 등 특별한 활동을 체험할 수 있고 겨울에는 온천을 즐기기에 좋습니다."
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "위린 산가",
+          "desc": "광시 좡족 자치구 무형문화유산으로 위린 방언으로 노래하며 가락이 부드럽고 내용은 주로 노동 생활과 사랑을 반영합니다."
+        },
+        {
+          "name": "보바이 구이난 차 따기 노래극",
+          "desc": "국가급 무형문화유산으로 차 따기 노래와 춤, 희곡이 융합된 형태로 생동감 있고 향토적입니다."
+        }
+      ],
+      "transportation": [
+        {
+          "title": "위린 푸몐 공항",
+          "desc": "푸몐구에 위치하며 베이징, 상하이, 광저우, 선전 등 주요 도시로의 노선이 개설되어 있습니다.",
+          "price": "노선에 따라 다름"
+        },
+        {
+          "title": "위린역 / 위린 북역",
+          "desc": "위린역은 일반 열차역이고 위린 북역은 고속철도역(건설 중)입니다. 현재 일반 열차로 난닝, 광저우 등에 갈 수 있습니다.",
+          "price": "차종에 따라 다름"
+        },
+        {
+          "title": "위린 버스 터미널",
+          "desc": "시내 중심에 위치하며 광시 내 각 현과 시, 및 주변 성으로 가는 장거리 버스가 있으며 시내 버스는 주요 지역을 운행합니다.",
+          "price": "노선에 따라 다름"
+        }
+      ],
+      "info": {
+        "area": "12,838km²",
+        "population": "약 740만 명"
+      }
+    },
+    "ru": {
+      "enName": "Юйлинь",
+      "tags": [
+        {
+          "text": "Южная аптека",
+          "color": "#4CAF50"
+        },
+        {
+          "text": "Китайская столица энергетики",
+          "color": "#2196F3"
+        },
+        {
+          "text": "Фестиваль собачьего мяса в Юйлине",
+          "color": "#FF5722"
+        },
+        {
+          "text": "Древний город Линнань",
+          "color": "#9C27B0"
+        }
+      ],
+      "paragraphs": [
+        "Город Юйлинь расположен на юго-востоке Гуанси, к югу от тропика Рака, с субтропическим муссонным климатом: тепло и влажно, обильные осадки, среднегодовая температура около 22°C. Рельеф понижается с севера на юг, преобладают холмы и плато, это важный сельскохозяйственный район Гуанси.",
+        "Юйлинь, в древности называвшийся Юйлинь, имеет долгую историю: с династии Цинь вошёл в состав китайских земель. При династии Тан была основана область Юйлинь, в эпохи Мин и Цин он стал важным городом Линнань. В новейшее время Юйлинь быстро развивался в торговле и ремёслах, заслужив славу «древнего города Линнань».",
+        "Культура Юйлиня многообразна, отличается смешением культуры хакка и Линнань. Местный диалект относится к группе гоулоу кантонского языка. Известный обычай — «Фестиваль собачьего мяса» (фестиваль личи и собачьего мяса), хоть и спорный, но отражает местные пищевые традиции. Кухня представлена такими блюдами, как юйлиньская говядина-бао, болайский водяной шпинат, лучуаньские свиные ножки — вкус уникален.",
+        "Современный Юйлинь — важный промышленный город Гуанси, известный машиностроением, ядром которого является группа Yuchai, прозванная «Китайской столицей энергетики». Также развивается индустрия традиционной китайской медицины, строится «Южная аптека». В сфере транспорта: аэропорт Юйлинь-Фумянь уже открыт, строится высокоскоростная железная дорога — город динамично развивается."
+      ],
+      "attractions": [
+        {
+          "name": "Культурный город Юньтянь",
+          "desc": "Также известен как Дворец Юньтянь — огромный комплекс зданий в древнекитайском стиле, сочетающий архитектуру и скульптуру, с гигантскими деревянными и бронзовыми скульптурами, впечатляющий размахом.",
+          "time": "08:30-17:30",
+          "price": "120 юаней",
+          "season": "круглый год"
+        },
+        {
+          "name": "Музей Юйлиня",
+          "desc": "Комплексный музей, посвящённый истории и культуре Юйлиня, с богатой коллекцией археологических находок и этнографических экспонатов — отличное место для знакомства с городом.",
+          "time": "09:00-17:00 (закрыт по понедельникам)",
+          "price": "бесплатно",
+          "season": "круглый год"
+        },
+        {
+          "name": "Грот Шуйюэ",
+          "desc": "Типичный карстовый ландшафт с причудливыми пиками, пещерами и бирюзовой водой; сталактиты в пещерах разнообразны, известен как «первая скала Линнань».",
+          "time": "08:00-17:00",
+          "price": "60 юаней",
+          "season": "круглый год"
+        },
+        {
+          "name": "Туристическая зона Фоцзышань",
+          "desc": "Курортная зона, объединяющая горные пейзажи, религиозную культуру и отдых; главная вершина Фоцзышань высока, с неё открывается панорама Юйлиня.",
+          "time": "08:00-18:00",
+          "price": "30 юаней",
+          "season": "лучше всего весной и осенью"
+        },
+        {
+          "name": "Живописный район Лудэншань",
+          "desc": "Карстовый ландшафт, первобытный лес и пещеры, включая «Пещеру драконьего источника» — отличное место для приключений и пеших прогулок.",
+          "time": "08:30-17:00",
+          "price": "50 юаней",
+          "season": "круглый год"
+        },
+        {
+          "name": "Национальный лесной парк Дажуншань",
+          "desc": "Самая высокая вершина юго-восточного Гуанси, густые леса, горные луга, водопады, ручьи — прозван «южной Скандинавией».",
+          "time": "08:00-17:00",
+          "price": "60 юаней",
+          "season": "лучше всего летом и осенью"
+        }
+      ],
+      "food": [
+        {
+          "name": "Юйлиньская говядина-бао",
+          "desc": "Традиционная закуска Юйлиня: говядина маринуется и запекается, получается маслянистой, сухой, жевательной, с приятным сладко-солёным вкусом.",
+          "price": "50-80 юаней за цзинь"
+        },
+        {
+          "name": "Болайский водяной шпинат",
+          "desc": "Специалитет уезда Болай: стебли полые, хрустящие и нежные, готовятся на пару или с чесноком — частое блюдо на столе жителей Юйлиня.",
+          "price": "5-10 юаней за цзинь"
+        },
+        {
+          "name": "Лучуаньские свиные ножки",
+          "desc": "Фирменное блюдо уезда Лучуань: свиные ножки тушатся в соевом соусе или готовятся по-красному, кожа мягкая, мясо нежное, богато коллагеном, насыщенный вкус.",
+          "price": "40-60 юаней за порцию"
+        },
+        {
+          "name": "Юйлиньский суп с говяжьей грудинкой и рисовой лапшой",
+          "desc": "Классический завтрак в Юйлине: говяжья грудинка тушится до мягкости, бульон насыщенный, подаётся с тонкой рисовой лапшой, посыпается зелёным луком и арахисом.",
+          "price": "10-15 юаней за миску"
+        },
+        {
+          "name": "Юйлиньское собачье мясо с личи",
+          "desc": "Фирменное блюдо Фестиваля собачьего мяса: собачье мясо варится с личи, согревающее, личи сладкие — вкус уникальный, но блюдо спорное.",
+          "price": "80-150 юаней за порцию"
+        },
+        {
+          "name": "Жунсяньский помело Шатянь",
+          "desc": "Специалитет уезда Жун: крупные плоды с тонкой кожурой, сочная сладкая мякоть, прозван «натуральными консервами», продукт с географическим указанием.",
+          "price": "10-20 юаней за штуку"
+        }
+      ],
+      "history": [
+        {
+          "year": "214 г. до н. э.",
+          "title": "Династия Цинь основала округ Гуйлинь",
+          "desc": "После объединения Линнаня Цинь Шихуаном территория Юйлиня вошла в состав округа Гуйлинь, что положило начало управлению из центра."
+        },
+        {
+          "year": "666 г.",
+          "title": "При династии Тан основана область Юйлинь",
+          "desc": "При императоре Гаоцзуне создана область Юйлинь, Юйлинь стал административным центром, повысив свой статус."
+        },
+        {
+          "year": "1997 г.",
+          "title": "Преобразование Юйлиня в город окружного значения",
+          "desc": "В апреле 1997 года округ Юйлинь был упразднён, основан городской округ Юйлинь, начался этап современного городского развития."
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "Весна и осень (март-май, сентябрь-ноябрь)",
+        "paragraphs": [
+          "Весной (март-май) комфортная температура, цветут цветы — хорошее время для посещения парков и загородных мест.",
+          "Осенью (сентябрь-ноябрь) ясная и сухая погода, подходит для активного отдыха и дегустации осенних блюд.",
+          "Летом жарко и дождливо, зимой мягко и сухо, но летом можно посетить Фестиваль собачьего мяса, а зимой — горячие источники."
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "Народные песни Юйлиня",
+          "desc": "Нематериальное культурное наследие Гуанси-Чжуанского автономного района; исполняются на местном диалекте, мелодии протяжные, содержание отражает труд и любовь."
+        },
+        {
+          "name": "Болайская чайная опера Гуйнань",
+          "desc": "Нематериальное культурное наследие государственного уровня; сочетает песни и танцы сбора чая с оперой, живое исполнение, проникнуто местным колоритом."
+        }
+      ],
+      "transportation": [
+        {
+          "title": "Аэропорт Юйлинь-Фумянь",
+          "desc": "Расположен в районе Фумянь, открыты рейсы в Пекин, Шанхай, Гуанчжоу, Шэньчжэнь и другие крупные города.",
+          "price": "зависит от маршрута"
+        },
+        {
+          "title": "Вокзалы Юйлинь и Юйлиньбэй",
+          "desc": "Юйлинь — станция обычных поездов, Юйлиньбэй — станция высокоскоростных (строится). Сейчас обычные поезда ходят до Наньнина, Гуанчжоу и др.",
+          "price": "зависит от поезда"
+        },
+        {
+          "title": "Автовокзал Юйлиня",
+          "desc": "Находится в центре города, есть рейсы в уезды Гуанси и соседние провинции; городские автобусы охватывают основные районы.",
+          "price": "зависит от маршрута"
+        }
+      ],
+      "info": {
+        "area": "12 838 км²",
+        "population": "около 7,4 млн человек"
+      }
+    },
+    "tw": {
+      "enName": "玉林",
+      "tags": [
+        {
+          "text": "南方藥都",
+          "color": "#4CAF50"
+        },
+        {
+          "text": "中國動力之都",
+          "color": "#2196F3"
+        },
+        {
+          "text": "玉林狗肉節",
+          "color": "#FF5722"
+        },
+        {
+          "text": "嶺南古州",
+          "color": "#9C27B0"
+        }
+      ],
+      "paragraphs": [
+        "玉林市位於廣西東南部，地處北回歸線以南，屬亞熱帶季風氣候，氣候溫暖濕潤，雨量充沛，年均氣溫約22℃。地勢北高南低，以丘陵台地為主，是廣西重要的農業產區。",
+        "玉林古稱鬱林，歷史悠久，自秦朝起便納入中原王朝版圖。唐代設鬱林州，明清時期成為嶺南重鎮。近代以來，玉林在商貿、手工業方面發展迅速，享有「嶺南古州」美譽。",
+        "玉林文化多元，以客家文化、嶺南文化交融為特色。玉林話屬粵語勾漏片。著名民俗有「玉林狗肉節」（荔枝狗肉節），雖具爭議但體現地方飲食傳統。美食以玉林牛巴、博白空心菜、陸川豬腳等為代表，風味獨特。",
+        "現代玉林是廣西重要的工業城市，以玉柴集團為核心的機械製造業聞名全國，被譽為「中國動力之都」。同時發展中醫藥產業，建設「南方藥都」。交通方面，玉林福綿機場已通航，高鐵也在建設中，城市發展勢頭強勁。"
+      ],
+      "attractions": [
+        {
+          "name": "雲天文化城",
+          "desc": "又稱雲天宮，是一座巨型仿古建築群，融合中國古代建築藝術與雕塑，內有巨型木雕、銅雕等，氣勢恢宏。",
+          "time": "08:30-17:30",
+          "price": "120元",
+          "season": "全年"
+        },
+        {
+          "name": "玉林市博物館",
+          "desc": "展示玉林歷史文化的綜合性博物館，館藏豐富，包括出土文物、民俗展品等，了解玉林的好去處。",
+          "time": "09:00-17:00（週一閉館）",
+          "price": "免費",
+          "season": "全年"
+        },
+        {
+          "name": "水月岩",
+          "desc": "典型的喀斯特地貌景區，以奇峰、溶洞、碧水為特色，洞內鐘乳石千姿百態，有「嶺南第一岩」之稱。",
+          "time": "08:00-17:00",
+          "price": "60元",
+          "season": "全年"
+        },
+        {
+          "name": "佛子山旅遊度假區",
+          "desc": "集山水風光、宗教文化、休閒度假於一體的景區，主峰佛子山海拔較高，可俯瞰玉林城區。",
+          "time": "08:00-18:00",
+          "price": "30元",
+          "season": "春秋最佳"
+        },
+        {
+          "name": "鹿峰山風景區",
+          "desc": "以喀斯特地貌、原始森林和溶洞為主，有「龍泉洞」等景點，是探險和徒步的好去處。",
+          "time": "08:30-17:00",
+          "price": "50元",
+          "season": "全年"
+        },
+        {
+          "name": "大容山國家森林公園",
+          "desc": "桂東南第一高峰，森林茂密，有高山草甸、瀑布、溪流等景觀，被譽為「南方北歐」。",
+          "time": "08:00-17:00",
+          "price": "60元",
+          "season": "夏秋最佳"
+        }
+      ],
+      "food": [
+        {
+          "name": "玉林牛巴",
+          "desc": "玉林傳統名小吃，以牛肉醃製後烘烤而成，色澤油亮，肉質乾香有嚼勁，甜鹹適中。",
+          "price": "50-80元/斤"
+        },
+        {
+          "name": "博白空心菜",
+          "desc": "博白縣特產，莖中空，口感脆嫩，可清炒或蒜蓉，是玉林人餐桌上的常見蔬菜。",
+          "price": "5-10元/斤"
+        },
+        {
+          "name": "陸川豬腳",
+          "desc": "陸川縣特色菜，豬腳經滷製或紅燒，皮軟肉爛，膠原蛋白豐富，味道濃郁。",
+          "price": "40-60元/份"
+        },
+        {
+          "name": "玉林牛腩粉",
+          "desc": "玉林經典早餐，牛腩燉至軟爛，湯底濃郁，搭配細滑的米粉，撒上蔥花和花生。",
+          "price": "10-15元/碗"
+        },
+        {
+          "name": "玉林荔枝狗肉",
+          "desc": "玉林狗肉節特色菜，狗肉與荔枝同煮，狗肉溫補，荔枝清甜，風味獨特，但頗具爭議。",
+          "price": "80-150元/份"
+        },
+        {
+          "name": "容縣沙田柚",
+          "desc": "容縣特產，果大皮薄，果肉清甜多汁，有「天然罐頭」之稱，是國家地理標誌產品。",
+          "price": "10-20元/個"
+        }
+      ],
+      "history": [
+        {
+          "year": "公元前214年",
+          "title": "秦朝設立桂林郡",
+          "desc": "秦始皇統一嶺南後，玉林地區屬桂林郡，標誌著中原政權對玉林管轄的開始。"
+        },
+        {
+          "year": "公元666年",
+          "title": "唐代設鬱林州",
+          "desc": "唐高宗時期設置鬱林州，玉林成為州治所在地，行政地位提升。"
+        },
+        {
+          "year": "1997年",
+          "title": "玉林撤地設市",
+          "desc": "1997年4月，玉林地區撤銷，設立地級玉林市，開啟現代化城市發展新階段。"
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "春秋兩季（3-5月、9-11月）",
+        "paragraphs": [
+          "春季（3-5月）氣溫適宜，百花盛開，是遊覽玉林公園和郊野的好時節。",
+          "秋季（9-11月）天高氣爽，降水較少，適合戶外活動和品嚐秋季美食。",
+          "夏季炎熱多雨，冬季溫和少雨，但夏季可體驗狗肉節等特色活動，冬季則適合泡溫泉。"
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "玉林山歌",
+          "desc": "廣西壯族自治區非物質文化遺產，以玉林方言演唱，曲調悠揚，內容多反映勞動生活與愛情。"
+        },
+        {
+          "name": "博白桂南採茶戲",
+          "desc": "國家級非物質文化遺產，融合採茶歌舞與戲曲，表演形式活潑，富有鄉土氣息。"
+        }
+      ],
+      "transportation": [
+        {
+          "title": "玉林福綿機場",
+          "desc": "位於福綿區，已開通至北京、上海、廣州、深圳等主要城市的航線。",
+          "price": "視航線而定"
+        },
+        {
+          "title": "玉林站/玉林北站",
+          "desc": "玉林站為普速站，玉林北站為高鐵站（建設中）。目前普速列車可通達南寧、廣州等地。",
+          "price": "視車次而定"
+        },
+        {
+          "title": "玉林汽車總站",
+          "desc": "位於市中心，有發往廣西區內各縣市及周邊省份的長途班車，市內公交覆蓋主要區域。",
+          "price": "視線路而定"
+        }
+      ],
+      "info": {
+        "area": "12,838平方公里",
+        "population": "約740萬人"
+      }
+    }
+  }
+}

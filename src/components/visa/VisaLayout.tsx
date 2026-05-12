@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link, useLocation } from '@/lib/router-compat';
 import { ChevronRight, Home } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import { getRandomHeroBg } from '@/lib/hero-backgrounds';
 
 interface VisaLayoutProps {
   children: React.ReactNode;
@@ -22,6 +23,7 @@ export default function VisaLayout({ children, breadcrumbTitle }: VisaLayoutProp
   const { language, t } = useLanguage();
   const langMap: Record<string, string> = { zh: 'cn', tw: 'tw', en: 'en', ja: 'ja', ko: 'ko', ru: 'ru', fr: 'fr', es: 'es', de: 'de', it: 'it' };
   const langPrefix = langMap[language] || 'en';
+  const heroBg = useMemo(() => getRandomHeroBg(), []);
   const links = sidebarLinks(t, langPrefix);
 
   return (
@@ -30,7 +32,7 @@ export default function VisaLayout({ children, breadcrumbTitle }: VisaLayoutProp
       <div 
         className="relative h-[180px] sm:h-[300px] w-full flex items-end sm:items-center pt-8 sm:pt-16 pb-6 sm:pb-0"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1543097692-fa13c6cd8595?q=80&w=2670&auto=format&fit=crop)',
+          backgroundImage: `url(${heroBg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}

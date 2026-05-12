@@ -1,0 +1,125 @@
+{
+  "completed": [
+    "湖州",
+    "绍兴",
+    "金华",
+    "衢州",
+    "舟山",
+    "台州",
+    "丽水",
+    "合肥",
+    "芜湖",
+    "蚌埠",
+    "淮南",
+    "马鞍山",
+    "淮北",
+    "铜陵",
+    "安庆",
+    "黄山",
+    "滁州",
+    "阜阳",
+    "宿州",
+    "六安",
+    "亳州",
+    "池州",
+    "宣城",
+    "莆田",
+    "三明",
+    "泉州",
+    "漳州",
+    "南平",
+    "龙岩",
+    "宁德",
+    "景德镇",
+    "萍乡",
+    "九江",
+    "新余",
+    "鹰潭",
+    "赣州",
+    "吉安",
+    "宜春",
+    "济南",
+    "淄博",
+    "枣庄",
+    "东营",
+    "烟台",
+    "潍坊",
+    "济宁",
+    "泰安",
+    "威海",
+    "日照",
+    "临沂",
+    "德州",
+    "聊城",
+    "滨州",
+    "菏泽",
+    "开封",
+    "平顶山",
+    "安阳",
+    "鹤壁",
+    "新乡",
+    "焦作",
+    "濮阳",
+    "许昌",
+    "漯河"
+  ],
+  "failed": [
+    {
+      "name": "抚州",
+      "error": "process failed"
+    },
+    {
+      "name": "三门峡",
+      "error": "process failed"
+    },
+    {
+      "name": "南阳",
+      "error": "process failed"
+    },
+    {
+      "name": "商丘",
+      "error": "process failed"
+    },
+    {
+      "name": "信阳",
+      "error": "process failed"
+    },
+    {
+      "name": "周口",
+      "error": "process failed"
+    },
+    {
+      "name": "驻马店",
+      "error": "process failed"
+    },
+    {
+      "name": "黄石",
+      "error": "process failed"
+    },
+    {
+      "name": "十堰",
+      "error": "process failed"
+    },
+    {
+      "name": "宜昌",
+      "error": "process failed"
+    },
+    {
+      "name": "襄阳",
+      "error": "process failed"
+    },
+    {
+      "name": "鄂州",
+      "error": "process failed"
+    },
+    {
+      "name": "荆门",
+      "error": "process failed"
+    },
+    {
+      "name": "孝感",
+      "error": "process failed"
+    }
+  ],
+  "lastCity": "孝感"
+}

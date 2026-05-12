@@ -2,11 +2,21 @@
 
 import React from 'react';
 import { Twitter, Mail, Youtube, Facebook } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import { Link } from '@/lib/router-compat';
 import { useLanguage } from '../context/LanguageContext';
 
+const LANG_PREFIXES = ['cn', 'en', 'ja', 'ko', 'ru', 'fr', 'es', 'de', 'tw', 'it'];
+
+const LANG_OPTIONS: { label: string; code: string }[] = [
+  { label: 'English', code: 'en' },
+  { label: '简体中文', code: 'cn' },
+  { label: '繁体中文', code: 'tw' },
+];
+
 export default function Footer() {
-  const { t, language } = useLanguage();
+  const { t, setLanguage } = useLanguage();
+  const pathname = usePathname();
   
   return (
     <footer className="bg-[#0e7552] text-[#e5f5ef] text-sm">
@@ -68,22 +78,42 @@ export default function Footer() {
           <div className="col-span-1">
             <h4 className="text-white font-bold mb-6 text-[15px]">{t('footer.links.lang')}</h4>
             <ul className="space-y-4">
-              {['English', '简体中文', '繁体中文'].map(link => (
-                <li key={link}>
-                  <button className="hover:text-white transition-colors text-[13px] text-[#e5f5ef] font-medium">{link}</button>
+              {LANG_OPTIONS.map(({ label, code }) => (
+                <li key={code}>
+                  <button
+                    onClick={() => {
+                      const segments = pathname.split('/').filter(Boolean);
+                      const first = segments[0] || '';
+                      const hasLang = LANG_PREFIXES.includes(first);
+                      const restPath = hasLang ? '/' + segments.slice(1).join('/') : pathname;
+                      const target = `/${code}${restPath}`;
+                      window.location.href = target;
+                      setLanguage(code as any);
+                    }}
+                    className={`hover:text-white transition-colors text-[13px] font-medium ${
+                      code === (pathname.split('/').filter(Boolean)[0] || 'en') ? 'text-white underline' : 'text-[#e5f5ef]'
+                    }`}
+                  >
+                    {label}
+                  </button>
                 </li>
               ))}
             </ul>
           </div>
- 
+
           <div className="col-span-1">
             <h4 className="text-white font-bold mb-6 text-[15px]">{t('footer.links.partners')}</h4>
             <ul className="space-y-4">
-              {['tripcngo.com', 'ScriptMind'].map(link => (
-                <li key={link}>
-                  <a href="#" className="hover:text-white transition-colors text-[13px] text-[#e5f5ef] font-medium">{link}</a>
-                </li>
-              ))}
+              <li>
+                <a href="https://tripcngo.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors text-[13px] text-[#e5f5ef] font-medium">
+                  tripcngo.com
+                </a>
+              </li>
+              <li>
+                <a href="https://scriptmind.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors text-[13px] text-[#e5f5ef] font-medium">
+                  ScriptMind
+                </a>
+              </li>
             </ul>
           </div>
         </div>

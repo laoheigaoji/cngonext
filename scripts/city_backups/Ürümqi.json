@@ -1,0 +1,2229 @@
+{
+  "id": "-r-mqi",
+  "name": "乌鲁木齐",
+  "enName": "Ürümqi",
+  "img": null,
+  "listCover": null,
+  "heroImage": null,
+  "tags": [
+    {
+      "text": "丝路明珠",
+      "color": "#E74C3C",
+      "enText": "Pearl of the Silk Road",
+      "textEn": "Pearl of the Silk Road",
+      "textDe": "Perle der Seidenstraße",
+      "textEs": "Perla de la Ruta de la Seda",
+      "textFr": "Perle de la Route de la Soie",
+      "textIt": "Perla della Via della Seta",
+      "textJa": "シルクロードの真珠",
+      "textKo": "비단길의 진주",
+      "textRu": "Жемчужина Шёлкового пути",
+      "textTw": "絲路明珠"
+    },
+    {
+      "text": "亚心之都",
+      "color": "#3498DB",
+      "enText": "Capital of Asia's Heart",
+      "textEn": "Capital of Asia's Heart",
+      "textDe": "Hauptstadt des asiatischen Kontinents",
+      "textEs": "Capital del Corazón de Asia",
+      "textFr": "Capitale du centre de l'Asie",
+      "textIt": "Capitale del Cuore dell'Asia",
+      "textJa": "アジアの中心都市",
+      "textKo": "아시아의 심장",
+      "textRu": "Столица Центра Азии",
+      "textTw": "亞心之都"
+    },
+    {
+      "text": "美食天堂",
+      "color": "#F39C12",
+      "enText": "Food Paradise",
+      "textEn": "Food Paradise",
+      "textDe": "Paradies für Feinschmecker",
+      "textEs": "Paraíso Gastronómico",
+      "textFr": "Paradis gastronomique",
+      "textIt": "Paradiso Gastronomico",
+      "textJa": "美食の楽園",
+      "textKo": "미식의 천국",
+      "textRu": "Рай для гурманов",
+      "textTw": "美食天堂"
+    },
+    {
+      "text": "民族风情",
+      "color": "#9B59B6",
+      "enText": "Ethnic Flavor",
+      "textEn": "Ethnic Flavor",
+      "textDe": "Ethnische Vielfalt",
+      "textEs": "Encanto Étnico",
+      "textFr": "Couleurs ethniques",
+      "textIt": "Fascino Etnico",
+      "textJa": "民族風情",
+      "textKo": "민족의 정취",
+      "textRu": "Этнический колорит",
+      "textTw": "民族風情"
+    }
+  ],
+  "paragraphs": [
+    "乌鲁木齐位于新疆中部，天山北麓，准噶尔盆地南缘，是亚洲大陆地理中心。属温带大陆性气候，昼夜温差大，夏季干热，冬季寒冷，春秋季短暂。",
+    "乌鲁木齐历史悠久，西汉时期为车师国地，唐代设轮台县，清代乾隆年间筑城并定名‘迪化’，1884年新疆建省后成为省会。1954年更名为乌鲁木齐，意为‘优美的牧场’。",
+    "乌鲁木齐是多民族聚居地，汉族、维吾尔族、回族、哈萨克族等47个民族和谐共处。特色美食有烤羊肉串、大盘鸡、抓饭、拉条子、烤包子等，融合了中亚和中原饮食文化。",
+    "乌鲁木齐是新疆政治、经济、文化中心，也是‘一带一路’重要节点城市。近年来经济快速发展，国际大巴扎、文化中心等地标建筑彰显现代活力，同时注重生态保护，建设宜居城市。"
+  ],
+  "enParagraphs": [
+    "Ürümqi is located in central Xinjiang, at the northern foot of the Tianshan Mountains and the southern edge of the Junggar Basin, making it the geographical center of the Asian continent. It has a temperate continental climate with large temperature differences between day and night, dry and hot summers, cold winters, and short spring and autumn seasons.",
+    "Ürümqi has a long history. During the Western Han Dynasty, it was part of the Jushi Kingdom. In the Tang Dynasty, Luntai County was established. In the Qing Dynasty, a city was built and named 'Dihua'. It became the provincial capital after Xinjiang was established as a province in 1884. In 1954, it was renamed Ürümqi, meaning 'beautiful pasture'.",
+    "Ürümqi is a multi-ethnic city where 47 ethnic groups including Han, Uyghur, Hui, and Kazakh live in harmony. Specialties include lamb skewers, big plate chicken, pilaf, pulled noodles, and baked buns, blending Central Asian and Central Plains culinary cultures.",
+    "Ürümqi is the political, economic, and cultural center of Xinjiang and a key node city of the Belt and Road Initiative. In recent years, the economy has developed rapidly. Landmarks such as the International Grand Bazaar and the Cultural Center showcase modern vitality, while ecological protection efforts make it a livable city."
+  ],
+  "stats": {
+    "recommended": 99999,
+    "wantToVisit": 99999
+  },
+  "attractions": [
+    {
+      "name": "天山天池",
+      "enName": "Tianchi Lake",
+      "desc": "位于天山博格达峰下，海拔1910米，湖水清澈，四周雪峰环绕，被誉为‘瑶池’。",
+      "enDesc": "Located at the foot of Bogda Peak in the Tianshan Mountains, at an altitude of 1910 meters, the lake is crystal clear and surrounded by snow-capped peaks, known as 'Jade Pool'.",
+      "time": "09:00-19:00",
+      "enTime": "09:00-19:00",
+      "price": "旺季155元，淡季105元",
+      "enPrice": "Peak season ¥155, off-peak ¥105",
+      "season": "6-9月",
+      "enSeason": "June-September",
+      "level": "5A",
+      "imageUrl": null,
+      "nameDe": "Himmelssee am Tian Shan",
+      "nameEn": "Tianchi Lake",
+      "nameEs": "Lago Tianchi de las Montañas Tianshan",
+      "nameFr": "Lac Céleste des monts Tianshan",
+      "nameIt": "Lago Celeste dei Monti Tianshan",
+      "nameJa": "天山天池",
+      "nameKo": "톈산 톈츠",
+      "nameRu": "Озеро Тяньчи (Небесное озеро)",
+      "nameTw": "天山天池",
+      "descDe": "Am Fuße des Bogda-Gipfels gelegen, auf 1910 m Höhe. Das Wasser ist klar, umgeben von schneebedeckten Gipfeln. Wird als 'Jade-See' bezeichnet.",
+      "descEn": "Located at the foot of Bogda Peak in the Tianshan Mountains, at an altitude of 1910 meters, the lake is crystal clear and surrounded by snow-capped peaks, known as 'Jade Pool'.",
+      "descEs": "Ubicado bajo el pico Bogda de las montañas Tianshan, a 1.910 metros de altitud, con aguas cristalinas rodeadas de picos nevados, conocido como el 'estanque de los inmortales'.",
+      "descFr": "Situé sous le pic Bogda des monts Tianshan, à 1910 mètres d'altitude, l'eau du lac est claire et entourée de sommets enneigés. Il est surnommé « le lac de jade ».",
+      "descIt": "Situato ai piedi del Picco Bogda dei Monti Tianshan, a 1910 metri di altitudine, con acque limpide circondate da vette innevate, soprannominato 'Lago della Dea'.",
+      "descJa": "天山ボゴダ峰の麓に位置し、標高1910メートル。湖水は澄み、周囲を雪峰に囲まれ、「瑶池」と称される。",
+      "descKo": "톈산 보그다봉 아래 해발 1910m에 위치하며, 맑은 호수와 눈 덮인 봉우리가 둘러싸고 있어 '요정의 연못'으로 불립니다.",
+      "descRu": "Расположено у подножия пика Богдо в горах Тянь-Шань на высоте 1910 м. Вода прозрачная, вокруг снежные вершины, его называют «Яшмовым озером».",
+      "descTw": "位於天山博格達峰下，海拔1910米，湖水清澈，四周雪峰環繞，被譽為『瑤池』。",
+      "timeDe": "09:00-19:00",
+      "timeEn": "09:00-19:00",
+      "timeEs": "09:00-19:00",
+      "timeFr": "09:00-19:00",
+      "timeIt": "09:00-19:00",
+      "timeJa": "09:00-19:00",
+      "timeKo": "09:00-19:00",
+      "timeRu": "09:00-19:00",
+      "timeTw": "09:00-19:00",
+      "priceDe": "Hauptsaison 155 Yuan, Nebensaison 105 Yuan",
+      "priceEn": "Peak season ¥155, off-peak ¥105",
+      "priceEs": "Temporada alta 155 yuanes, temporada baja 105 yuanes",
+      "priceFr": "Haute saison 155 yuans, basse saison 105 yuans",
+      "priceIt": "Alta stagione 155 yuan, bassa stagione 105 yuan",
+      "priceJa": "シーズン中155元、オフシーズン105元",
+      "priceKo": "성수기 155위안, 비수기 105위안",
+      "priceRu": "В высокий сезон 155 юаней, в низкий 105 юаней",
+      "priceTw": "旺季155元，淡季105元",
+      "seasonDe": "Juni-September",
+      "seasonEn": "June-September",
+      "seasonEs": "Junio a septiembre",
+      "seasonFr": "Juin à septembre",
+      "seasonIt": "Giugno-settembre",
+      "seasonJa": "6～9月",
+      "seasonKo": "6-9월",
+      "seasonRu": "Июнь-сентябрь",
+      "seasonTw": "6-9月"
+    },
+    {
+      "name": "新疆国际大巴扎",
+      "enName": "Xinjiang International Grand Bazaar",
+      "desc": "世界规模最大的巴扎，集商贸、娱乐、餐饮于一体，建筑具有浓郁维吾尔风格。",
+      "enDesc": "The world's largest bazaar, integrating commerce, entertainment, and dining, with architecture featuring strong Uyghur style.",
+      "time": "10:00-22:00",
+      "enTime": "10:00-22:00",
+      "price": "免费",
+      "enPrice": "Free",
+      "season": "全年",
+      "enSeason": "All year",
+      "level": "4A",
+      "imageUrl": null,
+      "nameDe": "Xinjiang Internationaler Basar",
+      "nameEn": "Xinjiang International Grand Bazaar",
+      "nameEs": "Gran Bazar Internacional de Xinjiang",
+      "nameFr": "Grand Bazar international du Xinjiang",
+      "nameIt": "Grande Bazar Internazionale dello Xinjiang",
+      "nameJa": "新疆国際バザール",
+      "nameKo": "신장 국제 바자르",
+      "nameRu": "Синьцзянский международный базар",
+      "nameTw": "新疆國際大巴扎",
+      "descDe": "Der weltweit größte Basar, der Handel, Unterhaltung und Gastronomie vereint. Die Architektur ist im uigurischen Stil gehalten.",
+      "descEn": "The world's largest bazaar, integrating commerce, entertainment, and dining, with architecture featuring strong Uyghur style.",
+      "descEs": "El bazar más grande del mundo, que integra comercio, entretenimiento y gastronomía, con una arquitectura de marcado estilo uigur.",
+      "descFr": "Le plus grand bazar du monde, combinant commerce, divertissement et restauration, avec une architecture de style ouïghour prononcé.",
+      "descIt": "Il bazar più grande del mondo, che integra commercio, intrattenimento e ristorazione, con architettura in tipico stile uiguro.",
+      "descJa": "世界最大規模のバザールで、商業、娯楽、飲食が一体化。建築は濃厚なウイグル様式。",
+      "descKo": "세계 최대 규모의 바자르로, 상업, 오락, 식당이 한데 모여 있으며 건축 양식이 위구르풍입니다.",
+      "descRu": "Крупнейший в мире базар, объединяющий торговлю, развлечения и общепит, архитектура в уйгурском стиле.",
+      "descTw": "世界規模最大的巴扎，集商貿、娛樂、餐飲於一體，建築具有濃郁維吾爾風格。",
+      "timeDe": "10:00-22:00",
+      "timeEn": "10:00-22:00",
+      "timeEs": "10:00-22:00",
+      "timeFr": "10:00-22:00",
+      "timeIt": "10:00-22:00",
+      "timeJa": "10:00-22:00",
+      "timeKo": "10:00-22:00",
+      "timeRu": "10:00-22:00",
+      "timeTw": "10:00-22:00",
+      "priceDe": "Kostenlos",
+      "priceEn": "Free",
+      "priceEs": "Gratuito",
+      "priceFr": "Gratuit",
+      "priceIt": "Gratuito",
+      "priceJa": "無料",
+      "priceKo": "무료",
+      "priceRu": "Бесплатно",
+      "priceTw": "免費",
+      "seasonDe": "Ganzjährig",
+      "seasonEn": "All year",
+      "seasonEs": "Todo el año",
+      "seasonFr": "Toute l'année",
+      "seasonIt": "Tutto l'anno",
+      "seasonJa": "通年",
+      "seasonKo": "연중",
+      "seasonRu": "Круглый год",
+      "seasonTw": "全年"
+    },
+    {
+      "name": "红山公园",
+      "enName": "Hongshan Park",
+      "desc": "乌鲁木齐标志性景点，红山塔矗立山顶，可俯瞰城市全景。",
+      "enDesc": "A landmark of Ürümqi, with the Hongshan Pagoda on the top offering a panoramic view of the city.",
+      "time": "06:00-22:00",
+      "enTime": "06:00-22:00",
+      "price": "免费",
+      "enPrice": "Free",
+      "season": "全年",
+      "enSeason": "All year",
+      "level": "4A",
+      "imageUrl": null,
+      "nameDe": "Roter Berg Park",
+      "nameEn": "Hongshan Park",
+      "nameEs": "Parque de la Montaña Roja",
+      "nameFr": "Parc de la Montagne Rouge",
+      "nameIt": "Parco della Montagna Rossa",
+      "nameJa": "紅山公園",
+      "nameKo": "홍산 공원",
+      "nameRu": "Парк Красной горы",
+      "nameTw": "紅山公園",
+      "descDe": "Wahrzeichen von Ürümqi. Auf dem Gipfel steht der Rote-Berg-Pagode, von der man einen Panoramablick über die Stadt hat.",
+      "descEn": "A landmark of Ürümqi, with the Hongshan Pagoda on the top offering a panoramic view of the city.",
+      "descEs": "Lugar emblemático de Ürümqi, con la pagoda de la Montaña Roja en la cima, desde donde se puede contemplar toda la ciudad.",
+      "descFr": "Site emblématique d'Ouroumqi, avec la tour de la Montagne Rouge au sommet offrant une vue panoramique sur la ville.",
+      "descIt": "Attrazione simbolo di Ürümqi, con la Pagoda della Montagna Rossa in cima, da cui si gode una vista panoramica della città.",
+      "descJa": "ウルムチのシンボル的な観光地。紅山塔が山頂にそびえ、市街を一望できる。",
+      "descKo": "우루무치의 상징적인 명소로, 홍산탑이 산꼭대기에 솟아 있어 도시 전경을 한눈에 볼 수 있습니다.",
+      "descRu": "Символ Урумчи, на вершине стоит пагода Красной горы, откуда открывается панорама города.",
+      "descTw": "烏魯木齊標誌性景點，紅山塔矗立山頂，可俯瞰城市全景。",
+      "timeDe": "06:00-22:00",
+      "timeEn": "06:00-22:00",
+      "timeEs": "06:00-22:00",
+      "timeFr": "06:00-22:00",
+      "timeIt": "06:00-22:00",
+      "timeJa": "06:00-22:00",
+      "timeKo": "06:00-22:00",
+      "timeRu": "06:00-22:00",
+      "timeTw": "06:00-22:00",
+      "priceDe": "Kostenlos",
+      "priceEn": "Free",
+      "priceEs": "Gratuito",
+      "priceFr": "Gratuit",
+      "priceIt": "Gratuito",
+      "priceJa": "無料",
+      "priceKo": "무료",
+      "priceRu": "Бесплатно",
+      "priceTw": "免費",
+      "seasonDe": "Ganzjährig",
+      "seasonEn": "All year",
+      "seasonEs": "Todo el año",
+      "seasonFr": "Toute l'année",
+      "seasonIt": "Tutto l'anno",
+      "seasonJa": "通年",
+      "seasonKo": "연중",
+      "seasonRu": "Круглый год",
+      "seasonTw": "全年"
+    },
+    {
+      "name": "新疆维吾尔自治区博物馆",
+      "enName": "Xinjiang Uyghur Autonomous Region Museum",
+      "desc": "收藏了大量新疆历史文物，包括‘楼兰美女’干尸、丝绸之路文物等。",
+      "enDesc": "Houses a large collection of Xinjiang historical artifacts, including the 'Loulan Beauty' mummy and Silk Road relics.",
+      "time": "10:00-18:00（周一闭馆）",
+      "enTime": "10:00-18:00 (closed on Mondays)",
+      "price": "免费",
+      "enPrice": "Free",
+      "season": "全年",
+      "enSeason": "All year",
+      "level": "4A",
+      "imageUrl": null,
+      "nameDe": "Museum des Autonomen Gebiets Xinjiang",
+      "nameEn": "Xinjiang Uyghur Autonomous Region Museum",
+      "nameEs": "Museo de la Región Autónoma Uigur de Xinjiang",
+      "nameFr": "Musée de la région autonome ouïghoure du Xinjiang",
+      "nameIt": "Museo Regionale dello Xinjiang",
+      "nameJa": "新疆ウイグル自治区博物館",
+      "nameKo": "신장 위구르 자치구 박물관",
+      "nameRu": "Музей Синьцзян-Уйгурского автономного района",
+      "nameTw": "新疆維吾爾自治區博物館",
+      "descDe": "Beherbergt eine große Sammlung historischer Artefakte aus Xinjiang, darunter die 'Loulan-Schönheit'-Mumie und Seidenstraßen-Relikte.",
+      "descEn": "Houses a large collection of Xinjiang historical artifacts, including the 'Loulan Beauty' mummy and Silk Road relics.",
+      "descEs": "Alberga una gran colección de reliquias históricas de Xinjiang, incluyendo la momia de la 'Belleza de Loulan' y objetos de la Ruta de la Seda.",
+      "descFr": "Abrite une vaste collection d'objets historiques du Xinjiang, dont la momie de « la Belle de Loulan » et des artefacts de la Route de la Soie.",
+      "descIt": "Conserva una vasta collezione di reperti storici dello Xinjiang, tra cui la mummia della 'Bellezza di Loulan' e reperti della Via della Seta.",
+      "descJa": "新疆の歴史文物を多数収蔵。「楼蘭の美女」ミイラやシルクロードの文物など。",
+      "descKo": "누란의 미녀 미라, 비단길 유물 등 신장 역사 유물을 대량 소장하고 있습니다.",
+      "descRu": "Собрано множество исторических артефактов Синьцзяна, включая «красавицу из Лоуланя» (мумию) и предметы с Шёлкового пути.",
+      "descTw": "收藏了大量新疆歷史文物，包括『樓蘭美女』乾屍、絲綢之路文物等。",
+      "timeDe": "10:00-18:00 (montags geschlossen)",
+      "timeEn": "10:00-18:00 (closed on Mondays)",
+      "timeEs": "10:00-18:00 (cerrado los lunes)",
+      "timeFr": "10:00-18:00 (fermé le lundi)",
+      "timeIt": "10:00-18:00 (chiuso lunedì)",
+      "timeJa": "10:00-18:00（月曜休館）",
+      "timeKo": "10:00-18:00 (월요일 휴관)",
+      "timeRu": "10:00-18:00 (закрыт по понедельникам)",
+      "timeTw": "10:00-18:00（週一閉館）",
+      "priceDe": "Kostenlos",
+      "priceEn": "Free",
+      "priceEs": "Gratuito",
+      "priceFr": "Gratuit",
+      "priceIt": "Gratuito",
+      "priceJa": "無料",
+      "priceKo": "무료",
+      "priceRu": "Бесплатно",
+      "priceTw": "免費",
+      "seasonDe": "Ganzjährig",
+      "seasonEn": "All year",
+      "seasonEs": "Todo el año",
+      "seasonFr": "Toute l'année",
+      "seasonIt": "Tutto l'anno",
+      "seasonJa": "通年",
+      "seasonKo": "연중",
+      "seasonRu": "Круглый год",
+      "seasonTw": "全年"
+    },
+    {
+      "name": "南山牧场",
+      "enName": "Nanshan Pasture",
+      "desc": "天山北坡的天然牧场，夏季绿草如茵，冬季是滑雪胜地。",
+      "enDesc": "A natural pasture on the northern slope of the Tianshan Mountains, with lush green grass in summer and a ski resort in winter.",
+      "time": "全天开放",
+      "enTime": "Open all day",
+      "price": "免费，部分景点收费",
+      "enPrice": "Free, some attractions charge",
+      "season": "6-9月，12-2月",
+      "enSeason": "June-September, December-February",
+      "level": "4A",
+      "imageUrl": null,
+      "nameDe": "Nanshan Weide",
+      "nameEn": "Nanshan Pasture",
+      "nameEs": "Pastizal de Nanshan",
+      "nameFr": "Pâturage de Nanshan",
+      "nameIt": "Pascolo di Nanshan",
+      "nameJa": "南山牧場",
+      "nameKo": "난산 목장",
+      "nameRu": "Наньшаньское пастбище",
+      "nameTw": "南山牧場",
+      "descDe": "Natürliche Weide am Nordhang des Tian Shan. Im Sommer grünes Gras, im Winter Skigebiet.",
+      "descEn": "A natural pasture on the northern slope of the Tianshan Mountains, with lush green grass in summer and a ski resort in winter.",
+      "descEs": "Pastizal natural en la ladera norte de las montañas Tianshan, verde y exuberante en verano, y destino de esquí en invierno.",
+      "descFr": "Pâturage naturel sur le versant nord des monts Tianshan, verdoyant en été, et station de ski en hiver.",
+      "descIt": "Pascolo naturale sul versante settentrionale dei Monti Tianshan, verde in estate e meta per lo sci in inverno.",
+      "descJa": "天山北麓の天然牧場。夏は緑の草原、冬はスキーリゾートとなる。",
+      "descKo": "톈산 북쪽 경사면의 천연 목장으로, 여름에는 푸른 초원, 겨울에는 스키 명소입니다.",
+      "descRu": "Естественное пастбище на северных склонах Тянь-Шаня, летом зелёные луга, зимой горнолыжный курорт.",
+      "descTw": "天山北坡的天然牧場，夏季綠草如茵，冬季是滑雪勝地。",
+      "timeDe": "Rund um die Uhr geöffnet",
+      "timeEn": "Open all day",
+      "timeEs": "Abierto todo el día",
+      "timeFr": "Ouvert toute la journée",
+      "timeIt": "Aperto tutto il giorno",
+      "timeJa": "終日開放",
+      "timeKo": "종일 개방",
+      "timeRu": "Круглосуточно",
+      "timeTw": "全天開放",
+      "priceDe": "Kostenlos, einige Bereiche kostenpflichtig",
+      "priceEn": "Free, some attractions charge",
+      "priceEs": "Gratuito, algunas atracciones cobran entrada",
+      "priceFr": "Gratuit, certaines zones payantes",
+      "priceIt": "Gratuito, alcune aree a pagamento",
+      "priceJa": "無料（一部有料）",
+      "priceKo": "무료, 일부 유료",
+      "priceRu": "Бесплатно, некоторые зоны платные",
+      "priceTw": "免費，部分景點收費",
+      "seasonDe": "Juni-September, Dezember-Februar",
+      "seasonEn": "June-September, December-February",
+      "seasonEs": "Junio a septiembre, diciembre a febrero",
+      "seasonFr": "Juin à septembre, décembre à février",
+      "seasonIt": "Giugno-settembre, dicembre-febbraio",
+      "seasonJa": "6～9月、12～2月",
+      "seasonKo": "6-9월, 12-2월",
+      "seasonRu": "Июнь-сентябрь, декабрь-февраль",
+      "seasonTw": "6-9月，12-2月"
+    }
+  ],
+  "history": [
+    {
+      "year": "公元前60年",
+      "title": "西汉设西域都护府",
+      "desc": "西汉在乌垒城设立西域都护府，乌鲁木齐地区正式纳入中国版图。",
+      "enYear": "公元前60年",
+      "enTitle": "Establishment of the Western Regions Protectorate",
+      "enDesc": "In 60 BC, the Western Han Dynasty established the Western Regions Protectorate in Wulei, officially incorporating the Ürümqi area into Chinese territory.",
+      "yearDe": "60 v. Chr.",
+      "yearEn": "公元前60年",
+      "yearEs": "60 a.C.",
+      "yearFr": "60 av. J.-C.",
+      "yearIt": "60 a.C.",
+      "yearJa": "紀元前60年",
+      "yearKo": "기원전 60년",
+      "yearRu": "60 г. до н.э.",
+      "yearTw": "公元前60年",
+      "titleDe": "Einrichtung des Protektorats der Westlichen Regionen",
+      "titleEn": "Establishment of the Western Regions Protectorate",
+      "titleEs": "Establecimiento de la Protectoría de las Regiones Occidentales por la dinastía Han",
+      "titleFr": "Création du Protectorat des régions de l'Ouest sous les Han occidentaux",
+      "titleIt": "Istituzione del Protettorato delle Regioni Occidentali",
+      "titleJa": "前漢、西域都護府を設置",
+      "titleKo": "서한, 서역도호부 설치",
+      "titleRu": "Западная Хань учреждает Протекторат Западных земель",
+      "titleTw": "西漢設西域都護府",
+      "descDe": "Die Westliche Han-Dynastie richtete in Wulei das Protektorat der Westlichen Regionen ein, wodurch das Gebiet von Ürümqi offiziell Teil Chinas wurde.",
+      "descEn": "In 60 BC, the Western Han Dynasty established the Western Regions Protectorate in Wulei, officially incorporating the Ürümqi area into Chinese territory.",
+      "descEs": "La dinastía Han Occidental estableció la Protectoría de las Regiones Occidentales en la ciudad de Wulei, incorporando oficialmente la región de Ürümqi al territorio chino.",
+      "descFr": "Les Han occidentaux établirent le Protectorat des régions de l'Ouest à Wulei, intégrant officiellement la région d'Ouroumqi dans le territoire chinois.",
+      "descIt": "La dinastia Han occidentale istituì il Protettorato delle Regioni Occidentali a Wulei, e l'area di Ürümqi fu ufficialmente incorporata nell'impero cinese.",
+      "descJa": "前漢が烏塁城に西域都護府を設置し、ウルムチ地区が正式に中国版図に組み込まれる。",
+      "descKo": "서한이 우레이성에 서역도호부를 설치하여 우루무치 지역이 중국 영토에 편입되었습니다.",
+      "descRu": "При Западной Хань в городе Улэй был создан Протекторат Западных земель, и регион Урумчи официально вошёл в состав Китая.",
+      "descTw": "西漢在烏壘城設立西域都護府，烏魯木齊地區正式納入中國版圖。"
+    },
+    {
+      "year": "1763年",
+      "title": "乾隆赐名‘迪化’",
+      "desc": "清乾隆帝将乌鲁木齐城命名为‘迪化’，意为‘启迪教化’，并扩筑城池。",
+      "enYear": "1763年",
+      "enTitle": "Emperor Qianlong named the city 'Dihua'",
+      "enDesc": "In 1763, Emperor Qianlong of the Qing Dynasty named the city of Ürümqi 'Dihua', meaning 'enlightenment and transformation', and expanded the city walls.",
+      "yearDe": "1763",
+      "yearEn": "1763年",
+      "yearEs": "1763",
+      "yearFr": "1763",
+      "yearIt": "1763",
+      "yearJa": "1763年",
+      "yearKo": "1763년",
+      "yearRu": "1763 г.",
+      "yearTw": "1763年",
+      "titleDe": "Qianlong benennt die Stadt 'Dihua'",
+      "titleEn": "Emperor Qianlong named the city 'Dihua'",
+      "titleEs": "El emperador Qianlong nombra la ciudad 'Dihua'",
+      "titleFr": "L'empereur Qianlong nomme la ville « Dihua »",
+      "titleIt": "L'imperatore Qianlong la ribattezza 'Dihua'",
+      "titleJa": "乾隆帝が「迪化」と命名",
+      "titleKo": "건륭제 '디화' 명명",
+      "titleRu": "Император Цяньлун даёт название «Дихуа»",
+      "titleTw": "乾隆賜名『迪化』",
+      "descDe": "Kaiser Qianlong der Qing-Dynastie gab der Stadt Ürümqi den Namen 'Dihua', was 'Erleuchtung und Zivilisation' bedeutet, und erweiterte die Stadtmauern.",
+      "descEn": "In 1763, Emperor Qianlong of the Qing Dynasty named the city of Ürümqi 'Dihua', meaning 'enlightenment and transformation', and expanded the city walls.",
+      "descEs": "El emperador Qianlong de la dinastía Qing nombró la ciudad de Ürümqi como 'Dihua', que significa 'iluminar y educar', y amplió sus murallas.",
+      "descFr": "L'empereur Qianlong des Qing nomma la ville d'Ouroumqi « Dihua », signifiant « éclairer et civiliser », et agrandit la ville fortifiée.",
+      "descIt": "L'imperatore Qianlong della dinastia Qing chiamò la città di Ürümqi 'Dihua', che significa 'illuminare e civilizzare', e ne ampliò le mura.",
+      "descJa": "清の乾隆帝がウルムチ城を「迪化」（啓迪教化の意）と命名し、城を拡張。",
+      "descKo": "청 건륭제가 우루무치성을 '디화'로 명명하고 성을 확장했습니다.",
+      "descRu": "Император Цяньлун династии Цин назвал город Урумчи «Дихуа», что означает «просвещение и воспитание», и расширил городские стены.",
+      "descTw": "清乾隆帝將烏魯木齊城命名為『迪化』，意為『啟迪教化』，並擴築城池。"
+    },
+    {
+      "year": "1954年",
+      "title": "更名为乌鲁木齐",
+      "desc": "经国务院批准，‘迪化’更名为乌鲁木齐，蒙古语意为‘优美的牧场’。",
+      "enYear": "1954年",
+      "enTitle": "Renamed to Ürümqi",
+      "enDesc": "In 1954, with the approval of the State Council, 'Dihua' was renamed Ürümqi, which in Mongolian means 'beautiful pasture'.",
+      "yearDe": "1954",
+      "yearEn": "1954年",
+      "yearEs": "1954",
+      "yearFr": "1954",
+      "yearIt": "1954",
+      "yearJa": "1954年",
+      "yearKo": "1954년",
+      "yearRu": "1954 г.",
+      "yearTw": "1954年",
+      "titleDe": "Umbenennung in Ürümqi",
+      "titleEn": "Renamed to Ürümqi",
+      "titleEs": "Cambio de nombre a Ürümqi",
+      "titleFr": "Rebaptisée Ouroumqi",
+      "titleIt": "Rinominata Ürümqi",
+      "titleJa": "ウルムチに改称",
+      "titleKo": "우루무치로 개칭",
+      "titleRu": "Переименование в Урумчи",
+      "titleTw": "更名為烏魯木齊",
+      "descDe": "Mit Genehmigung des Staatsrates wurde 'Dihua' in Ürümqi umbenannt, was in der mongolischen Sprache 'schöne Weide' bedeutet.",
+      "descEn": "In 1954, with the approval of the State Council, 'Dihua' was renamed Ürümqi, which in Mongolian means 'beautiful pasture'.",
+      "descEs": "Aprobado por el Consejo de Estado, 'Dihua' pasó a llamarse Ürümqi, que en mongol significa 'hermoso pastizal'.",
+      "descFr": "Approuvé par le Conseil des Affaires d'État, « Dihua » fut rebaptisée Ouroumqi, signifiant « beau pâturage » en mongol.",
+      "descIt": "Con l'approvazione del Consiglio di Stato, 'Dihua' fu ribattezzata Ürümqi, che in mongolo significa 'bel pascolo'.",
+      "descJa": "国務院の承認を得て「迪化」をウルムチに改称。モンゴル語で「美しい牧場」を意味する。",
+      "descKo": "국무원 비준을 거쳐 '디화'가 우루무치로 개칭되었으며, 몽골어로 '아름다운 목장'을 의미합니다.",
+      "descRu": "По решению Госсовета КНР «Дихуа» переименован в Урумчи, что на монгольском означает «прекрасное пастбище».",
+      "descTw": "經國務院批准，『迪化』更名為烏魯木齊，蒙古語意為『優美的牧場』。"
+    }
+  ],
+  "food": [
+    {
+      "name": "烤羊肉串",
+      "enName": "Lamb Skewers",
+      "desc": "新疆最具代表性的街头小吃，用炭火烤制，撒上孜然和辣椒面，外焦里嫩。",
+      "enDesc": "The most representative street snack in Xinjiang, grilled over charcoal, sprinkled with cumin and chili powder, crispy outside and tender inside.",
+      "price": "5-10元",
+      "pinyin": "Kǎo Yángròu Chuàn",
+      "ingredients": "羊肉、孜然、辣椒面",
+      "enIngredients": "Lamb, cumin, chili powder",
+      "imageUrl": null,
+      "nameDe": "Lammspieße",
+      "nameEn": "Lamb Skewers",
+      "nameEs": "Brochetas de cordero asado",
+      "nameFr": "Brochettes d'agneau grillé",
+      "nameIt": "Spiedini di agnello alla griglia",
+      "nameJa": "烤羊肉串（ラム串焼き）",
+      "nameKo": "양꼬치",
+      "nameRu": "Шашлык из баранины",
+      "nameTw": "烤羊肉串",
+      "descDe": "Das bekannteste Straßenessen Xinjiangs. Über Holzkohle gegrillt, mit Kreuzkümmel und Chilipulver bestreut, außen knusprig, innen zart.",
+      "descEn": "The most representative street snack in Xinjiang, grilled over charcoal, sprinkled with cumin and chili powder, crispy outside and tender inside.",
+      "descEs": "La comida callejera más representativa de Xinjiang, asada al carbón y sazonada con comino y chile en polvo, crujiente por fuera y tierna por dentro.",
+      "descFr": "Snack de rue le plus représentatif du Xinjiang, grillé au charbon de bois, saupoudré de cumin et de piment, croustillant à l'extérieur et tendre à l'intérieur.",
+      "descIt": "Lo street food più rappresentativo dello Xinjiang, cotto su brace e condito con cumino e peperoncino in polvere, croccante fuori e tenero dentro.",
+      "descJa": "新疆を代表するストリートフード。炭火で焼き、クミンと唐辛子をふりかけ、外はカリッと中はジューシー。",
+      "descKo": "신장을 대표하는 길거리 음식으로, 숯불에 구워 쿠민과 고춧가루를 뿌려 겉은 바삭하고 속은 부드럽습니다.",
+      "descRu": "Самое известное уличное блюдо Синьцзяна, жарится на углях с зирой и перцем, снаружи хрустящий, внутри нежный.",
+      "descTw": "新疆最具代表性的街頭小吃，用炭火烤製，撒上孜然和辣椒麵，外焦裡嫩。"
+    },
+    {
+      "name": "大盘鸡",
+      "enName": "Big Plate Chicken",
+      "desc": "用鸡块、土豆、辣椒炖煮，配以宽面，香辣可口，分量十足。",
+      "enDesc": "Stewed chicken with potatoes and peppers, served with wide noodles, spicy and delicious, generous portion.",
+      "price": "50-80元",
+      "pinyin": "Dàpán Jī",
+      "ingredients": "鸡肉、土豆、辣椒、宽面",
+      "enIngredients": "Chicken, potatoes, peppers, wide noodles",
+      "imageUrl": null,
+      "nameDe": "Großes Hühnchengericht",
+      "nameEn": "Big Plate Chicken",
+      "nameEs": "Pollo grande con patatas",
+      "nameFr": "Poulet épicé aux pommes de terre (Dapanji)",
+      "nameIt": "Pollo in padella",
+      "nameJa": "大盘鶏（大皿チキン）",
+      "nameKo": "다판지",
+      "nameRu": "Дапаньцзи (большая тарелка курицы)",
+      "nameTw": "大盤雞",
+      "descDe": "Geschmortes Hühnchen mit Kartoffeln und Paprika, serviert mit breiten Nudeln. Scharf und würzig, reichhaltig.",
+      "descEn": "Stewed chicken with potatoes and peppers, served with wide noodles, spicy and delicious, generous portion.",
+      "descEs": "Guiso de pollo con patatas y chiles, servido con fideos anchos, picante y sabroso, en porción generosa.",
+      "descFr": "Mijoté avec des morceaux de poulet, pommes de terre et piments, servi avec des nouilles larges, épicé et copieux.",
+      "descIt": "Stufato di pollo, patate e peperoncino, servito con tagliatelle larghe, piccante e saporito, porzione abbondante.",
+      "descJa": "鶏肉、ジャガイモ、唐辛子を煮込み、幅広麺を添えた辛味豊かな一品。ボリューム満点。",
+      "descKo": "닭고기, 감자, 고추를 넣어 끓이고 넓은 면과 함께 내는 매콤한 요리로 양이 많습니다.",
+      "descRu": "Тушёная курица с картофелем и перцем, подаётся с широкой лапшой, острое и сытное.",
+      "descTw": "用雞塊、土豆、辣椒燉煮，配以寬麵，香辣可口，分量十足。"
+    },
+    {
+      "name": "抓饭",
+      "enName": "Pilaf",
+      "desc": "用羊肉、胡萝卜、洋葱和大米焖制，油润香糯，是新疆主食之一。",
+      "enDesc": "Steamed rice with lamb, carrots, and onions, oily and fragrant, a staple in Xinjiang.",
+      "price": "20-30元",
+      "pinyin": "Zhuāfàn",
+      "ingredients": "羊肉、胡萝卜、洋葱、大米",
+      "enIngredients": "Lamb, carrots, onions, rice",
+      "imageUrl": null,
+      "nameDe": "Pilaw",
+      "nameEn": "Pilaf",
+      "nameEs": "Arroz pilaf",
+      "nameFr": "Pilaf (Zhuafan)",
+      "nameIt": "Riso pilaf",
+      "nameJa": "抓飯（ピラフ）",
+      "nameKo": "필라프",
+      "nameRu": "Плов",
+      "nameTw": "抓飯",
+      "descDe": "Geschmortes Lammfleisch mit Karotten, Zwiebeln und Reis. Ölig und duftend, ein Grundnahrungsmittel Xinjiangs.",
+      "descEn": "Steamed rice with lamb, carrots, and onions, oily and fragrant, a staple in Xinjiang.",
+      "descEs": "Cocido con cordero, zanahorias, cebolla y arroz, aceitoso y aromático, uno de los platos principales de Xinjiang.",
+      "descFr": "Riz cuit à l'étouffée avec de l'agneau, carottes, oignons, gras et parfumé, l'un des plats de base du Xinjiang.",
+      "descIt": "Riso cotto con agnello, carote, cipolle, unto e fragrante, uno dei piatti principali dello Xinjiang.",
+      "descJa": "羊肉、ニンジン、タマネギ、米を炊き込んだ油っぽくてもちっとした主食。",
+      "descKo": "양고기, 당근, 양파, 쌀을 넣어 지은 기름지고 고소한 밥으로 신장의 주식입니다.",
+      "descRu": "Готовится из баранины, моркови, лука и риса, маслянистый и ароматный, одно из основных блюд Синьцзяна.",
+      "descTw": "用羊肉、胡蘿蔔、洋蔥和大米燜製，油潤香糯，是新疆主食之一。"
+    },
+    {
+      "name": "拉条子",
+      "enName": "Pulled Noodles",
+      "desc": "手工拉制的面条，筋道爽滑，搭配各种炒菜，如过油肉、酸菜等。",
+      "enDesc": "Hand-pulled noodles, chewy and smooth, served with various stir-fries such as fried meat or pickled vegetables.",
+      "price": "15-25元",
+      "pinyin": "Lātiáozi",
+      "ingredients": "面粉、羊肉、蔬菜",
+      "enIngredients": "Flour, lamb, vegetables",
+      "imageUrl": null,
+      "nameDe": "Handgezogene Nudeln",
+      "nameEn": "Pulled Noodles",
+      "nameEs": "Fideos tirados a mano",
+      "nameFr": "Nouilles tirées à la main (Latiaozi)",
+      "nameIt": "Noodles tirati a mano",
+      "nameJa": "拉条子（手延べ麺）",
+      "nameKo": "라티아오즈",
+      "nameRu": "Латяоцзы (лапша ручной работы)",
+      "nameTw": "拉條子",
+      "descDe": "Von Hand gezogene Nudeln, bissfest und glatt. Serviert mit verschiedenen Pfannengerichten wie überbrühtem Fleisch oder Sauerkraut.",
+      "descEn": "Hand-pulled noodles, chewy and smooth, served with various stir-fries such as fried meat or pickled vegetables.",
+      "descEs": "Fideos hechos a mano, elásticos y suaves, servidos con diversos salteados como carne salteada o verduras encurtidas.",
+      "descFr": "Nouilles faites à la main, fermes et lisses, accompagnées de plats sautés comme le porc sauté ou les légumes marinés.",
+      "descIt": "Tagliatelle fatte a mano, elastiche e lisce, servite con vari saltati come carne saltata o crauti.",
+      "descJa": "手で延ばしたコシのある麺に、炒め物（過油肉や酸菜など）を合わせる。",
+      "descKo": "손으로 뽑은 쫄깃한 면발에 각종 볶음 요리를 곁들인 요리입니다.",
+      "descRu": "Лапша ручной вытяжки, упругая и гладкая, подаётся с различными жареными блюдами, например, с мясом и овощами.",
+      "descTw": "手工拉製的麵條，筋道爽滑，搭配各種炒菜，如過油肉、酸菜等。"
+    },
+    {
+      "name": "烤包子",
+      "enName": "Baked Buns",
+      "desc": "用羊肉和洋葱做馅，外皮酥脆，在馕坑中烤制而成。",
+      "enDesc": "Stuffed with lamb and onions, crispy crust, baked in a tandoor.",
+      "price": "3-5元",
+      "pinyin": "Kǎo Bāozi",
+      "ingredients": "面粉、羊肉、洋葱",
+      "enIngredients": "Flour, lamb, onions",
+      "imageUrl": null,
+      "nameDe": "Gefüllte Teigtaschen",
+      "nameEn": "Baked Buns",
+      "nameEs": "Empanadillas al horno",
+      "nameFr": "Chaussons cuits au four (Kaobaozi)",
+      "nameIt": "Samosa al forno",
+      "nameJa": "烤包子（焼き包み）",
+      "nameKo": "사모",
+      "nameRu": "Самса (печёные пирожки)",
+      "nameTw": "烤包子",
+      "descDe": "Mit Lammfleisch und Zwiebeln gefüllt, knuspriger Teig, im Naan-Ofen gebacken.",
+      "descEn": "Stuffed with lamb and onions, crispy crust, baked in a tandoor.",
+      "descEs": "Rellenas de cordero y cebolla, con una corteza crujiente, horneadas en un horno de tandoor.",
+      "descFr": "Farce d'agneau et d'oignons, croûte croustillante, cuits dans un four tandour.",
+      "descIt": "Ripieno di agnello e cipolla, con crosta croccante, cotto in forno a tandoor.",
+      "descJa": "羊肉とタマネギの餡をパイ生地で包み、タンドールで焼いたもの。",
+      "descKo": "양고기와 양파를 소로 넣고 밀가루 반죽으로 싸서 탄두르에 구운 바삭한 빵입니다.",
+      "descRu": "С начинкой из баранины и лука, хрустящая корочка, запекается в тандыре.",
+      "descTw": "用羊肉和洋蔥做餡，外皮酥脆，在饢坑中烤製而成。"
+    }
+  ],
+  "worldHeritage": [],
+  "intangibleHeritage": [
+    {
+      "name": "新疆维吾尔木卡姆艺术",
+      "enName": "Xinjiang Uyghur Muqam",
+      "year": "2005年",
+      "enYear": "2005",
+      "desc": "集歌、舞、乐于一体的大型综合艺术形式，被誉为‘东方音乐明珠’。",
+      "enDesc": "A comprehensive art form integrating song, dance, and music, known as the 'Pearl of Oriental Music'.",
+      "imageUrl": null,
+      "nameDe": "Xinjiang Uigurischer Muqam",
+      "nameEn": "Xinjiang Uyghur Muqam",
+      "nameEs": "Arte del Muqam uigur de Xinjiang",
+      "nameFr": "Art du Muqam ouïghour du Xinjiang",
+      "nameIt": "Arte del Muqam uiguro dello Xinjiang",
+      "nameJa": "新疆ウイグル木卡姆（ムカム）芸術",
+      "nameKo": "신장 위구르 무카무",
+      "nameRu": "Уйгурское искусство мукам",
+      "nameTw": "新疆維吾爾木卡姆藝術",
+      "descDe": "Eine umfassende Kunstform, die Gesang, Tanz und Musik vereint. Wird als 'Perle der orientalischen Musik' bezeichnet.",
+      "descEn": "A comprehensive art form integrating song, dance, and music, known as the 'Pearl of Oriental Music'.",
+      "descEs": "Forma artística integral que combina canto, danza y música, considerada la 'perla de la música oriental'.",
+      "descFr": "Forme artistique complète mêlant chant, danse et musique, considérée comme « la perle musicale de l'Orient ».",
+      "descIt": "Grande forma d'arte integrata che unisce canto, danza e musica, soprannominata 'Perla della musica orientale'.",
+      "descJa": "歌、踊り、楽器を一体化した大規模総合芸術形式。「東洋音楽の真珠」と称される。",
+      "descKo": "노래, 춤, 악기가 어우러진 종합 예술로 '동양 음악의 진주'로 불립니다.",
+      "descRu": "Крупная комплексная художественная форма, объединяющая пение, танец и музыку, считается «жемчужиной восточной музыки».",
+      "descTw": "集歌、舞、樂於一體的大型綜合藝術形式，被譽為『東方音樂明珠』。"
+    },
+    {
+      "name": "玛纳斯",
+      "enName": "Manas",
+      "year": "2009年",
+      "enYear": "2009",
+      "desc": "柯尔克孜族的英雄史诗，世界最长的史诗之一，讲述英雄玛纳斯及其子孙的传奇故事。",
+      "enDesc": "The heroic epic of the Kyrgyz people, one of the longest epics in the world, telling the legendary stories of Manas and his descendants.",
+      "imageUrl": null,
+      "nameDe": "Manas",
+      "nameEn": "Manas",
+      "nameEs": "Manas",
+      "nameFr": "Manas",
+      "nameIt": "Manas",
+      "nameJa": "マナス",
+      "nameKo": "마나스",
+      "nameRu": "Манас",
+      "nameTw": "瑪納斯",
+      "descDe": "Das Heldenepos der Kirgisen, eines der längsten Epen der Welt. Es erzählt die Legenden des Helden Manas und seiner Nachkommen.",
+      "descEn": "The heroic epic of the Kyrgyz people, one of the longest epics in the world, telling the legendary stories of Manas and his descendants.",
+      "descEs": "Epopea heroica del pueblo kirguís, una de las más largas del mundo, que narra las leyendas del héroe Manas y sus descendientes.",
+      "descFr": "Épopée héroïque du peuple kirghize, l'une des plus longues du monde, racontant les exploits du héros Manas et de ses descendants.",
+      "descIt": "Epopea eroica del popolo kirghiso, una delle più lunghe al mondo, che narra le gesta leggendarie dell'eroe Manas e dei suoi discendenti.",
+      "descJa": "キルギス族の英雄叙事詩。世界最長の叙事詩の一つで、英雄マナスとその子孫の伝説を語る。",
+      "descKo": "키르기즈족의 영웅 서사시로 세계에서 가장 긴 서사시 중 하나이며, 영웅 마나스와 그의 후손들의 전설을 다룹니다.",
+      "descRu": "Героический эпос кыргызов, один из самых длинных в мире, повествует о подвигах Манаса и его потомков.",
+      "descTw": "柯爾克孜族的英雄史詩，世界最長的史詩之一，講述英雄瑪納斯及其子孫的傳奇故事。"
+    }
+  ],
+  "transportation": [
+    {
+      "iconName": "Plane",
+      "title": "乌鲁木齐地窝堡国际机场",
+      "enTitle": "Ürümqi Diwopu International Airport",
+      "desc": "中国西部重要的航空枢纽，国内外航线众多，距市中心约20公里。",
+      "enDesc": "An important aviation hub in western China with numerous domestic and international routes, about 20 km from the city center.",
+      "price": "机场大巴20元，出租车约50元",
+      "enPrice": "Airport bus ¥20, taxi about ¥50",
+      "titleDe": "Flughafen Ürümqi Diwopu",
+      "titleEn": "Ürümqi Diwopu International Airport",
+      "titleEs": "Aeropuerto Internacional Diwopu de Ürümqi",
+      "titleFr": "Aéroport international de Diwopu d'Ouroumqi",
+      "titleIt": "Aeroporto Internazionale di Ürümqi Diwopu",
+      "titleJa": "ウルムチ地窩堡国際空港",
+      "titleKo": "우루무치 디워푸 국제공항",
+      "titleRu": "Международный аэропорт Урумчи Дивопу",
+      "titleTw": "烏魯木齊地窩堡國際機場",
+      "descDe": "Wichtiger Luftverkehrsknotenpunkt in Westchina mit zahlreichen Inlands- und Auslandsflügen. Etwa 20 km vom Stadtzentrum entfernt.",
+      "descEn": "An important aviation hub in western China with numerous domestic and international routes, about 20 km from the city center.",
+      "descEs": "Importante centro de aviación del oeste de China, con numerosas rutas nacionales e internacionales, a unos 20 km del centro de la ciudad.",
+      "descFr": "Important hub aérien de l'Ouest chinois, avec de nombreuses lignes nationales et internationales, à environ 20 km du centre-ville.",
+      "descIt": "Importante hub aereo della Cina occidentale, con numerose rotte nazionali e internazionali, a circa 20 km dal centro città.",
+      "descJa": "中国西部の重要な航空ハブ。国内外多数の路線があり、市中心部から約20km。",
+      "descKo": "중국 서부의 중요한 항공 허브로 국내외 노선이 많으며 시내에서 약 20km 거리입니다.",
+      "descRu": "Важный авиационный узел западного Китая, множество внутренних и международных рейсов, находится примерно в 20 км от центра города.",
+      "descTw": "中國西部重要的航空樞紐，國內外航線眾多，距市中心約20公里。",
+      "priceDe": "Flughafenbus 20 Yuan, Taxi ca. 50 Yuan",
+      "priceEn": "Airport bus ¥20, taxi about ¥50",
+      "priceEs": "Autobús al aeropuerto 20 yuanes, taxi unos 50 yuanes",
+      "priceFr": "Navette aéroport 20 yuans, taxi environ 50 yuans",
+      "priceIt": "Autobus aeroportuale 20 yuan, taxi circa 50 yuan",
+      "priceJa": "空港バス20元、タクシー約50元",
+      "priceKo": "공항버스 20위안, 택시 약 50위안",
+      "priceRu": "Автобус-экспресс 20 юаней, такси около 50 юаней",
+      "priceTw": "機場大巴20元，計程車約50元"
+    },
+    {
+      "iconName": "Train",
+      "title": "乌鲁木齐站（高铁站）",
+      "enTitle": "Ürümqi Railway Station (High-speed)",
+      "desc": "兰新高铁终点站，连接兰州、西安等地，站内设施完善。",
+      "enDesc": "Terminal of Lanzhou-Xinjiang High-speed Railway, connecting Lanzhou, Xi'an, etc., with well-equipped facilities.",
+      "price": "高铁票价按距离计算",
+      "enPrice": "High-speed ticket price depends on distance",
+      "titleDe": "Bahnhof Ürümqi (Hochgeschwindigkeitsbahnhof)",
+      "titleEn": "Ürümqi Railway Station (High-speed)",
+      "titleEs": "Estación de Ürümqi (Estación de tren de alta velocidad)",
+      "titleFr": "Gare d'Ouroumqi (gare TGV)",
+      "titleIt": "Stazione Ferroviaria di Ürümqi (Alta Velocità)",
+      "titleJa": "ウルムチ駅（高速鉄道駅）",
+      "titleKo": "우루무치역 (고속철도역)",
+      "titleRu": "Вокзал Урумчи (высокоскоростной)",
+      "titleTw": "烏魯木齊站（高鐵站）",
+      "descDe": "Endstation der Lanzhou-Xinjiang-Hochgeschwindigkeitsstrecke, Verbindung nach Lanzhou, Xi'an usw. Gut ausgestattet.",
+      "descEn": "Terminal of Lanzhou-Xinjiang High-speed Railway, connecting Lanzhou, Xi'an, etc., with well-equipped facilities.",
+      "descEs": "Terminal del ferrocarril de alta velocidad Lanzhou-Xinjiang, conecta con Lanzhou, Xi'an, etc. Instalaciones completas.",
+      "descFr": "Terminus de la ligne TGV Lanzhou-Xinjiang, reliant Lanzhou, Xi'an, etc., avec des installations complètes.",
+      "descIt": "Terminale della ferrovia ad alta velocità Lanzhou-Xinjiang, collegata a Lanzhou, Xi'an, ecc., con strutture complete.",
+      "descJa": "蘭新高速鉄道の終着駅。蘭州、西安などと結ばれ、駅施設は充実。",
+      "descKo": "란신 고속철도의 종착역으로 란저우, 시안 등과 연결되며 시설이 잘 갖춰져 있습니다.",
+      "descRu": "Конечная станция высокоскоростной линии Ланьчжоу-Синьцзян, соединяет с Ланьчжоу, Сианем и др., хорошо оборудован.",
+      "descTw": "蘭新高鐵終點站，連接蘭州、西安等地，站內設施完善。",
+      "priceDe": "Preis nach Entfernung",
+      "priceEn": "High-speed ticket price depends on distance",
+      "priceEs": "El precio del billete de alta velocidad varía según la distancia",
+      "priceFr": "Prix du billet TGV selon la distance",
+      "priceIt": "Prezzo biglietto in base alla distanza",
+      "priceJa": "高速鉄道料金は距離による",
+      "priceKo": "거리별 요금",
+      "priceRu": "Цена билета зависит от расстояния",
+      "priceTw": "高鐵票價按距離計算"
+    },
+    {
+      "iconName": "Bus",
+      "title": "乌鲁木齐公交系统",
+      "enTitle": "Ürümqi Public Bus System",
+      "desc": "覆盖全市，线路密集，票价低廉，部分线路运营至深夜。",
+      "enDesc": "Covers the whole city with dense routes, low fares, some lines run late into the night.",
+      "price": "1-2元",
+      "enPrice": "¥1-2",
+      "titleDe": "Öffentliche Busse in Ürümqi",
+      "titleEn": "Ürümqi Public Bus System",
+      "titleEs": "Sistema de autobuses de Ürümqi",
+      "titleFr": "Réseau de bus d'Ouroumqi",
+      "titleIt": "Sistema di autobus di Ürümqi",
+      "titleJa": "ウルムチバスシステム",
+      "titleKo": "우루무치 버스 시스템",
+      "titleRu": "Автобусная система Урумчи",
+      "titleTw": "烏魯木齊公車系統",
+      "descDe": "Decken die ganze Stadt ab, dichtes Netz, niedrige Fahrpreise. Einige Linien fahren bis spät in die Nacht.",
+      "descEn": "Covers the whole city with dense routes, low fares, some lines run late into the night.",
+      "descEs": "Cubre toda la ciudad, con rutas densas y tarifas bajas, algunas líneas operan hasta tarde.",
+      "descFr": "Couvre toute la ville, lignes denses, tarifs bas, certaines lignes fonctionnent tard dans la nuit.",
+      "descIt": "Copre tutta la città, con linee fitte e tariffe basse, alcune linee operano fino a tarda notte.",
+      "descJa": "市内全域をカバーし、路線網が密集。運賃は安く、一部路線は深夜まで運行。",
+      "descKo": "시 전역을 운행하며 노선이 조밀하고 요금이 저렴하며 일부 노선은 심야까지 운행합니다.",
+      "descRu": "Покрывает весь город, густая сеть маршрутов, низкая стоимость проезда, некоторые маршруты работают до поздней ночи.",
+      "descTw": "覆蓋全市，線路密集，票價低廉，部分線路營運至深夜。",
+      "priceDe": "1-2 Yuan",
+      "priceEn": "¥1-2",
+      "priceEs": "1-2 yuanes",
+      "priceFr": "1-2 yuans",
+      "priceIt": "1-2 yuan",
+      "priceJa": "1～2元",
+      "priceKo": "1-2위안",
+      "priceRu": "1-2 юаня",
+      "priceTw": "1-2元"
+    }
+  ],
+  "bestTravelTime": {
+    "strongText": "春秋最佳，夏冬各具特色",
+    "enStrongText": "Best in spring and autumn, summer and winter have their own charms",
+    "paragraphs": [
+      "春季（4-5月）：气温回升，万物复苏，杏花、桃花盛开，适合踏青赏花。但时有风沙，需注意防护。",
+      "夏季（6-8月）：天气炎热干燥，日照强烈，但夜晚凉爽。此时瓜果大量上市，葡萄、哈密瓜等香甜可口。南山牧场是避暑胜地。",
+      "秋季（9-10月）：秋高气爽，气候宜人，是旅游黄金季节。胡杨林金黄一片，景色壮丽。冬季（11-3月）：寒冷多雪，可体验滑雪和冰雪节庆活动。"
+    ],
+    "enParagraphs": [
+      "Spring (April-May): Temperatures rise, everything revives, apricot and peach blossoms bloom, suitable for outings. However, sandstorms may occur, so protection is needed.",
+      "Summer (June-August): Hot and dry with strong sunlight, but cool at night. Fruits like grapes and Hami melons are in season. Nanshan Pasture is a summer resort.",
+      "Autumn (September-October): Clear and crisp weather, ideal for travel. Poplar forests turn golden. Winter (November-March): Cold and snowy, offering skiing and ice festivals."
+    ],
+    "strongTextDe": "Frühling und Herbst am besten, Sommer und Winter haben ihren eigenen Reiz",
+    "strongTextEn": "Best in spring and autumn, summer and winter have their own charms",
+    "strongTextEs": "Mejor en primavera y otoño, verano e invierno con su encanto propio",
+    "strongTextFr": "Printemps et automne meilleurs, été et hiver ont leurs charmes",
+    "strongTextIt": "Migliori in primavera e autunno, estate e inverno hanno i loro fascini",
+    "strongTextJa": "春秋が最適、夏冬もそれぞれ魅力あり",
+    "strongTextKo": "봄과 가을이 최적, 여름과 겨울도 각각 매력적",
+    "strongTextRu": "Лучше всего весной и осенью, лето и зима имеют своё очарование",
+    "strongTextTw": "春秋最佳，夏冬各具特色",
+    "paragraphsDe": [
+      "Frühling (April-Mai): Die Temperaturen steigen, die Natur erwacht, Aprikosen- und Pfirsichblüten blühen – ideal für Ausflüge. Allerdings kann es Sandstürme geben, daher ist Schutz erforderlich.",
+      "Sommer (Juni-August): Heiß und trocken mit starker Sonneneinstrahlung, aber kühle Nächte. Obst wie Weintrauben und Hami-Melonen sind reif. Die Nanshan-Weide ist ein beliebtes Sommerziel.",
+      "Herbst (September-Oktober): Angenehmes Wetter, ideale Reisezeit. Die Pappelwälder färben sich golden. Winter (November-März): Kalt und schneereich, geeignet zum Skifahren und für Eis- und Schneefeste."
+    ],
+    "paragraphsEn": [
+      "Spring (April-May): Temperatures rise, everything revives, apricot and peach blossoms bloom, suitable for outings. However, sandstorms may occur, so protection is needed.",
+      "Summer (June-August): Hot and dry with strong sunlight, but cool at night. Fruits like grapes and Hami melons are in season. Nanshan Pasture is a summer resort.",
+      "Autumn (September-October): Clear and crisp weather, ideal for travel. Poplar forests turn golden. Winter (November-March): Cold and snowy, offering skiing and ice festivals."
+    ],
+    "paragraphsEs": [
+      "Primavera (abril-mayo): La temperatura sube, todo reverdece, florecen los albaricoques y melocotones, ideal para excursiones. Sin embargo, hay tormentas de arena, hay que protegerse.",
+      "Verano (junio-agosto): Clima caluroso y seco, con fuerte sol, pero noches frescas. Las frutas como uvas y melones de Hami están en temporada. El Pastizal de Nanshan es un refugio de verano.",
+      "Otoño (septiembre-octubre): Cielo despejado y clima agradable, temporada dorada para viajar. Los bosques de álamos se vuelven dorados. Invierno (noviembre-marzo): Frío y nevado, se puede esquiar y disfrutar de festivales de hielo."
+    ],
+    "paragraphsFr": [
+      "Printemps (avril-mai) : La température remonte, tout renaît, les abricotiers et pêchers fleurissent, idéal pour les promenades. Cependant, il y a parfois des tempêtes de sable, nécessitant une protection.",
+      "Été (juin-août) : Temps chaud et sec, fort ensoleillement, mais nuits fraîches. C'est la saison des fruits, raisins, melons de Hami sont sucrés. Le pâturage de Nanshan est une station d'été.",
+      "Automne (septembre-octobre) : Ciel clair, climat agréable, saison touristique dorée. Les forêts de peupliers jaunissent, paysages magnifiques. Hiver (novembre-mars) : Froid et neigeux, on peut skier et participer aux festivals de glace."
+    ],
+    "paragraphsIt": [
+      "Primavera (aprile-maggio): le temperature si alzano, la natura si risveglia, fioriscono albicocchi e peschi, ideale per escursioni. Tuttavia, a volte ci sono tempeste di sabbia, quindi è necessaria protezione.",
+      "Estate (giugno-agosto): caldo e secco con forte sole, ma fresco di notte. Frutta come uva e meloni di Hami sono di stagione. Il Pascolo di Nanshan è una località estiva.",
+      "Autunno (settembre-ottobre): clima limpido e fresco, ideale per viaggiare. Le foreste di pioppi diventano dorate. Inverno (novembre-marzo): freddo e nevoso, con possibilità di sci e festival del ghiaccio."
+    ],
+    "paragraphsJa": [
+      "春（4～5月）：気温が上がり、万物がよみがえり、アンズや桃の花が咲き乱れ、花見や散策に最適。ただし砂嵐が発生することもあるので注意。",
+      "夏（6～8月）：暑く乾燥し、日差しが強いが、夜は涼しい。この時期は果物が豊富で、ブドウやハミウリなどが甘く美味。南山牧場は避暑地としておすすめ。",
+      "秋（9～10月）：秋晴れが続き、過ごしやすく、観光のゴールデンシーズン。ポプラ林が黄金色に染まり、壮観。冬（11～3月）：寒く雪が多いが、スキーや氷の祭典を楽しめる。"
+    ],
+    "paragraphsKo": [
+      "봄(4-5월): 기온이 오르고 만물이 소생하며 살구꽃, 복숭아꽃이 만개하여 나들이에 좋습니다. 다만 황사가 있을 수 있으니 주의해야 합니다.",
+      "여름(6-8월): 덥고 건조하며 일사가 강하지만 밤에는 시원합니다. 포도, 하미과 등 과일이 풍성하며 난산 목장은 피서지로 좋습니다.",
+      "가을(9-10월): 하늘이 높고 날씨가 맑아 여행하기 좋은 계절입니다. 포플러 숲이 황금빛으로 물들어 장관입니다. 겨울(11-3월): 춥고 눈이 많아 스키와 겨울 축제를 즐길 수 있습니다."
+    ],
+    "paragraphsRu": [
+      "Весна (апрель-май): температура повышается, природа оживает, цветут абрикосы и персики, подходит для прогулок. Однако возможны пыльные бури, нужна защита.",
+      "Лето (июнь-август): жарко и сухо, сильное солнце, но ночи прохладные. В это время много фруктов: виноград, хамийские дыни и др. Наньшаньское пастбище — отличное место для отдыха.",
+      "Осень (сентябрь-октябрь): ясная и прохладная погода, идеальное время для путешествий. Тополиные рощи золотые. Зима (ноябрь-март): холодно и снежно, можно кататься на лыжах и посещать ледовые фестивали."
+    ],
+    "paragraphsTw": [
+      "春季（4-5月）：氣溫回升，萬物復甦，杏花、桃花盛開，適合踏青賞花。但時有風沙，需注意防護。",
+      "夏季（6-8月）：天氣炎熱乾燥，日照強烈，但夜晚涼爽。此時瓜果大量上市，葡萄、哈密瓜等香甜可口。南山牧場是避暑勝地。",
+      "秋季（9-10月）：秋高氣爽，氣候宜人，是旅遊黃金季節。胡楊林金黃一片，景色壯麗。冬季（11-3月）：寒冷多雪，可體驗滑雪和冰雪節慶活動。"
+    ]
+  },
+  "info": {
+    "area": "14,216平方公里",
+    "areaDe": "14.216 km²",
+    "areaEn": "14,216 square kilometers",
+    "areaEs": "14.216 km²",
+    "areaFr": "14 216 km²",
+    "areaIt": "14.216 km²",
+    "areaJa": "14,216平方キロメートル",
+    "areaKo": "14,216km²",
+    "areaRu": "14 216 км²",
+    "areaTw": "14,216平方公里",
+    "population": "405万人",
+    "populationDe": "4,05 Millionen",
+    "populationEn": "4.05 million",
+    "populationEs": "4,05 millones de habitantes",
+    "populationFr": "4,05 millions",
+    "populationIt": "4,05 milioni",
+    "populationJa": "405万人",
+    "populationKo": "405만 명",
+    "populationRu": "4,05 млн человек",
+    "populationTw": "405萬人"
+  },
+  "translations": {
+    "en": {
+      "enName": "Urumqi",
+      "tags": [
+        {
+          "text": "Pearl of the Silk Road",
+          "color": "#E74C3C"
+        },
+        {
+          "text": "Capital of Asia's Heart",
+          "color": "#3498DB"
+        },
+        {
+          "text": "Food Paradise",
+          "color": "#F39C12"
+        },
+        {
+          "text": "Ethnic Flavor",
+          "color": "#9B59B6"
+        }
+      ],
+      "paragraphs": [
+        "Urumqi is located in central Xinjiang, at the northern foot of the Tianshan Mountains and the southern edge of the Junggar Basin, serving as the geographical center of the Asian continent. It has a temperate continental climate with large temperature differences between day and night, dry and hot summers, cold winters, and short springs and autumns.",
+        "Urumqi has a long history. During the Western Han Dynasty, it was the land of the Jushi Kingdom. In the Tang Dynasty, Luntai County was established. During the Qing Dynasty, under Emperor Qianlong, a city was built and named 'Dihua'. In 1884, after Xinjiang became a province, it became the provincial capital. In 1954, it was renamed Urumqi, meaning 'beautiful pasture'.",
+        "Urumqi is a multi-ethnic area where 47 ethnic groups, including Han, Uyghur, Hui, and Kazakh, live in harmony. Signature dishes include grilled lamb skewers, big plate chicken, pilaf, laghman, and baked buns, blending Central Asian and Central Plains culinary cultures.",
+        "Urumqi is the political, economic, and cultural center of Xinjiang, and a key node city of the Belt and Road Initiative. In recent years, its economy has developed rapidly. Landmarks like the International Grand Bazaar and Cultural Center showcase modern vitality, while ecological protection is emphasized to build a livable city."
+      ],
+      "attractions": [
+        {
+          "name": "Tianchi Lake (Heavenly Lake)",
+          "desc": "Located below the Bogda Peak of Tianshan Mountains at an altitude of 1910 meters, with crystal clear water surrounded by snow-capped peaks, known as 'Jade Pool'.",
+          "time": "09:00-19:00",
+          "price": "Peak season 155 yuan, off-peak 105 yuan",
+          "season": "June-September"
+        },
+        {
+          "name": "Xinjiang International Grand Bazaar",
+          "desc": "The world's largest bazaar, integrating commerce, entertainment, and dining, with strong Uyghur architectural style.",
+          "time": "10:00-22:00",
+          "price": "Free",
+          "season": "All year"
+        },
+        {
+          "name": "Hongshan Park",
+          "desc": "A landmark of Urumqi, with the Hongshan Pagoda standing on the hilltop offering a panoramic view of the city.",
+          "time": "06:00-22:00",
+          "price": "Free",
+          "season": "All year"
+        },
+        {
+          "name": "Xinjiang Uyghur Autonomous Region Museum",
+          "desc": "Houses a large collection of Xinjiang historical artifacts, including the 'Loulan Beauty' mummy and Silk Road relics.",
+          "time": "10:00-18:00 (closed on Mondays)",
+          "price": "Free",
+          "season": "All year"
+        },
+        {
+          "name": "Nanshan Pasture",
+          "desc": "A natural pasture on the northern slopes of Tianshan, green in summer and a ski resort in winter.",
+          "time": "Open all day",
+          "price": "Free, some attractions charge",
+          "season": "June-September, December-February"
+        }
+      ],
+      "food": [
+        {
+          "name": "Grilled Lamb Skewers",
+          "desc": "The most representative street food in Xinjiang, grilled over charcoal with cumin and chili powder, crispy outside and tender inside.",
+          "price": "5-10 yuan"
+        },
+        {
+          "name": "Big Plate Chicken",
+          "desc": "Stewed chicken with potatoes and peppers, served with wide noodles, spicy and delicious, generous portion.",
+          "price": "50-80 yuan"
+        },
+        {
+          "name": "Pilaf",
+          "desc": "Steamed rice with lamb, carrots, and onions, oily and fragrant, a staple food in Xinjiang.",
+          "price": "20-30 yuan"
+        },
+        {
+          "name": "Laghman",
+          "desc": "Hand-pulled noodles, chewy and smooth, served with stir-fried dishes like meat or vegetables.",
+          "price": "15-25 yuan"
+        },
+        {
+          "name": "Baked Buns",
+          "desc": "Stuffed with lamb and onions, crispy crust, baked in a tandoor.",
+          "price": "3-5 yuan"
+        }
+      ],
+      "history": [
+        {
+          "year": "60 BC",
+          "title": "Establishment of the Western Regions Protectorate",
+          "desc": "The Western Han Dynasty established the Western Regions Protectorate in Wulei City, officially incorporating the Urumqi area into Chinese territory."
+        },
+        {
+          "year": "1763",
+          "title": "Emperor Qianlong Names 'Dihua'",
+          "desc": "Emperor Qianlong of the Qing Dynasty named the city of Urumqi 'Dihua', meaning 'enlightenment and transformation', and expanded the city walls."
+        },
+        {
+          "year": "1954",
+          "title": "Renamed Urumqi",
+          "desc": "Approved by the State Council, 'Dihua' was renamed Urumqi, meaning 'beautiful pasture' in Mongolian."
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "Best in spring and autumn, summer and winter have their own charms",
+        "paragraphs": [
+          "Spring (April-May): Temperatures rise, everything revives, apricot and peach blossoms bloom, suitable for outings. However, sandstorms may occur, so protection is needed.",
+          "Summer (June-August): Hot and dry with strong sunlight, but cool at night. Fruits like grapes and Hami melons are in season. Nanshan Pasture is a summer resort.",
+          "Autumn (September-October): Clear and crisp weather, ideal for travel. Poplar forests turn golden. Winter (November-March): Cold and snowy, offering skiing and ice festivals."
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "Xinjiang Uyghur Muqam Art",
+          "desc": "A comprehensive art form integrating song, dance, and music, known as the 'Pearl of Oriental Music'."
+        },
+        {
+          "name": "Manas",
+          "desc": "A heroic epic of the Kyrgyz people, one of the longest epics in the world, telling the legendary stories of the hero Manas and his descendants."
+        }
+      ],
+      "transportation": [
+        {
+          "title": "Urumqi Diwopu International Airport",
+          "desc": "An important aviation hub in western China with numerous domestic and international flights, about 20 km from the city center.",
+          "price": "Airport bus 20 yuan, taxi about 50 yuan"
+        },
+        {
+          "title": "Urumqi Station (High-Speed Rail)",
+          "desc": "The terminal of the Lanzhou-Xinjiang High-Speed Railway, connecting to Lanzhou, Xi'an, etc., with well-equipped facilities.",
+          "price": "Ticket price depends on distance"
+        },
+        {
+          "title": "Urumqi Bus System",
+          "desc": "Covers the entire city with dense routes and low fares, some lines run late into the night.",
+          "price": "1-2 yuan"
+        }
+      ],
+      "info": {
+        "area": "14,216 square kilometers",
+        "population": "4.05 million"
+      }
+    },
+    "de": {
+      "enName": "Ürümqi",
+      "tags": [
+        {
+          "text": "Perle der Seidenstraße",
+          "color": "#E74C3C"
+        },
+        {
+          "text": "Hauptstadt des asiatischen Kontinents",
+          "color": "#3498DB"
+        },
+        {
+          "text": "Paradies für Feinschmecker",
+          "color": "#F39C12"
+        },
+        {
+          "text": "Ethnische Vielfalt",
+          "color": "#9B59B6"
+        }
+      ],
+      "paragraphs": [
+        "Ürümqi liegt im zentralen Teil Xinjiangs, am Nordfuß des Tian Shan und am Südrand des Dsungarischen Beckens. Es ist der geografische Mittelpunkt des asiatischen Kontinents. Das Klima ist gemäßigt kontinental mit großen Temperaturunterschieden zwischen Tag und Nacht, trockenen heißen Sommern, kalten Wintern und kurzen Frühlingen und Herbsten.",
+        "Ürümqi hat eine lange Geschichte: In der Westlichen Han-Dynastie gehörte es zum Gebiet des Jushi-Königreichs, in der Tang-Dynastie wurde der Kreis Luntai eingerichtet, und während der Qianlong-Ära der Qing-Dynastie wurde die Stadt erbaut und 'Dihua' genannt. 1884, nach der Gründung der Provinz Xinjiang, wurde es zur Provinzhauptstadt. 1954 wurde es in Ürümqi umbenannt, was 'schöne Weide' bedeutet.",
+        "Ürümqi ist ein multiethnisches Gebiet, in dem 47 Ethnien, darunter Han, Uiguren, Hui, Kasachen, harmonisch zusammenleben. Zu den Spezialitäten gehören Lammspieße, 'Großes Hühnchengericht', Pilaw, handgezogene Nudeln und gefüllte Teigtaschen. Die Küche vereint zentralasiatische und chinesische Einflüsse.",
+        "Ürümqi ist das politische, wirtschaftliche und kulturelle Zentrum Xinjiangs und ein wichtiger Knotenpunkt der 'Neuen Seidenstraße'. In den letzten Jahren hat sich die Wirtschaft rasant entwickelt. Wahrzeichen wie der Internationale Basar und das Kulturzentrum zeigen moderne Vitalität, während gleichzeitig der Umweltschutz und die Schaffung einer lebenswerten Stadt vorangetrieben werden."
+      ],
+      "attractions": [
+        {
+          "name": "Himmelssee am Tian Shan",
+          "desc": "Am Fuße des Bogda-Gipfels gelegen, auf 1910 m Höhe. Das Wasser ist klar, umgeben von schneebedeckten Gipfeln. Wird als 'Jade-See' bezeichnet.",
+          "time": "09:00-19:00",
+          "price": "Hauptsaison 155 Yuan, Nebensaison 105 Yuan",
+          "season": "Juni-September"
+        },
+        {
+          "name": "Xinjiang Internationaler Basar",
+          "desc": "Der weltweit größte Basar, der Handel, Unterhaltung und Gastronomie vereint. Die Architektur ist im uigurischen Stil gehalten.",
+          "time": "10:00-22:00",
+          "price": "Kostenlos",
+          "season": "Ganzjährig"
+        },
+        {
+          "name": "Roter Berg Park",
+          "desc": "Wahrzeichen von Ürümqi. Auf dem Gipfel steht der Rote-Berg-Pagode, von der man einen Panoramablick über die Stadt hat.",
+          "time": "06:00-22:00",
+          "price": "Kostenlos",
+          "season": "Ganzjährig"
+        },
+        {
+          "name": "Museum des Autonomen Gebiets Xinjiang",
+          "desc": "Beherbergt eine große Sammlung historischer Artefakte aus Xinjiang, darunter die 'Loulan-Schönheit'-Mumie und Seidenstraßen-Relikte.",
+          "time": "10:00-18:00 (montags geschlossen)",
+          "price": "Kostenlos",
+          "season": "Ganzjährig"
+        },
+        {
+          "name": "Nanshan Weide",
+          "desc": "Natürliche Weide am Nordhang des Tian Shan. Im Sommer grünes Gras, im Winter Skigebiet.",
+          "time": "Rund um die Uhr geöffnet",
+          "price": "Kostenlos, einige Bereiche kostenpflichtig",
+          "season": "Juni-September, Dezember-Februar"
+        }
+      ],
+      "food": [
+        {
+          "name": "Lammspieße",
+          "desc": "Das bekannteste Straßenessen Xinjiangs. Über Holzkohle gegrillt, mit Kreuzkümmel und Chilipulver bestreut, außen knusprig, innen zart.",
+          "price": "5-10 Yuan",
+          "ingredients": "Lammfleisch, Kreuzkümmel, Chilipulver"
+        },
+        {
+          "name": "Großes Hühnchengericht",
+          "desc": "Geschmortes Hühnchen mit Kartoffeln und Paprika, serviert mit breiten Nudeln. Scharf und würzig, reichhaltig.",
+          "price": "50-80 Yuan",
+          "ingredients": "Hühnchen, Kartoffeln, Paprika, breite Nudeln"
+        },
+        {
+          "name": "Pilaw",
+          "desc": "Geschmortes Lammfleisch mit Karotten, Zwiebeln und Reis. Ölig und duftend, ein Grundnahrungsmittel Xinjiangs.",
+          "price": "20-30 Yuan",
+          "ingredients": "Lammfleisch, Karotten, Zwiebeln, Reis"
+        },
+        {
+          "name": "Handgezogene Nudeln",
+          "desc": "Von Hand gezogene Nudeln, bissfest und glatt. Serviert mit verschiedenen Pfannengerichten wie überbrühtem Fleisch oder Sauerkraut.",
+          "price": "15-25 Yuan",
+          "ingredients": "Mehl, Lammfleisch, Gemüse"
+        },
+        {
+          "name": "Gefüllte Teigtaschen",
+          "desc": "Mit Lammfleisch und Zwiebeln gefüllt, knuspriger Teig, im Naan-Ofen gebacken.",
+          "price": "3-5 Yuan",
+          "ingredients": "Mehl, Lammfleisch, Zwiebeln"
+        }
+      ],
+      "history": [
+        {
+          "year": "60 v. Chr.",
+          "title": "Einrichtung des Protektorats der Westlichen Regionen",
+          "desc": "Die Westliche Han-Dynastie richtete in Wulei das Protektorat der Westlichen Regionen ein, wodurch das Gebiet von Ürümqi offiziell Teil Chinas wurde."
+        },
+        {
+          "year": "1763",
+          "title": "Qianlong benennt die Stadt 'Dihua'",
+          "desc": "Kaiser Qianlong der Qing-Dynastie gab der Stadt Ürümqi den Namen 'Dihua', was 'Erleuchtung und Zivilisation' bedeutet, und erweiterte die Stadtmauern."
+        },
+        {
+          "year": "1954",
+          "title": "Umbenennung in Ürümqi",
+          "desc": "Mit Genehmigung des Staatsrates wurde 'Dihua' in Ürümqi umbenannt, was in der mongolischen Sprache 'schöne Weide' bedeutet."
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "Frühling und Herbst am besten, Sommer und Winter haben ihren eigenen Reiz",
+        "paragraphs": [
+          "Frühling (April-Mai): Die Temperaturen steigen, die Natur erwacht, Aprikosen- und Pfirsichblüten blühen – ideal für Ausflüge. Allerdings kann es Sandstürme geben, daher ist Schutz erforderlich.",
+          "Sommer (Juni-August): Heiß und trocken mit starker Sonneneinstrahlung, aber kühle Nächte. Obst wie Weintrauben und Hami-Melonen sind reif. Die Nanshan-Weide ist ein beliebtes Sommerziel.",
+          "Herbst (September-Oktober): Angenehmes Wetter, ideale Reisezeit. Die Pappelwälder färben sich golden. Winter (November-März): Kalt und schneereich, geeignet zum Skifahren und für Eis- und Schneefeste."
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "Xinjiang Uigurischer Muqam",
+          "desc": "Eine umfassende Kunstform, die Gesang, Tanz und Musik vereint. Wird als 'Perle der orientalischen Musik' bezeichnet."
+        },
+        {
+          "name": "Manas",
+          "desc": "Das Heldenepos der Kirgisen, eines der längsten Epen der Welt. Es erzählt die Legenden des Helden Manas und seiner Nachkommen."
+        }
+      ],
+      "transportation": [
+        {
+          "title": "Flughafen Ürümqi Diwopu",
+          "desc": "Wichtiger Luftverkehrsknotenpunkt in Westchina mit zahlreichen Inlands- und Auslandsflügen. Etwa 20 km vom Stadtzentrum entfernt.",
+          "price": "Flughafenbus 20 Yuan, Taxi ca. 50 Yuan"
+        },
+        {
+          "title": "Bahnhof Ürümqi (Hochgeschwindigkeitsbahnhof)",
+          "desc": "Endstation der Lanzhou-Xinjiang-Hochgeschwindigkeitsstrecke, Verbindung nach Lanzhou, Xi'an usw. Gut ausgestattet.",
+          "price": "Preis nach Entfernung"
+        },
+        {
+          "title": "Öffentliche Busse in Ürümqi",
+          "desc": "Decken die ganze Stadt ab, dichtes Netz, niedrige Fahrpreise. Einige Linien fahren bis spät in die Nacht.",
+          "price": "1-2 Yuan"
+        }
+      ],
+      "info": {
+        "area": "14.216 km²",
+        "population": "4,05 Millionen"
+      }
+    },
+    "es": {
+      "enName": "Ürümqi",
+      "tags": [
+        {
+          "text": "Perla de la Ruta de la Seda",
+          "color": "#E74C3C"
+        },
+        {
+          "text": "Capital del Corazón de Asia",
+          "color": "#3498DB"
+        },
+        {
+          "text": "Paraíso Gastronómico",
+          "color": "#F39C12"
+        },
+        {
+          "text": "Encanto Étnico",
+          "color": "#9B59B6"
+        }
+      ],
+      "paragraphs": [
+        "Ürümqi se encuentra en el centro de Xinjiang, al pie norte de las montañas Tianshan y en el borde sur de la cuenca Junggar, siendo el centro geográfico del continente asiático. Tiene un clima continental templado con grandes diferencias de temperatura entre el día y la noche: veranos secos y calurosos, inviernos fríos y primaveras y otoños cortos.",
+        "Ürümqi tiene una larga historia. Durante la dinastía Han Occidental fue territorio del reino Jushi. En la dinastía Tang se estableció el condado de Luntai. En el período Qianlong de la dinastía Qing se construyó una ciudad y se nombró 'Dihua'. En 1884, tras el establecimiento de la provincia de Xinjiang, se convirtió en la capital. En 1954 pasó a llamarse Ürümqi, que significa 'hermoso pastizal'.",
+        "Ürümqi es una región multiétnica donde conviven armoniosamente 47 grupos étnicos, incluyendo han, uigures, hui y kazajos. La gastronomía típica incluye brochetas de cordero asado, pollo grande con patatas, arroz pilaf, fideos tirados y empanadillas al horno, fusionando las culturas culinarias de Asia Central y China central.",
+        "Ürümqi es el centro político, económico y cultural de Xinjiang, así como una ciudad clave en la iniciativa 'Una Franja y Una Ruta'. En los últimos años, la economía se ha desarrollado rápidamente. Lugares emblemáticos como el Gran Bazar Internacional y el Centro Cultural muestran su vitalidad moderna, al mismo tiempo que se presta atención a la protección ecológica para construir una ciudad habitable."
+      ],
+      "attractions": [
+        {
+          "name": "Lago Tianchi de las Montañas Tianshan",
+          "desc": "Ubicado bajo el pico Bogda de las montañas Tianshan, a 1.910 metros de altitud, con aguas cristalinas rodeadas de picos nevados, conocido como el 'estanque de los inmortales'.",
+          "time": "09:00-19:00",
+          "price": "Temporada alta 155 yuanes, temporada baja 105 yuanes",
+          "season": "Junio a septiembre"
+        },
+        {
+          "name": "Gran Bazar Internacional de Xinjiang",
+          "desc": "El bazar más grande del mundo, que integra comercio, entretenimiento y gastronomía, con una arquitectura de marcado estilo uigur.",
+          "time": "10:00-22:00",
+          "price": "Gratuito",
+          "season": "Todo el año"
+        },
+        {
+          "name": "Parque de la Montaña Roja",
+          "desc": "Lugar emblemático de Ürümqi, con la pagoda de la Montaña Roja en la cima, desde donde se puede contemplar toda la ciudad.",
+          "time": "06:00-22:00",
+          "price": "Gratuito",
+          "season": "Todo el año"
+        },
+        {
+          "name": "Museo de la Región Autónoma Uigur de Xinjiang",
+          "desc": "Alberga una gran colección de reliquias históricas de Xinjiang, incluyendo la momia de la 'Belleza de Loulan' y objetos de la Ruta de la Seda.",
+          "time": "10:00-18:00 (cerrado los lunes)",
+          "price": "Gratuito",
+          "season": "Todo el año"
+        },
+        {
+          "name": "Pastizal de Nanshan",
+          "desc": "Pastizal natural en la ladera norte de las montañas Tianshan, verde y exuberante en verano, y destino de esquí en invierno.",
+          "time": "Abierto todo el día",
+          "price": "Gratuito, algunas atracciones cobran entrada",
+          "season": "Junio a septiembre, diciembre a febrero"
+        }
+      ],
+      "food": [
+        {
+          "name": "Brochetas de cordero asado",
+          "desc": "La comida callejera más representativa de Xinjiang, asada al carbón y sazonada con comino y chile en polvo, crujiente por fuera y tierna por dentro.",
+          "price": "5-10 yuanes"
+        },
+        {
+          "name": "Pollo grande con patatas",
+          "desc": "Guiso de pollo con patatas y chiles, servido con fideos anchos, picante y sabroso, en porción generosa.",
+          "price": "50-80 yuanes"
+        },
+        {
+          "name": "Arroz pilaf",
+          "desc": "Cocido con cordero, zanahorias, cebolla y arroz, aceitoso y aromático, uno de los platos principales de Xinjiang.",
+          "price": "20-30 yuanes"
+        },
+        {
+          "name": "Fideos tirados a mano",
+          "desc": "Fideos hechos a mano, elásticos y suaves, servidos con diversos salteados como carne salteada o verduras encurtidas.",
+          "price": "15-25 yuanes"
+        },
+        {
+          "name": "Empanadillas al horno",
+          "desc": "Rellenas de cordero y cebolla, con una corteza crujiente, horneadas en un horno de tandoor.",
+          "price": "3-5 yuanes"
+        }
+      ],
+      "history": [
+        {
+          "year": "60 a.C.",
+          "title": "Establecimiento de la Protectoría de las Regiones Occidentales por la dinastía Han",
+          "desc": "La dinastía Han Occidental estableció la Protectoría de las Regiones Occidentales en la ciudad de Wulei, incorporando oficialmente la región de Ürümqi al territorio chino."
+        },
+        {
+          "year": "1763",
+          "title": "El emperador Qianlong nombra la ciudad 'Dihua'",
+          "desc": "El emperador Qianlong de la dinastía Qing nombró la ciudad de Ürümqi como 'Dihua', que significa 'iluminar y educar', y amplió sus murallas."
+        },
+        {
+          "year": "1954",
+          "title": "Cambio de nombre a Ürümqi",
+          "desc": "Aprobado por el Consejo de Estado, 'Dihua' pasó a llamarse Ürümqi, que en mongol significa 'hermoso pastizal'."
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "Mejor en primavera y otoño, verano e invierno con su encanto propio",
+        "paragraphs": [
+          "Primavera (abril-mayo): La temperatura sube, todo reverdece, florecen los albaricoques y melocotones, ideal para excursiones. Sin embargo, hay tormentas de arena, hay que protegerse.",
+          "Verano (junio-agosto): Clima caluroso y seco, con fuerte sol, pero noches frescas. Las frutas como uvas y melones de Hami están en temporada. El Pastizal de Nanshan es un refugio de verano.",
+          "Otoño (septiembre-octubre): Cielo despejado y clima agradable, temporada dorada para viajar. Los bosques de álamos se vuelven dorados. Invierno (noviembre-marzo): Frío y nevado, se puede esquiar y disfrutar de festivales de hielo."
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "Arte del Muqam uigur de Xinjiang",
+          "desc": "Forma artística integral que combina canto, danza y música, considerada la 'perla de la música oriental'."
+        },
+        {
+          "name": "Manas",
+          "desc": "Epopea heroica del pueblo kirguís, una de las más largas del mundo, que narra las leyendas del héroe Manas y sus descendientes."
+        }
+      ],
+      "transportation": [
+        {
+          "title": "Aeropuerto Internacional Diwopu de Ürümqi",
+          "desc": "Importante centro de aviación del oeste de China, con numerosas rutas nacionales e internacionales, a unos 20 km del centro de la ciudad.",
+          "price": "Autobús al aeropuerto 20 yuanes, taxi unos 50 yuanes"
+        },
+        {
+          "title": "Estación de Ürümqi (Estación de tren de alta velocidad)",
+          "desc": "Terminal del ferrocarril de alta velocidad Lanzhou-Xinjiang, conecta con Lanzhou, Xi'an, etc. Instalaciones completas.",
+          "price": "El precio del billete de alta velocidad varía según la distancia"
+        },
+        {
+          "title": "Sistema de autobuses de Ürümqi",
+          "desc": "Cubre toda la ciudad, con rutas densas y tarifas bajas, algunas líneas operan hasta tarde.",
+          "price": "1-2 yuanes"
+        }
+      ],
+      "info": {
+        "area": "14.216 km²",
+        "population": "4,05 millones de habitantes"
+      }
+    },
+    "fr": {
+      "enName": "Ouroumqi",
+      "tags": [
+        {
+          "text": "Perle de la Route de la Soie",
+          "color": "#E74C3C"
+        },
+        {
+          "text": "Capitale du centre de l'Asie",
+          "color": "#3498DB"
+        },
+        {
+          "text": "Paradis gastronomique",
+          "color": "#F39C12"
+        },
+        {
+          "text": "Couleurs ethniques",
+          "color": "#9B59B6"
+        }
+      ],
+      "paragraphs": [
+        "Ouroumqi est située au centre du Xinjiang, au pied nord des monts Tianshan, en bordure sud du bassin de Dzungarie, et constitue le centre géographique du continent asiatique. Son climat est continental tempéré, avec de grandes amplitudes thermiques, des étés chauds et secs, des hivers froids, et des printemps et automnes courts.",
+        "Ouroumqi possède une longue histoire. Sous les Han occidentaux, elle faisait partie du royaume de Jushi. Sous les Tang, le district de Luntai y fut établi. Sous les Qing, sous le règne de Qianlong, une ville fortifiée fut construite et nommée « Dihua ». En 1884, après la création de la province du Xinjiang, elle en devint la capitale. En 1954, elle fut rebaptisée Ouroumqi, qui signifie « beau pâturage ».",
+        "Ouroumqi est une région multiethnique où cohabitent harmonieusement 47 groupes ethniques, dont les Han, Ouïghours, Hui, Kazakhs, etc. Les spécialités culinaires comprennent les brochettes d'agneau grillé, le poulet épicé aux pommes de terre, le pilaf, les nouilles tirées à la main, les chaussons cuits au four, etc., mêlant les cultures culinaires d'Asie centrale et de Chine centrale.",
+        "Ouroumqi est le centre politique, économique et culturel du Xinjiang, et une ville clé sur l'initiative « Ceinture et Route ». Ces dernières années, l'économie s'est développée rapidement. Des monuments comme le Grand Bazar international et le Centre culturel témoignent de sa vitalité moderne, tout en accordant une importance à la protection écologique et à la construction d'une ville agréable à vivre."
+      ],
+      "attractions": [
+        {
+          "name": "Lac Céleste des monts Tianshan",
+          "desc": "Situé sous le pic Bogda des monts Tianshan, à 1910 mètres d'altitude, l'eau du lac est claire et entourée de sommets enneigés. Il est surnommé « le lac de jade ».",
+          "time": "09:00-19:00",
+          "price": "Haute saison 155 yuans, basse saison 105 yuans",
+          "season": "Juin à septembre"
+        },
+        {
+          "name": "Grand Bazar international du Xinjiang",
+          "desc": "Le plus grand bazar du monde, combinant commerce, divertissement et restauration, avec une architecture de style ouïghour prononcé.",
+          "time": "10:00-22:00",
+          "price": "Gratuit",
+          "season": "Toute l'année"
+        },
+        {
+          "name": "Parc de la Montagne Rouge",
+          "desc": "Site emblématique d'Ouroumqi, avec la tour de la Montagne Rouge au sommet offrant une vue panoramique sur la ville.",
+          "time": "06:00-22:00",
+          "price": "Gratuit",
+          "season": "Toute l'année"
+        },
+        {
+          "name": "Musée de la région autonome ouïghoure du Xinjiang",
+          "desc": "Abrite une vaste collection d'objets historiques du Xinjiang, dont la momie de « la Belle de Loulan » et des artefacts de la Route de la Soie.",
+          "time": "10:00-18:00 (fermé le lundi)",
+          "price": "Gratuit",
+          "season": "Toute l'année"
+        },
+        {
+          "name": "Pâturage de Nanshan",
+          "desc": "Pâturage naturel sur le versant nord des monts Tianshan, verdoyant en été, et station de ski en hiver.",
+          "time": "Ouvert toute la journée",
+          "price": "Gratuit, certaines zones payantes",
+          "season": "Juin à septembre, décembre à février"
+        }
+      ],
+      "food": [
+        {
+          "name": "Brochettes d'agneau grillé",
+          "desc": "Snack de rue le plus représentatif du Xinjiang, grillé au charbon de bois, saupoudré de cumin et de piment, croustillant à l'extérieur et tendre à l'intérieur.",
+          "price": "5-10 yuans"
+        },
+        {
+          "name": "Poulet épicé aux pommes de terre (Dapanji)",
+          "desc": "Mijoté avec des morceaux de poulet, pommes de terre et piments, servi avec des nouilles larges, épicé et copieux.",
+          "price": "50-80 yuans"
+        },
+        {
+          "name": "Pilaf (Zhuafan)",
+          "desc": "Riz cuit à l'étouffée avec de l'agneau, carottes, oignons, gras et parfumé, l'un des plats de base du Xinjiang.",
+          "price": "20-30 yuans"
+        },
+        {
+          "name": "Nouilles tirées à la main (Latiaozi)",
+          "desc": "Nouilles faites à la main, fermes et lisses, accompagnées de plats sautés comme le porc sauté ou les légumes marinés.",
+          "price": "15-25 yuans"
+        },
+        {
+          "name": "Chaussons cuits au four (Kaobaozi)",
+          "desc": "Farce d'agneau et d'oignons, croûte croustillante, cuits dans un four tandour.",
+          "price": "3-5 yuans"
+        }
+      ],
+      "history": [
+        {
+          "year": "60 av. J.-C.",
+          "title": "Création du Protectorat des régions de l'Ouest sous les Han occidentaux",
+          "desc": "Les Han occidentaux établirent le Protectorat des régions de l'Ouest à Wulei, intégrant officiellement la région d'Ouroumqi dans le territoire chinois."
+        },
+        {
+          "year": "1763",
+          "title": "L'empereur Qianlong nomme la ville « Dihua »",
+          "desc": "L'empereur Qianlong des Qing nomma la ville d'Ouroumqi « Dihua », signifiant « éclairer et civiliser », et agrandit la ville fortifiée."
+        },
+        {
+          "year": "1954",
+          "title": "Rebaptisée Ouroumqi",
+          "desc": "Approuvé par le Conseil des Affaires d'État, « Dihua » fut rebaptisée Ouroumqi, signifiant « beau pâturage » en mongol."
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "Printemps et automne meilleurs, été et hiver ont leurs charmes",
+        "paragraphs": [
+          "Printemps (avril-mai) : La température remonte, tout renaît, les abricotiers et pêchers fleurissent, idéal pour les promenades. Cependant, il y a parfois des tempêtes de sable, nécessitant une protection.",
+          "Été (juin-août) : Temps chaud et sec, fort ensoleillement, mais nuits fraîches. C'est la saison des fruits, raisins, melons de Hami sont sucrés. Le pâturage de Nanshan est une station d'été.",
+          "Automne (septembre-octobre) : Ciel clair, climat agréable, saison touristique dorée. Les forêts de peupliers jaunissent, paysages magnifiques. Hiver (novembre-mars) : Froid et neigeux, on peut skier et participer aux festivals de glace."
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "Art du Muqam ouïghour du Xinjiang",
+          "desc": "Forme artistique complète mêlant chant, danse et musique, considérée comme « la perle musicale de l'Orient »."
+        },
+        {
+          "name": "Manas",
+          "desc": "Épopée héroïque du peuple kirghize, l'une des plus longues du monde, racontant les exploits du héros Manas et de ses descendants."
+        }
+      ],
+      "transportation": [
+        {
+          "title": "Aéroport international de Diwopu d'Ouroumqi",
+          "desc": "Important hub aérien de l'Ouest chinois, avec de nombreuses lignes nationales et internationales, à environ 20 km du centre-ville.",
+          "price": "Navette aéroport 20 yuans, taxi environ 50 yuans"
+        },
+        {
+          "title": "Gare d'Ouroumqi (gare TGV)",
+          "desc": "Terminus de la ligne TGV Lanzhou-Xinjiang, reliant Lanzhou, Xi'an, etc., avec des installations complètes.",
+          "price": "Prix du billet TGV selon la distance"
+        },
+        {
+          "title": "Réseau de bus d'Ouroumqi",
+          "desc": "Couvre toute la ville, lignes denses, tarifs bas, certaines lignes fonctionnent tard dans la nuit.",
+          "price": "1-2 yuans"
+        }
+      ],
+      "info": {
+        "area": "14 216 km²",
+        "population": "4,05 millions"
+      }
+    },
+    "it": {
+      "enName": "Ürümqi",
+      "tags": [
+        {
+          "text": "Perla della Via della Seta",
+          "color": "#E74C3C"
+        },
+        {
+          "text": "Capitale del Cuore dell'Asia",
+          "color": "#3498DB"
+        },
+        {
+          "text": "Paradiso Gastronomico",
+          "color": "#F39C12"
+        },
+        {
+          "text": "Fascino Etnico",
+          "color": "#9B59B6"
+        }
+      ],
+      "paragraphs": [
+        "Ürümqi si trova nella parte centrale dello Xinjiang, ai piedi settentrionali dei monti Tianshan, sul margine meridionale del bacino dello Junggar, ed è il centro geografico del continente asiatico. Ha un clima continentale temperato, con grandi escursioni termiche giornaliere, estati calde e secche, inverni freddi e primavere e autunni brevi.",
+        "Ürümqi ha una lunga storia: durante la dinastia Han occidentale era territorio del regno di Jushi, nella dinastia Tang fu istituita la contea di Luntai, e durante il regno Qianlong della dinastia Qing fu costruita la città e chiamata 'Dihua'. Nel 1884, dopo la creazione della provincia dello Xinjiang, divenne il capoluogo. Nel 1954 fu ribattezzata Ürümqi, che significa 'bel pascolo'.",
+        "Ürümqi è un'area multietnica dove convivono armoniosamente 47 gruppi etnici, tra cui Han, Uiguri, Hui, Kazaki e altri. I piatti tipici includono spiedini di agnello alla griglia, pollo in padella, riso pilaf, noodles tirati a mano e samosa al forno, che fondono le tradizioni culinarie dell'Asia centrale e della Cina centrale.",
+        "Ürümqi è il centro politico, economico e culturale dello Xinjiang, nonché un nodo chiave della 'Belt and Road'. Negli ultimi anni l'economia si è sviluppata rapidamente, con punti di riferimento come il Grand Bazar e il Centro Culturale che mostrano la vitalità moderna, mentre si presta attenzione alla protezione ecologica per costruire una città vivibile."
+      ],
+      "attractions": [
+        {
+          "name": "Lago Celeste dei Monti Tianshan",
+          "desc": "Situato ai piedi del Picco Bogda dei Monti Tianshan, a 1910 metri di altitudine, con acque limpide circondate da vette innevate, soprannominato 'Lago della Dea'.",
+          "time": "09:00-19:00",
+          "price": "Alta stagione 155 yuan, bassa stagione 105 yuan",
+          "season": "Giugno-settembre"
+        },
+        {
+          "name": "Grande Bazar Internazionale dello Xinjiang",
+          "desc": "Il bazar più grande del mondo, che integra commercio, intrattenimento e ristorazione, con architettura in tipico stile uiguro.",
+          "time": "10:00-22:00",
+          "price": "Gratuito",
+          "season": "Tutto l'anno"
+        },
+        {
+          "name": "Parco della Montagna Rossa",
+          "desc": "Attrazione simbolo di Ürümqi, con la Pagoda della Montagna Rossa in cima, da cui si gode una vista panoramica della città.",
+          "time": "06:00-22:00",
+          "price": "Gratuito",
+          "season": "Tutto l'anno"
+        },
+        {
+          "name": "Museo Regionale dello Xinjiang",
+          "desc": "Conserva una vasta collezione di reperti storici dello Xinjiang, tra cui la mummia della 'Bellezza di Loulan' e reperti della Via della Seta.",
+          "time": "10:00-18:00 (chiuso lunedì)",
+          "price": "Gratuito",
+          "season": "Tutto l'anno"
+        },
+        {
+          "name": "Pascolo di Nanshan",
+          "desc": "Pascolo naturale sul versante settentrionale dei Monti Tianshan, verde in estate e meta per lo sci in inverno.",
+          "time": "Aperto tutto il giorno",
+          "price": "Gratuito, alcune aree a pagamento",
+          "season": "Giugno-settembre, dicembre-febbraio"
+        }
+      ],
+      "food": [
+        {
+          "name": "Spiedini di agnello alla griglia",
+          "desc": "Lo street food più rappresentativo dello Xinjiang, cotto su brace e condito con cumino e peperoncino in polvere, croccante fuori e tenero dentro.",
+          "price": "5-10 yuan"
+        },
+        {
+          "name": "Pollo in padella",
+          "desc": "Stufato di pollo, patate e peperoncino, servito con tagliatelle larghe, piccante e saporito, porzione abbondante.",
+          "price": "50-80 yuan"
+        },
+        {
+          "name": "Riso pilaf",
+          "desc": "Riso cotto con agnello, carote, cipolle, unto e fragrante, uno dei piatti principali dello Xinjiang.",
+          "price": "20-30 yuan"
+        },
+        {
+          "name": "Noodles tirati a mano",
+          "desc": "Tagliatelle fatte a mano, elastiche e lisce, servite con vari saltati come carne saltata o crauti.",
+          "price": "15-25 yuan"
+        },
+        {
+          "name": "Samosa al forno",
+          "desc": "Ripieno di agnello e cipolla, con crosta croccante, cotto in forno a tandoor.",
+          "price": "3-5 yuan"
+        }
+      ],
+      "history": [
+        {
+          "year": "60 a.C.",
+          "title": "Istituzione del Protettorato delle Regioni Occidentali",
+          "desc": "La dinastia Han occidentale istituì il Protettorato delle Regioni Occidentali a Wulei, e l'area di Ürümqi fu ufficialmente incorporata nell'impero cinese."
+        },
+        {
+          "year": "1763",
+          "title": "L'imperatore Qianlong la ribattezza 'Dihua'",
+          "desc": "L'imperatore Qianlong della dinastia Qing chiamò la città di Ürümqi 'Dihua', che significa 'illuminare e civilizzare', e ne ampliò le mura."
+        },
+        {
+          "year": "1954",
+          "title": "Rinominata Ürümqi",
+          "desc": "Con l'approvazione del Consiglio di Stato, 'Dihua' fu ribattezzata Ürümqi, che in mongolo significa 'bel pascolo'."
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "Migliori in primavera e autunno, estate e inverno hanno i loro fascini",
+        "paragraphs": [
+          "Primavera (aprile-maggio): le temperature si alzano, la natura si risveglia, fioriscono albicocchi e peschi, ideale per escursioni. Tuttavia, a volte ci sono tempeste di sabbia, quindi è necessaria protezione.",
+          "Estate (giugno-agosto): caldo e secco con forte sole, ma fresco di notte. Frutta come uva e meloni di Hami sono di stagione. Il Pascolo di Nanshan è una località estiva.",
+          "Autunno (settembre-ottobre): clima limpido e fresco, ideale per viaggiare. Le foreste di pioppi diventano dorate. Inverno (novembre-marzo): freddo e nevoso, con possibilità di sci e festival del ghiaccio."
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "Arte del Muqam uiguro dello Xinjiang",
+          "desc": "Grande forma d'arte integrata che unisce canto, danza e musica, soprannominata 'Perla della musica orientale'."
+        },
+        {
+          "name": "Manas",
+          "desc": "Epopea eroica del popolo kirghiso, una delle più lunghe al mondo, che narra le gesta leggendarie dell'eroe Manas e dei suoi discendenti."
+        }
+      ],
+      "transportation": [
+        {
+          "title": "Aeroporto Internazionale di Ürümqi Diwopu",
+          "desc": "Importante hub aereo della Cina occidentale, con numerose rotte nazionali e internazionali, a circa 20 km dal centro città.",
+          "price": "Autobus aeroportuale 20 yuan, taxi circa 50 yuan"
+        },
+        {
+          "title": "Stazione Ferroviaria di Ürümqi (Alta Velocità)",
+          "desc": "Terminale della ferrovia ad alta velocità Lanzhou-Xinjiang, collegata a Lanzhou, Xi'an, ecc., con strutture complete.",
+          "price": "Prezzo biglietto in base alla distanza"
+        },
+        {
+          "title": "Sistema di autobus di Ürümqi",
+          "desc": "Copre tutta la città, con linee fitte e tariffe basse, alcune linee operano fino a tarda notte.",
+          "price": "1-2 yuan"
+        }
+      ],
+      "info": {
+        "area": "14.216 km²",
+        "population": "4,05 milioni"
+      }
+    },
+    "ja": {
+      "enName": "ウルムチ",
+      "tags": [
+        {
+          "text": "シルクロードの真珠",
+          "color": "#E74C3C"
+        },
+        {
+          "text": "アジアの中心都市",
+          "color": "#3498DB"
+        },
+        {
+          "text": "美食の楽園",
+          "color": "#F39C12"
+        },
+        {
+          "text": "民族風情",
+          "color": "#9B59B6"
+        }
+      ],
+      "paragraphs": [
+        "ウルムチは新疆中央部、天山山脈北麓、ジュンガル盆地南縁に位置し、アジア大陸の地理的中心です。温帯大陸性気候で昼夜の温度差が大きく、夏は乾燥して暑く、冬は寒く、春秋は短いです。",
+        "ウルムチは歴史が古く、前漢時代には車師国の地であり、唐代には輪台県が設置され、清代乾隆年間に城を築き「迪化」と命名、1884年に新疆省が設置されてから省都となりました。1954年にウルムチと改名され、「美しい牧場」を意味します。",
+        "ウルムチは多民族が居住する地域で、漢族、ウイグル族、回族、カザフ族など47の民族が調和して暮らしています。特色ある美食として、烤羊肉串（ラム串焼き）、大盘鶏（大皿チキン）、抓飯（ピラフ）、拉条子（手延べ麺）、烤包子（焼き包み）などがあり、中央アジアと中原の食文化が融合しています。",
+        "ウルムチは新疆の政治、経済、文化の中心であり、「一帯一路」の重要拠点都市です。近年は経済が急速に発展し、国際バザールや文化センターなどのランドマークが現代的な活力を示す一方、生態保護にも力を入れ、住みやすい都市づくりを進めています。"
+      ],
+      "attractions": [
+        {
+          "name": "天山天池",
+          "desc": "天山ボゴダ峰の麓に位置し、標高1910メートル。湖水は澄み、周囲を雪峰に囲まれ、「瑶池」と称される。",
+          "time": "09:00-19:00",
+          "price": "シーズン中155元、オフシーズン105元",
+          "season": "6～9月"
+        },
+        {
+          "name": "新疆国際バザール",
+          "desc": "世界最大規模のバザールで、商業、娯楽、飲食が一体化。建築は濃厚なウイグル様式。",
+          "time": "10:00-22:00",
+          "price": "無料",
+          "season": "通年"
+        },
+        {
+          "name": "紅山公園",
+          "desc": "ウルムチのシンボル的な観光地。紅山塔が山頂にそびえ、市街を一望できる。",
+          "time": "06:00-22:00",
+          "price": "無料",
+          "season": "通年"
+        },
+        {
+          "name": "新疆ウイグル自治区博物館",
+          "desc": "新疆の歴史文物を多数収蔵。「楼蘭の美女」ミイラやシルクロードの文物など。",
+          "time": "10:00-18:00（月曜休館）",
+          "price": "無料",
+          "season": "通年"
+        },
+        {
+          "name": "南山牧場",
+          "desc": "天山北麓の天然牧場。夏は緑の草原、冬はスキーリゾートとなる。",
+          "time": "終日開放",
+          "price": "無料（一部有料）",
+          "season": "6～9月、12～2月"
+        }
+      ],
+      "food": [
+        {
+          "name": "烤羊肉串（ラム串焼き）",
+          "desc": "新疆を代表するストリートフード。炭火で焼き、クミンと唐辛子をふりかけ、外はカリッと中はジューシー。",
+          "price": "5～10元"
+        },
+        {
+          "name": "大盘鶏（大皿チキン）",
+          "desc": "鶏肉、ジャガイモ、唐辛子を煮込み、幅広麺を添えた辛味豊かな一品。ボリューム満点。",
+          "price": "50～80元"
+        },
+        {
+          "name": "抓飯（ピラフ）",
+          "desc": "羊肉、ニンジン、タマネギ、米を炊き込んだ油っぽくてもちっとした主食。",
+          "price": "20～30元"
+        },
+        {
+          "name": "拉条子（手延べ麺）",
+          "desc": "手で延ばしたコシのある麺に、炒め物（過油肉や酸菜など）を合わせる。",
+          "price": "15～25元"
+        },
+        {
+          "name": "烤包子（焼き包み）",
+          "desc": "羊肉とタマネギの餡をパイ生地で包み、タンドールで焼いたもの。",
+          "price": "3～5元"
+        }
+      ],
+      "history": [
+        {
+          "year": "紀元前60年",
+          "title": "前漢、西域都護府を設置",
+          "desc": "前漢が烏塁城に西域都護府を設置し、ウルムチ地区が正式に中国版図に組み込まれる。"
+        },
+        {
+          "year": "1763年",
+          "title": "乾隆帝が「迪化」と命名",
+          "desc": "清の乾隆帝がウルムチ城を「迪化」（啓迪教化の意）と命名し、城を拡張。"
+        },
+        {
+          "year": "1954年",
+          "title": "ウルムチに改称",
+          "desc": "国務院の承認を得て「迪化」をウルムチに改称。モンゴル語で「美しい牧場」を意味する。"
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "春秋が最適、夏冬もそれぞれ魅力あり",
+        "paragraphs": [
+          "春（4～5月）：気温が上がり、万物がよみがえり、アンズや桃の花が咲き乱れ、花見や散策に最適。ただし砂嵐が発生することもあるので注意。",
+          "夏（6～8月）：暑く乾燥し、日差しが強いが、夜は涼しい。この時期は果物が豊富で、ブドウやハミウリなどが甘く美味。南山牧場は避暑地としておすすめ。",
+          "秋（9～10月）：秋晴れが続き、過ごしやすく、観光のゴールデンシーズン。ポプラ林が黄金色に染まり、壮観。冬（11～3月）：寒く雪が多いが、スキーや氷の祭典を楽しめる。"
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "新疆ウイグル木卡姆（ムカム）芸術",
+          "desc": "歌、踊り、楽器を一体化した大規模総合芸術形式。「東洋音楽の真珠」と称される。"
+        },
+        {
+          "name": "マナス",
+          "desc": "キルギス族の英雄叙事詩。世界最長の叙事詩の一つで、英雄マナスとその子孫の伝説を語る。"
+        }
+      ],
+      "transportation": [
+        {
+          "title": "ウルムチ地窩堡国際空港",
+          "desc": "中国西部の重要な航空ハブ。国内外多数の路線があり、市中心部から約20km。",
+          "price": "空港バス20元、タクシー約50元"
+        },
+        {
+          "title": "ウルムチ駅（高速鉄道駅）",
+          "desc": "蘭新高速鉄道の終着駅。蘭州、西安などと結ばれ、駅施設は充実。",
+          "price": "高速鉄道料金は距離による"
+        },
+        {
+          "title": "ウルムチバスシステム",
+          "desc": "市内全域をカバーし、路線網が密集。運賃は安く、一部路線は深夜まで運行。",
+          "price": "1～2元"
+        }
+      ],
+      "info": {
+        "area": "14,216平方キロメートル",
+        "population": "405万人"
+      }
+    },
+    "ko": {
+      "enName": "우루무치",
+      "tags": [
+        {
+          "text": "비단길의 진주",
+          "color": "#E74C3C"
+        },
+        {
+          "text": "아시아의 심장",
+          "color": "#3498DB"
+        },
+        {
+          "text": "미식의 천국",
+          "color": "#F39C12"
+        },
+        {
+          "text": "민족의 정취",
+          "color": "#9B59B6"
+        }
+      ],
+      "paragraphs": [
+        "우루무치는 신장 중부, 톈산산맥 북쪽 기슭, 준가얼 분지 남쪽 가장자리에 위치하며 아시아 대륙의 지리적 중심지입니다. 온대 대륙성 기후로 일교차가 크며, 여름은 덥고 건조하고 겨울은 춥고, 봄과 가을은 짧습니다.",
+        "우루무치는 오랜 역사를 지니고 있으며, 서한 시대에는 거사국의 땅이었고, 당나라 때는 윤타이현이 설치되었으며, 청나라 건륭 연간에 성을 쌓고 '디화'라 명명했고, 1884년 신장성이 설치된 후 성도가 되었습니다. 1954년에 '아름다운 목장'이라는 뜻의 우루무치로 개칭되었습니다.",
+        "우루무치는 여러 민족이 함께 사는 곳으로, 한족, 위구르족, 후이족, 카자흐족 등 47개 민족이 조화롭게 공존합니다. 대표적인 음식으로는 양꼬치, 다판지, 필라프, 라티아오즈, 사모 등이 있으며, 중앙아시아와 중원의 식문화가 융합되어 있습니다.",
+        "우루무치는 신장의 정치, 경제, 문화의 중심지이자 '일대일로'의 중요한 거점 도시입니다. 최근 경제가 빠르게 발전하고 있으며, 국제 바자르, 문화센터 등 랜드마크 건축물이 현대적 활력을 보여주고, 생태 보호와 살기 좋은 도시 조성에도 힘쓰고 있습니다."
+      ],
+      "attractions": [
+        {
+          "name": "톈산 톈츠",
+          "desc": "톈산 보그다봉 아래 해발 1910m에 위치하며, 맑은 호수와 눈 덮인 봉우리가 둘러싸고 있어 '요정의 연못'으로 불립니다.",
+          "time": "09:00-19:00",
+          "price": "성수기 155위안, 비수기 105위안",
+          "season": "6-9월"
+        },
+        {
+          "name": "신장 국제 바자르",
+          "desc": "세계 최대 규모의 바자르로, 상업, 오락, 식당이 한데 모여 있으며 건축 양식이 위구르풍입니다.",
+          "time": "10:00-22:00",
+          "price": "무료",
+          "season": "연중"
+        },
+        {
+          "name": "홍산 공원",
+          "desc": "우루무치의 상징적인 명소로, 홍산탑이 산꼭대기에 솟아 있어 도시 전경을 한눈에 볼 수 있습니다.",
+          "time": "06:00-22:00",
+          "price": "무료",
+          "season": "연중"
+        },
+        {
+          "name": "신장 위구르 자치구 박물관",
+          "desc": "누란의 미녀 미라, 비단길 유물 등 신장 역사 유물을 대량 소장하고 있습니다.",
+          "time": "10:00-18:00 (월요일 휴관)",
+          "price": "무료",
+          "season": "연중"
+        },
+        {
+          "name": "난산 목장",
+          "desc": "톈산 북쪽 경사면의 천연 목장으로, 여름에는 푸른 초원, 겨울에는 스키 명소입니다.",
+          "time": "종일 개방",
+          "price": "무료, 일부 유료",
+          "season": "6-9월, 12-2월"
+        }
+      ],
+      "food": [
+        {
+          "name": "양꼬치",
+          "desc": "신장을 대표하는 길거리 음식으로, 숯불에 구워 쿠민과 고춧가루를 뿌려 겉은 바삭하고 속은 부드럽습니다.",
+          "price": "5-10위안"
+        },
+        {
+          "name": "다판지",
+          "desc": "닭고기, 감자, 고추를 넣어 끓이고 넓은 면과 함께 내는 매콤한 요리로 양이 많습니다.",
+          "price": "50-80위안"
+        },
+        {
+          "name": "필라프",
+          "desc": "양고기, 당근, 양파, 쌀을 넣어 지은 기름지고 고소한 밥으로 신장의 주식입니다.",
+          "price": "20-30위안"
+        },
+        {
+          "name": "라티아오즈",
+          "desc": "손으로 뽑은 쫄깃한 면발에 각종 볶음 요리를 곁들인 요리입니다.",
+          "price": "15-25위안"
+        },
+        {
+          "name": "사모",
+          "desc": "양고기와 양파를 소로 넣고 밀가루 반죽으로 싸서 탄두르에 구운 바삭한 빵입니다.",
+          "price": "3-5위안"
+        }
+      ],
+      "history": [
+        {
+          "year": "기원전 60년",
+          "title": "서한, 서역도호부 설치",
+          "desc": "서한이 우레이성에 서역도호부를 설치하여 우루무치 지역이 중국 영토에 편입되었습니다."
+        },
+        {
+          "year": "1763년",
+          "title": "건륭제 '디화' 명명",
+          "desc": "청 건륭제가 우루무치성을 '디화'로 명명하고 성을 확장했습니다."
+        },
+        {
+          "year": "1954년",
+          "title": "우루무치로 개칭",
+          "desc": "국무원 비준을 거쳐 '디화'가 우루무치로 개칭되었으며, 몽골어로 '아름다운 목장'을 의미합니다."
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "봄과 가을이 최적, 여름과 겨울도 각각 매력적",
+        "paragraphs": [
+          "봄(4-5월): 기온이 오르고 만물이 소생하며 살구꽃, 복숭아꽃이 만개하여 나들이에 좋습니다. 다만 황사가 있을 수 있으니 주의해야 합니다.",
+          "여름(6-8월): 덥고 건조하며 일사가 강하지만 밤에는 시원합니다. 포도, 하미과 등 과일이 풍성하며 난산 목장은 피서지로 좋습니다.",
+          "가을(9-10월): 하늘이 높고 날씨가 맑아 여행하기 좋은 계절입니다. 포플러 숲이 황금빛으로 물들어 장관입니다. 겨울(11-3월): 춥고 눈이 많아 스키와 겨울 축제를 즐길 수 있습니다."
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "신장 위구르 무카무",
+          "desc": "노래, 춤, 악기가 어우러진 종합 예술로 '동양 음악의 진주'로 불립니다."
+        },
+        {
+          "name": "마나스",
+          "desc": "키르기즈족의 영웅 서사시로 세계에서 가장 긴 서사시 중 하나이며, 영웅 마나스와 그의 후손들의 전설을 다룹니다."
+        }
+      ],
+      "transportation": [
+        {
+          "title": "우루무치 디워푸 국제공항",
+          "desc": "중국 서부의 중요한 항공 허브로 국내외 노선이 많으며 시내에서 약 20km 거리입니다.",
+          "price": "공항버스 20위안, 택시 약 50위안"
+        },
+        {
+          "title": "우루무치역 (고속철도역)",
+          "desc": "란신 고속철도의 종착역으로 란저우, 시안 등과 연결되며 시설이 잘 갖춰져 있습니다.",
+          "price": "거리별 요금"
+        },
+        {
+          "title": "우루무치 버스 시스템",
+          "desc": "시 전역을 운행하며 노선이 조밀하고 요금이 저렴하며 일부 노선은 심야까지 운행합니다.",
+          "price": "1-2위안"
+        }
+      ],
+      "info": {
+        "area": "14,216km²",
+        "population": "405만 명"
+      }
+    },
+    "ru": {
+      "enName": "Урумчи",
+      "tags": [
+        {
+          "text": "Жемчужина Шёлкового пути",
+          "color": "#E74C3C"
+        },
+        {
+          "text": "Столица Центра Азии",
+          "color": "#3498DB"
+        },
+        {
+          "text": "Рай для гурманов",
+          "color": "#F39C12"
+        },
+        {
+          "text": "Этнический колорит",
+          "color": "#9B59B6"
+        }
+      ],
+      "paragraphs": [
+        "Урумчи расположен в центральной части Синьцзяна, у северных предгорий Тянь-Шаня, на южной окраине Джунгарской равнины, и является географическим центром Азиатского континента. Климат умеренно-континентальный, с большими суточными перепадами температур: летом жарко и сухо, зимой холодно, весна и осень короткие.",
+        "Урумчи имеет древнюю историю: в период Западной Хань здесь находилось царство Цзюйши, при династии Тан был основан уезд Лунтай, при Цин в годы правления Цяньлун построен город, названный «Дихуа», а в 1884 году, после образования провинции Синьцзян, стал её столицей. В 1954 году переименован в Урумчи, что означает «прекрасное пастбище».",
+        "Урумчи — многонациональный город, где в гармонии проживают представители 47 народов: ханьцы, уйгуры, хуэй, казахи и другие. Местные деликатесы включают шашлык из баранины, «дапаньцзи» (курица с картофелем), плов, лапшу «латяоцзы» и самсу, сочетая кулинарные традиции Средней Азии и Центрального Китая.",
+        "Урумчи — политический, экономический и культурный центр Синьцзяна, а также важный узел инициативы «Один пояс, один путь». В последние годы экономика быстро развивается, такие достопримечательности, как Международный базар и Культурный центр, демонстрируют современную динамику, при этом уделяется внимание экологии и созданию комфортного города для жизни."
+      ],
+      "attractions": [
+        {
+          "name": "Озеро Тяньчи (Небесное озеро)",
+          "desc": "Расположено у подножия пика Богдо в горах Тянь-Шань на высоте 1910 м. Вода прозрачная, вокруг снежные вершины, его называют «Яшмовым озером».",
+          "time": "09:00-19:00",
+          "price": "В высокий сезон 155 юаней, в низкий 105 юаней",
+          "season": "Июнь-сентябрь"
+        },
+        {
+          "name": "Синьцзянский международный базар",
+          "desc": "Крупнейший в мире базар, объединяющий торговлю, развлечения и общепит, архитектура в уйгурском стиле.",
+          "time": "10:00-22:00",
+          "price": "Бесплатно",
+          "season": "Круглый год"
+        },
+        {
+          "name": "Парк Красной горы",
+          "desc": "Символ Урумчи, на вершине стоит пагода Красной горы, откуда открывается панорама города.",
+          "time": "06:00-22:00",
+          "price": "Бесплатно",
+          "season": "Круглый год"
+        },
+        {
+          "name": "Музей Синьцзян-Уйгурского автономного района",
+          "desc": "Собрано множество исторических артефактов Синьцзяна, включая «красавицу из Лоуланя» (мумию) и предметы с Шёлкового пути.",
+          "time": "10:00-18:00 (закрыт по понедельникам)",
+          "price": "Бесплатно",
+          "season": "Круглый год"
+        },
+        {
+          "name": "Наньшаньское пастбище",
+          "desc": "Естественное пастбище на северных склонах Тянь-Шаня, летом зелёные луга, зимой горнолыжный курорт.",
+          "time": "Круглосуточно",
+          "price": "Бесплатно, некоторые зоны платные",
+          "season": "Июнь-сентябрь, декабрь-февраль"
+        }
+      ],
+      "food": [
+        {
+          "name": "Шашлык из баранины",
+          "desc": "Самое известное уличное блюдо Синьцзяна, жарится на углях с зирой и перцем, снаружи хрустящий, внутри нежный.",
+          "price": "5-10 юаней"
+        },
+        {
+          "name": "Дапаньцзи (большая тарелка курицы)",
+          "desc": "Тушёная курица с картофелем и перцем, подаётся с широкой лапшой, острое и сытное.",
+          "price": "50-80 юаней"
+        },
+        {
+          "name": "Плов",
+          "desc": "Готовится из баранины, моркови, лука и риса, маслянистый и ароматный, одно из основных блюд Синьцзяна.",
+          "price": "20-30 юаней"
+        },
+        {
+          "name": "Латяоцзы (лапша ручной работы)",
+          "desc": "Лапша ручной вытяжки, упругая и гладкая, подаётся с различными жареными блюдами, например, с мясом и овощами.",
+          "price": "15-25 юаней"
+        },
+        {
+          "name": "Самса (печёные пирожки)",
+          "desc": "С начинкой из баранины и лука, хрустящая корочка, запекается в тандыре.",
+          "price": "3-5 юаней"
+        }
+      ],
+      "history": [
+        {
+          "year": "60 г. до н.э.",
+          "title": "Западная Хань учреждает Протекторат Западных земель",
+          "desc": "При Западной Хань в городе Улэй был создан Протекторат Западных земель, и регион Урумчи официально вошёл в состав Китая."
+        },
+        {
+          "year": "1763 г.",
+          "title": "Император Цяньлун даёт название «Дихуа»",
+          "desc": "Император Цяньлун династии Цин назвал город Урумчи «Дихуа», что означает «просвещение и воспитание», и расширил городские стены."
+        },
+        {
+          "year": "1954 г.",
+          "title": "Переименование в Урумчи",
+          "desc": "По решению Госсовета КНР «Дихуа» переименован в Урумчи, что на монгольском означает «прекрасное пастбище»."
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "Лучше всего весной и осенью, лето и зима имеют своё очарование",
+        "paragraphs": [
+          "Весна (апрель-май): температура повышается, природа оживает, цветут абрикосы и персики, подходит для прогулок. Однако возможны пыльные бури, нужна защита.",
+          "Лето (июнь-август): жарко и сухо, сильное солнце, но ночи прохладные. В это время много фруктов: виноград, хамийские дыни и др. Наньшаньское пастбище — отличное место для отдыха.",
+          "Осень (сентябрь-октябрь): ясная и прохладная погода, идеальное время для путешествий. Тополиные рощи золотые. Зима (ноябрь-март): холодно и снежно, можно кататься на лыжах и посещать ледовые фестивали."
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "Уйгурское искусство мукам",
+          "desc": "Крупная комплексная художественная форма, объединяющая пение, танец и музыку, считается «жемчужиной восточной музыки»."
+        },
+        {
+          "name": "Манас",
+          "desc": "Героический эпос кыргызов, один из самых длинных в мире, повествует о подвигах Манаса и его потомков."
+        }
+      ],
+      "transportation": [
+        {
+          "title": "Международный аэропорт Урумчи Дивопу",
+          "desc": "Важный авиационный узел западного Китая, множество внутренних и международных рейсов, находится примерно в 20 км от центра города.",
+          "price": "Автобус-экспресс 20 юаней, такси около 50 юаней"
+        },
+        {
+          "title": "Вокзал Урумчи (высокоскоростной)",
+          "desc": "Конечная станция высокоскоростной линии Ланьчжоу-Синьцзян, соединяет с Ланьчжоу, Сианем и др., хорошо оборудован.",
+          "price": "Цена билета зависит от расстояния"
+        },
+        {
+          "title": "Автобусная система Урумчи",
+          "desc": "Покрывает весь город, густая сеть маршрутов, низкая стоимость проезда, некоторые маршруты работают до поздней ночи.",
+          "price": "1-2 юаня"
+        }
+      ],
+      "info": {
+        "area": "14 216 км²",
+        "population": "4,05 млн человек"
+      }
+    },
+    "tw": {
+      "enName": "烏魯木齊",
+      "tags": [
+        {
+          "text": "絲路明珠",
+          "color": "#E74C3C"
+        },
+        {
+          "text": "亞心之都",
+          "color": "#3498DB"
+        },
+        {
+          "text": "美食天堂",
+          "color": "#F39C12"
+        },
+        {
+          "text": "民族風情",
+          "color": "#9B59B6"
+        }
+      ],
+      "paragraphs": [
+        "烏魯木齊位於新疆中部，天山北麓，準噶爾盆地南緣，是亞洲大陸地理中心。屬溫帶大陸性氣候，晝夜溫差大，夏季乾熱，冬季寒冷，春秋季短暫。",
+        "烏魯木齊歷史悠久，西漢時期為車師國地，唐代設輪台縣，清代乾隆年間築城並定名『迪化』，1884年新疆建省後成為省會。1954年更名為烏魯木齊，意為『優美的牧場』。",
+        "烏魯木齊是多民族聚居地，漢族、維吾爾族、回族、哈薩克族等47個民族和諧共處。特色美食有烤羊肉串、大盤雞、抓飯、拉條子、烤包子等，融合了中亞和中原飲食文化。",
+        "烏魯木齊是新疆政治、經濟、文化中心，也是『一帶一路』重要節點城市。近年來經濟快速發展，國際大巴扎、文化中心等地標建築彰顯現代活力，同時注重生態保護，建設宜居城市。"
+      ],
+      "attractions": [
+        {
+          "name": "天山天池",
+          "desc": "位於天山博格達峰下，海拔1910米，湖水清澈，四周雪峰環繞，被譽為『瑤池』。",
+          "time": "09:00-19:00",
+          "price": "旺季155元，淡季105元",
+          "season": "6-9月"
+        },
+        {
+          "name": "新疆國際大巴扎",
+          "desc": "世界規模最大的巴扎，集商貿、娛樂、餐飲於一體，建築具有濃郁維吾爾風格。",
+          "time": "10:00-22:00",
+          "price": "免費",
+          "season": "全年"
+        },
+        {
+          "name": "紅山公園",
+          "desc": "烏魯木齊標誌性景點，紅山塔矗立山頂，可俯瞰城市全景。",
+          "time": "06:00-22:00",
+          "price": "免費",
+          "season": "全年"
+        },
+        {
+          "name": "新疆維吾爾自治區博物館",
+          "desc": "收藏了大量新疆歷史文物，包括『樓蘭美女』乾屍、絲綢之路文物等。",
+          "time": "10:00-18:00（週一閉館）",
+          "price": "免費",
+          "season": "全年"
+        },
+        {
+          "name": "南山牧場",
+          "desc": "天山北坡的天然牧場，夏季綠草如茵，冬季是滑雪勝地。",
+          "time": "全天開放",
+          "price": "免費，部分景點收費",
+          "season": "6-9月，12-2月"
+        }
+      ],
+      "food": [
+        {
+          "name": "烤羊肉串",
+          "desc": "新疆最具代表性的街頭小吃，用炭火烤製，撒上孜然和辣椒麵，外焦裡嫩。",
+          "price": "5-10元"
+        },
+        {
+          "name": "大盤雞",
+          "desc": "用雞塊、土豆、辣椒燉煮，配以寬麵，香辣可口，分量十足。",
+          "price": "50-80元"
+        },
+        {
+          "name": "抓飯",
+          "desc": "用羊肉、胡蘿蔔、洋蔥和大米燜製，油潤香糯，是新疆主食之一。",
+          "price": "20-30元"
+        },
+        {
+          "name": "拉條子",
+          "desc": "手工拉製的麵條，筋道爽滑，搭配各種炒菜，如過油肉、酸菜等。",
+          "price": "15-25元"
+        },
+        {
+          "name": "烤包子",
+          "desc": "用羊肉和洋蔥做餡，外皮酥脆，在饢坑中烤製而成。",
+          "price": "3-5元"
+        }
+      ],
+      "history": [
+        {
+          "year": "公元前60年",
+          "title": "西漢設西域都護府",
+          "desc": "西漢在烏壘城設立西域都護府，烏魯木齊地區正式納入中國版圖。"
+        },
+        {
+          "year": "1763年",
+          "title": "乾隆賜名『迪化』",
+          "desc": "清乾隆帝將烏魯木齊城命名為『迪化』，意為『啟迪教化』，並擴築城池。"
+        },
+        {
+          "year": "1954年",
+          "title": "更名為烏魯木齊",
+          "desc": "經國務院批准，『迪化』更名為烏魯木齊，蒙古語意為『優美的牧場』。"
+        }
+      ],
+      "bestTravelTime": {
+        "strongText": "春秋最佳，夏冬各具特色",
+        "paragraphs": [
+          "春季（4-5月）：氣溫回升，萬物復甦，杏花、桃花盛開，適合踏青賞花。但時有風沙，需注意防護。",
+          "夏季（6-8月）：天氣炎熱乾燥，日照強烈，但夜晚涼爽。此時瓜果大量上市，葡萄、哈密瓜等香甜可口。南山牧場是避暑勝地。",
+          "秋季（9-10月）：秋高氣爽，氣候宜人，是旅遊黃金季節。胡楊林金黃一片，景色壯麗。冬季（11-3月）：寒冷多雪，可體驗滑雪和冰雪節慶活動。"
+        ]
+      },
+      "worldHeritage": [],
+      "intangibleHeritage": [
+        {
+          "name": "新疆維吾爾木卡姆藝術",
+          "desc": "集歌、舞、樂於一體的大型綜合藝術形式，被譽為『東方音樂明珠』。"
+        },
+        {
+          "name": "瑪納斯",
+          "desc": "柯爾克孜族的英雄史詩，世界最長的史詩之一，講述英雄瑪納斯及其子孫的傳奇故事。"
+        }
+      ],
+      "transportation": [
+        {
+          "title": "烏魯木齊地窩堡國際機場",
+          "desc": "中國西部重要的航空樞紐，國內外航線眾多，距市中心約20公里。",
+          "price": "機場大巴20元，計程車約50元"
+        },
+        {
+          "title": "烏魯木齊站（高鐵站）",
+          "desc": "蘭新高鐵終點站，連接蘭州、西安等地，站內設施完善。",
+          "price": "高鐵票價按距離計算"
+        },
+        {
+          "title": "烏魯木齊公車系統",
+          "desc": "覆蓋全市，線路密集，票價低廉，部分線路營運至深夜。",
+          "price": "1-2元"
+        }
+      ],
+      "info": {
+        "area": "14,216平方公里",
+        "population": "405萬人"
+      }
+    }
+  }
+}

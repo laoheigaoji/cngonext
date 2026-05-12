@@ -302,7 +302,8 @@
     "aiName": "Générateur de noms sino-anglais par IA",
     "subtitle": "Des guides de visa aux conseils de voyage, nous offrons un service complet pour votre séjour en Chine",
     "ultimate": "Votre guide ultime pour voyager en Chine",
-    "searchPlaceholder": "Entrez la ville que vous souhaitez visiter"
+    "searchPlaceholder": "Entrez la ville que vous souhaitez visiter",
+    "notFound": "Cette ville n'est pas encore couverte"
   },
   "city": {
     "xian": "Xi\\'an",
@@ -1173,5 +1174,20 @@
   },
   "seo": {
     "suffix": "Voyage en Chine - Votre guide de voyage ultime en Chine"
+  },
+  "login": {
+    "title": "Connexion",
+    "desc": "Entrez votre adresse e-mail et nous vous enverrons un lien de connexion. Cliquez dessus pour vous connecter.",
+    "emailLabel": "Adresse e-mail",
+    "emailPlaceholder": "vous@exemple.com",
+    "sendLink": "Envoyer le lien",
+    "sending": "Envoi en cours...",
+    "or": "ou",
+    "googleLogin": "Se connecter avec Google",
+    "sentTitle": "E-mail envoyé !",
+    "sentDesc": "Nous avons envoyé un lien de connexion à {email}. Vérifiez votre boîte de réception (et le dossier spam).",
+    "gotIt": "Compris",
+    "sendFailed": "Échec de l'envoi, veuillez réessayer",
+    "loginRequired": "Veuillez vous connecter"
   }
 }

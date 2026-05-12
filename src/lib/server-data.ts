@@ -12,7 +12,7 @@ const headers = {
 async function fetchFromSupabase(table: string, query: string): Promise<any[] | null> {
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8000);
+    const timeout = setTimeout(() => controller.abort(), 30000);
     const res = await fetch(`${supabaseUrl}/rest/v1/${table}?${query}`, {
       headers,
       signal: controller.signal,
@@ -33,17 +33,18 @@ async function fetchSingleFromSupabase(table: string, query: string): Promise<an
 
 // Home page data
 export async function getHomeData() {
-  const [articles, cities, faqs] = await Promise.all([
+  const [articles, cities, allCityNames, faqs] = await Promise.all([
     fetchFromSupabase('articles', 'select=id,thumbnail,title,title_en,title_ja,title_ko,subtitle,subtitle_en,subtitle_ja,subtitle_ko,views&order=createdAt.desc&limit=6'),
-    fetchFromSupabase('cities', 'select=*'),
+    fetchFromSupabase('cities', 'select=id,name,enName,listCover,heroImage,img,stats&order=created_at.asc&limit=10'),
+    fetchFromSupabase('cities', 'select=id,name,enName&order=name.asc'),
     fetchFromSupabase('home_faqs', 'select=*&is_active=eq.true&order=sort_order.asc'),
   ]);
-  return { articles: articles || [], cities: cities || [], faqs: faqs || [] };
+  return { articles: articles || [], cities: cities || [], allCityNames: allCityNames || [], faqs: faqs || [] };
 }
 
 // Cities list page data
 export async function getCitiesListData() {
-  const data = await fetchFromSupabase('cities', 'select=*&order=name.asc');
+  const data = await fetchFromSupabase('cities', 'select=id,name,enName,listCover,heroImage,img,stats&order=name.asc');
   return data || [];
 }
 
