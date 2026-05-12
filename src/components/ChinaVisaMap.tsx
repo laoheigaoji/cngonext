@@ -189,6 +189,25 @@ const PROVINCE_SHORT: Record<string, string> = {
   '台湾省': '台', '香港特别行政区': '港', '澳门特别行政区': '澳',
 };
 
+// 城市中文名 → URL Slug 映射（点击城市导航用）
+const CITY_NAME_TO_SLUG: Record<string, string> = {
+  '北京市': 'beijing',
+  '上海市': 'shanghai',
+  '广州市': 'LZ1r5Fsq3bOUHUeKVgIv',
+  '深圳市': 'oNIvYqn2fcHSUN6mpv7G',
+  '杭州市': 'XxxHqxEftFPTAfw09w37',
+  '成都市': '成都',
+  '海口市': 'haikou',
+  '福州市': 'fuzhou',
+  '哈尔滨市': 'harbin',
+  '沈阳市': 'shenyang',
+  '宁波市': 'ningbo',
+  '武汉市': 'wuhan',
+  '上饶市': 'shangrao',
+  '郑州市': 'zhengzhou',
+  '桂林市': 'guilin',
+};
+
 // 省份拼音映射
 const PROVINCE_PINYIN: Record<string, string> = {
   '北京市': 'Beijing', '天津市': 'Tianjin', '河北省': 'Hebei',
@@ -357,9 +376,21 @@ export default function ChinaVisaMap({ t }: ChinaVisaMapProps) {
         setLoading(false);
       });
 
-    // 事件：点击省份 - 下钻
+    // 事件：点击省份 - 下钻；点击城市 - 跳转详情页
     chart.on('click', { seriesType: 'map' }, (params: any) => {
       const name = params.name;
+
+      // 已下钻到省份：点击地级城市跳转到城市详情页
+      if (currentMapRef.current !== 'china') {
+        const citySlug = CITY_NAME_TO_SLUG[name];
+        if (citySlug) {
+          const langPrefix = window.location.pathname.split('/')[1] || 'en';
+          window.location.href = `/${langPrefix}/cities/${citySlug}`;
+        }
+        return;
+      }
+
+      // 全国视图：下钻到省份
       const geoFile = PROVINCE_GEO_MAP[name];
       if (geoFile) {
         setLoading(true);
