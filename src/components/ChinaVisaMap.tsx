@@ -529,7 +529,7 @@ export default function ChinaVisaMap({ t }: ChinaVisaMapProps) {
             })
             .catch(() => setLoading(false));
         }}
-        className={`absolute bottom-12 left-4 sm:left-1/2 sm:-translate-x-1/2 text-white font-bold text-xl sm:text-3xl tracking-[0.5em] uppercase z-20 ${currentMap !== 'china' ? 'cursor-pointer hover:text-white/80' : ''}`}
+        className={`absolute bottom-4 left-4 sm:left-1/2 sm:-translate-x-1/2 text-white font-bold text-xl sm:text-3xl tracking-[0.5em] uppercase z-20 ${currentMap !== 'china' ? 'cursor-pointer hover:text-white/80' : ''}`}
       >
         China
       </div>
