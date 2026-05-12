@@ -393,14 +393,26 @@ export default function ChinaVisaMap({ t }: ChinaVisaMapProps) {
         setLoading(false);
       });
 
-    // 事件：点击省份 - 下钻；点击城市 - 跳转详情页
-    chart.on('click', { seriesType: 'map' }, (params: any) => {
-      const name = params.name;
+    // 事件：点击地图区域 - 下钻或跳转城市详情页
+    chart.on('click', (params: any) => {
+      const name = params?.name;
+      if (!name) return;
 
       // 已下钻到省份：点击地级城市跳转到城市详情页
       if (currentMapRef.current !== 'china') {
         loadCityNameMap().then(map => {
-          const citySlug = map[name];
+          // 多种匹配策略：直接匹配、去后缀、加"市"后缀
+          let citySlug = map[name];
+          if (!citySlug) {
+            const stripped = name.replace(/(市|县|区|自治州|自治县|地区|林区)$/, '');
+            citySlug = map[stripped];
+          }
+          if (!citySlug) {
+            citySlug = map[name + '市'];
+          }
+          if (!citySlug) {
+            citySlug = map[name + '县'];
+          }
           if (citySlug) {
             const langPrefix = window.location.pathname.split('/')[1] || 'en';
             window.location.href = `/${langPrefix}/cities/${citySlug}`;
