@@ -535,14 +535,14 @@ export default function ChinaVisaMap({ t }: ChinaVisaMapProps) {
       </div>
 
       {/* 图例 */}
-      <div className="absolute right-4 bottom-4 bg-white/90 backdrop-blur-sm p-4 rounded-md shadow-md text-sm text-gray-800 z-10">
-        <div className="font-bold mb-2">{t('visa.hero.legendTitle')}</div>
-        <div className="flex items-center gap-2 mb-1">
-          <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: '#2ECC71' }} />
+      <div className="absolute right-2 bottom-2 bg-white/90 backdrop-blur-sm p-2 md:p-4 rounded-md shadow-md text-xs md:text-sm text-gray-800 z-10">
+        <div className="font-bold mb-1 md:mb-2 text-xs md:text-sm">{t('visa.hero.legendTitle')}</div>
+        <div className="flex items-center gap-1.5 md:gap-2 mb-0.5 md:mb-1">
+          <span className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-sm" style={{ backgroundColor: '#2ECC71' }} />
           <span>{t('visa.hero.legendFull')}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: '#A8E6CF' }} />
+        <div className="flex items-center gap-1.5 md:gap-2">
+          <span className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-sm" style={{ backgroundColor: '#A8E6CF' }} />
           <span>{t('visa.hero.legendPartial')}</span>
         </div>
       </div>
