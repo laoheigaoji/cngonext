@@ -11,3 +11,30 @@ coverage/
 out/
 .wrangler/
 build-log.txt
+
+# 测试和临时文件
+test_*.jpg
+test_preview.html
+_check*.cjs
+$null
+scripts/__pycache__/
+scripts/city_backups/
+scripts/*progress*.json
+scripts/generation_status.md
+scripts/job_info.json
+scripts/monitor_progress.ps1
+scripts/needs_text_covers.json
+scripts/check_*.py
+scripts/test_*.py
+scripts/download_font.py
+scripts/generate_cities.mjs
+scripts/search_all_images.mjs
+scripts/search_city_images.mjs
+scripts/add_cover_text.py
+scripts/fill_missing_images.py
+scripts/find_no_text_covers.py
+scripts/migrate_to_r2.py
+scripts/temp_check_storage.py
+*.pyc
+新建 文本文档*.txt
+taiyuan_cover_test.jpg
