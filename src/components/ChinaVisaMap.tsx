@@ -437,7 +437,7 @@ export default function ChinaVisaMap({ t }: ChinaVisaMapProps) {
   }, [pinyinMap]);
 
   return (
-    <div className="relative w-full h-[400px] sm:h-[460px] md:h-[520px] bg-[#759dd1] overflow-hidden">
+    <div className="relative w-full h-[500px] sm:h-[560px] md:h-[620px] bg-[#759dd1] overflow-hidden">
       {/* ECharts 地图容器 */}
       <div ref={chartRef} className="w-full h-full" />
 
