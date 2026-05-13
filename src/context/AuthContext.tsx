@@ -57,6 +57,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (session?.user) {
           setUser(session.user);
           await checkPurchase(session.user.id);
+        } else if (process.env.NODE_ENV === 'development') {
+          // 开发模式：从 localStorage 恢复测试用户
+          const stored = localStorage.getItem('dev_test_user');
+          if (stored) {
+            setUser(JSON.parse(stored));
+          }
         }
       } catch (error) {
         console.error('Auth check error:', error);
@@ -153,6 +159,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signInWithEmail = async (email: string): Promise<{ success: boolean; error?: string }> => {
     try {
+      // 开发模式：硬编码测试邮箱，直接设置测试用户
+      if (process.env.NODE_ENV === 'development') {
+        const testUser = {
+          id: 'test-user-001',
+          email: '1546912750@qq.com',
+          user_metadata: { name: '测试用户' },
+          app_metadata: { provider: 'email' },
+          aud: 'authenticated',
+        } as any;
+        setUser(testUser);
+        localStorage.setItem('dev_test_user', JSON.stringify(testUser));
+        setLoading(false);
+        return { success: true };
+      }
+
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
@@ -182,6 +203,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setHasPurchased(false);
     localStorage.removeItem('hasPurchased');
     localStorage.removeItem('device_purchase_token');
+    localStorage.removeItem('dev_test_user');
     // Redirect to home page after sign out
     if (typeof window !== 'undefined') {
       window.location.href = '/';

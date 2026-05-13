@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { checkUserPlan, deductCredits, CREDITS_PER_CONVERSION } from '@/lib/checkPlan';
 
 // Alibaba Cloud DashScope International (Singapore) endpoint
 const DASHSCOPE_BASE_URL = 'https://dashscope-intl.aliyuncs.com/compatible-mode/v1';
@@ -148,6 +149,16 @@ async function callQwenVL(image: string, mimeType: string, prompt: string, timeo
 
 export async function POST(req: NextRequest) {
   try {
+    // 检测用户权限和积分
+    const authHeader = req.headers.get('authorization');
+    const { hasAccess, plan, userId } = await checkUserPlan(authHeader);
+    if (!hasAccess) {
+      const msg = !plan
+        ? '请先购买套餐以使用菜单翻译功能'
+        : `积分不足！每次翻译消耗 ${CREDITS_PER_CONVERSION} 积分，请购买更多积分`;
+      return NextResponse.json({ error: msg, needPurchase: true }, { status: 403 });
+    }
+
     const { image, mimeType, lang = 'en' }: { image?: string; mimeType?: string; lang?: string } = await req.json();
 
     if (!image || !mimeType) {
@@ -192,7 +203,18 @@ export async function POST(req: NextRequest) {
 
     const items = addPriceConversions(menuItems, lang);
     console.log(`[menu-translate] Done: ${QWEN_MODEL}, ${items.length} items`);
-    return NextResponse.json({ items, usedModel: QWEN_MODEL });
+
+    // 翻译成功，消耗积分
+    let creditsRemaining = 0;
+    try {
+      const deductResult = await deductCredits(authHeader, CREDITS_PER_CONVERSION);
+      creditsRemaining = deductResult.creditsRemaining;
+      console.log(`[menu-translate] Credits deducted: ${CREDITS_PER_CONVERSION}, remaining: ${creditsRemaining}`);
+    } catch (e) {
+      console.error('[menu-translate] Credit deduction failed (non-fatal):', e);
+    }
+
+    return NextResponse.json({ items, usedModel: QWEN_MODEL, creditsRemaining });
   } catch (error: any) {
     console.error('[menu-translate] Fatal:', error);
     return NextResponse.json({ error: error.message || 'Analysis failed' }, { status: 500 });

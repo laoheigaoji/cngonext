@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from '@/lib/router-compat';
-import { Globe, ChevronDown, Menu, X, CheckSquare, Compass, PlayCircle, BookOpen, Shield, ScanLine, Type, Calculator, Languages, Check, LogOut, Mail } from 'lucide-react';
+import { Globe, ChevronDown, Menu, X, CheckSquare, Compass, PlayCircle, BookOpen, Shield, ScanLine, Type, Calculator, Languages, Check, LogOut, Mail, Crown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage, Language } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
@@ -18,6 +18,7 @@ export default function Navbar() {
   const [mobileExpandedMenu, setMobileExpandedMenu] = useState<string | null>(null);
   const [showLangBanner, setShowLangBanner] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [userPlan, setUserPlan] = useState<{ plan: string; name: string; cycle: string; credits?: number; creditsUsed?: number; creditsRemaining?: number } | null>(null);
   const location = useLocation();
   const isMenuTranslatorPage = /\/tools\/menu-translator/.test(location.pathname || '');
   const langToPrefix: Record<string, string> = {
@@ -62,6 +63,68 @@ export default function Navbar() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('open-login-modal', handleOpenLogin);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Read plan from localStorage on mount
+    const stored = localStorage.getItem('user_plan');
+    if (stored) {
+      try { setUserPlan(JSON.parse(stored)); } catch {}
+    }
+    // Listen for plan updates
+    const handler = (e: CustomEvent) => setUserPlan(e.detail);
+    window.addEventListener('plan-updated', handler as EventListener);
+
+    let subscription: { unsubscribe: () => void } | null = null;
+
+    // Initialize supabase and set up auth listener
+    (async () => {
+      try {
+        const { supabase } = await import('../lib/supabase');
+
+        // Fetch plan from DB if user is logged in
+        const fetchPlanFromDB = async () => {
+          try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.access_token) {
+              const res = await fetch('/api/save-plan', {
+                headers: { 'Authorization': `Bearer ${session.access_token}` },
+              });
+              const data = await res.json();
+              if (data.hasAccess && data.plan) {
+                const planData = {
+                  plan: data.plan.plan,
+                  name: data.plan.name,
+                  cycle: data.plan.cycle,
+                  credits: data.plan.credits,
+                  creditsUsed: data.plan.creditsUsed,
+                  creditsRemaining: data.plan.creditsRemaining,
+                };
+                setUserPlan(planData);
+                localStorage.setItem('user_plan', JSON.stringify(planData));
+              }
+            }
+          } catch (e) {
+            console.error('[Navbar] Fetch plan from DB failed:', e);
+          }
+        };
+
+        // Re-fetch when auth state changes
+        const { data: { subscription: sub } } = supabase.auth.onAuthStateChange(() => {
+          fetchPlanFromDB();
+        });
+        subscription = sub;
+
+        fetchPlanFromDB();
+      } catch (e) {
+        console.error('[Navbar] Init supabase failed:', e);
+      }
+    })();
+
+    return () => {
+      window.removeEventListener('plan-updated', handler as EventListener);
+      subscription?.unsubscribe();
     };
   }, []);
 
@@ -342,6 +405,16 @@ export default function Navbar() {
                       referrerPolicy="no-referrer"
                     />
                   </button>
+                  {/* Plan Badge */}
+                  {userPlan && (
+                    <span className={`absolute -bottom-1 -right-1 text-[10px] font-black px-1.5 py-0.5 rounded-full border-2 border-white shadow-sm ${
+                      userPlan.name === 'Pro' ? 'bg-amber-400 text-amber-900' : 
+                      userPlan.name === 'Starter' ? 'bg-purple-500 text-white' : 
+                      'bg-blue-400 text-white'
+                    }`}>
+                      {userPlan.name}
+                    </span>
+                  )}
                   {showUserMenu && (
                     <>
                       <div className="fixed inset-0 z-[-1]" onClick={() => setShowUserMenu(false)} />
@@ -349,6 +422,19 @@ export default function Navbar() {
                         <div className="px-4 py-2 border-b border-gray-100">
                           <p className="text-sm font-medium truncate">{user.user_metadata?.full_name || user.email}</p>
                           <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                          {userPlan && (
+                            <div className="mt-2 space-y-1">
+                              <div className="flex items-center gap-1.5">
+                                <Crown className="w-3.5 h-3.5 text-amber-500" />
+                                <span className="text-xs font-bold text-amber-700">{userPlan.name} · {userPlan.cycle === 'yearly' ? '年付' : (userPlan.name === 'Traveler' ? '10天' : '月付')}</span>
+                              </div>
+                              {typeof userPlan.creditsRemaining === 'number' && (
+                                <div className="flex items-center gap-1.5 pl-0.5">
+                                  <span className="text-xs text-purple-600 font-bold">💎 {userPlan.creditsRemaining} 积分</span>
+                                </div>
+                              )}
+                            </div>
+                          )}
                         </div>
                         <button
                           className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors text-left"

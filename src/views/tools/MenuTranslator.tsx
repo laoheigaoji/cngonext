@@ -28,6 +28,17 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
     const [analysisResult, setAnalysisResult] = useState<any[]>([]);
     const [streamingText, setStreamingText] = useState('');
+
+    const openPayment = (url: string) => {
+        if (window.innerWidth < 768) {
+            // 移动端：新标签页打开
+            window.open(url, '_blank');
+        } else {
+            // 桌面端：居中弹出窗口
+            const w = 480, h = 700, l = (screen.width - w) / 2, t = (screen.height - h) / 2;
+            window.open(url, 'creem_pay', `width=${w},height=${h},left=${l},top=${t},menubar=no,toolbar=no,location=no,status=no`);
+        }
+    };
     // Chinese pronunciation using Web Speech API
     const speakChinese = (text: string) => {
         if ('speechSynthesis' in window) {
@@ -641,7 +652,7 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                                             </div>
                                             <p className="text-xs text-gray-400 mt-1">$0.1/100积分</p>
                                         </div>
-                                        <button className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
+                                        <button onClick={() => openPayment(process.env.NODE_ENV === 'development' ? 'https://www.creem.io/test/payment/prod_5xXOa84Nq51M6OpgInrSKp' : 'https://www.creem.io/payment/prod_3TVyXsKR8av0l01JAJoBrU')} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
                                             {tt('tools.menu.pricing.select')}
                                         </button>
                                         <ul className="space-y-3 text-sm">
@@ -694,7 +705,7 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                                                 {billingCycle === 'monthly' ? '$0.09/100积分' : '$0.075/100积分'}
                                             </p>
                                         </div>
-                                        <button className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
+                                        <button onClick={() => openPayment(process.env.NODE_ENV === 'development' ? 'https://www.creem.io/test/payment/prod_5xXOa84Nq51M6OpgInrSKp' : (billingCycle === 'monthly' ? 'https://www.creem.io/payment/prod_7YpsVCJSFtxQr3Fqhk0uHZ' : 'https://www.creem.io/payment/prod_2Jw6Tigcj1ydA2JxbiNLpN'))} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
                                             {tt('tools.menu.pricing.select')}
                                         </button>
                                         <ul className="space-y-3 text-sm">
@@ -744,7 +755,7 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                                                 {billingCycle === 'monthly' ? '$0.08/100积分' : '$0.066/100积分'}
                                             </p>
                                         </div>
-                                        <button className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
+                                        <button onClick={() => openPayment(process.env.NODE_ENV === 'development' ? 'https://www.creem.io/test/payment/prod_5xXOa84Nq51M6OpgInrSKp' : (billingCycle === 'monthly' ? 'https://www.creem.io/payment/prod_5O65NauyqMWA0ZtiroA9XG' : 'https://www.creem.io/payment/prod_268yTiuPPqD5QbnW18jo2x'))} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
                                             {tt('tools.menu.pricing.select')}
                                         </button>
                                         <ul className="space-y-3 text-sm">
@@ -834,6 +845,7 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                 )}
             </div>
         </div>
+
 
         </>
     );
