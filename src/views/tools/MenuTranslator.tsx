@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Upload, Camera, ImageIcon, Languages, Wallet, MessageSquare, ChevronDown, Check, Star, ScanLine, X, Loader2, Volume2, AlertTriangle, Leaf, CameraOff, Brain, Utensils } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
@@ -37,55 +37,6 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
             utterance.rate = 0.8;
             window.speechSynthesis.speak(utterance);
         }
-    };
-
-    // XiaChuFang dish image cache: dishName -> imageUrl
-    const dishImageCache = React.useRef<Record<string, string | null>>({});
-    const [dishImageUrls, setDishImageUrls] = React.useState<Record<string, string | null>>({});
-    const [dishImageLoading, setDishImageLoading] = React.useState<Record<string, boolean>>({});
-
-    // Fetch a single dish image from XiaChuFang API (async, per-dish)
-    const fetchSingleDishImage = useCallback(async (name: string) => {
-        if (name in dishImageCache.current) return;
-        dishImageCache.current[name] = null; // prevent duplicate requests
-        setDishImageLoading(prev => ({ ...prev, [name]: true }));
-        try {
-            const response = await fetch(`/api/menu-translate?dishes=${encodeURIComponent(name)}`);
-            if (response.ok) {
-                const data = await response.json();
-                const url = (data.images || {})[name] || null;
-                dishImageCache.current[name] = url;
-                setDishImageUrls(prev => ({ ...prev, [name]: url }));
-            }
-        } catch (err) {
-            console.error(`[MenuTranslator] XiaChuFang fetch error for "${name}":`, err);
-        } finally {
-            setDishImageLoading(prev => ({ ...prev, [name]: false }));
-        }
-    }, []);
-
-    // Auto-fetch dish images when analysis results come in (async per dish)
-    React.useEffect(() => {
-        if (analysisResult.length > 0) {
-            const uncached = analysisResult
-                .map(item => item.name)
-                .filter(Boolean)
-                .filter(name => !(name in dishImageCache.current));
-            // Trigger each fetch independently so images load one by one
-            uncached.forEach(name => fetchSingleDishImage(name));
-        }
-    }, [analysisResult, fetchSingleDishImage]);
-
-    // Get dish image from XiaChuFang search
-    const getDishImage = (item: any): { src: string | null; loading: boolean; source: 'xiachufang' | 'fallback' } => {
-        // XiaChuFang search result
-        const name = item.name;
-        if (!name) return { src: null, loading: false, source: 'fallback' };
-        if (dishImageUrls[name]) return { src: dishImageUrls[name]!, loading: false, source: 'xiachufang' };
-        if (dishImageLoading[name]) return { src: null, loading: true, source: 'xiachufang' };
-        
-        // Fallback icon
-        return { src: null, loading: false, source: 'fallback' };
     };
 
     const faqs = [
@@ -399,22 +350,10 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                                                 className="flex flex-col md:flex-row gap-8 group"
                                             >
                                                 <div className="w-40 h-40 flex-shrink-0 bg-gray-100 rounded-[2rem] overflow-hidden group-hover:scale-105 transition-transform duration-500 border border-gray-50 relative">
-                                                    {(() => {
-                                                        const { src, loading: imgLoading, source } = getDishImage(item);
-                                                        return src ? (
-                                                            <img src={src} alt={item.name} className="w-full h-full object-cover" {...(source === 'xiachufang' ? { crossOrigin: 'anonymous' as const } : {})} />
-                                                        ) : imgLoading ? (
-                                                            <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-purple-400">
-                                                                <Loader2 className="w-8 h-8 animate-spin" />
-                                                                <span className="text-xs font-bold">搜图中</span>
-                                                            </div>
-                                                        ) : (
-                                                            <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-gray-400">
-                                                                <Utensils className="w-8 h-8" />
-                                                                <span className="text-xs font-bold">{item.name?.slice(0, 2) || '菜'}</span>
-                                                            </div>
-                                                        );
-                                                    })()}
+                                                    <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-gray-400">
+                                                        <Utensils className="w-8 h-8" />
+                                                        <span className="text-xs font-bold">{item.name?.slice(0, 2) || '菜'}</span>
+                                                    </div>
                                                 </div>
                                                 <div className="flex-1">
                                                     <div className="flex justify-between items-start mb-4">

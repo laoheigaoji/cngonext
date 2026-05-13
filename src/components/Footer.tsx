@@ -61,7 +61,7 @@ export default function Footer() {
             <ul className="space-y-4">
               <li><Link to="/visa" className="hover:text-white transition-colors text-[13px] text-[#e5f5ef]">{t('footer.links.visa.all')}</Link></li>
               <li><Link to="/cities" className="hover:text-white transition-colors text-[13px] text-[#e5f5ef]">{t('footer.links.visa.dest')}</Link></li>
-              <li><a href="#" className="hover:text-white transition-colors text-[13px] text-[#e5f5ef]">{t('footer.links.visa.nav')}</a></li>
+              
             </ul>
           </div>
           
