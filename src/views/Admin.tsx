@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Trash2, Plus, LogOut, ChevronRight, ChevronDown, ChevronUp, Save, Image as ImageIcon, Filter, FileText, Languages, Building2, Globe, FileSignature, Plane, Menu, X, RefreshCw, Rocket } from 'lucide-react';
+import { Trash2, Plus, LogOut, ChevronRight, ChevronDown, ChevronUp, Save, Image as ImageIcon, Filter, FileText, Languages, Building2, Globe, FileSignature, Plane, Menu, X, RefreshCw, Rocket, Shield } from 'lucide-react';
 import Markdown from 'react-markdown';
 import MDEditor from '@uiw/react-md-editor';
 import TurndownService from 'turndown';
@@ -18,6 +18,7 @@ import TranslationManagement from '../components/admin/TranslationManagement';
 import AppsManagement from '../components/admin/AppsManagement';
 import PageSectionsManagement from '../components/admin/PageSectionsManagement';
 import DataBackupManagement from '../components/admin/DataBackupManagement';
+import PaymentManagement from '../components/admin/PaymentManagement';
 import { triggerRevalidate } from '../lib/revalidate';
 
 // 支持的语言配置
@@ -116,7 +117,7 @@ export default function Admin() {
   const [showForm, setShowForm] = useState(false);
   const [showCityForm, setShowCityForm] = useState(false);
   const [editingCity, setEditingCity] = useState<CityData | null>(null);
-  const [activeAdminView, setActiveAdminView] = useState<'articles' | 'cities' | 'visa' | 'translations' | 'apps' | 'pages' | 'backup'>('articles');
+  const [activeAdminView, setActiveAdminView] = useState<'articles' | 'cities' | 'visa' | 'translations' | 'apps' | 'pages' | 'backup' | 'payment'>('articles');
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isPreview, setIsPreview] = useState(false);
   const [activeTab, setActiveTab] = useState<LanguageCode>('zh');
@@ -1472,6 +1473,38 @@ export default function Admin() {
                     )}
                   </AnimatePresence>
                 </div>
+                {/* 支付配置 - 可折叠 */}
+                <div className="space-y-1">
+                  <button 
+                    onClick={() => setMobileMenuExpanded(mobileMenuExpanded === 'payment' ? null : 'payment')}
+                    className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeAdminView === 'payment' ? 'bg-[#1b887a] text-white shadow-md' : 'text-gray-500 hover:bg-gray-100'}`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Shield className="w-5 h-5" /> 支付配置
+                    </div>
+                    {mobileMenuExpanded === 'payment' ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                  </button>
+                  <AnimatePresence>
+                    {mobileMenuExpanded === 'payment' && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pl-4 space-y-1 py-1">
+                          <button 
+                            onClick={() => { setActiveAdminView('payment'); setShowForm(false); setSidebarOpen(false); setMobileMenuExpanded(null); }}
+                            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${activeAdminView === 'payment' ? 'bg-[#1b887a]/10 text-[#1b887a]' : 'text-gray-400 hover:bg-gray-50 hover:text-gray-600'}`}
+                          >
+                            Creem 支付配置
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
                 <div className="px-4">
                   <button 
                     onClick={() => { handleDeploy(); setSidebarOpen(false); setMobileMenuExpanded(null); }}
@@ -1546,6 +1579,12 @@ export default function Admin() {
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeAdminView === 'backup' && !showForm ? 'bg-[#1b887a] text-white shadow-md' : 'text-gray-500 hover:bg-gray-50'}`}
           >
             <RefreshCw className="w-5 h-5" /> 备份恢复
+          </button>
+          <button 
+            onClick={() => { setActiveAdminView('payment'); setShowForm(false); }}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeAdminView === 'payment' && !showForm ? 'bg-[#1b887a] text-white shadow-md' : 'text-gray-500 hover:bg-gray-50'}`}
+          >
+            <Shield className="w-5 h-5" /> 支付配置
           </button>
           <button 
             onClick={handleDeploy}
@@ -1920,6 +1959,8 @@ export default function Admin() {
                 <TranslationManagement />
               ) : activeAdminView === 'backup' ? (
                 <DataBackupManagement />
+              ) : activeAdminView === 'payment' ? (
+                <PaymentManagement />
               ) : null}
             </>
           )}

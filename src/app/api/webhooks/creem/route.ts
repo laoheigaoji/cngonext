@@ -224,7 +224,20 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.text();
     const signature = req.headers.get('creem-signature') || '';
-    const secret = process.env.CREEM_WEBHOOK_SECRET || (process.env.NODE_ENV === 'development' ? 'test-secret' : undefined);
+
+    // Secret 优先级: env > 数据库配置 > 开发模式 test-secret
+    let secret = process.env.CREEM_WEBHOOK_SECRET;
+    if (!secret) {
+      try {
+        const { data } = await supabaseAdmin
+          .from('payment_config')
+          .select('webhook_secret')
+          .eq('id', 'default')
+          .maybeSingle();
+        if (data?.webhook_secret) secret = data.webhook_secret;
+      } catch {}
+    }
+    if (!secret && process.env.NODE_ENV === 'development') secret = 'test-secret';
 
     if (!secret) {
       console.error('[Creem Webhook] Missing CREEM_WEBHOOK_SECRET in env');

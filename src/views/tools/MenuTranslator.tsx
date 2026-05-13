@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Upload, Camera, ImageIcon, Languages, Wallet, MessageSquare, ChevronDown, Check, Star, ScanLine, X, Loader2, Volume2, AlertTriangle, Leaf, CameraOff, Brain, Utensils } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
@@ -28,6 +28,36 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
     const [analysisResult, setAnalysisResult] = useState<any[]>([]);
     const [streamingText, setStreamingText] = useState('');
+    const [paymentConfig, setPaymentConfig] = useState<any>(null);
+
+    // 从后台获取支付配置
+    useEffect(() => {
+        fetch('/api/payment-config').then(r => r.json()).then(d => {
+            if (d.config) setPaymentConfig(d.config);
+        }).catch(() => {});
+    }, []);
+
+    const getPaymentUrl = (planKey: string, billingCycle?: 'monthly' | 'yearly') => {
+        if (!paymentConfig) {
+            // 无配置时的默认降级
+            const fallbacks: Record<string, string> = {
+                traveler: 'https://www.creem.io/payment/prod_3TVyXsKR8av0l01JAJoBrU',
+                starter_monthly: 'https://www.creem.io/payment/prod_7YpsVCJSFtxQr3Fqhk0uHZ',
+                starter_yearly: 'https://www.creem.io/payment/prod_2Jw6Tigcj1ydA2JxbiNLpN',
+                pro_monthly: 'https://www.creem.io/payment/prod_5O65NauyqMWA0ZtiroA9XG',
+                pro_yearly: 'https://www.creem.io/payment/prod_268yTiuPPqD5QbnW18jo2x',
+            };
+            return fallbacks[planKey] || fallbacks.traveler;
+        }
+
+        if (paymentConfig.sandbox_mode && paymentConfig.sandbox_url) {
+            return paymentConfig.sandbox_url;
+        }
+
+        // 生产模式：使用各套餐独立的支付链接
+        const plan = paymentConfig.plans?.[planKey];
+        return plan?.url || paymentConfig.sandbox_url || 'https://www.creem.io/payment/prod_3TVyXsKR8av0l01JAJoBrU';
+    };
 
     const openPayment = (url: string) => {
         if (window.innerWidth < 768) {
@@ -652,7 +682,7 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                                             </div>
                                             <p className="text-xs text-gray-400 mt-1">$0.1/100积分</p>
                                         </div>
-                                        <button onClick={() => openPayment(process.env.NODE_ENV === 'development' ? 'https://www.creem.io/test/payment/prod_5xXOa84Nq51M6OpgInrSKp' : 'https://www.creem.io/payment/prod_3TVyXsKR8av0l01JAJoBrU')} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
+                                        <button onClick={() => openPayment(getPaymentUrl('traveler'))} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
                                             {tt('tools.menu.pricing.select')}
                                         </button>
                                         <ul className="space-y-3 text-sm">
@@ -705,7 +735,7 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                                                 {billingCycle === 'monthly' ? '$0.09/100积分' : '$0.075/100积分'}
                                             </p>
                                         </div>
-                                        <button onClick={() => openPayment(process.env.NODE_ENV === 'development' ? 'https://www.creem.io/test/payment/prod_5xXOa84Nq51M6OpgInrSKp' : (billingCycle === 'monthly' ? 'https://www.creem.io/payment/prod_7YpsVCJSFtxQr3Fqhk0uHZ' : 'https://www.creem.io/payment/prod_2Jw6Tigcj1ydA2JxbiNLpN'))} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
+                                        <button onClick={() => openPayment(getPaymentUrl(billingCycle === 'monthly' ? 'starter_monthly' : 'starter_yearly'))} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
                                             {tt('tools.menu.pricing.select')}
                                         </button>
                                         <ul className="space-y-3 text-sm">
@@ -755,7 +785,7 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                                                 {billingCycle === 'monthly' ? '$0.08/100积分' : '$0.066/100积分'}
                                             </p>
                                         </div>
-                                        <button onClick={() => openPayment(process.env.NODE_ENV === 'development' ? 'https://www.creem.io/test/payment/prod_5xXOa84Nq51M6OpgInrSKp' : (billingCycle === 'monthly' ? 'https://www.creem.io/payment/prod_5O65NauyqMWA0ZtiroA9XG' : 'https://www.creem.io/payment/prod_268yTiuPPqD5QbnW18jo2x'))} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
+                                        <button onClick={() => openPayment(getPaymentUrl(billingCycle === 'monthly' ? 'pro_monthly' : 'pro_yearly'))} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
                                             {tt('tools.menu.pricing.select')}
                                         </button>
                                         <ul className="space-y-3 text-sm">
