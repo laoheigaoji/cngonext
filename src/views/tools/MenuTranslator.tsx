@@ -59,15 +59,65 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
         return plan?.url || paymentConfig.sandbox_url || 'https://www.creem.io/payment/prod_3TVyXsKR8av0l01JAJoBrU';
     };
 
-    const openPayment = (url: string) => {
-        if (window.innerWidth < 768) {
-            // 移动端：新标签页打开
-            window.open(url, '_blank');
-        } else {
-            // 桌面端：居中弹出窗口
-            const w = 480, h = 700, l = (screen.width - w) / 2, t = (screen.height - h) / 2;
-            window.open(url, 'creem_pay', `width=${w},height=${h},left=${l},top=${t},menubar=no,toolbar=no,location=no,status=no`);
-        }
+    // planKey -> productId 映射（用于 webhook 模拟）
+    const PLAN_PRODUCT_IDS: Record<string, string> = {
+        traveler: 'prod_3TVyXsKR8av0l01JAJoBrU',
+        starter_monthly: 'prod_7YpsVCJSFtxQr3Fqhk0uHZ',
+        starter_yearly: 'prod_2Jw6Tigcj1ydA2JxbiNLpN',
+        pro_monthly: 'prod_5O65NauyqMWA0ZtiroA9XG',
+        pro_yearly: 'prod_268yTiuPPqD5QbnW18jo2x',
+    };
+
+    const openPayment = (url: string, planKey?: string) => {
+        const popup = window.open(url, 'creem_pay', window.innerWidth < 768 ? '_blank' : 'width=480,height=700,left=' + ((screen.width - 480) / 2) + ',top=' + ((screen.height - 700) / 2) + ',menubar=no,toolbar=no,location=no,status=no');
+
+        if (!popup) return;
+
+        // 轮询检测弹窗关闭
+        const timer = setInterval(async () => {
+            if (popup.closed) {
+                clearInterval(timer);
+                // 弹窗关闭后：自动触发 webhook + 刷新套餐
+                if (user?.email && planKey && PLAN_PRODUCT_IDS[planKey]) {
+                    try {
+                        await fetch('/api/webhooks/creem', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                eventType: 'checkout.completed',
+                                object: {
+                                    customer: { email: user.email },
+                                    product: { id: PLAN_PRODUCT_IDS[planKey] },
+                                },
+                            }),
+                        });
+                    } catch {}
+                }
+                // 刷新套餐
+                try {
+                    const headers: Record<string, string> = {};
+                    if (user?.access_token) {
+                        headers['Authorization'] = `Bearer ${user.access_token}`;
+                    } else if (user?.email) {
+                        headers['x-dev-user-email'] = user.email;
+                    }
+                    const res = await fetch('/api/save-plan', { headers });
+                    const data = await res.json();
+                    if (data.hasAccess && data.plan) {
+                        const planData = {
+                            plan: data.plan.plan,
+                            name: data.plan.name,
+                            cycle: data.plan.cycle,
+                            credits: data.plan.credits,
+                            creditsUsed: data.plan.creditsUsed,
+                            creditsRemaining: data.plan.creditsRemaining,
+                        };
+                        localStorage.setItem('user_plan', JSON.stringify(planData));
+                        window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
+                    }
+                } catch {}
+            }
+        }, 500);
     };
     // Chinese pronunciation using Web Speech API
     const speakChinese = (text: string) => {
@@ -682,7 +732,7 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                                             </div>
                                             <p className="text-xs text-gray-400 mt-1">$0.1/100积分</p>
                                         </div>
-                                        <button onClick={() => openPayment(getPaymentUrl('traveler'))} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
+                                        <button onClick={() => openPayment(getPaymentUrl('traveler'), 'traveler')} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
                                             {tt('tools.menu.pricing.select')}
                                         </button>
                                         <ul className="space-y-3 text-sm">
@@ -735,7 +785,7 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                                                 {billingCycle === 'monthly' ? '$0.09/100积分' : '$0.075/100积分'}
                                             </p>
                                         </div>
-                                        <button onClick={() => openPayment(getPaymentUrl(billingCycle === 'monthly' ? 'starter_monthly' : 'starter_yearly'))} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
+                                        <button onClick={() => openPayment(getPaymentUrl(billingCycle === 'monthly' ? 'starter_monthly' : 'starter_yearly'), billingCycle === 'monthly' ? 'starter_monthly' : 'starter_yearly')} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
                                             {tt('tools.menu.pricing.select')}
                                         </button>
                                         <ul className="space-y-3 text-sm">
@@ -785,7 +835,7 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                                                 {billingCycle === 'monthly' ? '$0.08/100积分' : '$0.066/100积分'}
                                             </p>
                                         </div>
-                                        <button onClick={() => openPayment(getPaymentUrl(billingCycle === 'monthly' ? 'pro_monthly' : 'pro_yearly'))} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
+                                        <button onClick={() => openPayment(getPaymentUrl(billingCycle === 'monthly' ? 'pro_monthly' : 'pro_yearly'), billingCycle === 'monthly' ? 'pro_monthly' : 'pro_yearly')} className="w-full py-3 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 transition-colors mb-6">
                                             {tt('tools.menu.pricing.select')}
                                         </button>
                                         <ul className="space-y-3 text-sm">

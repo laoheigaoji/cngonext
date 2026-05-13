@@ -104,6 +104,28 @@ export default function Navbar() {
                 setUserPlan(planData);
                 localStorage.setItem('user_plan', JSON.stringify(planData));
               }
+            } else if (process.env.NODE_ENV === 'development') {
+              // 开发模式：检查 localStorage 中的测试用户
+              const devUser = localStorage.getItem('dev_test_user');
+              if (devUser) {
+                const { email } = JSON.parse(devUser);
+                const res = await fetch('/api/save-plan', {
+                  headers: { 'x-dev-user-email': email },
+                });
+                const data = await res.json();
+                if (data.hasAccess && data.plan) {
+                  const planData = {
+                    plan: data.plan.plan,
+                    name: data.plan.name,
+                    cycle: data.plan.cycle,
+                    credits: data.plan.credits,
+                    creditsUsed: data.plan.creditsUsed,
+                    creditsRemaining: data.plan.creditsRemaining,
+                  };
+                  setUserPlan(planData);
+                  localStorage.setItem('user_plan', JSON.stringify(planData));
+                }
+              }
             }
           } catch (e) {
             console.error('[Navbar] Fetch plan from DB failed:', e);
