@@ -421,7 +421,7 @@ export default function Navbar() {
                     onClick={() => setShowUserMenu(!showUserMenu)}
                   >
                     <img
-                      src={user.user_metadata?.avatar_url || user.user_metadata?.picture || '/logo.png'}
+                      src={user.user_metadata?.avatar_url || user.user_metadata?.picture || 'https://static.tripcngo.com/image%20(2).png'}
                       alt={user.user_metadata?.full_name || user.email || 'User'}
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
@@ -448,11 +448,11 @@ export default function Navbar() {
                             <div className="mt-2 space-y-1">
                               <div className="flex items-center gap-1.5">
                                 <Crown className="w-3.5 h-3.5 text-amber-500" />
-                                <span className="text-xs font-bold text-amber-700">{userPlan.name} · {userPlan.cycle === 'yearly' ? '年付' : (userPlan.name === 'Traveler' ? '10天' : '月付')}</span>
+                                <span className="text-xs font-bold text-amber-700">{userPlan.name} · {userPlan.cycle === 'yearly' ? (language === 'zh' || language === 'cn' ? '年付' : 'Yearly') : (userPlan.name === 'Traveler' ? (language === 'zh' || language === 'cn' ? '10天' : '10 Days') : (language === 'zh' || language === 'cn' ? '月付' : 'Monthly'))}</span>
                               </div>
                               {typeof userPlan.creditsRemaining === 'number' && (
                                 <div className="flex items-center gap-1.5 pl-0.5">
-                                  <span className="text-xs text-purple-600 font-bold">💎 {userPlan.creditsRemaining} 积分</span>
+                                  <span className="text-xs text-purple-600 font-bold">💎 {userPlan.creditsRemaining} {language === 'zh' || language === 'cn' ? '积分' : 'Credits'}</span>
                                 </div>
                               )}
                             </div>
@@ -541,7 +541,7 @@ export default function Navbar() {
                 onClick={signInWithGoogle}
               >
                 <img
-                  src={user.user_metadata?.avatar_url || user.user_metadata?.picture || '/logo.png'}
+                  src={user.user_metadata?.avatar_url || user.user_metadata?.picture || 'https://static.tripcngo.com/image%20(2).png'}
                   alt=""
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

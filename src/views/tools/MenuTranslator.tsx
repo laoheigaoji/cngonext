@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Upload, Camera, ImageIcon, Languages, Wallet, MessageSquare, ChevronDown, Check, Star, ScanLine, X, Loader2, Volume2, AlertTriangle, Leaf, CameraOff, Brain, Utensils } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { useAuth } from '../../context/AuthContext';
+import { supabase } from '../../lib/supabase';
 
 interface MenuTranslatorProps {
   translations?: Record<string, string>;
@@ -96,8 +97,9 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                 // 刷新套餐
                 try {
                     const headers: Record<string, string> = {};
-                    if (user?.access_token) {
-                        headers['Authorization'] = `Bearer ${user.access_token}`;
+                    const { data: { session } } = await supabase.auth.getSession();
+                    if (session?.access_token) {
+                        headers['Authorization'] = `Bearer ${session.access_token}`;
                     } else if (user?.email) {
                         headers['x-dev-user-email'] = user.email;
                     }
