@@ -174,10 +174,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return { success: true };
       }
 
+      // 保存当前路径，邮件打开的新标签页通过 URL 参数传递
+      const currentPath = window.location.pathname + window.location.search;
+      const callbackUrl = window.location.origin + '/auth/callback?redirect_to=' + encodeURIComponent(currentPath);
+
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: window.location.origin + '/auth/callback',
+          emailRedirectTo: callbackUrl,
         },
       });
       if (error) {

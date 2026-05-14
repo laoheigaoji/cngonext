@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f0f2f5;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+    .header {
+      background: linear-gradient(135deg, #1b887a 0%, #0d6b5e 100%);
+      padding: 40px 32px 32px;
+      text-align: center;
+    }
+    .header h1 {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .header p {
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .body {
+      padding: 32px;
+    }
+    .body p {
+      color: #4a5568;
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .button {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #1b887a 0%, #0d6b5e 100%);
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      margin: 24px 0;
+      transition: transform 0.2s;
+    }
+    .button:hover {
+      transform: translateY(-1px);
+    }
+    .footer {
+      padding: 24px 32px;
+      border-top: 1px solid #e2e8f0;
+      text-align: center;
+    }
+    .footer p {
+      color: #a0aec0;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .footer a {
+      color: #1b887a;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🔑 Your Login Link</h1>
+      <p>Click the button below to securely sign in</p>
+    </div>
+    <div class="body">
+      <p>Hi there!</p>
+      <p>You requested to sign in to tripcngo.com. Click the button below to complete your login:</p>
+      <a href="{{ .ConfirmationURL }}" class="button">🔓 Sign In</a>
+      <p style="font-size: 13px; color: #a0aec0;">
+        If you didn't request this email, you can safely ignore it. This link expires in 1 hour.
+      </p>
+    </div>
+    <div class="footer">
+      <p>
+        tripcngo.com · Your Travel Translation Assistant<br>
+        Need help? <a href="mailto:support@tripcngo.com">support@tripcngo.com</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

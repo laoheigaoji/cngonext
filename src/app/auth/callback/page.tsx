@@ -7,7 +7,9 @@ export default function AuthCallback() {
   const [status, setStatus] = useState('Logging in...');
 
   useEffect(() => {
-    const redirectPath = sessionStorage.getItem('auth_redirect_path') || '/cn';
+    const params = new URLSearchParams(window.location.search);
+    const redirectTo = params.get('redirect_to');
+    const redirectPath = redirectTo || sessionStorage.getItem('auth_redirect_path') || '/cn';
     sessionStorage.removeItem('auth_redirect_path');
 
     let redirected = false;
