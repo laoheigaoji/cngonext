@@ -64,6 +64,20 @@ export default function AuthCallback() {
           // Verify session was established
           const { data: { session } } = await supabase.auth.getSession();
           console.log("[AuthCallback] Session established:", !!session?.user);
+
+          // 通知原始标签页登录成功
+          try {
+            // 方式1: postMessage 到 opener（邮件/谷歌弹窗来源）
+            if (window.opener && !window.opener.closed) {
+              window.opener.postMessage({ type: 'AUTH_SUCCESS' }, window.location.origin);
+            }
+            // 方式2: BroadcastChannel 通知同源其他标签页
+            const bc = new BroadcastChannel('auth_channel');
+            bc.postMessage({ type: 'AUTH_SUCCESS' });
+            bc.close();
+          } catch (e) {
+            console.log("[AuthCallback] postMessage failed:", e);
+          }
         }
       } catch (err) {
         console.error("[AuthCallback] Error:", err);

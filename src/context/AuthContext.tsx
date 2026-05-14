@@ -89,25 +89,66 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Listen for postMessage from popup callback
+  // 监听跨标签页登录/同页回跳
   useEffect(() => {
-    const handleMessage = async (event: MessageEvent) => {
-      if (event.data?.type === 'AUTH_SUCCESS') {
-        // Popup completed login, refresh session
-        try {
-          const { data: { session } } = await supabase.auth.getSession();
-          if (session?.user) {
-            setUser(session.user);
-            await checkPurchase(session.user.id);
-          }
-        } catch (e) {
-          console.error('Session refresh after popup failed:', e);
+    const refreshSession = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user) {
+          setUser(session.user);
+          localStorage.removeItem('dev_test_user');
+          await checkPurchase(session.user.id);
         }
+      } catch (e) {
+        console.error('Session refresh failed:', e);
       }
     };
 
+    // postMessage from popup
+    const handleMessage = async (event: MessageEvent) => {
+      if (event.data?.type === 'AUTH_SUCCESS') {
+        await refreshSession();
+      }
+    };
+
+    // BroadcastChannel from callback page (magic link)
+    let bc: BroadcastChannel | null = null;
+    try {
+      bc = new BroadcastChannel('auth_channel');
+      bc.onmessage = async (event) => {
+        if (event.data?.type === 'AUTH_SUCCESS') {
+          await refreshSession();
+        }
+      };
+    } catch {}
+
+    // storage: 其他标签页 localStorage 变化时触发（邮件登录新标签页保存 session 后）
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key?.startsWith('supabase.auth.') || e.key === 'dev_test_user') {
+        refreshSession();
+      }
+    };
+
+    // visibilitychange: 用户切回此标签页时检查
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') refreshSession();
+    };
+
+    const handleFocus = () => refreshSession();
+    const handleVisibility = () => { if (document.visibilityState === 'visible') refreshSession(); };
+
     window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
+    window.addEventListener('focus', handleFocus);
+    window.addEventListener('storage', handleStorage);
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    return () => {
+      window.removeEventListener('message', handleMessage);
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('storage', handleStorage);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      bc?.close();
+    };
   }, []);
 
   // Payment callback handling
