@@ -70,54 +70,96 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
     };
 
     const openPayment = (url: string, planKey?: string) => {
+        // 在 Creem URL 中添加 success_url，支付完成后重定向到 /payment-success
+        // /payment-success 页面会自动关闭弹窗并通知原页面
+        try {
+            const creemUrl = new URL(url);
+            creemUrl.searchParams.set('success_url', window.location.origin + '/payment-success');
+            url = creemUrl.toString();
+        } catch {}
+
         const popup = window.open(url, 'creem_pay', window.innerWidth < 768 ? '_blank' : 'width=480,height=700,left=' + ((screen.width - 480) / 2) + ',top=' + ((screen.height - 700) / 2) + ',menubar=no,toolbar=no,location=no,status=no');
 
         if (!popup) return;
 
-        // 轮询检测弹窗关闭
+        // 支付成功后的处理函数
+        const handlePaymentDone = async () => {
+            // 自动触发 webhook
+            if (user?.email && planKey && PLAN_PRODUCT_IDS[planKey]) {
+                try {
+                    await fetch('/api/webhooks/creem', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            eventType: 'checkout.completed',
+                            object: {
+                                customer: { email: user.email },
+                                product: { id: PLAN_PRODUCT_IDS[planKey] },
+                            },
+                        }),
+                    });
+                } catch {}
+            }
+            // 刷新套餐
+            try {
+                const headers: Record<string, string> = {};
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session?.access_token) {
+                    headers['Authorization'] = `Bearer ${session.access_token}`;
+                } else if (user?.email) {
+                    headers['x-dev-user-email'] = user.email;
+                }
+                const res = await fetch('/api/save-plan', { headers });
+                const data = await res.json();
+                if (data.hasAccess && data.plan) {
+                    const planData = {
+                        plan: data.plan.plan,
+                        name: data.plan.name,
+                        cycle: data.plan.cycle,
+                        credits: data.plan.credits,
+                        creditsUsed: data.plan.creditsUsed,
+                        creditsRemaining: data.plan.creditsRemaining,
+                    };
+                    localStorage.setItem('user_plan', JSON.stringify(planData));
+                    window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
+                }
+            } catch {}
+        };
+
+        let paymentHandled = false;
+
+        // 方式1: 监听 payment-success 页面的 postMessage
+        const handleMessage = async (event: MessageEvent) => {
+            if (event.data?.type === 'PAYMENT_SUCCESS' && !paymentHandled) {
+                paymentHandled = true;
+                await handlePaymentDone();
+            }
+        };
+        window.addEventListener('message', handleMessage);
+
+        // 方式2: 监听 BroadcastChannel
+        let payBc: BroadcastChannel | null = null;
+        try {
+            payBc = new BroadcastChannel('payment_channel');
+            payBc.onmessage = async () => {
+                if (!paymentHandled) {
+                    paymentHandled = true;
+                    await handlePaymentDone();
+                }
+            };
+        } catch {}
+
+        // 方式3: 轮询检测弹窗关闭（兜底）
         const timer = setInterval(async () => {
             if (popup.closed) {
                 clearInterval(timer);
-                // 弹窗关闭后：自动触发 webhook + 刷新套餐
-                if (user?.email && planKey && PLAN_PRODUCT_IDS[planKey]) {
-                    try {
-                        await fetch('/api/webhooks/creem', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                eventType: 'checkout.completed',
-                                object: {
-                                    customer: { email: user.email },
-                                    product: { id: PLAN_PRODUCT_IDS[planKey] },
-                                },
-                            }),
-                        });
-                    } catch {}
+                window.removeEventListener('message', handleMessage);
+                payBc?.close();
+                // 如果还没处理过，弹窗关闭时也尝试一次
+                if (!paymentHandled) {
+                    paymentHandled = true;
+                    await handlePaymentDone();
                 }
-                // 刷新套餐
-                try {
-                    const headers: Record<string, string> = {};
-                    const { data: { session } } = await supabase.auth.getSession();
-                    if (session?.access_token) {
-                        headers['Authorization'] = `Bearer ${session.access_token}`;
-                    } else if (user?.email) {
-                        headers['x-dev-user-email'] = user.email;
-                    }
-                    const res = await fetch('/api/save-plan', { headers });
-                    const data = await res.json();
-                    if (data.hasAccess && data.plan) {
-                        const planData = {
-                            plan: data.plan.plan,
-                            name: data.plan.name,
-                            cycle: data.plan.cycle,
-                            credits: data.plan.credits,
-                            creditsUsed: data.plan.creditsUsed,
-                            creditsRemaining: data.plan.creditsRemaining,
-                        };
-                        localStorage.setItem('user_plan', JSON.stringify(planData));
-                        window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
-                    }
-                } catch {}
             }
         }, 500);
     };

@@ -130,12 +130,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     // visibilitychange: 用户切回此标签页时检查
-    const handleVisibility = () => {
-      if (document.visibilityState === 'visible') refreshSession();
-    };
-
-    const handleFocus = () => refreshSession();
     const handleVisibility = () => { if (document.visibilityState === 'visible') refreshSession(); };
+    const handleFocus = () => refreshSession();
 
     window.addEventListener('message', handleMessage);
     window.addEventListener('focus', handleFocus);
@@ -153,25 +149,53 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Payment callback handling
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('unlock') === 'true') {
-      if (window.opener) {
-        window.opener.postMessage('creem_payment_success', '*');
-        setTimeout(() => window.close(), 100);
-      } else {
-        completePayment();
-        window.history.replaceState({}, document.title, window.location.pathname);
-      }
-    }
+    const handlePaymentSuccess = async () => {
+      completePayment();
+      // 刷新 session 确保登录状态不丢失
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user) {
+          setUser(session.user);
+        }
+      } catch {}
+    };
 
+    // 监听来自 payment-success 弹窗页面的 postMessage
     const handlePaymentMessage = async (event: MessageEvent) => {
+      if (event.data?.type === 'PAYMENT_SUCCESS') {
+        await handlePaymentSuccess();
+      }
+      // 兼容旧格式
       if (event.data === 'creem_payment_success') {
-        completePayment();
+        await handlePaymentSuccess();
+      }
+    };
+
+    // 监听 BroadcastChannel（payment-success 页面通过此通道通知）
+    let payBc: BroadcastChannel | null = null;
+    try {
+      payBc = new BroadcastChannel('payment_channel');
+      payBc.onmessage = async (event) => {
+        if (event.data?.type === 'PAYMENT_SUCCESS') {
+          await handlePaymentSuccess();
+        }
+      };
+    } catch {}
+
+    // 监听 storage 事件（payment-success 页面写入 localStorage）
+    const handlePaymentStorage = (e: StorageEvent) => {
+      if (e.key === 'payment_success_time') {
+        handlePaymentSuccess();
       }
     };
 
     window.addEventListener('message', handlePaymentMessage);
-    return () => window.removeEventListener('message', handlePaymentMessage);
+    window.addEventListener('storage', handlePaymentStorage);
+    return () => {
+      window.removeEventListener('message', handlePaymentMessage);
+      window.removeEventListener('storage', handlePaymentStorage);
+      payBc?.close();
+    };
   }, []);
 
   const signInWithGoogle = async () => {
@@ -266,7 +290,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (checkoutUrl) {
       const url = new URL(checkoutUrl);
       url.searchParams.append('client_reference_id', user ? user.id : localToken);
-      url.searchParams.append('success_url', window.location.origin + window.location.pathname + '?unlock=true');
+      url.searchParams.append('success_url', window.location.origin + '/payment-success');
       
       const width = 600;
       const height = 700;
