@@ -38,20 +38,32 @@ function calcExpiresAt(plan: string): string | null {
  */
 export async function POST(req: NextRequest) {
   try {
-    const { productId } = await req.json();
+    const { productId, user_id: bodyUserId } = await req.json();
     if (!productId) {
       return NextResponse.json({ error: '缺少产品ID' }, { status: 400 });
     }
 
     // 验证用户登录状态
     const authHeader = req.headers.get('authorization')?.replace('Bearer ', '');
-    if (!authHeader) {
-      return NextResponse.json({ error: '未登录' }, { status: 401 });
+    let userId: string | null = null;
+
+    if (authHeader) {
+      const { data: { user }, error: userError } = await supabaseAdmin.auth.getUser(authHeader);
+      if (!userError && user) {
+        userId = user.id;
+      }
     }
 
-    const { data: { user }, error: userError } = await supabaseAdmin.auth.getUser(authHeader);
-    if (userError || !user) {
-      return NextResponse.json({ error: '用户验证失败' }, { status: 401 });
+    // 降级：用 body 中的 user_id（UUID 格式校验）
+    if (!userId && bodyUserId) {
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      if (uuidRegex.test(bodyUserId)) {
+        userId = bodyUserId;
+      }
+    }
+
+    if (!userId) {
+      return NextResponse.json({ error: '未登录' }, { status: 401 });
     }
 
     // 映射产品ID到套餐
@@ -67,7 +79,7 @@ export async function POST(req: NextRequest) {
     const { data: existing } = await supabaseAdmin
       .from('user_plans')
       .select('id, credits, credits_used')
-      .eq('user_id', user.id)
+      .eq('user_id', userId)
       .eq('plan', plan)
       .eq('status', 'active')
       .limit(1);
@@ -87,13 +99,13 @@ export async function POST(req: NextRequest) {
 
       if (updateError) throw updateError;
 
-      console.log(`[Activate-Plan] Plan renewed: user=${user.email}, plan=${plan}, addCredits=${info.credits}`);
+      console.log(`[Activate-Plan] Plan renewed: userId=${userId}, plan=${plan}, addCredits=${info.credits}`);
     } else {
       // 新套餐
       const { error: insertError } = await supabaseAdmin
         .from('user_plans')
         .insert({
-          user_id: user.id,
+          user_id: userId,
           plan,
           plan_name: info.name,
           cycle: info.cycle,
@@ -108,7 +120,7 @@ export async function POST(req: NextRequest) {
 
       if (insertError) throw insertError;
 
-      console.log(`[Activate-Plan] Plan created: user=${user.email}, plan=${plan}, credits=${info.credits}`);
+      console.log(`[Activate-Plan] Plan created: userId=${userId}, plan=${plan}, credits=${info.credits}`);
     }
 
     // 返回激活后的套餐信息

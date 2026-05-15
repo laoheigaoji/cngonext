@@ -87,19 +87,11 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
             if (!planKey || !PLAN_PRODUCT_IDS[planKey]) return;
 
             try {
-                const { data: { session } } = await supabase.auth.getSession();
-                if (!session?.access_token) {
-                    console.error('[Payment] No session token available');
-                    return;
-                }
-
                 // 等 3 秒让 Creem webhook 有时间先处理（webhook 是主要路径）
                 await new Promise(r => setTimeout(r, 3000));
 
-                // 先查 save-plan 看 webhook 是否已经创建了套餐
-                const checkRes = await fetch('/api/save-plan', {
-                    headers: { 'Authorization': `Bearer ${session.access_token}` },
-                });
+                // 先查 save-plan 看 webhook 是否已经创建了套餐（用 user_id 而非 token）
+                const checkRes = await fetch(`/api/save-plan?user_id=${encodeURIComponent(user?.id || '')}`);
                 const checkData = await checkRes.json();
 
                 if (checkData.hasAccess && checkData.plan) {
@@ -122,11 +114,8 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                 console.log('[Payment] Webhook not yet processed, activating plan manually...');
                 const res = await fetch('/api/activate-plan', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${session.access_token}`,
-                    },
-                    body: JSON.stringify({ productId: PLAN_PRODUCT_IDS[planKey] }),
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ productId: PLAN_PRODUCT_IDS[planKey], user_id: user?.id || undefined }),
                 });
                 const data = await res.json();
 
