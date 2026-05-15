@@ -71,10 +71,13 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
 
     const openPayment = (url: string, planKey?: string) => {
         // 在 Creem URL 中添加 success_url，支付完成后重定向到 /payment-success
-        // /payment-success 页面会自动关闭弹窗并通知原页面
+        // /payment-success 页面会直接调用 activate-plan API 激活套餐
         try {
             const creemUrl = new URL(url);
-            creemUrl.searchParams.set('success_url', window.location.origin + '/payment-success');
+            let successUrl = window.location.origin + '/payment-success';
+            // 将 planKey 传到 success_url，支付成功页面可直接激活套餐
+            if (planKey) successUrl += '?plan=' + encodeURIComponent(planKey);
+            creemUrl.searchParams.set('success_url', successUrl);
             url = creemUrl.toString();
         } catch {}
 
