@@ -50,22 +50,35 @@ function verifySignature(payload: string, signature: string, secret: string): bo
 
 // ============ 查询用户 ============
 
-/** 通过邮箱在 Supabase Auth 中查找用户 */
-async function findUserByEmail(email: string): Promise<string | null> {
+/** 通过邮箱在 Supabase Auth 中查找用户，不存在则自动创建 */
+async function findOrCreateUserByEmail(email: string): Promise<string | null> {
   try {
-    // 使用 Admin API 按邮箱查找用户（最可靠的方式）
+    // 先查找
     const { data, error } = await supabaseAdmin.auth.admin.listUsers();
     if (error) {
       console.error('[Creem Webhook] listUsers error:', error.message);
       return null;
     }
-    const user = data?.users?.find(u => u.email?.toLowerCase() === email.toLowerCase());
-    if (user) return user.id;
+    const existingUser = data?.users?.find(u => u.email?.toLowerCase() === email.toLowerCase());
+    if (existingUser) return existingUser.id;
 
-    console.log(`[Creem Webhook] User not found for email: ${email}, total users: ${data?.users?.length}`);
-    return null;
+    // 用户不存在，自动创建
+    console.log(`[Creem Webhook] User not found for email: ${email}, creating...`);
+    const { data: newUser, error: createError } = await supabaseAdmin.auth.admin.createUser({
+      email,
+      email_confirm: true, // 自动确认邮箱
+      user_metadata: { source: 'creem_payment' },
+    });
+
+    if (createError) {
+      console.error('[Creem Webhook] createUser error:', createError.message);
+      return null;
+    }
+
+    console.log(`[Creem Webhook] User created: ${email}, id: ${newUser.user?.id}`);
+    return newUser.user?.id || null;
   } catch (e) {
-    console.error('[Creem Webhook] findUserByEmail error:', e);
+    console.error('[Creem Webhook] findOrCreateUserByEmail error:', e);
     return null;
   }
 }
@@ -87,9 +100,9 @@ async function handleCheckoutCompleted(object: any) {
   // 优先从 metadata 获取 user_id（由 /api/creem-checkout 创建时传入）
   let userId: string | null = object?.metadata?.user_id || null;
 
-  // 兜底：通过 email 查找用户
+  // 兜底：通过 email 查找或自动创建用户
   if (!userId && customerEmail) {
-    userId = await findUserByEmail(customerEmail);
+    userId = await findOrCreateUserByEmail(customerEmail);
   }
 
   if (!userId) {
@@ -157,7 +170,7 @@ async function handleSubscriptionPaid(object: any) {
   // 优先从 metadata 获取 user_id
   let userId: string | null = object?.metadata?.user_id || null;
   if (!userId && customerEmail) {
-    userId = await findUserByEmail(customerEmail);
+    userId = await findOrCreateUserByEmail(customerEmail);
   }
   if (!userId) return;
 
@@ -217,7 +230,7 @@ async function handleSubscriptionCanceled(object: any) {
   // 优先从 metadata 获取 user_id
   let userId: string | null = object?.metadata?.user_id || null;
   if (!userId && customerEmail) {
-    userId = await findUserByEmail(customerEmail);
+    userId = await findOrCreateUserByEmail(customerEmail);
   }
   if (!userId) return;
 

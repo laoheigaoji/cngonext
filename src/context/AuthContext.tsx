@@ -222,39 +222,45 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const signInWithEmail = async (email: string): Promise<{ success: boolean; error?: string }> => {
+  const signInWithEmail = async (email: string): Promise<{ success: boolean; error?: string; hasPlan?: boolean }> => {
     try {
-      // 开发模式：硬编码测试邮箱，直接设置测试用户
-      if (process.env.NODE_ENV === 'development') {
-        const testUser = {
-          id: 'test-user-001',
-          email: '1546912750@qq.com',
-          user_metadata: { name: '测试用户' },
-          app_metadata: { provider: 'email' },
-          aud: 'authenticated',
-        } as any;
-        setUser(testUser);
-        localStorage.setItem('dev_test_user', JSON.stringify(testUser));
-        setLoading(false);
-        return { success: true };
-      }
-
-      // 保存当前路径，邮件打开的新标签页通过 URL 参数传递
-      const currentPath = window.location.pathname + window.location.search;
-      const callbackUrl = window.location.origin + '/auth/callback?redirect_to=' + encodeURIComponent(currentPath);
-
-      const { error } = await supabase.auth.signInWithOtp({
-        email,
-        options: {
-          emailRedirectTo: callbackUrl,
-        },
+      // 调用后端 API：查套餐 + 直接生成 session
+      const res = await fetch('/api/email-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
       });
-      if (error) {
-        return { success: false, error: error.message };
+
+      const data = await res.json();
+
+      if (!data.success && data.hasPlan === false) {
+        // 没有套餐
+        return { success: false, hasPlan: false, error: 'No active plan found. Please purchase a plan first.' };
       }
-      return { success: true };
+
+      if (!data.success || !data.access_token || !data.refresh_token) {
+        return { success: false, error: data.error || 'Login failed' };
+      }
+
+      // 用返回的 token 直接设置 session
+      const { data: sessionData, error: sessionError } = await supabase.auth.setSession({
+        access_token: data.access_token,
+        refresh_token: data.refresh_token,
+      });
+
+      if (sessionError) {
+        console.error('[Auth] setSession error:', sessionError);
+        return { success: false, error: sessionError.message };
+      }
+
+      if (sessionData.user) {
+        setUser(sessionData.user);
+        await checkPurchase(sessionData.user.id);
+      }
+
+      return { success: true, hasPlan: true };
     } catch (error: any) {
-      return { success: false, error: error.message || 'Failed to send email' };
+      return { success: false, error: error.message || 'Login failed' };
     }
   };
 
