@@ -224,7 +224,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signInWithEmail = async (email: string): Promise<{ success: boolean; error?: string; hasPlan?: boolean }> => {
     try {
-      // 调用后端 API：查套餐 + 直接生成 session
+      // 调用后端 API：查套餐 + 设置密码
       const res = await fetch('/api/email-login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -233,24 +233,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       const data = await res.json();
 
-      if (!data.success || !data.access_token || !data.refresh_token) {
+      if (!data.success || !data.password) {
         return { success: false, error: data.error || 'Login failed' };
       }
 
-      // 用返回的 token 直接设置 session
-      const { data: sessionData, error: sessionError } = await supabase.auth.setSession({
-        access_token: data.access_token,
-        refresh_token: data.refresh_token,
+      // 用后端设置的密码直接 signInWithPassword
+      const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+        email: data.email,
+        password: data.password,
       });
 
-      if (sessionError) {
-        console.error('[Auth] setSession error:', sessionError);
-        return { success: false, error: sessionError.message };
+      if (signInError) {
+        console.error('[Auth] signInWithPassword error:', signInError);
+        return { success: false, error: signInError.message };
       }
 
-      if (sessionData.user) {
-        setUser(sessionData.user);
-        await checkPurchase(sessionData.user.id);
+      if (signInData.user) {
+        setUser(signInData.user);
+        await checkPurchase(signInData.user.id);
       }
 
       return { success: true, hasPlan: data.hasPlan || false };
