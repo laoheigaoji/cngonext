@@ -84,34 +84,28 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
 
         // 支付成功后的处理函数
         const handlePaymentDone = async () => {
-            // 自动触发 webhook
-            if (user?.email && planKey && PLAN_PRODUCT_IDS[planKey]) {
-                try {
-                    await fetch('/api/webhooks/creem', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            eventType: 'checkout.completed',
-                            object: {
-                                customer: { email: user.email },
-                                product: { id: PLAN_PRODUCT_IDS[planKey] },
-                            },
-                        }),
-                    });
-                } catch {}
-            }
-            // 刷新套餐
+            if (!planKey || !PLAN_PRODUCT_IDS[planKey]) return;
+
             try {
-                const headers: Record<string, string> = {};
+                // 获取当前 session token
                 const { data: { session } } = await supabase.auth.getSession();
-                if (session?.access_token) {
-                    headers['Authorization'] = `Bearer ${session.access_token}`;
-                } else if (user?.email) {
-                    headers['x-dev-user-email'] = user.email;
+                if (!session?.access_token) {
+                    console.error('[Payment] No session token available');
+                    return;
                 }
-                const res = await fetch('/api/save-plan', { headers });
+
+                // 调用 activate-plan 接口直接激活套餐（不依赖 webhook）
+                const res = await fetch('/api/activate-plan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${session.access_token}`,
+                    },
+                    body: JSON.stringify({ productId: PLAN_PRODUCT_IDS[planKey] }),
+                });
                 const data = await res.json();
-                if (data.hasAccess && data.plan) {
+
+                if (data.success && data.plan) {
                     const planData = {
                         plan: data.plan.plan,
                         name: data.plan.name,
@@ -122,8 +116,31 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                     };
                     localStorage.setItem('user_plan', JSON.stringify(planData));
                     window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
+                } else {
+                    // 激活失败，尝试 fallback: 查询 save-plan 看是否已通过 webhook 激活
+                    console.warn('[Payment] activate-plan failed, trying save-plan fallback:', data);
+                    try {
+                        const fallbackRes = await fetch('/api/save-plan', {
+                            headers: { 'Authorization': `Bearer ${session.access_token}` },
+                        });
+                        const fallbackData = await fallbackRes.json();
+                        if (fallbackData.hasAccess && fallbackData.plan) {
+                            const planData = {
+                                plan: fallbackData.plan.plan,
+                                name: fallbackData.plan.name,
+                                cycle: fallbackData.plan.cycle,
+                                credits: fallbackData.plan.credits,
+                                creditsUsed: fallbackData.plan.creditsUsed,
+                                creditsRemaining: fallbackData.plan.creditsRemaining,
+                            };
+                            localStorage.setItem('user_plan', JSON.stringify(planData));
+                            window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
+                        }
+                    } catch {}
                 }
-            } catch {}
+            } catch (e) {
+                console.error('[Payment] handlePaymentDone error:', e);
+            }
         };
 
         let paymentHandled = false;
