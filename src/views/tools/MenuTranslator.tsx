@@ -207,6 +207,77 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                 }
             }
         }, 500);
+
+        // 方式4: 页面重新获得焦点时检查套餐（最可靠的兜底）
+        const handleFocus = async () => {
+            if (paymentHandled) return;
+            // 等2秒让其他方式先处理
+            await new Promise(r => setTimeout(r, 2000));
+            if (paymentHandled) return;
+
+            console.log('[Payment] Page regained focus, checking plan status...');
+            paymentHandled = true;
+            await handlePaymentDone();
+        };
+        window.addEventListener('focus', handleFocus);
+
+        // 方式5: 5秒后定时轮询套餐状态（最终兜底，不依赖弹窗通信）
+        const pollTimer = setTimeout(async () => {
+            if (paymentHandled) return;
+            console.log('[Payment] Polling plan status after 5s...');
+
+            // 获取 user_id
+            let currentUserId = user?.id;
+            if (!currentUserId) {
+                try {
+                    const { data: { session } } = await supabase.auth.getSession();
+                    if (session?.user?.id) currentUserId = session.user.id;
+                } catch {}
+            }
+
+            if (currentUserId) {
+                try {
+                    const res = await fetch(`/api/save-plan?user_id=${encodeURIComponent(currentUserId)}`);
+                    const data = await res.json();
+                    if (data.hasAccess && data.plan) {
+                        paymentHandled = true;
+                        const planData = {
+                            plan: data.plan.plan,
+                            name: data.plan.name,
+                            cycle: data.plan.cycle,
+                            credits: data.plan.credits,
+                            creditsUsed: data.plan.creditsUsed,
+                            creditsRemaining: data.plan.creditsRemaining,
+                        };
+                        localStorage.setItem('user_plan', JSON.stringify(planData));
+                        window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
+                        console.log('[Payment] ✅ Plan detected via polling');
+                    }
+                } catch {}
+            }
+
+            // 如果轮询也没查到，10秒后再查一次
+            setTimeout(async () => {
+                if (paymentHandled) return;
+                if (currentUserId) {
+                    try {
+                        const res = await fetch(`/api/save-plan?user_id=${encodeURIComponent(currentUserId)}`);
+                        const data = await res.json();
+                        if (data.hasAccess && data.plan) {
+                            paymentHandled = true;
+                            const planData = {
+                                plan: data.plan.plan, name: data.plan.name, cycle: data.plan.cycle,
+                                credits: data.plan.credits, creditsUsed: data.plan.creditsUsed,
+                                creditsRemaining: data.plan.creditsRemaining,
+                            };
+                            localStorage.setItem('user_plan', JSON.stringify(planData));
+                            window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
+                            console.log('[Payment] ✅ Plan detected via 2nd polling');
+                        }
+                    } catch {}
+                }
+            }, 10000);
+        }, 5000);
     };
     // Chinese pronunciation using Web Speech API
     const speakChinese = (text: string) => {
