@@ -66,94 +66,67 @@ export default function Navbar() {
     };
   }, []);
 
+  // Read plan from localStorage on mount + listen for plan-updated events
   useEffect(() => {
-    // Read plan from localStorage on mount
     const stored = localStorage.getItem('user_plan');
     if (stored) {
       try { setUserPlan(JSON.parse(stored)); } catch {}
     }
-    // Listen for plan updates
     const handler = (e: CustomEvent) => setUserPlan(e.detail);
     window.addEventListener('plan-updated', handler as EventListener);
+    return () => {
+      window.removeEventListener('plan-updated', handler as EventListener);
+    };
+  }, []);
 
-    let subscription: { unsubscribe: () => void } | null = null;
-
-    // Initialize supabase and set up auth listener
+  // When user changes, fetch plan from DB
+  useEffect(() => {
+    if (!user) return;
+    console.log('[Navbar] User detected, fetching plan for:', user.email);
+    
+    let cancelled = false;
     (async () => {
       try {
         const { supabase } = await import('../lib/supabase');
-
-        // Fetch plan from DB if user is logged in
-        const fetchPlanFromDB = async () => {
-          try {
-            const { data: { session } } = await supabase.auth.getSession();
-            console.log('[Navbar] fetchPlanFromDB - session:', session ? `user=${session.user?.email}, hasToken=${!!session.access_token}` : 'null');
-            if (session?.access_token) {
-              const res = await fetch('/api/save-plan', {
-                headers: { 'Authorization': `Bearer ${session.access_token}` },
-              });
-              const data = await res.json();
-              console.log('[Navbar] fetchPlanFromDB - API response:', JSON.stringify(data));
-              if (data.hasAccess && data.plan) {
-                const planData = {
-                  plan: data.plan.plan,
-                  name: data.plan.name,
-                  cycle: data.plan.cycle,
-                  credits: data.plan.credits,
-                  creditsUsed: data.plan.creditsUsed,
-                  creditsRemaining: data.plan.creditsRemaining,
-                };
-                console.log('[Navbar] fetchPlanFromDB - setting planData:', JSON.stringify(planData));
-                setUserPlan(planData);
-                localStorage.setItem('user_plan', JSON.stringify(planData));
-              } else {
-                console.log('[Navbar] fetchPlanFromDB - no access or no plan. hasAccess:', data.hasAccess, 'plan:', data.plan);
-              }
-            } else if (process.env.NODE_ENV === 'development') {
-              // 开发模式：检查 localStorage 中的测试用户
-              const devUser = localStorage.getItem('dev_test_user');
-              if (devUser) {
-                const { email } = JSON.parse(devUser);
-                const res = await fetch('/api/save-plan', {
-                  headers: { 'x-dev-user-email': email },
-                });
-                const data = await res.json();
-                if (data.hasAccess && data.plan) {
-                  const planData = {
-                    plan: data.plan.plan,
-                    name: data.plan.name,
-                    cycle: data.plan.cycle,
-                    credits: data.plan.credits,
-                    creditsUsed: data.plan.creditsUsed,
-                    creditsRemaining: data.plan.creditsRemaining,
-                  };
-                  setUserPlan(planData);
-                  localStorage.setItem('user_plan', JSON.stringify(planData));
-                }
-              }
-            }
-          } catch (e) {
-            console.error('[Navbar] Fetch plan from DB failed:', e);
+        const { data: { session } } = await supabase.auth.getSession();
+        console.log('[Navbar] getSession result:', session ? `user=${session.user?.email}, hasToken=${!!session.access_token}` : 'null');
+        
+        if (cancelled) return;
+        
+        if (session?.access_token) {
+          const res = await fetch('/api/save-plan', {
+            headers: { 'Authorization': `Bearer ${session.access_token}` },
+          });
+          const data = await res.json();
+          console.log('[Navbar] /api/save-plan response:', JSON.stringify(data));
+          
+          if (cancelled) return;
+          
+          if (data.hasAccess && data.plan) {
+            const planData = {
+              plan: data.plan.plan,
+              name: data.plan.name,
+              cycle: data.plan.cycle,
+              credits: data.plan.credits,
+              creditsUsed: data.plan.creditsUsed,
+              creditsRemaining: data.plan.creditsRemaining,
+            };
+            console.log('[Navbar] Setting userPlan:', JSON.stringify(planData));
+            setUserPlan(planData);
+            localStorage.setItem('user_plan', JSON.stringify(planData));
+          } else {
+            console.log('[Navbar] No access. hasAccess:', data.hasAccess, 'plan:', data.plan);
           }
-        };
-
-        // Re-fetch when auth state changes
-        const { data: { subscription: sub } } = supabase.auth.onAuthStateChange(() => {
-          fetchPlanFromDB();
-        });
-        subscription = sub;
-
-        fetchPlanFromDB();
+        } else {
+          console.log('[Navbar] No session or no access_token');
+        }
       } catch (e) {
-        console.error('[Navbar] Init supabase failed:', e);
+        console.error('[Navbar] Fetch plan error:', e);
       }
     })();
-
-    return () => {
-      window.removeEventListener('plan-updated', handler as EventListener);
-      subscription?.unsubscribe();
-    };
-  }, []);
+    
+    return () => { cancelled = true; };
+  }, [user]);
 
   useEffect(() => {
     const browserLang = navigator.language.toLowerCase();
