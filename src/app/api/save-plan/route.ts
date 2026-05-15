@@ -135,13 +135,16 @@ export async function POST(req: NextRequest) {
 }
 
 // GET: 查询用户当前有效套餐
+// 支持 Authorization Bearer token 或 ?user_id=xxx 查询参数
 export async function GET(req: NextRequest) {
   try {
     const authHeader = req.headers.get('authorization')?.replace('Bearer ', '');
     const devEmail = req.headers.get('x-dev-user-email');
+    const urlUserId = req.nextUrl.searchParams.get('user_id');
 
     let userId: string | null = null;
 
+    // 优先用 token 验证
     if (authHeader) {
       const { data: { user }, error: userError } = await supabaseAdmin.auth.getUser(authHeader);
       if (!userError && user) {
@@ -149,14 +152,17 @@ export async function GET(req: NextRequest) {
       }
     }
 
+    // 降级：用 URL 中的 user_id 参数（前端直接传，跳过 token 验证）
+    if (!userId && urlUserId) {
+      // 验证 user_id 格式（UUID）
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      if (uuidRegex.test(urlUserId)) {
+        userId = urlUserId;
+      }
+    }
+
     // 开发模式降级：通过 email 查找 user_plans
     if (!userId && devEmail && process.env.NODE_ENV === 'development') {
-      const { data: plansByEmail } = await supabaseAdmin
-        .from('user_plans')
-        .select('user_id')
-        .eq('status', 'active')
-        .limit(1);
-      // 直接用测试 user_id 查询
       userId = 'test-user-001';
     }
 

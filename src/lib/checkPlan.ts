@@ -22,16 +22,31 @@ export interface PlanCheckResult {
 /**
  * 检测用户是否有套餐权限（积分制）
  * 有剩余积分的套餐才视为有效
+ * 
+ * 支持 authHeader（Bearer token）或 userId（UUID）两种验证方式
  */
-export async function checkUserPlan(authHeader: string | null): Promise<PlanCheckResult> {
-  if (!authHeader) {
-    return { hasAccess: false, plan: null, userId: null };
-  }
-
+export async function checkUserPlan(authHeader: string | null, userId?: string | null): Promise<PlanCheckResult> {
   try {
-    const token = authHeader.replace('Bearer ', '');
-    const { data: { user }, error: userError } = await supabaseAdmin.auth.getUser(token);
-    if (userError || !user) {
+    let resolvedUserId: string | null = null;
+
+    // 优先用 token 验证
+    if (authHeader) {
+      const token = authHeader.replace('Bearer ', '');
+      const { data: { user }, error: userError } = await supabaseAdmin.auth.getUser(token);
+      if (!userError && user) {
+        resolvedUserId = user.id;
+      }
+    }
+
+    // 降级：用 userId 参数（UUID 格式验证）
+    if (!resolvedUserId && userId) {
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      if (uuidRegex.test(userId)) {
+        resolvedUserId = userId;
+      }
+    }
+
+    if (!resolvedUserId) {
       return { hasAccess: false, plan: null, userId: null };
     }
 
@@ -39,13 +54,13 @@ export async function checkUserPlan(authHeader: string | null): Promise<PlanChec
     const { data: plans } = await supabaseAdmin
       .from('user_plans')
       .select('*')
-      .eq('user_id', user.id)
+      .eq('user_id', resolvedUserId)
       .eq('status', 'active')
       .or(`expires_at.gte.${now},expires_at.is.null`)
       .order('purchased_at', { ascending: false });
 
     if (!plans || plans.length === 0) {
-      return { hasAccess: false, plan: null, userId: user.id };
+      return { hasAccess: false, plan: null, userId: resolvedUserId };
     }
 
     const activePlan = plans[0];
@@ -55,7 +70,7 @@ export async function checkUserPlan(authHeader: string | null): Promise<PlanChec
 
     // 积分耗尽 → 视为无权限
     if (creditsRemaining < CREDITS_PER_CONVERSION) {
-      return { hasAccess: false, plan: { ...activePlan, credits, creditsUsed }, userId: user.id };
+      return { hasAccess: false, plan: { ...activePlan, credits, creditsUsed }, userId: resolvedUserId };
     }
 
     return {
@@ -69,7 +84,7 @@ export async function checkUserPlan(authHeader: string | null): Promise<PlanChec
         credits,
         creditsUsed,
       },
-      userId: user.id,
+      userId: resolvedUserId,
     };
   } catch (e) {
     console.error('[checkUserPlan] Error:', e);
@@ -80,16 +95,31 @@ export async function checkUserPlan(authHeader: string | null): Promise<PlanChec
 /**
  * 消耗积分
  * 扣减成功返回 true，积分不足返回 false
+ * 
+ * 支持 authHeader（Bearer token）或 userId（UUID）两种验证方式
  */
-export async function deductCredits(authHeader: string | null, amount: number = CREDITS_PER_CONVERSION): Promise<{ success: boolean; creditsRemaining: number }> {
-  if (!authHeader) {
-    return { success: false, creditsRemaining: 0 };
-  }
-
+export async function deductCredits(authHeader: string | null, amount: number = CREDITS_PER_CONVERSION, userId?: string | null): Promise<{ success: boolean; creditsRemaining: number }> {
   try {
-    const token = authHeader.replace('Bearer ', '');
-    const { data: { user }, error: userError } = await supabaseAdmin.auth.getUser(token);
-    if (userError || !user) {
+    let resolvedUserId: string | null = null;
+
+    // 优先用 token 验证
+    if (authHeader) {
+      const token = authHeader.replace('Bearer ', '');
+      const { data: { user }, error: userError } = await supabaseAdmin.auth.getUser(token);
+      if (!userError && user) {
+        resolvedUserId = user.id;
+      }
+    }
+
+    // 降级：用 userId 参数
+    if (!resolvedUserId && userId) {
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      if (uuidRegex.test(userId)) {
+        resolvedUserId = userId;
+      }
+    }
+
+    if (!resolvedUserId) {
       return { success: false, creditsRemaining: 0 };
     }
 
@@ -97,7 +127,7 @@ export async function deductCredits(authHeader: string | null, amount: number = 
     const { data: plans } = await supabaseAdmin
       .from('user_plans')
       .select('id, credits, credits_used')
-      .eq('user_id', user.id)
+      .eq('user_id', resolvedUserId)
       .eq('status', 'active')
       .or(`expires_at.gte.${now},expires_at.is.null`)
       .order('purchased_at', { ascending: false })

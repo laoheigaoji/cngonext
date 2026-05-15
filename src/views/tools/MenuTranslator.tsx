@@ -257,7 +257,8 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                         body: JSON.stringify({
                             image: imageBase64,
                             mimeType: 'image/jpeg',
-                            lang: language
+                            lang: language,
+                            user_id: user?.id || undefined
                         })
                     });
 

@@ -151,7 +151,9 @@ export async function POST(req: NextRequest) {
   try {
     // 检测用户权限和积分
     const authHeader = req.headers.get('authorization');
-    const { hasAccess, plan, userId } = await checkUserPlan(authHeader);
+    const body = await req.json();
+    const userIdFromBody = body.user_id;
+    const { hasAccess, plan, userId } = await checkUserPlan(authHeader, userIdFromBody);
     if (!hasAccess) {
       const msg = !plan
         ? '请先购买套餐以使用菜单翻译功能'
@@ -159,7 +161,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: msg, needPurchase: true }, { status: 403 });
     }
 
-    const { image, mimeType, lang = 'en' }: { image?: string; mimeType?: string; lang?: string } = await req.json();
+    const { image, mimeType, lang = 'en' }: { image?: string; mimeType?: string; lang?: string; user_id?: string } = body;
 
     if (!image || !mimeType) {
       return NextResponse.json({ error: 'Missing image or mimeType' }, { status: 400 });
@@ -207,7 +209,7 @@ export async function POST(req: NextRequest) {
     // 翻译成功，消耗积分
     let creditsRemaining = 0;
     try {
-      const deductResult = await deductCredits(authHeader, CREDITS_PER_CONVERSION);
+      const deductResult = await deductCredits(authHeader, CREDITS_PER_CONVERSION, userId);
       creditsRemaining = deductResult.creditsRemaining;
       console.log(`[menu-translate] Credits deducted: ${CREDITS_PER_CONVERSION}, remaining: ${creditsRemaining}`);
     } catch (e) {

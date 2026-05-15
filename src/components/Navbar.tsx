@@ -81,44 +81,28 @@ export default function Navbar() {
 
   // When user changes, fetch plan from DB
   useEffect(() => {
-    if (!user) return;
-    console.log('[Navbar] User detected, fetching plan for:', user.email);
+    if (!user?.id) return;
     
     let cancelled = false;
     (async () => {
       try {
-        const { supabase } = await import('../lib/supabase');
-        const { data: { session } } = await supabase.auth.getSession();
-        console.log('[Navbar] getSession result:', session ? `user=${session.user?.email}, hasToken=${!!session.access_token}` : 'null');
+        // 直接用 user.id 查询，不再依赖 getSession/access_token
+        const res = await fetch(`/api/save-plan?user_id=${encodeURIComponent(user.id)}`);
+        const data = await res.json();
         
         if (cancelled) return;
         
-        if (session?.access_token) {
-          const res = await fetch('/api/save-plan', {
-            headers: { 'Authorization': `Bearer ${session.access_token}` },
-          });
-          const data = await res.json();
-          console.log('[Navbar] /api/save-plan response:', JSON.stringify(data));
-          
-          if (cancelled) return;
-          
-          if (data.hasAccess && data.plan) {
-            const planData = {
-              plan: data.plan.plan,
-              name: data.plan.name,
-              cycle: data.plan.cycle,
-              credits: data.plan.credits,
-              creditsUsed: data.plan.creditsUsed,
-              creditsRemaining: data.plan.creditsRemaining,
-            };
-            console.log('[Navbar] Setting userPlan:', JSON.stringify(planData));
-            setUserPlan(planData);
-            localStorage.setItem('user_plan', JSON.stringify(planData));
-          } else {
-            console.log('[Navbar] No access. hasAccess:', data.hasAccess, 'plan:', data.plan);
-          }
-        } else {
-          console.log('[Navbar] No session or no access_token');
+        if (data.hasAccess && data.plan) {
+          const planData = {
+            plan: data.plan.plan,
+            name: data.plan.name,
+            cycle: data.plan.cycle,
+            credits: data.plan.credits,
+            creditsUsed: data.plan.creditsUsed,
+            creditsRemaining: data.plan.creditsRemaining,
+          };
+          setUserPlan(planData);
+          localStorage.setItem('user_plan', JSON.stringify(planData));
         }
       } catch (e) {
         console.error('[Navbar] Fetch plan error:', e);
@@ -126,7 +110,7 @@ export default function Navbar() {
     })();
     
     return () => { cancelled = true; };
-  }, [user]);
+  }, [user?.id]);
 
   useEffect(() => {
     const browserLang = navigator.language.toLowerCase();
@@ -389,8 +373,6 @@ export default function Navbar() {
 
         {/* Tools and Lang */}
         <div className="hidden lg:flex items-center gap-6">
-          {/* Debug: log user and userPlan state */}
-          {isMenuTranslatorPage && console.log('[Navbar] Rendering - user:', user ? user.email : 'null', 'userPlan:', userPlan ? userPlan.name : 'null')}
           {/* Google Avatar - only on menu translator page */}
           {isMenuTranslatorPage && (
             <div className="relative">

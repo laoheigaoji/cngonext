@@ -6,7 +6,8 @@ export async function POST(req: NextRequest) {
   try {
     // 检测用户权限和积分
     const authHeader = req.headers.get('authorization');
-    const { hasAccess, plan } = await checkUserPlan(authHeader);
+    const userIdFromQuery = req.nextUrl.searchParams.get('user_id');
+    const { hasAccess, plan, userId } = await checkUserPlan(authHeader, userIdFromQuery);
 
     // 没有有效套餐 → 拒绝上传
     if (!hasAccess) {
@@ -37,7 +38,7 @@ export async function POST(req: NextRequest) {
     // 上传成功，消耗积分
     let creditsRemaining = 0;
     try {
-      const deductResult = await deductCredits(authHeader, CREDITS_PER_CONVERSION);
+      const deductResult = await deductCredits(authHeader, CREDITS_PER_CONVERSION, userId);
       creditsRemaining = deductResult.creditsRemaining;
     } catch (e) {
       console.error('[Upload-R2] Credit deduction failed (non-fatal):', e);
