@@ -82,19 +82,44 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
 
         if (!popup) return;
 
-        // 支付成功后的处理函数
+        // 支付成功后的处理函数（双重保险：webhook 优先 + activate-plan 兜底）
         const handlePaymentDone = async () => {
             if (!planKey || !PLAN_PRODUCT_IDS[planKey]) return;
 
             try {
-                // 获取当前 session token
                 const { data: { session } } = await supabase.auth.getSession();
                 if (!session?.access_token) {
                     console.error('[Payment] No session token available');
                     return;
                 }
 
-                // 调用 activate-plan 接口直接激活套餐（不依赖 webhook）
+                // 等 3 秒让 Creem webhook 有时间先处理（webhook 是主要路径）
+                await new Promise(r => setTimeout(r, 3000));
+
+                // 先查 save-plan 看 webhook 是否已经创建了套餐
+                const checkRes = await fetch('/api/save-plan', {
+                    headers: { 'Authorization': `Bearer ${session.access_token}` },
+                });
+                const checkData = await checkRes.json();
+
+                if (checkData.hasAccess && checkData.plan) {
+                    // ✅ 路径1: webhook 已成功创建套餐
+                    const planData = {
+                        plan: checkData.plan.plan,
+                        name: checkData.plan.name,
+                        cycle: checkData.plan.cycle,
+                        credits: checkData.plan.credits,
+                        creditsUsed: checkData.plan.creditsUsed,
+                        creditsRemaining: checkData.plan.creditsRemaining,
+                    };
+                    localStorage.setItem('user_plan', JSON.stringify(planData));
+                    window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
+                    console.log('[Payment] ✅ Webhook already activated plan');
+                    return;
+                }
+
+                // 路径2: webhook 还没处理或失败，前端主动激活套餐（兜底）
+                console.log('[Payment] Webhook not yet processed, activating plan manually...');
                 const res = await fetch('/api/activate-plan', {
                     method: 'POST',
                     headers: {
@@ -116,27 +141,9 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                     };
                     localStorage.setItem('user_plan', JSON.stringify(planData));
                     window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
+                    console.log('[Payment] ✅ Plan activated via activate-plan');
                 } else {
-                    // 激活失败，尝试 fallback: 查询 save-plan 看是否已通过 webhook 激活
-                    console.warn('[Payment] activate-plan failed, trying save-plan fallback:', data);
-                    try {
-                        const fallbackRes = await fetch('/api/save-plan', {
-                            headers: { 'Authorization': `Bearer ${session.access_token}` },
-                        });
-                        const fallbackData = await fallbackRes.json();
-                        if (fallbackData.hasAccess && fallbackData.plan) {
-                            const planData = {
-                                plan: fallbackData.plan.plan,
-                                name: fallbackData.plan.name,
-                                cycle: fallbackData.plan.cycle,
-                                credits: fallbackData.plan.credits,
-                                creditsUsed: fallbackData.plan.creditsUsed,
-                                creditsRemaining: fallbackData.plan.creditsRemaining,
-                            };
-                            localStorage.setItem('user_plan', JSON.stringify(planData));
-                            window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
-                        }
-                    } catch {}
+                    console.error('[Payment] Both webhook and activate-plan failed:', data);
                 }
             } catch (e) {
                 console.error('[Payment] handlePaymentDone error:', e);

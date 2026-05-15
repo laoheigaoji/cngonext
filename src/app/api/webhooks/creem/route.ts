@@ -53,19 +53,17 @@ function verifySignature(payload: string, signature: string, secret: string): bo
 /** 通过邮箱在 Supabase Auth 中查找用户 */
 async function findUserByEmail(email: string): Promise<string | null> {
   try {
-    // 优先：直接查询 auth.users 表（service_role 有权限）
-    const { data, error } = await supabaseAdmin
-      .from('auth.users')
-      .select('id')
-      .eq('email', email.toLowerCase())
-      .maybeSingle();
+    // 使用 Admin API 按邮箱查找用户（最可靠的方式）
+    const { data, error } = await supabaseAdmin.auth.admin.listUsers();
+    if (error) {
+      console.error('[Creem Webhook] listUsers error:', error.message);
+      return null;
+    }
+    const user = data?.users?.find(u => u.email?.toLowerCase() === email.toLowerCase());
+    if (user) return user.id;
 
-    if (!error && data?.id) return data.id;
-
-    // 降级：使用 Admin API 遍历
-    const { data: listData } = await supabaseAdmin.auth.admin.listUsers();
-    const user = listData?.users?.find(u => u.email?.toLowerCase() === email.toLowerCase());
-    return user?.id || null;
+    console.log(`[Creem Webhook] User not found for email: ${email}, total users: ${data?.users?.length}`);
+    return null;
   } catch (e) {
     console.error('[Creem Webhook] findUserByEmail error:', e);
     return null;
