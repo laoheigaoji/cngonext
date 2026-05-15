@@ -52,34 +52,69 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 3. 没有套餐 → 返回提示购买
-    if (!hasPlan) {
-      return NextResponse.json({
-        success: false,
-        hasPlan: false,
-        message: 'No active plan found. Please purchase a plan first.',
+    // 3. 没有套餐也允许登录（只是标记 hasPlan: false，前端可以引导购买）
+    // 如果用户不存在，先创建
+    if (!existingUser) {
+      const { data: newUser, error: createError } = await supabaseAdmin.auth.admin.createUser({
+        email: lowerEmail,
+        email_confirm: true,
+        user_metadata: { source: 'email_login' },
       });
+      if (createError) {
+        console.error('[Email Login] createUser error:', createError.message);
+        return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
+      }
+      userId = newUser.user?.id || null;
+      console.log(`[Email Login] User created: ${lowerEmail}`);
     }
 
-    // 4. 有套餐 → 生成 magic link 提取 token，直接登录
+    // 4. 有套餐 → 用 admin API 生成 magic link 提取 token，直接登录
     const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
       type: 'magiclink',
       email: lowerEmail,
     });
 
-    if (linkError || !linkData?.properties?.action_link) {
-      console.error('[Email Login] generateLink error:', linkError?.message);
+    if (linkError) {
+      console.error('[Email Login] generateLink error:', linkError.message);
       return NextResponse.json({ error: 'Failed to generate session' }, { status: 500 });
     }
 
-    // 从 magic link URL 中提取 access_token 和 refresh_token
-    const actionLink = linkData.properties.action_link;
-    const url = new URL(actionLink);
-    const access_token = url.searchParams.get('access_token') || url.hash.match(/access_token=([^&]+)/)?.[1];
-    const refresh_token = url.searchParams.get('refresh_token') || url.hash.match(/refresh_token=([^&]+)/)?.[1];
+    // generateLink 返回的 token 在不同位置，尝试多种方式提取
+    let access_token: string | null = null;
+    let refresh_token: string | null = null;
+
+    // 方式1: 直接从返回的用户对象中获取
+    if (linkData?.user) {
+      // @ts-ignore - Supabase 内部结构
+      const session = linkData.user.user_metadata?.session || linkData.user as any;
+      access_token = session?.access_token || null;
+      refresh_token = session?.refresh_token || null;
+    }
+
+    // 方式2: 从 action_link URL 中解析（可能在 query 或 hash 中）
+    if (!access_token && linkData?.properties?.action_link) {
+      try {
+        const actionLink = linkData.properties.action_link as string;
+        // 先尝试从 hash fragment 解析
+        const hashMatch = actionLink.match(/[#&]access_token=([^&#]+)/);
+        const hashRefresh = actionLink.match(/[#&]refresh_token=([^&#]+)/);
+        if (hashMatch) access_token = hashMatch[1];
+        if (hashRefresh) refresh_token = hashRefresh[1];
+
+        // 再尝试从 search params 解析
+        if (!access_token) {
+          const urlObj = new URL(actionLink);
+          access_token = urlObj.searchParams.get('access_token');
+          refresh_token = urlObj.searchParams.get('refresh_token');
+        }
+      } catch (e) {
+        console.error('[Email Login] Failed to parse action_link:', e);
+      }
+    }
 
     if (!access_token || !refresh_token) {
-      console.error('[Email Login] Failed to extract tokens from magic link');
+      console.error('[Email Login] Failed to extract tokens. linkData keys:', Object.keys(linkData || {}));
+      console.error('[Email Login] linkData.properties:', JSON.stringify(linkData?.properties));
       return NextResponse.json({ error: 'Failed to extract session tokens' }, { status: 500 });
     }
 

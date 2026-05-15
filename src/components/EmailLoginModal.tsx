@@ -31,9 +31,7 @@ export default function EmailLoginModal({ isOpen, onClose }: EmailLoginModalProp
     setSending(false);
 
     if (res.success) {
-      setResult('success');
-    } else if (res.hasPlan === false) {
-      setResult('noPlan');
+      setResult(res.hasPlan ? 'success' : 'noPlan');
     } else {
       setError(res.error || (language === 'zh' ? '登录失败' : 'Login failed'));
     }
@@ -159,16 +157,16 @@ export default function EmailLoginModal({ isOpen, onClose }: EmailLoginModalProp
                       <AlertCircle className="w-8 h-8 text-amber-500" />
                     </div>
                     <h3 className="text-lg font-bold text-gray-800 mb-2">
-                      {language === 'zh' ? '未找到套餐' : 'No Active Plan'}
+                      {language === 'zh' ? '登录成功' : 'Logged In'}
                     </h3>
                     <p className="text-gray-500 text-sm leading-relaxed">
                       {language === 'zh' 
-                        ? '该邮箱没有活跃的套餐，请先购买套餐。' 
-                        : 'No active plan found for this email. Please purchase a plan first.'}
+                        ? '您还没有活跃的套餐，使用付费功能时将提示购买。' 
+                        : 'No active plan yet. You can browse freely and purchase when needed.'}
                     </p>
                     <button
-                      onClick={handleClose}
-                      className="mt-6 px-6 py-2.5 bg-gray-100 text-gray-600 rounded-xl font-medium hover:bg-gray-200 transition-colors"
+                      onClick={() => window.location.reload()}
+                      className="mt-6 px-6 py-2.5 bg-[#1b887a] text-white rounded-xl font-medium hover:bg-[#14786c] transition-colors"
                     >
                       {language === 'zh' ? '知道了' : 'Got it'}
                     </button>

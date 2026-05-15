@@ -233,11 +233,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       const data = await res.json();
 
-      if (!data.success && data.hasPlan === false) {
-        // 没有套餐
-        return { success: false, hasPlan: false, error: 'No active plan found. Please purchase a plan first.' };
-      }
-
       if (!data.success || !data.access_token || !data.refresh_token) {
         return { success: false, error: data.error || 'Login failed' };
       }
@@ -258,7 +253,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         await checkPurchase(sessionData.user.id);
       }
 
-      return { success: true, hasPlan: true };
+      return { success: true, hasPlan: data.hasPlan || false };
     } catch (error: any) {
       return { success: false, error: error.message || 'Login failed' };
     }
