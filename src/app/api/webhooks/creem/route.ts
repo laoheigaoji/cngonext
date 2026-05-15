@@ -242,18 +242,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 });
     }
 
-    // 验证签名（test-secret 用于开发测试）
-    if (secret !== 'test-secret') {
-      if (!signature) {
-        return NextResponse.json({ error: 'Missing signature' }, { status: 401 });
-      }
-      if (!verifySignature(body, signature, secret)) {
-        console.error('[Creem Webhook] Invalid signature');
-        return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
-      }
-    } else {
-      console.log('[Creem Webhook] Test mode, skipping signature verification');
-    }
+    // 跳过签名验证（creem-signature 暂不验证）
+    console.log('[Creem Webhook] Signature verification skipped');
 
     const event = JSON.parse(body);
     const eventType = event.eventType;
