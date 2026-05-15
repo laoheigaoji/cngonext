@@ -10,7 +10,7 @@ import { supabaseAdmin } from '@/lib/supabaseAdmin';
  */
 export async function POST(req: NextRequest) {
   try {
-    const { product_id, user_id, success_url } = await req.json();
+    const { product_id, user_id, customer_email, success_url } = await req.json();
 
     if (!product_id || !user_id) {
       return NextResponse.json({ error: 'Missing product_id or user_id' }, { status: 400 });
@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         product_id,
+        customer: customer_email ? { email: customer_email } : undefined,
         metadata: {
           user_id, // 传入 Supabase user_id，webhook 可读取
         },

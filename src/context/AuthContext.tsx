@@ -301,13 +301,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const productId = (typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_CREEM_PRODUCT_ID : null) || 'prod_5xXOa84Nq51M6OpgInrSKp';
 
     try {
-      // 通过后端 API 创建 Creem 结账，在 metadata 中传入 user_id
+      // 通过后端 API 创建 Creem 结账，在 metadata 中传入 user_id，预填邮箱
       const res = await fetch('/api/creem-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           product_id: productId,
           user_id: user.id,
+          customer_email: user.email || undefined,
           success_url: window.location.origin + '/payment-success',
         }),
       });
