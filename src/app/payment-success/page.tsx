@@ -133,7 +133,6 @@ export default function PaymentSuccess() {
     // 方式3: localStorage
     localStorage.setItem('payment_success_time', Date.now().toString());
     if (planData) {
-      localStorage.setItem('user_plan', JSON.stringify(planData));
       window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
     }
   };

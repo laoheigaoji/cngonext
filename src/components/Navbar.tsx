@@ -66,12 +66,8 @@ export default function Navbar() {
     };
   }, []);
 
-  // Read plan from localStorage on mount + listen for plan-updated events
+  // Listen for plan-updated events (no localStorage cache read)
   useEffect(() => {
-    const stored = localStorage.getItem('user_plan');
-    if (stored) {
-      try { setUserPlan(JSON.parse(stored)); } catch {}
-    }
     const handler = (e: CustomEvent) => setUserPlan(e.detail);
     window.addEventListener('plan-updated', handler as EventListener);
     return () => {
@@ -102,7 +98,9 @@ export default function Navbar() {
             creditsRemaining: data.plan.creditsRemaining,
           };
           setUserPlan(planData);
-          localStorage.setItem('user_plan', JSON.stringify(planData));
+        } else {
+          // 套餐不存在或已取消
+          setUserPlan(null);
         }
       } catch (e) {
         console.error('[Navbar] Fetch plan error:', e);

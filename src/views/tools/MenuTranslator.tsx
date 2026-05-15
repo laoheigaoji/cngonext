@@ -139,7 +139,6 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                         creditsUsed: checkData.plan.creditsUsed,
                         creditsRemaining: checkData.plan.creditsRemaining,
                     };
-                    localStorage.setItem('user_plan', JSON.stringify(planData));
                     window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
                     console.log('[Payment] ✅ Webhook already activated plan');
                     return;
@@ -163,7 +162,6 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                         creditsUsed: data.plan.creditsUsed,
                         creditsRemaining: data.plan.creditsRemaining,
                     };
-                    localStorage.setItem('user_plan', JSON.stringify(planData));
                     window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
                     console.log('[Payment] ✅ Plan activated via activate-plan');
                 } else {
@@ -252,7 +250,6 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                             creditsUsed: data.plan.creditsUsed,
                             creditsRemaining: data.plan.creditsRemaining,
                         };
-                        localStorage.setItem('user_plan', JSON.stringify(planData));
                         window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
                         console.log('[Payment] ✅ Plan detected via polling');
                     }
@@ -273,7 +270,6 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                                 credits: data.plan.credits, creditsUsed: data.plan.creditsUsed,
                                 creditsRemaining: data.plan.creditsRemaining,
                             };
-                            localStorage.setItem('user_plan', JSON.stringify(planData));
                             window.dispatchEvent(new CustomEvent('plan-updated', { detail: planData }));
                             console.log('[Payment] ✅ Plan detected via 2nd polling');
                         }

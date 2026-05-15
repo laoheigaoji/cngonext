@@ -260,7 +260,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = async () => {
     try {
-      const { error } = await supabase.auth.signOut();
+      const { error } = await supabase.auth.signOut({ scope: 'global' });
       if (error) {
         console.error('Supabase signOut error:', error.message);
       }
@@ -273,9 +273,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('hasPurchased');
     localStorage.removeItem('device_purchase_token');
     localStorage.removeItem('dev_test_user');
-    // Redirect to home page after sign out
+    localStorage.removeItem('user_plan');
+    // Clear all Supabase auth tokens from localStorage
     if (typeof window !== 'undefined') {
-      window.location.href = '/';
+      const keysToRemove: string[] = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('sb-')) {
+          keysToRemove.push(key);
+        }
+      }
+      keysToRemove.forEach(key => localStorage.removeItem(key));
+    }
+    // Redirect to home page after sign out (use replace to avoid back button issues)
+    if (typeof window !== 'undefined') {
+      window.location.replace('/');
     }
   };
 
