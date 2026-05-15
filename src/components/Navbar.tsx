@@ -87,11 +87,13 @@ export default function Navbar() {
         const fetchPlanFromDB = async () => {
           try {
             const { data: { session } } = await supabase.auth.getSession();
+            console.log('[Navbar] fetchPlanFromDB - session:', session ? `user=${session.user?.email}, hasToken=${!!session.access_token}` : 'null');
             if (session?.access_token) {
               const res = await fetch('/api/save-plan', {
                 headers: { 'Authorization': `Bearer ${session.access_token}` },
               });
               const data = await res.json();
+              console.log('[Navbar] fetchPlanFromDB - API response:', JSON.stringify(data));
               if (data.hasAccess && data.plan) {
                 const planData = {
                   plan: data.plan.plan,
@@ -101,8 +103,11 @@ export default function Navbar() {
                   creditsUsed: data.plan.creditsUsed,
                   creditsRemaining: data.plan.creditsRemaining,
                 };
+                console.log('[Navbar] fetchPlanFromDB - setting planData:', JSON.stringify(planData));
                 setUserPlan(planData);
                 localStorage.setItem('user_plan', JSON.stringify(planData));
+              } else {
+                console.log('[Navbar] fetchPlanFromDB - no access or no plan. hasAccess:', data.hasAccess, 'plan:', data.plan);
               }
             } else if (process.env.NODE_ENV === 'development') {
               // 开发模式：检查 localStorage 中的测试用户
@@ -411,6 +416,8 @@ export default function Navbar() {
 
         {/* Tools and Lang */}
         <div className="hidden lg:flex items-center gap-6">
+          {/* Debug: log user and userPlan state */}
+          {isMenuTranslatorPage && console.log('[Navbar] Rendering - user:', user ? user.email : 'null', 'userPlan:', userPlan ? userPlan.name : 'null')}
           {/* Google Avatar - only on menu translator page */}
           {isMenuTranslatorPage && (
             <div className="relative">
