@@ -292,33 +292,71 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const initiateCheckout = async () => {
-    let localToken = localStorage.getItem('device_purchase_token');
-    if (!localToken) {
-      localToken = 'dev_' + Math.random().toString(36).substring(2, 15);
-      localStorage.setItem('device_purchase_token', localToken);
+    if (!user) {
+      alert('Please log in first');
+      return;
     }
 
-    const checkoutUrl = (typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_CREEM_CHECKOUT_URL || process.env.VITE_CREEM_CHECKOUT_URL : null) || 'https://www.creem.io/payment/prod_5xXOa84Nq51M6OpgInrSKp';
-    if (checkoutUrl) {
-      const url = new URL(checkoutUrl);
-      url.searchParams.append('client_reference_id', user ? user.id : localToken);
-      url.searchParams.append('success_url', window.location.origin + '/payment-success');
-      
-      const width = 600;
-      const height = 700;
-      const left = window.screenX + (window.outerWidth - width) / 2;
-      const top = window.screenY + (window.outerHeight - height) / 2;
-      
-      const paymentWindow = window.open(
-        url.toString(),
-        'creem-payment',
-        `width=${width},height=${height},left=${left},top=${top}`
-      );
-      
-      if (!paymentWindow) {
-        alert('Popup blocked, opening payment in current window');
-        window.location.href = url.toString();
+    // 从环境变量获取 product_id
+    const productId = (typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_CREEM_PRODUCT_ID : null) || 'prod_5xXOa84Nq51M6OpgInrSKp';
+
+    try {
+      // 通过后端 API 创建 Creem 结账，在 metadata 中传入 user_id
+      const res = await fetch('/api/creem-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          product_id: productId,
+          user_id: user.id,
+          success_url: window.location.origin + '/payment-success',
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.checkout_url) {
+        const width = 600;
+        const height = 700;
+        const left = window.screenX + (window.outerWidth - width) / 2;
+        const top = window.screenY + (window.outerHeight - height) / 2;
+
+        const paymentWindow = window.open(
+          data.checkout_url,
+          'creem-payment',
+          `width=${width},height=${height},left=${left},top=${top}`
+        );
+
+        if (!paymentWindow) {
+          window.location.href = data.checkout_url;
+        }
+      } else {
+        // 降级：使用旧方式直接打开 Creem 托管页面
+        console.warn('[Auth] Creem Checkout API failed, falling back to hosted checkout');
+        const checkoutUrl = (typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_CREEM_CHECKOUT_URL || process.env.VITE_CREEM_CHECKOUT_URL : null) || 'https://www.creem.io/payment/prod_5xXOa84Nq51M6OpgInrSKp';
+        const url = new URL(checkoutUrl);
+        url.searchParams.append('client_reference_id', user.id);
+        url.searchParams.append('success_url', window.location.origin + '/payment-success');
+
+        const width = 600;
+        const height = 700;
+        const left = window.screenX + (window.outerWidth - width) / 2;
+        const top = window.screenY + (window.outerHeight - height) / 2;
+
+        const paymentWindow = window.open(
+          url.toString(),
+          'creem-payment',
+          `width=${width},height=${height},left=${left},top=${top}`
+        );
+
+        if (!paymentWindow) {
+          window.location.href = url.toString();
+        }
       }
+    } catch (error) {
+      console.error('[Auth] initiateCheckout error:', error);
+      // 降级到旧方式
+      const checkoutUrl = (typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_CREEM_CHECKOUT_URL || process.env.VITE_CREEM_CHECKOUT_URL : null) || 'https://www.creem.io/payment/prod_5xXOa84Nq51M6OpgInrSKp';
+      window.open(checkoutUrl, 'creem-payment');
     }
   };
 

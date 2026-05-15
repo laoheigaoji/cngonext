@@ -76,7 +76,7 @@ async function findUserByEmail(email: string): Promise<string | null> {
 async function handleCheckoutCompleted(object: any) {
   const customerEmail = object?.customer?.email;
   const productId = object?.product?.id;
-  if (!customerEmail || !productId) return;
+  if (!productId) return;
 
   const plan = PRODUCT_PLAN_MAP[productId];
   if (!plan) {
@@ -84,9 +84,16 @@ async function handleCheckoutCompleted(object: any) {
     return;
   }
 
-  const userId = await findUserByEmail(customerEmail);
+  // 优先从 metadata 获取 user_id（由 /api/creem-checkout 创建时传入）
+  let userId: string | null = object?.metadata?.user_id || null;
+
+  // 兜底：通过 email 查找用户
+  if (!userId && customerEmail) {
+    userId = await findUserByEmail(customerEmail);
+  }
+
   if (!userId) {
-    console.log(`[Creem Webhook] User not found for email: ${customerEmail}`);
+    console.log(`[Creem Webhook] User not found: metadata.user_id=${object?.metadata?.user_id}, email=${customerEmail}`);
     return;
   }
 
@@ -142,12 +149,16 @@ async function handleCheckoutCompleted(object: any) {
 async function handleSubscriptionPaid(object: any) {
   const customerEmail = object?.customer?.email;
   const productId = object?.product?.id;
-  if (!customerEmail || !productId) return;
+  if (!productId) return;
 
   const plan = PRODUCT_PLAN_MAP[productId];
   if (!plan) return;
 
-  const userId = await findUserByEmail(customerEmail);
+  // 优先从 metadata 获取 user_id
+  let userId: string | null = object?.metadata?.user_id || null;
+  if (!userId && customerEmail) {
+    userId = await findUserByEmail(customerEmail);
+  }
   if (!userId) return;
 
   const info = getPlan(plan);
@@ -198,12 +209,16 @@ async function handleSubscriptionPaid(object: any) {
 async function handleSubscriptionCanceled(object: any) {
   const customerEmail = object?.customer?.email;
   const productId = object?.product?.id;
-  if (!customerEmail || !productId) return;
+  if (!productId) return;
 
   const plan = PRODUCT_PLAN_MAP[productId];
   if (!plan) return;
 
-  const userId = await findUserByEmail(customerEmail);
+  // 优先从 metadata 获取 user_id
+  let userId: string | null = object?.metadata?.user_id || null;
+  if (!userId && customerEmail) {
+    userId = await findUserByEmail(customerEmail);
+  }
   if (!userId) return;
 
   await supabaseAdmin

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Save, RefreshCw, Globe, Shield, Bug, ExternalLink } from 'lucide-react';
+import { Save, RefreshCw, Globe, Shield, Bug, ExternalLink, Key } from 'lucide-react';
 
 interface PlanConfig {
   product_id: string;
@@ -12,6 +12,8 @@ interface PaymentConfig {
   id: string;
   sandbox_mode: boolean;
   sandbox_url: string;
+  sandbox_api_key: string;
+  api_key: string;
   webhook_secret: string;
   plans: Record<string, PlanConfig>;
   updated_at: string | null;
@@ -65,6 +67,8 @@ export default function PaymentManagement() {
         body: JSON.stringify({
           sandbox_mode: config.sandbox_mode,
           sandbox_url: config.sandbox_url,
+          sandbox_api_key: config.sandbox_api_key,
+          api_key: config.api_key,
           webhook_secret: config.webhook_secret,
           plans: config.plans,
         }),
@@ -167,6 +171,48 @@ export default function PaymentManagement() {
             />
           </div>
         )}
+      </div>
+
+      {/* API Key 配置 */}
+      <div className="bg-white rounded-2xl border border-gray-100 p-6 mb-6">
+        <div className="flex items-center gap-3 mb-4">
+          <Key className="w-5 h-5 text-orange-600" />
+          <div>
+            <h3 className="font-bold text-gray-900">Creem API Key</h3>
+            <p className="text-xs text-gray-400">Creem Dashboard → Developers → API Keys 获取，用于通过 API 创建结账</p>
+          </div>
+        </div>
+        <div className="space-y-3">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              🧪 测试模式 API Key
+              <span className="text-xs text-gray-400 font-normal ml-2">以 sk_test_ 开头</span>
+            </label>
+            <input
+              type="password"
+              value={config?.sandbox_api_key || ''}
+              onChange={e => setConfig(prev => prev ? { ...prev, sandbox_api_key: e.target.value } : prev)}
+              className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition-all text-sm font-mono"
+              placeholder="sk_test_..."
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              🔴 生产模式 API Key
+              <span className="text-xs text-gray-400 font-normal ml-2">以 sk_live_ 开头</span>
+            </label>
+            <input
+              type="password"
+              value={config?.api_key || ''}
+              onChange={e => setConfig(prev => prev ? { ...prev, api_key: e.target.value } : prev)}
+              className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition-all text-sm font-mono"
+              placeholder="sk_live_..."
+            />
+          </div>
+          <p className="text-xs text-gray-400">
+            当前生效：{config?.sandbox_mode ? '🧪 测试模式 API Key' : '🔴 生产模式 API Key'}
+          </p>
+        </div>
       </div>
 
       {/* Webhook Secret */}

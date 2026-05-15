@@ -43,13 +43,15 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { sandbox_mode, sandbox_url, webhook_secret, plans } = body;
+    const { sandbox_mode, sandbox_url, sandbox_api_key, api_key, webhook_secret, plans } = body;
 
     const payload: any = {
       updated_at: new Date().toISOString(),
     };
     if (typeof sandbox_mode === 'boolean') payload.sandbox_mode = sandbox_mode;
     if (sandbox_url !== undefined) payload.sandbox_url = sandbox_url;
+    if (sandbox_api_key !== undefined) payload.sandbox_api_key = sandbox_api_key;
+    if (api_key !== undefined) payload.api_key = api_key;
     if (webhook_secret !== undefined) payload.webhook_secret = webhook_secret;
     if (plans !== undefined) payload.plans = plans;
 
