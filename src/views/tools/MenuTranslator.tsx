@@ -90,8 +90,40 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                 // 等 3 秒让 Creem webhook 有时间先处理（webhook 是主要路径）
                 await new Promise(r => setTimeout(r, 3000));
 
+                // 获取 user_id：优先 AuthContext，降级 supabase session，再降级 localStorage 解析
+                let currentUserId = user?.id;
+                if (!currentUserId) {
+                    try {
+                        const { data: { session } } = await supabase.auth.getSession();
+                        if (session?.user?.id) {
+                            currentUserId = session.user.id;
+                            console.log('[Payment] Got userId from supabase session:', currentUserId);
+                        }
+                    } catch {}
+                }
+                if (!currentUserId) {
+                    try {
+                        // 从 supabase 的 localStorage token 中解析 user id
+                        const keys = Object.keys(localStorage).filter(k => k.startsWith('sb-') && k.endsWith('-auth-token'));
+                        for (const key of keys) {
+                            const raw = localStorage.getItem(key);
+                            if (raw) {
+                                const parsed = JSON.parse(raw);
+                                const uid = parsed?.user?.id || parsed?.user_id;
+                                if (uid) { currentUserId = uid; break; }
+                            }
+                        }
+                        if (currentUserId) console.log('[Payment] Got userId from localStorage:', currentUserId);
+                    } catch {}
+                }
+
+                if (!currentUserId) {
+                    console.error('[Payment] Cannot determine user_id, user not logged in');
+                    return;
+                }
+
                 // 先查 save-plan 看 webhook 是否已经创建了套餐（用 user_id 而非 token）
-                const checkRes = await fetch(`/api/save-plan?user_id=${encodeURIComponent(user?.id || '')}`);
+                const checkRes = await fetch(`/api/save-plan?user_id=${encodeURIComponent(currentUserId)}`);
                 const checkData = await checkRes.json();
 
                 if (checkData.hasAccess && checkData.plan) {
@@ -115,7 +147,7 @@ const MenuTranslator = ({ translations }: MenuTranslatorProps) => {
                 const res = await fetch('/api/activate-plan', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ productId: PLAN_PRODUCT_IDS[planKey], user_id: user?.id || undefined }),
+                    body: JSON.stringify({ productId: PLAN_PRODUCT_IDS[planKey], user_id: currentUserId }),
                 });
                 const data = await res.json();
 
