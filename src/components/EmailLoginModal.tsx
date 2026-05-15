@@ -153,22 +153,22 @@ export default function EmailLoginModal({ isOpen, onClose }: EmailLoginModalProp
                   </div>
                 ) : (
                   <div className="text-center py-4">
-                    <div className="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <AlertCircle className="w-8 h-8 text-amber-500" />
+                    <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <CheckCircle className="w-8 h-8 text-green-500" />
                     </div>
                     <h3 className="text-lg font-bold text-gray-800 mb-2">
-                      {language === 'zh' ? '登录成功' : 'Logged In'}
+                      {language === 'zh' ? '登录成功！' : 'Login Successful!'}
                     </h3>
                     <p className="text-gray-500 text-sm leading-relaxed">
                       {language === 'zh' 
-                        ? '您还没有活跃的套餐，使用付费功能时将提示购买。' 
-                        : 'No active plan yet. You can browse freely and purchase when needed.'}
+                        ? '🎉 已赠送500积分，可直接使用工具！积分用完后再购买套餐即可。' 
+                        : '🎉 500 free credits added! Use tools right away. Purchase a plan when credits run out.'}
                     </p>
                     <button
                       onClick={() => window.location.reload()}
                       className="mt-6 px-6 py-2.5 bg-[#1b887a] text-white rounded-xl font-medium hover:bg-[#14786c] transition-colors"
                     >
-                      {language === 'zh' ? '知道了' : 'Got it'}
+                      {language === 'zh' ? '开始使用' : 'Get Started'}
                     </button>
                   </div>
                 )}

@@ -52,8 +52,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 3. 没有套餐也允许登录（只是标记 hasPlan: false，前端可以引导购买）
-    // 如果用户不存在，先创建
+    // 3. 如果用户不存在，先创建
     if (!existingUser) {
       const { data: newUser, error: createError } = await supabaseAdmin.auth.admin.createUser({
         email: lowerEmail,
@@ -66,6 +65,41 @@ export async function POST(req: NextRequest) {
       }
       userId = newUser.user?.id || null;
       console.log(`[Email Login] User created: ${lowerEmail}`);
+    }
+
+    // 4. 免费用户赠送500积分：如果没有任何套餐记录，创建 free 套餐
+    if (userId) {
+      const { data: allPlans } = await supabaseAdmin
+        .from('user_plans')
+        .select('id')
+        .eq('user_id', userId)
+        .limit(1);
+
+      if (!allPlans || allPlans.length === 0) {
+        // 新用户，赠送500积分
+        const { error: freePlanError } = await supabaseAdmin
+          .from('user_plans')
+          .insert({
+            user_id: userId,
+            plan: 'free',
+            plan_name: 'Free',
+            cycle: 'lifetime',
+            amount: 0,
+            credits: 500,
+            credits_used: 0,
+            currency: 'USD',
+            status: 'active',
+            purchased_at: new Date().toISOString(),
+            expires_at: null, // 永不过期，但积分用完就没了
+          });
+        if (freePlanError) {
+          console.error('[Email Login] Free plan create error:', freePlanError.message);
+        } else {
+          hasPlan = true;
+          planName = 'Free (500 credits)';
+          console.log(`[Email Login] Free plan with 500 credits created for: ${lowerEmail}`);
+        }
+      }
     }
 
     // 4. 有套餐 → 用 admin API 生成 magic link 提取 token，直接登录
